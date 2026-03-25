@@ -821,14 +821,14 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center pt-20">
       {/* Background Gradients */}
       <div className="absolute inset-0 z-0">
         <div className="absolute top-1/4 -left-1/4 w-1/2 h-1/2 bg-blue-600/20 blur-[120px] rounded-full" />
         <div className="absolute bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-purple-600/20 blur-[120px] rounded-full" />
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-8 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -847,20 +847,20 @@ const Hero = () => {
             探索人工智能的无限可能。从零基础入门到掌握前沿大模型，
             DJY 助你打破边界，重塑自我，成为时代的超级个体。
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full px-4">
             <motion.button 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               onClick={handleStart}
-              className="w-full sm:w-auto px-8 py-4 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-500 transition-all shadow-[0_0_30px_rgba(37,99,235,0.3)] cursor-pointer"
+              className="w-full sm:w-auto px-6 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-500 transition-all shadow-[0_0_15px_rgba(37,99,235,0.2)] cursor-pointer text-base"
             >
               立即开始探索
             </motion.button>
             <motion.button 
               whileHover={{ backgroundColor: "rgba(255,255,255,0.1)" }}
-              whileTap={{ scale: 0.95 }}
+              whileTap={{ scale: 0.98 }}
               onClick={handleLearnMore}
-              className="w-full sm:w-auto px-8 py-4 bg-white/5 text-white font-bold rounded-2xl border border-white/10 transition-all cursor-pointer"
+              className="w-full sm:w-auto px-6 py-3 bg-white/5 text-white font-bold rounded-xl border border-white/10 transition-all cursor-pointer text-base"
             >
               了解更多
             </motion.button>
@@ -872,7 +872,7 @@ const Hero = () => {
       <motion.div 
         animate={{ y: [0, 10, 0] }}
         transition={{ repeat: Infinity, duration: 2 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-gray-500"
+        className="absolute bottom-4 left-1/2 -translate-x-1/2 text-gray-500 z-20"
       >
         <div className="w-6 h-10 border-2 border-gray-700 rounded-full flex justify-center pt-2">
           <div className="w-1 h-2 bg-gray-500 rounded-full" />
@@ -910,7 +910,7 @@ const ModuleCard = ({ title, desc, icon: Icon, color, index, id }: any) => {
       </p>
       
       <div className="flex items-center text-sm font-bold text-white group-hover:text-blue-400 transition-colors">
-        进入模块 <ChevronRight size={16} className="ml-1 group-hover:translate-x-1 transition-transform" />
+        进入模块 <ChevronRight size={16} className="ml-2 flex-shrink-0 group-hover:translate-x-1 transition-transform" />
       </div>
     </motion.div>
   );
