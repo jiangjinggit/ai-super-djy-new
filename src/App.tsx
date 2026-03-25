@@ -50,7 +50,6 @@ const NAV_LABELS: Record<string, string> = {
   "llm": "大模型",
   "openclaw": "OpenClaw",
   "scenarios": "场景库",
-  "toolbox": "工具箱",
   "cases": "案例",
   "growth": "成长",
 };
@@ -61,50 +60,104 @@ const MODULE_CONTENT: Record<string, any> = {
     subtitle: "零基础 · 快速上手 · 一人成军",
     icon: Rocket,
     color: "blue",
-    description: "理解\"超级个体\"的核心概念，掌握 Prompt Engineering 基础，搭建个人 AI 工具矩阵。从\"知道AI\"走向\"用好AI\"，开启你的超级个体之路。",
+    description: "理解\"超级个体\"的核心概念，掌握 Prompt Engineering 基础，搭建个人 AI 工具矩阵与效率栈。精选免费/低价工具，从\"知道AI\"走向\"用好AI\"。",
     keyTakeaways: [
       "理解超级个体的核心逻辑：AI 如何放大个人产出",
       "掌握万能 Prompt 公式：角色 + 任务 + 约束 + 输出格式",
-      "搭建个人 AI 工具矩阵：对话/绘图/搜索/编程",
-      "避坑指南：AI 的幻觉、局限性、隐私安全问题"
+      "搭建个人 AI 工具矩阵：对话/绘图/搜索/编程/自动化",
+      "精选免费/低价工具，用最少成本获得最大价值"
     ],
     sections: [
       { title: "超级个体认知觉醒", content: "揭开超级个体的面纱，理解为什么 AI 时代是一个人也能成军的元年。", icon: Globe },
       { title: "提示词工程入门", content: "学会与 AI 沟通的艺术，让 AI 真正听懂你的指令。", icon: Bot },
-      { title: "工具矩阵搭建", content: "从文本到图像，从搜索到办公，挑选最适合你的 AI 武器库。", icon: Layers }
+      { title: "AI 工具全景与效率栈", content: "精选免费/低价 AI 工具 + 一人公司效率栈（Notion+AI+自动化+OpenClaw）。", icon: Layers }
     ],
     lessons: [
       {
-        title: "AI 到底是什么？从图灵测试到 AGI 时代",
-        content: "本课将带你穿越 AI 的发展史，理解大模型的本质，并探讨 AI 如何重塑我们的工作与生活。",
+        title: "生成式 AI 的本质：从概率预测到超级个体",
+        content: "理解大模型的工作原理——它不是搜索引擎，不是数据库，而是一个通过海量文本训练的概率预测引擎。理解这一点，才能真正用好它。",
         image: "https://picsum.photos/seed/ai-intro/800/450",
-        details: ["什么是生成式 AI (GenAI)？", "Transformer 架构：AI 的\"大脑\"是如何工作的", "从 GPT-1 到 GPT-5：模型进化历程", "AGI (通用人工智能) 离我们还有多远？", "AI 时代的职业替代与能力重构", "超级个体的崛起：为什么你不再需要庞大的组织"],
+        details: ["Transformer 架构：AI 的\"大脑\"，通过注意力机制理解上下文关系", "训练过程：预测下一个 token 的概率游戏，而非逐字记忆", "涌现能力：当模型规模足够大时，会自发产生推理、编程、翻译等能力", "知识截止日期：GPT-5.4 截至 2025.8 / Claude Opus 4.6 训练数据截至 2026.1", "幻觉成因：面对知识盲区时，模型会\"接龙\"出看似合理的错误信息", "超级个体的前提：理解 AI 能做什么和不能做什么，才能正确地使用它"],
         fullContent: [
-          { subtitle: "1. 生成式 AI 的本质", text: "生成式 AI 不仅仅是搜索，它是创造。它通过学习海量人类知识，掌握了语言的统计规律，从而能够根据你的指令生成全新的内容。" },
-          { subtitle: "2. 为什么是现在？", text: "算力的爆发、算法优化以及海量高质量数据的积累，使得 AI 在 2020 年代中期实现了质的飞跃，从\"人工智障\"进化为\"数字天才\"。" },
-          { subtitle: "3. 你的新身份：AI 导演", text: "在 AI 时代，你不再是单纯的执行者，而是导演。AI 是你的演员、编剧和后期，你的核心价值在于你的审美、决策和跨界整合能力。" }
+          { subtitle: "1. 大模型是如何\"思考\"的？", text: "以 DeepSeek V3.2 为例：它不是在\"查找\"答案，而是在\"预测\"下一个最可能的 token（词元）。当你说\"中国的首都是\"，它预测下一个 token 是\"北京\"的概率接近 100%。对于复杂问题，它通过多步预测来\"推理\"出答案。DeepSeek reasoner（思考模式）会在输出前先进行内部推理链，类似人类\"思考后再回答\"。" },
+          { subtitle: "2. 为什么不同模型\"性格\"不同？", text: "模型的\"性格\"取决于训练数据、微调方式和 RLHF（人类反馈强化学习）。GPT-5.4 偏向全能和实用主义，Claude Opus 4.6 偏向严谨和安全，DeepSeek V3.2 中文理解力强且性价比极高。选择模型就像选择员工——不同岗位用不同的人。" },
+          { subtitle: "3. 知识截止日期与实时能力", text: "纯模型推理无法获取最新信息。GPT-5.4 知识截止 2025 年 8 月，Claude Opus 4.6 训练数据截止 2026 年 1 月。但 GPT-5.4 支持网页搜索和文件搜索，可以弥补这一限制。Claude 同样支持工具调用。这就是为什么 OpenClaw 等框架要给模型\"接手接脚\"——让它能搜索、读文件、浏览网页。" }
         ]
       },
       {
-        title: "Prompt Engineering：如何让 AI 成为你的顶级员工",
-        content: "提示词工程（Prompt Engineering）是 AI 时代最重要的沟通技能。学会这套公式，你就能释放大模型 200% 的潜力。",
-        image: "https://picsum.photos/seed/prompt/800/450",
-        details: ["万能 Prompt 公式：角色 + 任务 + 约束 + 输出格式", "少样本提示 (Few-Shot)：给 AI 几个例子", "思维链 (CoT)：引导 AI 逐步思考", "结构化提示词：利用 Markdown 让 Prompt 更清晰", "Prompt 调优：如何通过迭代获得完美答案", "避坑指南：如何减少 AI 的幻觉与胡言乱语"],
+        title: "Prompt Engineering 实战：5 种官方推荐的提示词技巧",
+        content: "基于 OpenAI、Anthropic、DeepSeek 官方最佳实践，掌握 5 种核心提示词技巧。这些不是玄学，而是有明确原理的工程方法。",
+        image: "https://picsum.photos/seed/prompt-eng/800/450",
+        details: ["角色设定（System Prompt）：Claude 官方推荐在 system 消息中设定角色和规则", "Few-Shot 示例：给 AI 2-3 个输入输出示例，比纯文字描述更有效", "思维链 CoT：DeepSeek reasoner 原生支持思考模式，自动进行多步推理", "结构化输出：要求 JSON 格式输出，OpenAI 官方支持 JSON Mode", "工具调用 Function Calling：GPT-5.4 / Claude / DeepSeek 均原生支持"],
         fullContent: [
-          { subtitle: "1. 角色设定的重要性", text: "给 AI 一个身份（如\"资深架构师\"或\"顶级文案专家\"），能显著提升其回答的专业度和语气。这本质上是在引导模型在特定的参数空间内进行预测。" },
-          { subtitle: "2. 任务描述要具体", text: "模糊的指令只会得到平庸的回答。明确你的目标、受众、字数限制和语气要求，越具体，AI 的表现就越出色。" },
-          { subtitle: "3. 幻觉问题：为什么它会乱编？", text: "由于 LLM 是基于概率生成的，当它面对知识盲区时，为了完成\"接龙\"，它可能会编造出听起来非常合理的错误信息。这就是所谓的\"幻觉\"。" }
+          { subtitle: "1. 角色 + 规则 = System Prompt", text: "Claude 官方文档明确推荐：在 system 消息中定义 AI 的角色、行为规则和输出格式。例如：\"你是一位资深产品经理。回答必须包含：1）问题分析 2）解决方案 3）优先级排序。每个部分不超过 100 字。\" 这比在用户消息中描述角色效果更好，因为 system 消息的权重更高。" },
+          { subtitle: "2. Few-Shot 比 Zero-Shot 更可靠", text: "与其花 500 字描述\"请按以下格式输出\"，不如直接给 2 个示例。OpenAI 官方研究表明，Few-Shot 在格式控制、风格一致性、减少幻觉方面显著优于 Zero-Shot。示例不需要多，2-3 个就足够。DeepSeek V3.2 的 128K 上下文窗口可以轻松容纳大量示例。" },
+          { subtitle: "3. 思维链：让 AI \"想清楚再说\"", text: "DeepSeek V3.2 的 deepseek-reasoner 接口原生支持思考模式，会在输出前自动进行多步推理。Claude Opus 4.6 支持\"扩展思维\"（Extended Thinking），可以在回复前进行深度推理。对于数学、逻辑、复杂决策类任务，思考模式的效果远优于普通模式。代价是响应更慢、成本更高。" }
         ]
       },
       {
-        title: "超级个体思维：如何利用 AI 放大个人价值",
-        content: "在 AI 时代，一个人就是一支团队。超级个体不再依赖庞大的组织，而是通过 AI 工具矩阵，实现从创意到执行的全流程闭环。",
-        image: "https://picsum.photos/seed/super/800/450",
-        details: ["杠杆效应：AI 是你的智力杠杆，放大你的产出", "低成本试错：AI 降低了从 0 到 1 的创业门槛", "个人品牌：利用 AI 辅助内容产出与全平台分发", "未来趋势：AI Agent 驱动的个人自动化工作室", "跨界能力：AI 帮你快速跨越不同领域的知识鸿沟", "行动指南：从今天开始构建你的超级个体计划"],
+        title: "超级个体思维：AI 是杠杆，不是替代品",
+        content: "超级个体不是\"用 AI 替代人\"，而是\"用 AI 放大人的产出\"。理解杠杆效应、成本结构和能力边界，才能正确规划你的超级个体路径。",
+        image: "https://picsum.photos/seed/super-mindset/800/450",
+        details: ["杠杆效应：DeepSeek V3.2 的 $0.28/MTok 意味着处理 10 万字仅花 $0.03", "成本结构变化：AI 把\"请人做\"的边际成本从几千元降到几毛钱", "能力边界：AI 擅长生成和推理，但不擅长审美判断和创意决策", "时间分配：AI 处理 80% 的执行工作，你把 80% 的精力放在 20% 的决策上", "一人公司的可行性：OpenClaw 24/7 运行 + AI 模型 = 不需要招人", "关键认知：你的核心价值是\"判断力\"和\"品味\"，不是\"执行力\""],
         fullContent: [
-          { subtitle: "1. 什么是超级个体？", text: "超级个体是指那些能够熟练运用 AI 和数字化工具，独立完成复杂项目，并直接面向市场交付价值的人。他们不依附于公司，而是依附于自己的能力网。" },
-          { subtitle: "2. AI 带来的能力溢出", text: "以前你需要请设计师、程序员、文案策划。现在，通过 AI，你一个人就能完成这些工作。AI 弥补了你的短板，让你的长板无限延伸。" },
-          { subtitle: "3. 商业模式的变革", text: "超级个体的商业模式通常是：极低成本、高自动化、高单价。他们通过 AI 处理 80% 的琐事，将 20% 的精力投入到最具创造力的决策中。" }
+          { subtitle: "1. 成本的量级变化", text: "以前请一个文案写一篇 1000 字文章：几百到几千元。现在用 Claude Sonnet 4.6（$3/MTok）：1000 字约消耗 2000 tokens，输入+输出总费用不到 $0.01。以前请一个程序员写一个简单功能：几千到几万元。现在用 Cursor Agent：几小时就能完成，API 成本不到 $1。AI 把\"找人做事\"的边际成本从千元级降到了分钱级。" },
+          { subtitle: "2. 什么不能交给 AI", text: "AI 不擅长的事：审美判断（什么是\"好看\"）、原创创意（从 0 到 1 的突破）、情感连接（与客户的深度信任关系）、战略决策（选什么赛道、什么时候转型）。这些是你的核心价值。Ishan Sharma 在 TED2025 的演讲中强调了这一点：AI 负责草稿，人类负责创意决策。" },
+          { subtitle: "3. 一人公司的运营模型", text: "传统一人公司：你一个人做所有事，产出有限。AI 超级个体：OpenClaw 24/7 运行处理日常任务（邮件、客服、监控），DeepSeek V3.2 做低成本分析，Claude Opus 4.6 做深度创作，GPT-5.4 做多模态任务。你只需要做决策和把关。月运营成本：API 费用约 50-200 元。" }
+        ]
+      },
+      {
+        title: "2026 AI 工具全景：基于官方文档的选型指南",
+        content: "基于 OpenAI、Anthropic、DeepSeek、月之暗面、Cursor 官方文档，梳理当前最值得关注的 AI 工具及其核心参数。",
+        image: "https://picsum.photos/seed/tools2026/800/450",
+        details: [
+          "对话：GPT-5.4（1M 上下文，全能）/ Claude Opus 4.6（100 万，推理）/ DeepSeek V3.2（128K，$0.28/MTok）",
+          "国产：Kimi K2.5（256K 多模态，月之暗面官方）/ 通义千问（阿里生态）/ 文心一言（百度知识库）",
+          "图像：GPT Image 1.5（OpenAI 最新）/ Midjourney（艺术绘图）/ 通义万相（国产）",
+          "视频：Sora 2（OpenAI 官方，支持同步音频）/ 可灵 Kling（国产领先）",
+          "编程：Cursor Agent（自主编程 + 深度代码库理解）/ GitHub Copilot",
+          "搜索：Perplexity（实时搜索 + 引用来源）/ 秘塔AI搜索（国产）"
+        ],
+        fullContent: [
+          { subtitle: "1. 对话类：按场景选模型", text: "日常问答和简单任务：DeepSeek V3.2（$0.28/MTok，成本最低）。复杂推理和编码：GPT-5.4（$2.50/MTok）或 Claude Opus 4.6（$5/MTok）。长文档分析：Claude Sonnet 4.6（100 万上下文，$3/MTok）或 Kimi K2.5（256K 上下文）。中文场景优先：DeepSeek 或 Kimi。" },
+          { subtitle: "2. 视觉与视频", text: "图像生成首选 GPT Image 1.5（OpenAI 官方最新），艺术绘图可选 Midjourney。视频生成 Sora 2 是 OpenAI 官方旗舰模型，支持同步音频生成。国产可灵 (Kling) 在视频生成方面表现突出，是性价比之选。" },
+          { subtitle: "3. 编程与效率", text: "Cursor 是目前最主流的 AI 编程编辑器。核心能力：Agent 自主编程（自主理解需求→探索代码库→生成可工作代码）、Tab 智能补全（极快速度预测下一步）、深度代码库理解（语义搜索整个项目）。受 Y Combinator、NVIDIA、Stripe 等认可。Perplexity 改变了信息获取方式，直接阅读搜索结果并总结成答案，附引用来源。" }
+        ]
+      },
+      {
+        title: "免费/低成本工具方案：用最少预算获得最大价值",
+        content: "基于各厂商官方定价，计算真实使用成本。DeepSeek V3.2 的缓存命中仅 $0.028/MTok——处理 100 万字只需 $0.03。",
+        image: "https://picsum.photos/seed/free-tools/800/450",
+        details: [
+          "DeepSeek V3.2：输入 $0.28/MTok（缓存命中 $0.028），思考模式输出 $0.42/MTok",
+          "Kimi K2.5：月之暗面平台提供免费额度，256K 上下文",
+          "Ollama + 开源模型：完全免费本地运行，零 API 成本",
+          "Stable Diffusion：本地部署替代 Midjourney，零成本",
+          "GPT-5.4 nano：OpenAI 最廉价选项，输入 $0.20/MTok",
+          "Cursor 免费版：支持基础 AI 补全，足够日常使用"
+        ],
+        fullContent: [
+          { subtitle: "1. 真实成本计算（基于官方定价）", text: "以每天处理 10 万字（约 13 万 tokens）为例：DeepSeek V3.2 非缓存 $0.036/天，缓存命中 $0.0036/天。一个月 30 天，总成本约 $0.1-$1。GPT-5.4 nano 输入 $0.20/MTok，同样工作量约 $0.78/天，月成本约 $23。GPT-5.4 完整版输入 $2.50/MTok，月成本约 $98。差价约 1000 倍。" },
+          { subtitle: "2. 本地部署方案", text: "Ollama 是免费开源工具，支持在本地运行 Llama、Qwen、DeepSeek 等开源模型。配合 Stable Diffusion，可以零成本实现 AI 绘图。缺点是需要一定的硬件配置（建议 16GB+ 内存，有 GPU 更好），且模型能力不如云端旗舰模型。适合对隐私要求高或完全离线的场景。" },
+          { subtitle: "3. 推荐的最低成本组合", text: "日常对话和分析：DeepSeek V3.2（月成本 < $5）。复杂推理和编码：GPT-5.4 mini（$0.75/MTok，月成本约 $30）。长文档：Claude Haiku 4.5（$1/MTok，20 万上下文）。编程：Cursor 免费版 + DeepSeek。AI 绘图：Stable Diffusion 本地部署。总计月成本控制在 $50 以内。" }
+        ]
+      },
+      {
+        title: "一人公司效率栈：Notion + AI + 自动化 + OpenClaw",
+        content: "搭建完整的个人效率工具链，打通信息孤岛，实现\"设置一次，自动运行\"。每个工具都有明确的职责边界。",
+        image: "https://picsum.photos/seed/efficiency-stack/800/450",
+        details: [
+          "知识管理大脑：Notion（项目/笔记/数据库统一管理）",
+          "24/7 AI 助手：OpenClaw（全渠道接入 + Skills 自动化 + 后台任务）",
+          "内容生成：Claude Sonnet 4.6（深度写作）/ GPT-5.4（多模态）",
+          "低成本推理：DeepSeek V3.2（日常分析和处理）",
+          "编程开发：Cursor Agent（自主编程）",
+          "信息检索：Perplexity（实时搜索 + 引用来源）"
+        ],
+        fullContent: [
+          { subtitle: "1. 效率栈的分工逻辑", text: "Notion 做\"存储层\"——所有知识、项目、数据统一管理。OpenClaw 做\"执行层\"——24/7 运行自动化任务（邮件处理、日程管理、竞品监控），通过你已有的聊天工具交互。AI 模型做\"智能层\"——DeepSeek 处理低成本任务，Claude 处理高质量创作，GPT-5.4 处理多模态任务。Cursor 做\"开发层\"——独立开发产品。" },
+          { subtitle: "2. 数据流设计", text: "信息输入：Perplexity 搜索 → 自动存入 Notion 知识库。内容生产：Claude 写作 → OpenClaw 定时发布到多平台。数据分析：DeepSeek 分析 Notion 数据库 → 生成报告 → OpenClaw 推送通知。客服处理：OpenClaw 接收消息 → DeepSeek 生成回复 → 复杂问题转发给你。整个流程无需人工介入，你只需要做决策。" },
+          { subtitle: "3. 月运营成本估算", text: "Notion 免费版：$0。OpenClaw：免费开源，部署无成本。DeepSeek V3.2 API（日均 10 万字）：$1-5/月。Claude Sonnet 4.6（每周 2-3 次深度写作）：$5-15/月。GPT-5.4 nano（偶尔多模态任务）：$5-10/月。Cursor 免费版：$0。Perplexity 免费版：$0。总计：$11-30/月。" }
         ]
       }
     ],
@@ -112,106 +165,187 @@ const MODULE_CONTENT: Record<string, any> = {
   },
   "llm": {
     title: "大模型实战库",
-    subtitle: "不堆理论 · 场景驱动 · 即学即用",
+    subtitle: "官方数据 · 场景驱动 · 即学即用",
     icon: Brain,
     color: "purple",
-    description: "深度解析 ChatGPT、Claude、DeepSeek、Gemini 等主流大模型。按场景分类提供 Prompt 模板，帮你为 OpenClaw 配置最强\"大脑\"。",
+    description: "基于 OpenAI、Anthropic、DeepSeek、月之暗面官方文档，深度对比 2026 年主流大模型的上下文窗口、价格和能力边界。帮你为 OpenClaw 选配最强\"大脑\"。",
     keyTakeaways: [
-      "全球大模型格局：ChatGPT vs Claude vs DeepSeek vs Gemini",
-      "国产大模型对比：DeepSeek、Kimi、通义千问、文心一言",
-      "模型选型：推理能力、长上下文、成本的权衡",
-      "实战：获取 API Key 并完成 OpenClaw 配置"
+      "OpenAI GPT-5.4：1M 上下文，$2.50/MTok 输入，支持函数调用与网页搜索",
+      "Claude Opus 4.6：100 万上下文，$5/MTok 输入，扩展思维与自适应思维",
+      "DeepSeek V3.2：128K 上下文，$0.28/MTok 输入，极致性价比（约为 GPT-5.4 的 1/9）",
+      "Kimi K2.5：256K 上下文，原生多模态，支持 Agent 与思考模式"
     ],
     sections: [
-      { title: "2026 大模型全景图", content: "从 OpenAI 到 DeepSeek，带你俯瞰当前最前沿的 AI 技术版图。", icon: Layers },
-      { title: "场景化 Prompt 模板", content: "按写作、设计、编程、运营分类，提供可直接复用的 Prompt 模板。", icon: Star },
-      { title: "API 配置实战", content: "手把手教你获取 API Key，在 OpenClaw 中配置模型。", icon: Cpu }
+      { title: "2026 大模型官方参数对比", content: "基于各厂商官方 API 文档，对比上下文窗口、价格、最大输出等核心参数。", icon: Layers },
+      { title: "场景化选型指南", content: "根据你的实际需求（预算、任务复杂度、延迟要求）匹配最合适的模型。", icon: Star },
+      { title: "OpenClaw 配置实战", content: "获取 API Key，在 OpenClaw 中配置模型，测试对话效果。", icon: Cpu }
     ],
     lessons: [
       {
-        title: "全球主流大模型全景图：谁才是真正的王者？",
-        content: "从 OpenAI 的 GPT 系列到 Anthropic 的 Claude，再到 Google Gemini 和国内的 DeepSeek、Kimi。深度剖析各大模型的\"性格\"与\"特长\"。",
-        image: "https://picsum.photos/seed/models/800/450",
-        details: ["ChatGPT (OpenAI): 全能冠军，多模态交互标杆", "Claude (Anthropic): 逻辑、编程与安全性的执着者", "Gemini (Google): 超长上下文与生态整合", "DeepSeek: 国产黑马，极致性价比", "Kimi (月之暗面): 超长上下文处理专家", "如何参考 LMSYS 等权威排行榜"],
+        title: "2026 主流大模型官方参数全对比（数据来源：官方 API 文档）",
+        content: "基于 OpenAI、Anthropic、DeepSeek、月之暗面四大厂商的官方 API 文档，整理最新模型参数、价格与能力对比。所有数据均来自官方，可验证。",
+        image: "https://picsum.photos/seed/models-2026/800/450",
+        details: [
+          "GPT-5.4：1M 上下文，输入 $2.50/MTok，输出 $15/MTok，最大 128K 输出",
+          "GPT-5.4 mini：400K 上下文，输入 $0.75/MTok，输出 $4.50/MTok",
+          "Claude Opus 4.6：100 万上下文，输入 $5/MTok，输出 $25/MTok，最大 128K 输出",
+          "Claude Sonnet 4.6：100 万上下文，输入 $3/MTok，输出 $15/MTok",
+          "DeepSeek V3.2：128K 上下文，输入 $0.28/MTok，输出 $0.42/MTok（支持思考模式）",
+          "Kimi K2.5：256K 上下文，原生多模态，Agent 与思考模式"
+        ],
         fullContent: [
-          { subtitle: "1. OpenAI: 行业的领跑者", text: "GPT-4o 是目前旗舰模型之一，不仅在逻辑推理上处于第一梯队，其多模态能力——能实时看懂视频、听懂情绪，是目前最接近 AGI 的产品之一。" },
-          { subtitle: "2. Anthropic: 逻辑与安全的执着者", text: "Claude 系列在编程和复杂逻辑推理上经常超越同类产品。它的语气更自然，更少\"AI味\"，是很多专业开发者的首选。" },
-          { subtitle: "3. 国产力量：更懂中文场景", text: "DeepSeek 凭借推理模型打破技术壁垒；Kimi 以超长上下文处理能力出圈；通义千问在企业级应用和中文语境理解上表现稳健。" }
+          { subtitle: "1. OpenAI GPT-5.4（来源：platform.openai.com/docs/models）", text: "GPT-5.4 是 OpenAI 当前旗舰模型，为智能体、编码和专业工作流设计。支持 100 万 tokens 上下文窗口，128K 最大输出，支持函数调用、网页搜索、文件搜索、计算机使用。知识截止 2025 年 8 月。GPT-5.4 mini 是高性价比子版本，400K 上下文，输入价格仅 $0.75/MTok。还有更轻量的 GPT-5.4 nano，输入仅 $0.20/MTok。" },
+          { subtitle: "2. Claude Opus 4.6（来源：platform.claude.com/docs）", text: "Anthropic 旗舰模型。100 万 tokens 上下文窗口，128K 最大输出，训练数据截止 2026 年 1 月。支持扩展思维（Extended Thinking）和自适应思维（Adaptive Thinking），在复杂推理和编码任务上表现卓越。Claude Sonnet 4.6 是性价比之选，100 万上下文，输入 $3/MTok。Claude Haiku 4.5 最快最便宜，20 万上下文，输入 $1/MTok。" },
+          { subtitle: "3. DeepSeek V3.2（来源：api-docs.deepseek.com）", text: "DeepSeek V3.2 提供两个接口：deepseek-chat（非思考模式）和 deepseek-reasoner（思考模式），均为 128K 上下文。思考模式默认输出 32K、最大 64K。价格极具竞争力：输入 $0.28/MTok（缓存命中仅 $0.028），输出 $0.42/MTok。以思考模式为例，完整处理 1M tokens 的总成本约 $0.42，约为 GPT-5.4 的 1/9。支持 JSON 输出和工具调用。" },
+          { subtitle: "4. Kimi K2.5（来源：platform.moonshot.cn/docs）", text: "月之暗面最新旗舰模型，原生多模态架构，256K 上下文窗口。支持视觉与文本输入、思考与非思考模式、对话与 Agent 任务。开源评测中达到 SoTA 表现。提供 K2-turbo 高速版（60-100 tokens/秒）和 K2-thinking 思考模型。注意：kimi-latest 和 kimi-thinking-preview 已于 2025-2026 年下线，请使用新模型。" }
         ]
       },
       {
-        title: "模型选择指南：不选最贵的，只选最对的",
-        content: "面对琳琅满目的模型，如何根据需求和预算做出选择？从逻辑能力、响应速度、上下文长度、价格和多模态支持五个维度拆解。",
-        image: "https://picsum.photos/seed/choice/800/450",
-        details: ["逻辑复杂度：简单任务 vs 复杂推理", "响应延迟：实时对话 vs 异步处理", "长文本需求：处理 10 万字文档需要什么模型？", "成本控制：API 调用计费模式与节省策略", "多模态支持：是否需要识别图片或生成语音", "合规性与隐私：数据安全与国产化替代"],
+        title: "模型选型决策指南：5 个维度帮你选对模型",
+        content: "基于官方参数，从预算、上下文长度、延迟、推理能力、生态集成 5 个维度，给出不同场景的模型推荐方案。",
+        image: "https://picsum.photos/seed/model-choice/800/450",
+        details: [
+          "预算敏感：DeepSeek V3.2（输入 $0.28/MTok）> GPT-5.4 mini（$0.75）> GPT-5.4（$2.50）",
+          "超长文本：Claude Opus/Sonnet 4.6（100 万）> GPT-5.4（100 万）> Kimi K2.5（256K）",
+          "复杂推理：Claude Opus 4.6（扩展思维）> GPT-5.4 > DeepSeek reasoner（思考模式）",
+          "编码开发：GPT-5.4 > Claude Opus 4.6 > Kimi K2.5（Agent Coding 能力）",
+          "成本对比：处理 100 万 tokens 输入 — DeepSeek $0.28 vs GPT-5.4 $2.50 vs Claude Opus $5"
+        ],
         fullContent: [
-          { subtitle: "维度 1：逻辑深度", text: "简单邮件或总结，轻量级模型就足够了，速度快且便宜。复杂代码或法律合同，必须上旗舰模型。" },
-          { subtitle: "维度 2：上下文长度", text: "如果你需要 AI 分析整个项目的代码文件或总结一整年的财务报表，你需要关注模型的 Context Window。Gemini 在这方面是王者。" },
-          { subtitle: "维度 3：成本与 API 额度", text: "对于开发者来说，API 的价格和调用频率限制是核心考量。DeepSeek 等国产模型通过低成本方案为个人开发者提供了实惠选择。" }
+          { subtitle: "1. 预算优先：DeepSeek V3.2", text: "如果你是个人开发者或刚开始探索 API 调用，DeepSeek 是最优选择。输入 $0.28/MTok，缓存命中仅 $0.028/MTok。即使使用思考模式（deepseek-reasoner），完整处理 1M tokens 输出也只需 $0.42。OpenClaw 默认支持 DeepSeek API，配置简单。" },
+          { subtitle: "2. 质量优先：Claude Opus 4.6", text: "对于需要深度推理、长文档分析、复杂编码的任务，Claude Opus 4.6 是最佳选择。100 万上下文 + 扩展思维模式，可以处理超大型代码库和复杂逻辑。价格较高（$5/MTok 输入），建议仅在复杂任务中使用。" },
+          { subtitle: "3. 均衡之选：GPT-5.4 / Claude Sonnet 4.6", text: "GPT-5.4 是全能型选手，支持函数调用、网页搜索、文件搜索、计算机使用。Claude Sonnet 4.6 在推理质量和速度之间取得最佳平衡，100 万上下文仅 $3/MTok。日常使用推荐 Sonnet 4.6，复杂任务切换到 Opus 4.6。" },
+          { subtitle: "4. 多模态需求：Kimi K2.5 / GPT-5.4", text: "Kimi K2.5 原生多模态架构，同时支持视觉和文本输入，256K 上下文，适合需要同时处理图片和文本的场景。GPT-5.4 同样支持文本和图像输入，加上 Sora 2 视频生成和 GPT Image 1.5 图像生成，构建了完整的多模态生态。" }
         ]
       },
       {
-        title: "为 OpenClaw 配置模型 API：开启自动化之路",
-        content: "想要在 OpenClaw 中使用大模型，你需要获取 API Key。本课将手把手教你注册账号、创建 Key 以及在 OpenClaw 中配置。",
-        image: "https://picsum.photos/seed/api/800/450",
-        details: ["API 基础知识：什么是 API Key？", "OpenAI API 注册与充值全流程", "DeepSeek 开放平台注册与 API 获取", "国内大模型 API (Kimi/阿里/百度) 申请", "中转 API 与聚合平台的优劣", "OpenClaw 配置实操：填入 Key，激活 AI 助手"],
+        title: "API 注册与 OpenClaw 配置实战",
+        content: "手把手教你注册 OpenAI / Anthropic / DeepSeek / 月之暗面的开发者账号，获取 API Key，并在 OpenClaw 中完成配置。",
+        image: "https://picsum.photos/seed/api-config/800/450",
+        details: [
+          "OpenAI：platform.openai.com 注册，支持信用卡充值",
+          "Anthropic：console.anthropic.com 注册，支持 AWS Bedrock / Google Vertex AI",
+          "DeepSeek：platform.deepseek.com 注册，支持微信支付，新人赠金",
+          "月之暗面：platform.moonshot.cn 注册，按 Token 用量计费",
+          "OpenClaw 配置：填入 API Key，选择模型，测试对话",
+          "安全提醒：永远不要在公开代码中硬编码 API Key"
+        ],
         fullContent: [
-          { subtitle: "1. API Key 的本质", text: "API Key 就像是你的\"数字身份证\"和\"钱包\"。通过它，OpenClaw 可以代表你向大模型发送请求，并从你的账户余额中扣除相应的费用。" },
-          { subtitle: "2. 安全第一：不要泄露你的 Key", text: "永远不要在公开场合展示你的 API Key。一旦泄露，别人可以瞬间耗尽你的余额。学会使用环境变量来管理这些敏感信息。" }
+          { subtitle: "1. OpenAI API", text: "访问 platform.openai.com 注册开发者账号。创建 API Key 后即可调用 GPT-5.4 系列。充值支持国际信用卡，每个新账号有少量免费额度。API 调用通过 Responses API 和官方 SDK 进行。" },
+          { subtitle: "2. Anthropic API", text: "访问 console.anthropic.com 注册。Claude API 支持 AWS Bedrock 和 Google Vertex AI，适合有云服务需求的用户。Claude Opus 4.6 推荐作为复杂推理任务的默认模型。" },
+          { subtitle: "3. DeepSeek API", text: "访问 platform.deepseek.com 注册，支持微信支付，对国内用户最友好。新用户有赠金额度，DeepSeek V3.2 的 deepseek-chat 和 deepseek-reasoner 接口均可直接调用。OpenClaw 默认支持 DeepSeek，配置 API Key 即可使用。" },
+          { subtitle: "4. OpenClaw 配置", text: "OpenClaw 内置支持 Opus 4.6、GLM-5、KIMI K2.5、GPT-5.2 Codex、Gemini 3 Pro 五种旗舰模型。也支持自定义 API 端点和 Ollama 本地模型。配置流程：打开 OpenClaw 设置 → 填入 API Key → 选择模型 → 测试对话。推荐先用 DeepSeek 测试，成本低、上手快。" }
+        ]
+      },
+      {
+        title: "实用 Prompt 模板：5 个场景即拷即用",
+        content: "基于各模型官方最佳实践，提供 5 个高频场景的 Prompt 模板。可直接复制到 ChatGPT / Claude / DeepSeek / Kimi 中使用。",
+        image: "https://picsum.photos/seed/prompt-templates/800/450",
+        details: [
+          "场景 1：技术文档总结（给 AI 一份文档，输出结构化摘要）",
+          "场景 2：竞品分析报告（输入竞品 URL，输出对比分析）",
+          "场景 3：代码 Review（粘贴代码，AI 自动审查并提出改进）",
+          "场景 4：客户邮件撰写（描述情境，AI 生成得体专业的邮件）",
+          "场景 5：自媒体脚本（输入主题和平台，输出完整视频脚本）"
+        ],
+        fullContent: [
+          { subtitle: "1. 技术文档总结 Prompt", text: "\"你是一位资深技术专家。请阅读以下文档，输出：1）核心概念（3-5 个要点）；2）关键数据（所有数字和指标）；3）行动建议（3 条）。格式使用 Markdown，每个部分用二级标题分隔。文档内容：[粘贴文档]\"" },
+          { subtitle: "2. 竞品分析 Prompt", text: "\"你是一位产品分析师。请分析以下竞品信息，从以下维度输出对比表格：定位与目标用户、核心功能、定价策略、优势与劣势、市场表现。竞品信息：[粘贴信息]\"" },
+          { subtitle: "3. 代码 Review Prompt", text: "\"你是一位高级工程师。请审查以下代码，从以下角度提出具体改进建议：1）潜在 Bug 和边界情况；2）性能优化机会；3）代码可读性和命名规范；4）安全性问题。请给出具体的代码修改建议。代码：[粘贴代码]\"" },
+          { subtitle: "4. 客户邮件 Prompt", text: "\"你是一位专业的商务沟通专家。请帮我撰写一封邮件，情境：[描述]。要求：语气得体专业，不超过 300 字，包含明确的行动号召（CTA），使用适当的商务用语。收件人：[角色描述]\"" },
+          { subtitle: "5. 自媒体脚本 Prompt", text: "\"你是一位资深内容创作者。请为 [平台] 创作一个 [时长] 的视频脚本。主题：[主题]。要求：包含开头钩子（前 3 秒抓注意力）、3 个核心要点、结尾引导互动。每个要点给出建议的 B-roll 素材方向。语言风格：[风格描述]\"" }
         ]
       }
     ],
-    cta: { text: "选择好模型了？前往 OpenClaw 配置实战 → 学习 OpenClaw 实战专区", link: "/module/openclaw" }
+    cta: { text: "选好模型了？前往 OpenClaw 配置实战 → 学习 OpenClaw 实战专区", link: "/module/openclaw" }
   },
   "openclaw": {
     title: "OpenClaw 实战专区",
     subtitle: "开源 · 自动化 · 本地部署",
     icon: Cpu,
     color: "emerald",
-    description: "OpenClaw 是一个开源 AI 助手框架，支持本地部署，通过 Skills 技能系统实现邮件、日历、文件、浏览器等自动化。超级个体必学的效率神器。",
+    description: "OpenClaw 是一款开源的个人 AI 助手与自主代理，本地部署保障数据隐私，支持 WhatsApp/Telegram/Discord/Slack/Signal/iMessage 全渠道接入，通过 Skills 技能系统实现邮件、文件、浏览器等自动化。（数据来源：open-claw.org）",
     keyTakeaways: [
-      "理解 OpenClaw 架构：本地部署、Skills 技能系统、多渠道接入",
-      "掌握 10 个超级个体必用工作流",
-      "从安装配置到实战应用的完整路径",
-      "解决常见部署问题与性能优化"
+      "本地运行，数据主权：所有对话历史、偏好、文件均保留在本地，不上传第三方",
+      "全渠道接入：WhatsApp / Telegram / Discord / Slack / Signal / iMessage",
+      "内置 5 种旗舰模型：Opus 4.6 / GLM-5 / KIMI K2.5 / GPT-5.2 Codex / Gemini 3 Pro",
+      "Skills 技能系统：用 Markdown 或 TypeScript 开发自定义自动化工作流"
     ],
     sections: [
-      { title: "OpenClaw 是什么？", content: "开源 AI 助手框架，支持 Telegram/WhatsApp/Discord/飞书/钉钉等多渠道，1700+ Skills 技能插件。", icon: Code },
-      { title: "安装与配置", content: "从零开始安装 OpenClaw，配置 API Key，连接你的消息渠道。", icon: Rocket },
-      { title: "实战工作流", content: "邮件自动处理、日程管理、文件整理、浏览器自动化等真实场景。", icon: Layers }
+      { title: "OpenClaw 核心能力", content: "本地部署、全渠道聊天集成、24/7 主动自动化、系统级操作权限。不是聊天机器人，是有\"手和眼\"的 AI 队友。", icon: Code },
+      { title: "安装与配置", content: "支持 macOS / Windows / Linux，一键安装脚本或 Docker 部署，可配置自定义 API 或使用内置订阅。", icon: Rocket },
+      { title: "Skills 技能开发", content: "Markdown 或 TypeScript 开发，支持对话自动生成，社区共享。邮件摘要、RSS 解析、股票管理皆可自动化。", icon: Layers }
     ],
     lessons: [
       {
-        title: "OpenClaw 快速上手：30 分钟完成安装与配置",
-        content: "学习如何在本地快速部署 OpenClaw，配置 API Key，并连接你常用的消息渠道（Telegram/微信/飞书等）。",
-        image: "https://picsum.photos/seed/openclaw-setup/800/450",
-        details: ["系统要求与环境准备", "安装 OpenClaw（Docker / 源码方式）", "配置 LLM API Key（DeepSeek / OpenAI）", "连接消息渠道（Telegram / WhatsApp / 飞书）", "基础对话测试与调优", "常见安装问题排查"],
+        title: "OpenClaw 架构与核心能力（来源：open-claw.org 官方文档）",
+        content: "OpenClaw 不是普通的聊天机器人——它是具有\"双眼和双手\"的 AI 助手与自主代理。本课基于官方文档，深入解析其架构设计和核心能力。",
+        image: "https://picsum.photos/seed/openclaw-arch/800/450",
+        details: [
+          "本地运行：Mac / Windows / Linux，数据完全留在本地设备",
+          "全渠道接入：WhatsApp、Telegram、Discord、Slack、Signal、iMessage",
+          "24/7 主动自动化：后台任务、定时任务、心跳检测，自主评估并执行",
+          "系统级权限：读写文件、执行 shell 命令、沙箱运行代码、浏览器控制",
+          "多模型支持：内置 Opus 4.6 / GLM-5 / KIMI K2.5 / GPT-5.2 Codex / Gemini 3 Pro",
+          "自定义模型：支持自定义 API 端点，或通过 Ollama 部署完全本地模型"
+        ],
         fullContent: [
-          { subtitle: "1. OpenClaw 简介", text: "OpenClaw 是一个开源 AI 助手项目，核心理念是让用户可以本地部署自己的 AI 助手，通过丰富的 Skills 技能系统实现各种自动化任务。支持 Telegram、WhatsApp、Discord、飞书、钉钉等多渠道接入。" },
-          { subtitle: "2. 安装步骤", text: "OpenClaw 提供多种安装方式。Docker 方式最简单，一行命令即可启动。也可以从源码安装进行自定义配置。安装后需要配置至少一个 LLM API Key（推荐使用 DeepSeek，性价比高）。" },
-          { subtitle: "3. 连接消息渠道", text: "通过简单的配置文件，你可以让 OpenClaw 接入你常用的聊天工具。配置完成后，你就可以在 Telegram 或飞书中直接与你的 AI 助手对话了。" }
+          { subtitle: "1. 与聊天机器人的本质区别", text: "传统聊天机器人只能对话。OpenClaw 具备\"双眼和双手\"——它可以浏览网页、操作文件、执行终端命令、填写表单、提取网页数据、配置 OAuth 等。它能在安全沙箱中运行代码，并具备高级浏览器控制能力。这意味着你可以让它执行真实的任务，而不仅仅是回答问题。" },
+          { subtitle: "2. 数据主权与隐私", text: "OpenClaw 默认在用户本地硬件运行。所有个人数据（对话历史、偏好、文件）均保留在本地，不上传至第三方服务器。你可以选择完全离线运行（通过 Ollama 部署本地模型）或混合模式（部分任务用云端模型，部分用本地模型）。" },
+          { subtitle: "3. 内置模型与订阅服务", text: "OpenClaw 内置支持 5 种旗舰模型：Opus 4.6、GLM-5、KIMI K2.5、GPT-5.2 Codex、Gemini 3 Pro。也提供\"内置 API 年费\"和\"Plus 年费\"两种订阅计划，包含专属 Gateway 实例和月度 API 额度，支持微信支付。订阅后无需自行配置 API Key，开箱即用。" }
         ]
       },
       {
-        title: "Skills 技能系统：解锁 1700+ 自动化能力",
-        content: "OpenClaw 的 ClawHub 平台上有 1700+ Skills 技能插件，覆盖邮件、日历、文件管理、浏览器控制等多个领域。",
-        image: "https://picsum.photos/seed/openclaw-skills/800/450",
-        details: ["ClawHub 技能市场：浏览和安装 Skills", "邮件自动分类与回复", "日历/日程智能管理", "文件批量整理与重命名", "浏览器自动化（网页抓取/填表）", "自定义 Skill 开发入门"],
+        title: "Skills 技能系统：用 Markdown 开发自定义自动化",
+        content: "Skills 是 OpenClaw 的核心扩展机制。你可以用 Markdown 或 TypeScript 开发自定义技能，也可以直接通过对话让 OpenClaw 自动生成。",
+        image: "https://picsum.photos/seed/openclaw-skills-dev/800/450",
+        details: [
+          "Markdown 开发：无需编程，用自然语言描述即可定义技能",
+          "TypeScript 开发：适合复杂逻辑，可调用外部 API 和数据库",
+          "对话生成：直接告诉 OpenClaw 根据 YouTube 视频或笔记自动生成技能",
+          "社区共享：ClawHub 社区提供现成的技能插件",
+          "典型场景：邮件摘要、RSS 解析、股票监控、内容生产流水线、税务自动化",
+          "后台运行：技能支持定时触发和心跳检测，无需手动启动"
+        ],
         fullContent: [
-          { subtitle: "1. 什么是 Skills？", text: "Skills 是 OpenClaw 的核心扩展机制。每个 Skill 都是一个独立的功能模块，让你的 AI 助手获得特定能力。ClawHub 社区已经贡献了 1700+ 个 Skills。" },
-          { subtitle: "2. 必装 Skills 推荐", text: "邮件管理（自动分类、智能回复）、日历管理（日程提醒、会议安排）、文件管理（批量重命名、格式转换）、浏览器控制（网页抓取、自动填表）是最常用的四大类 Skills。" },
-          { subtitle: "3. 自定义开发", text: "如果你有特殊需求，可以开发自己的 Skill。OpenClaw 提供了清晰的开发文档和模板，有编程基础的用户可以在几小时内完成一个基础 Skill。" }
+          { subtitle: "1. Markdown vs TypeScript", text: "如果你不会编程，Markdown 方式是最佳入门。你只需要用结构化的自然语言描述：触发条件、执行步骤、输出格式。OpenClaw 会将其解析为可执行的工作流。TypeScript 方式适合需要调用外部 API、操作数据库、处理复杂逻辑的场景。有编程基础的用户可以在几小时内完成一个基础 Skill。" },
+          { subtitle: "2. 对话式技能生成", text: "这是 OpenClaw 的独特功能。你可以直接在对话中告诉它：\"根据这个 YouTube 视频教程，帮我创建一个每天早上自动整理邮件的技能\"。OpenClaw 会理解视频内容，自动生成对应的 Skill 代码。你也可以让它根据本地笔记或文档来生成技能。" },
+          { subtitle: "3. 实用技能推荐", text: "邮件摘要报告（每天定时汇总重要邮件）、RSS 订阅管理（监控行业动态）、股票投资组合追踪、内容生产流水线（选题→大纲→全文→分发）、会议纪要自动整理、日历冲突检测、文件自动归档与重命名。" }
         ]
       },
       {
-        title: "超级个体必用 10 个工作流",
-        content: "精心整理的 10 个 OpenClaw 工作流，涵盖内容创作、客户服务、数据分析等超级个体高频场景。",
-        image: "https://picsum.photos/seed/openclaw-workflow/800/450",
-        details: ["工作流 1：自动写稿（选题→大纲→全文→排版）", "工作流 2：自动剪辑（素材整理→字幕生成→输出）", "工作流 3：自动客服（常见问题→智能回复→工单）", "工作流 4：邮件自动处理（分类→优先级→草拟回复）", "工作流 5：日程智能管理（日历同步→提醒→冲突检测）", "工作流 6：数据自动整理（表格清洗→汇总→可视化）", "工作流 7：竞品自动监控（定期抓取→对比→报告）", "工作流 8：社媒内容自动发布（生成→排版→定时发布）", "工作流 9：文件自动归档（分类→重命名→备份）", "工作流 10：学习笔记自动整理（摘要→标签→知识库）"],
+        title: "安装部署：从零到运行只需 3 步",
+        content: "OpenClaw 支持 macOS、Windows、Linux 三大平台。提供一键安装脚本和 Docker 两种部署方式，以及订阅服务免配置方案。",
+        image: "https://picsum.photos/seed/openclaw-install/800/450",
+        details: [
+          "方式 1：一键安装脚本（推荐新手）— 官网下载安装包，图形界面引导",
+          "方式 2：Docker 部署 — 适合有 Docker 经验的用户，一行命令启动",
+          "方式 3：订阅服务 — 开箱即用，包含 API 额度，支持微信支付",
+          "配置模型：内置模型直接用，或填入自定义 API Key（DeepSeek / OpenAI）",
+          "连接聊天渠道：在配置文件中填入 Telegram/WhatsApp/Discord 的 Token",
+          "隐私模式选择：完全离线（Ollama）或混合模式（本地+云端）"
+        ],
         fullContent: [
-          { subtitle: "1. 内容创作工作流", text: "结合选题分析、大纲生成、全文撰写、排版优化的完整工作流。你可以设置定时任务，每天自动根据热点生成初稿，你只需要审核和修改即可。" },
-          { subtitle: "2. 客户服务工作流", text: "OpenClaw 可以接入你的客服渠道，自动识别常见问题并给出智能回复。复杂问题自动创建工单并通知你处理，大幅提升响应速度。" },
-          { subtitle: "3. 数据整理工作流", text: "定期自动从指定文件夹或网盘读取数据文件，进行清洗、汇总和格式转换，生成可视化报告。适合需要定期做数据分析的超级个体。" }
+          { subtitle: "1. 推荐安装方式", text: "对于非技术用户，推荐使用官方一键安装脚本。访问 open-claw.org 下载对应平台的安装包，按图形界面引导完成安装。安装完成后，首次启动会引导你配置模型和聊天渠道。如果你已有 DeepSeek API Key（推荐，性价比高），直接填入即可。" },
+          { subtitle: "2. 订阅服务方案", text: "如果你不想自己管理 API Key，OpenClaw 提供订阅服务。\"内置 API 年费\"计划包含专属 Gateway 实例和月度 API 额度，支持微信支付。订阅后所有内置模型（Opus 4.6 / GLM-5 / KIMI K2.5 等）均可直接使用。" },
+          { subtitle: "3. 连接聊天渠道", text: "OpenClaw 的核心体验是通过你已有的聊天工具来使用。配置方式：在设置中添加对应渠道的 Token（如 Telegram Bot Token、Discord Bot Token），配置完成后你就可以在私聊或群聊中直接与 AI 助手对话。" }
+        ]
+      },
+      {
+        title: "超级个体实战工作流：5 个即用场景",
+        content: "基于 OpenClaw 的核心能力，设计 5 个超级个体高频场景的自动化工作流。每个工作流都可直接配置使用。",
+        image: "https://picsum.photos/seed/openclaw-workflows/800/450",
+        details: [
+          "工作流 1：每日邮件自动整理 — 分类、标记优先级、生成摘要、草拟回复",
+          "工作流 2：内容创作流水线 — 定时分析热点 → 生成选题 → 撰写初稿 → 推送通知",
+          "工作流 3：竞品监控 — 定时抓取竞品页面 → 对比变化 → 生成差异报告",
+          "工作流 4：学习笔记自动整理 — 读取笔记 → 提取摘要 → 生成标签 → 写入知识库",
+          "工作流 5：日历智能管理 — 同步多个日历 → 检测冲突 → 生成日程摘要 → 提前提醒"
+        ],
+        fullContent: [
+          { subtitle: "1. 邮件自动整理工作流", text: "配置方式：创建一个 Markdown Skill，设置触发条件为\"每天早上 9 点\"，执行步骤：读取收件箱 → 按发件人和主题分类 → 标记紧急程度 → 为重要邮件草拟回复草稿 → 通过 Telegram 推送摘要。你每天早上打开手机就能看到处理好的邮件列表和待办事项。" },
+          { subtitle: "2. 内容创作工作流", text: "配置方式：创建定时 Skill，每天检查指定平台的 trending 话题 → 筛选与你领域相关的话题 → 根据话题生成 3 个选题方向 → 为每个选题写 500 字初稿 → 推送选题和初稿到你的 Discord/Telegram 频道。你只需要选择满意的选题，修改初稿即可发布。" },
+          { subtitle: "3. 竞品监控工作流", text: "配置方式：创建一个 TypeScript Skill，使用 OpenClaw 的浏览器控制能力，定时访问竞品的官网、定价页面、社交媒体 → 提取关键信息（价格变化、新功能、新活动） → 与上一次快照对比 → 生成差异报告 → 推送到你的 Slack 频道。" }
         ]
       }
     ],
@@ -219,101 +353,74 @@ const MODULE_CONTENT: Record<string, any> = {
   },
   "scenarios": {
     title: "超级个体场景库",
-    subtitle: "按职业分类 · 工具组合 · 真实案例",
+    subtitle: "按职业分类 · 官方数据 · 工具组合",
     icon: Zap,
     color: "orange",
-    description: "按职业和副业分类，每个场景提供工具组合+流程+案例。内容创作者、设计师、程序员、电商从业者都能找到适合你的 AI 工作流。",
+    description: "按职业和副业分类，每个场景提供具体的工具选型、配置方法和工作流。基于各工具官方文档，拒绝泛泛而谈。",
     keyTakeaways: [
-      "掌握按职业分类的 AI 工具组合方案",
-      "学会构建完整的个人 AI 工作流",
-      "了解不同场景下的真实应用案例",
-      "探索 AI 变现的多种路径"
+      "Cursor 官方：Tab 智能补全 + Cmd+K 编辑 + Agent 自主编程 + 深度代码库理解",
+      "OpenAI 官方：GPT-5.4 全模态 + Sora 2 视频 + GPT Image 1.5 图像，完整创作生态",
+      "DeepSeek 官方：V3.2 思考模式（$0.42/MTok），低成本高推理",
+      "OpenClaw 官方：全渠道接入 + Skills 自动化 + 24/7 后台运行"
     ],
     sections: [
-      { title: "内容创作者", content: "自媒体、博主、UP主如何用 AI 提效：选题、写稿、配图、剪辑全流程。", icon: Video },
-      { title: "设计师 / 程序员", content: "AI 辅助设计与编程：从 Midjourney 出图到 Cursor 写代码。", icon: Code },
-      { title: "电商 / 自由职业", content: "AI 选品、AI 客服、AI 数据分析，一人公司的高效运营。", icon: Bot }
+      { title: "内容创作者", content: "GPT-5.4 选题研究 + Claude Sonnet 4.6 深度写作 + Sora 2 视频生成 + OpenClaw 定时发布。", icon: Video },
+      { title: "独立开发者", content: "Cursor Agent 自主编程 + GPT-5.4 nano 轻量推理 + GitHub Copilot 代码审查。", icon: Code },
+      { title: "电商 / 自由职业", content: "OpenClaw 全自动客服 + DeepSeek 低成本分析 + Sora 2 产品视频 + GPT Image 1.5 商品图。", icon: Bot }
     ],
     lessons: [
       {
-        title: "内容创作者：用 AI 打造日更自媒体矩阵",
-        content: "如何利用 AI 找选题、写脚本、配图、剪辑？拆解完整的自媒体 AI 工作流，让一个人产出十人团队的内容量。",
-        image: "https://picsum.photos/seed/media/800/450",
-        details: ["选题挖掘：AI 分析热点与用户痛点", "爆款标题生成：心理学钩子公式", "视频脚本拆解：黄金 3 秒与留存钩子", "AI 批量生成配图与封面", "AI 配音与字幕自动生成", "多平台分发与数据反馈分析"],
+        title: "内容创作者：AI 驱动的日更内容生产线",
+        content: "基于 OpenAI / Anthropic / OpenClaw 官方能力，搭建从选题到分发的全流程自动化内容生产线。一个人产出传统 5 人团队的内容量。",
+        image: "https://picsum.photos/seed/content-creator/800/450",
+        details: [
+          "选题研究：GPT-5.4 网页搜索 + 文件搜索功能，分析热门话题和用户痛点",
+          "深度写作：Claude Sonnet 4.6（100 万上下文），可同时参考多篇长文档写作",
+          "视频生成：Sora 2（OpenAI 官方），支持同步音频生成，旗舰视频模型",
+          "图像生成：GPT Image 1.5（OpenAI 官方），最先进的图像生成模型",
+          "定时发布：OpenClaw 定时任务 + 全渠道推送（Telegram / Discord / Slack）",
+          "数据复盘：OpenClaw 浏览器控制能力自动抓取各平台数据"
+        ],
         fullContent: [
-          { subtitle: "1. 选题的艺术", text: "AI 可以帮你分析成千上万条热门评论和搜索趋势，找出用户最关心的问题，从而精准定位你的内容方向。" },
-          { subtitle: "2. 脚本的结构化生产", text: "通过设定特定的角色和受众，AI 可以帮你写出极具共鸣感的文案，并自动标注出适合插入素材的时间点。" }
+          { subtitle: "1. 选题研究（GPT-5.4 官方能力）", text: "GPT-5.4 官方支持网页搜索和文件搜索功能。你可以让它：搜索指定平台的热门话题 → 分析热门评论中的用户痛点 → 筛选出与你领域相关的 3-5 个选题 → 为每个选题生成受众分析和内容角度。输入成本 $2.50/MTok，一次选题研究约消耗几千 tokens。" },
+          { subtitle: "2. 深度写作（Claude Sonnet 4.6 官方能力）", text: "Claude Sonnet 4.6 提供 100 万 tokens 上下文窗口，输入 $3/MTok。你可以同时喂给它 10+ 篇参考文章、竞品分析报告、用户评论数据，让它基于全面的信息进行深度写作。适合长文、深度分析、技术教程等需要高质量输出的场景。" },
+          { subtitle: "3. 视频与图像（OpenAI 官方工具链）", text: "Sora 2 是 OpenAI 旗舰视频生成模型，支持同步音频生成。Sora 2 Pro 是最先进的版本。GPT Image 1.5 是最新图像生成模型。你可以在 ChatGPT 中直接使用这些模型，也可以通过 API 调用。配合 GPT-5.4 nano（$0.20/MTok，成本极低）处理字幕和文案。" }
         ]
       },
       {
-        title: "AI 辅助编程：从小白到独立开发者的捷径",
-        content: "利用 Cursor、GitHub Copilot 等工具，通过自然语言描述需求，让 AI 帮你写代码。不会编程也能做产品。",
-        image: "https://picsum.photos/seed/code/800/450",
-        details: ["Cursor: 最好用的 AI 编程编辑器", "如何向 AI 描述复杂的业务逻辑", "代码调试 (Debug) 的 AI 技巧", "利用 AI 快速学习新框架", "构建并部署你的第一个产品", "代码安全与最佳实践"],
+        title: "独立开发者：用 Cursor Agent 从零构建产品",
+        content: "基于 Cursor 官方功能，利用 Agent 自主编程 + 深度代码库理解 + Tab 智能补全，让非专业程序员也能独立开发产品。（数据来源：cursor.com 官方网站）",
+        image: "https://picsum.photos/seed/indie-dev/800/450",
+        details: [
+          "Agent 智能体：自主理解需求 → 探索代码库 → 生成可工作代码 → 运行测试",
+          "Tab 智能补全：专用 Tab 模型以极快速度预测下一步操作，多行连续补全",
+          "Cmd+K 编辑：选中代码后用自然语言描述修改需求，精准编辑",
+          "深度代码库理解：安全代码库索引 + 语义搜索，理解整个项目结构",
+          "多模型支持：OpenAI / Anthropic / Gemini / xAI / Cursor 自家模型可选",
+          "集成生态：GitHub PR 自动审查、Slack 协作、终端、JetBrains IDE 集成"
+        ],
         fullContent: [
-          { subtitle: "1. 自然语言驱动开发", text: "现在的编程更像是'对话'。你只需要描述需求，AI 就能帮你搭建好基础框架。Cursor 是目前最主流的 AI 编程工具。" },
-          { subtitle: "2. 快速学习新领域", text: "遇到看不懂的代码？直接让 AI 逐行解释。它是你 24 小时在线的顶级编程导师。" }
+          { subtitle: "1. Agent 自主编程（Cursor 官方）", text: "Cursor Agent 是其最强大的功能。你可以给它一个任务描述（如\"根据这份设计稿构建登录页面\"），它会自主：理解需求 → 探索代码库 → 编写代码 → 构建功能 → 运行测试。Agent 使用自己的计算资源在云端运行，与你并行工作。适合构建完整功能模块，而非单行代码修改。" },
+          { subtitle: "2. Tab + Cmd+K 日常编码", text: "日常编码中，Tab 智能补全能以极快速度预测你的下一步操作，支持多行连续补全。对于精准修改，Cmd+K（Windows 上 Ctrl+K）是最佳选择：选中代码 → 描述你想要的修改 → AI 精准替换。这两个功能覆盖了 90% 的日常编码需求。" },
+          { subtitle: "3. 适合超级个体的开发策略", text: "先用 Agent 搭建项目框架（路由、数据库、认证），再用 Tab/Cmd+K 逐步完善细节。遇到不懂的技术问题，直接在 Cursor 中向 AI 提问。无需查阅 Stack Overflow，AI 就是你的实时导师。对于成本敏感的场景，可以配合 DeepSeek V3.2 作为 Cursor 的后端模型。" }
         ]
       },
       {
-        title: "电商 / 自由职业：一人公司的高效运营",
-        content: "AI 选品、AI 客服、AI 数据分析。探索如何用 AI 让一个人的电商/自由职业团队达到传统 5-10 人团队的效率。",
-        image: "https://picsum.photos/seed/ecommerce/800/450",
-        details: ["AI 选品：利用数据分析找到蓝海市场", "AI 客服：24 小时智能回复与问题分类", "AI 运营：文案、投放、数据分析自动化", "AI 设计：产品图、详情页批量生成", "AI 财务：收支分析与报表自动化", "自由职业者：项目管理与客户沟通提效"],
+        title: "电商 / 自由职业：AI 全自动运营体系",
+        content: "利用 OpenClaw + DeepSeek + OpenAI 工具链，搭建覆盖选品、客服、内容、数据分析的全自动电商运营体系。",
+        image: "https://picsum.photos/seed/ecommerce-auto/800/450",
+        details: [
+          "24/7 自动客服：OpenClaw 接入客服渠道，DeepSeek V3.2 处理 80% 常见问题",
+          "商品内容生成：GPT Image 1.5 生成商品图 + Claude Sonnet 4.6 撰写详情页",
+          "选品数据分析：DeepSeek V3.2 思考模式分析平台数据，成本极低（$0.42/MTok）",
+          "竞品监控：OpenClaw 浏览器控制定时抓取竞品价格和活动信息",
+          "社媒自动发布：OpenClaw 定时任务生成内容并推送到多平台",
+          "财务报表：DeepSeek 分析收支数据，生成可视化报告"
+        ],
         fullContent: [
-          { subtitle: "1. AI 选品策略", text: "利用 AI 分析电商平台数据、社交媒体趋势和用户评论，找到高需求低竞争的产品方向。这比传统的'凭感觉选品'效率高出数倍。" },
-          { subtitle: "2. 自动化客服系统", text: "通过 OpenClaw + AI 模型搭建 24 小时客服系统，自动处理 80% 的常见问题，复杂问题再转人工。大幅节省人力成本。" }
-        ]
-      }
-    ]
-  },
-  "toolbox": {
-    title: "超级个体工具箱",
-    subtitle: "免费 · 低价 · 精选推荐",
-    icon: Layers,
-    color: "blue",
-    description: "精选免费/低价 AI 工具合集 + 一人公司效率栈（Notion+AI+自动化+OpenClaw）。帮你找到最适合的 AI 工具组合，不花冤枉钱。",
-    keyTakeaways: [
-      "2026 年最值得关注的 AI 工具全景",
-      "免费/低价工具替代方案（不花冤枉钱）",
-      "一人公司效率栈搭建指南",
-      "按场景匹配最佳工具组合"
-    ],
-    sections: [
-      { title: "AI 对话工具", content: "ChatGPT、Claude、DeepSeek、Kimi、通义千问等主流对话模型的对比与选型。", icon: Bot },
-      { title: "AI 创意工具", content: "Midjourney、可灵(Kling)、Suno、Gamma 等视觉/音乐/演示工具。", icon: Star },
-      { title: "一人公司效率栈", content: "Notion + AI + 自动化 + OpenClaw 的完整效率工具链。", icon: Rocket }
-    ],
-    lessons: [
-      {
-        title: "2026 AI 工具全景：对话、绘图、视频、编程一站全览",
-        content: "为你梳理 2026 年最值得关注的 AI 工具，涵盖对话、绘图、视频生成、编程辅助、AI 搜索等全场景。",
-        image: "https://picsum.photos/seed/tools2026/800/450",
-        details: ["对话类：ChatGPT (全能) / Claude (逻辑) / DeepSeek (性价比)", "国产推荐：Kimi (长文本) / 通义千问 (办公) / 文心一言 (知识库)", "创意绘图：Midjourney / DALL-E / Flux.1 / 通义万相", "视频生成：可灵 Kling / Sora / Runway", "AI 搜索：Perplexity / 秘塔AI搜索", "编程辅助：Cursor / GitHub Copilot / Windsurf"],
-        fullContent: [
-          { subtitle: "1. 对话类工具", text: "ChatGPT 依然是最均衡的选择；Claude 在逻辑严密性和代码编写上优势独特；DeepSeek 以极高性价比和强大的中文理解力成为国产黑马。" },
-          { subtitle: "2. 视觉与视频", text: "Midjourney 依然统治艺术绘图领域；国产可灵(Kling)在视频生成方面表现突出；Suno 则是 AI 音乐生成的首选。" },
-          { subtitle: "3. 编程与效率", text: "Cursor 是目前最主流的 AI 编程编辑器，通过自然语言对话即可生成代码；Perplexity 改变了信息获取方式，直接总结答案并附引用来源。" }
-        ]
-      },
-      {
-        title: "免费/低价工具替代方案：不花冤枉钱",
-        content: "很多付费 AI 工具都有免费的替代方案。本课帮你找到性价比最高的工具组合，用最少的钱获得最大的价值。",
-        image: "https://picsum.photos/seed/free-tools/800/450",
-        details: ["DeepSeek：免费模型能力媲美 GPT-4", "Kimi：200 万字长文本免费使用", "Stable Diffusion：免费本地部署替代 Midjourney", "Ollama：免费本地运行开源大模型", "Zotero + AI：免费文献管理与知识库", "LibreOffice + AI：免费替代 Office 365 Copilot"],
-        fullContent: [
-          { subtitle: "1. 免费模型的力量", text: "DeepSeek 提供了免费额度，其模型能力在多项评测中接近甚至超过 GPT-4 水平。Kimi 同样提供 generous 的免费额度，200 万字上下文处理能力。" },
-          { subtitle: "2. 本地部署方案", text: "通过 Ollama 或 LM Studio，你可以在本地免费运行 Llama、Qwen 等开源大模型。配合 Stable Diffusion，你可以完全不花钱实现 AI 绘图。" }
-        ]
-      },
-      {
-        title: "一人公司效率栈：从 Notion 到 OpenClaw",
-        content: "搭建完整的个人效率工具链：Notion (知识管理) + AI (内容生成) + 自动化 (Zapier/n8n) + OpenClaw (AI 助手)。",
-        image: "https://picsum.photos/seed/efficiency-stack/800/450",
-        details: ["Notion：个人知识管理与项目管理", "AI 对话工具：内容生成与问题解决", "自动化工具：Zapier / n8n 连接一切", "OpenClaw：24/7 AI 助手处理琐事", "数据同步与备份策略", "实际案例：我的效率栈配置"],
-        fullContent: [
-          { subtitle: "1. 为什么需要效率栈？", text: "单个工具只能解决单个问题。一套整合的效率栈能打通信息孤岛，让数据在工具间自动流转，实现\"设置一次，自动运行\"的效果。" },
-          { subtitle: "2. 推荐组合方案", text: "Notion 做知识和项目管理大脑，OpenClaw 做日常自动化助手，Cursor 做开发工具，Perplexity 做信息检索。这四个工具覆盖了超级个体 90% 的需求。" }
+          { subtitle: "1. 24/7 自动客服体系", text: "方案：OpenClaw + DeepSeek V3.2。OpenClaw 接入你的客服渠道（WhatsApp / Telegram / 飞书等），使用 DeepSeek V3.2 作为后端模型。成本极低：输入 $0.28/MTok，缓存命中 $0.028/MTok。即使每天处理 1000 条消息，月成本也仅几十元。常见问题自动回复，复杂问题创建工单通知人工。" },
+          { subtitle: "2. 商品内容批量生成", text: "方案：GPT Image 1.5 + Claude Sonnet 4.6。用 Claude Sonnet 4.6 的 100 万上下文窗口，同时参考 10+ 个竞品详情页和用户评价，生成差异化的商品描述。再用 GPT Image 1.5 生成商品主图和场景图。成本估算：每个商品详情页约消耗 3000 tokens 输入 + 1500 tokens 输出，费用约 $0.01。" },
+          { subtitle: "3. 选品与数据分析", text: "方案：DeepSeek V3.2 思考模式。将平台数据（销量、评价、价格趋势）喂给 DeepSeek reasoner，它会在输出前进行多步推理分析。128K 上下文窗口足够处理大量数据。思考模式输出最大 64K tokens，可以生成详细的分析报告。总成本约 $0.42/MTok 输出，比 GPT-5.4（$15/MTok）便宜 35 倍。" }
         ]
       }
     ]
@@ -376,48 +483,89 @@ const MODULE_CONTENT: Record<string, any> = {
     subtitle: "分阶段 · 可执行 · 循序渐进",
     icon: BookOpen,
     color: "emerald",
-    description: "从零基础到独立运营 AI 业务的成长路线图。分阶段规划你该学什么、做什么，避免走弯路。不承诺暴富，只提供务实的成长建议。",
+    description: "基于真实案例和官方工具能力，规划从零基础到独立运营 AI 业务的务实成长路线。不承诺暴富，标注每个阶段的工具成本和时间投入。",
     keyTakeaways: [
-      "阶段 0：建立 AI 基础认知，搭建工具矩阵",
-      "阶段 1：找到你的垂直领域，用 AI 提效",
-      "阶段 2：构建个人产品或服务，开始变现",
-      "持续学习：关注行业动态，不断迭代"
+      "阶段 0（1-2 周）：注册 DeepSeek/Claude，体验 AI 能力边界，月成本 $0",
+      "阶段 1（1-3 月）：在现有工作中深度使用 AI，安装 OpenClaw，搭建自动化工作流",
+      "阶段 2（3-6 月）：基于垂直领域知识 + AI 能力，构建产品或服务，验证变现",
+      "持续迭代：关注官方文档更新，模型能力快速进化"
     ],
     sections: [
-      { title: "阶段 0：入门", content: "了解 AI 基础概念，学会使用 ChatGPT/DeepSeek，掌握基本 Prompt 技巧。", icon: Lightbulb },
-      { title: "阶段 1：提效", content: "在现有工作中深度使用 AI，找到你的垂直领域优势。", icon: Zap },
-      { title: "阶段 2：变现", content: "构建个人产品或服务，探索 AI 变现路径。", icon: Rocket }
+      { title: "阶段 0：上手", content: "注册 2-3 个 AI 工具，体验它们的能力边界。不做任何投资，纯免费体验。", icon: Lightbulb },
+      { title: "阶段 1：提效", content: "在现有工作中找到 3 个 AI 可优化的环节，安装 OpenClaw 搭建自动化。", icon: Zap },
+      { title: "阶段 2：变现", content: "基于阶段 1 积累的垂直领域知识 + AI 工作流，构建 MVP 产品或服务。", icon: Rocket }
     ],
     lessons: [
       {
-        title: "阶段 0（1-2 周）：建立 AI 基础认知",
-        content: "目标：了解 AI 基本概念，学会使用 3 个以上的 AI 工具，掌握基本 Prompt 技巧，为后续学习打下基础。",
+        title: "阶段 0（1-2 周）：零成本体验 AI 能力边界",
+        content: "目标：注册并使用 3 个以上 AI 工具，完成 5 个具体任务。不做任何付费，纯免费体验。理解 AI 能做什么、不能做什么。",
         image: "https://picsum.photos/seed/phase0/800/450",
-        details: ["Day 1-3：注册并使用 ChatGPT / DeepSeek，了解基本对话", "Day 4-7：学习 Prompt Engineering 基础公式", "Day 8-10：尝试 Midjourney / 可灵等创意工具", "Day 11-14：整理个人 AI 工具清单，建立工作流雏形", "推荐资源：本站 AI 超级个体入门模块", "里程碑：能用 AI 独立完成一个简单任务（写文章/做PPT）"],
+        details: [
+          "Day 1-3：注册 DeepSeek（平台.deepseek.com）和 Kimi（platform.moonshot.cn），免费使用",
+          "Day 4-7：用 DeepSeek 完成以下任务：写一封商务邮件、总结一篇长文、分析一份表格",
+          "Day 8-10：用 Kimi K2.5 的 256K 上下文，同时分析 3 篇长文档并生成对比摘要",
+          "Day 11-14：用 Claude（claude.ai 免费版）完成一次深度写作任务，体验质量差异",
+          "成本：$0（全部使用免费额度）",
+          "里程碑：用 AI 独立完成 5 个具体任务，建立\"AI 能帮我做什么\"的直觉"
+        ],
         fullContent: [
-          { subtitle: "1. 核心任务", text: "这个阶段的目标不是精通，而是\"上手\"。你需要亲自使用 3 个以上的 AI 工具，体验它们的能力边界。不需要学底层原理，只需要知道它们能做什么、不能做什么。" },
-          { subtitle: "2. 学习建议", text: "不要追求完美，先动手。哪怕只是用 ChatGPT 帮你写一封邮件、用 Midjourney 生成一张图片，都是好的开始。关键是建立\"AI 能帮我做事\"的直觉。" }
+          { subtitle: "1. 为什么从免费开始？", text: "很多人上来就充值 OpenAI API，结果发现不知道怎么用，钱白白浪费。正确的做法是先用免费工具（DeepSeek、Kimi、Claude 免费版）充分体验 AI 的能力边界。DeepSeek 平台新用户有赠金额度，Kimi 同样提供免费额度。只有当你明确了\"我需要 AI 帮我做什么\"之后，再考虑付费 API。" },
+          { subtitle: "2. 重点体验什么？", text: "不是体验\"AI 能聊什么\"，而是体验\"AI 在你具体工作中能帮什么忙\"。试着把你每天最耗时的 3 个任务交给 AI：写邮件、整理数据、做周报。观察它做得好的地方和做得不好的地方。做好记录，这是你后续搭建自动化工作流的基础。" },
+          { subtitle: "3. 各工具的免费额度", text: "DeepSeek（platform.deepseek.com）：新用户赠金，deepseek-chat 接口免费额度。Kimi（platform.moonshot.cn）：按 Token 计费，但提供免费试用额度。Claude（claude.ai）：网页版免费使用，有每日消息限制。ChatGPT（chatgpt.com）：基础版免费。OpenClaw（open-claw.org）：完全免费开源。" }
         ]
       },
       {
-        title: "阶段 1（1-3 月）：深度使用 AI 提效",
-        content: "目标：在现有工作或副业中深度使用 AI，将效率提升 3-5 倍，找到你感兴趣且擅长的垂直领域。",
+        title: "阶段 1（1-3 月）：搭建 AI 工作流，实现 3-5 倍提效",
+        content: "目标：在现有工作中找到 3 个 AI 可优化的环节，搭建自动化工作流，将相关环节效率提升 3-5 倍。月成本控制在 $30 以内。",
         image: "https://picsum.photos/seed/phase1/800/450",
-        details: ["在当前工作中找到 3 个可用 AI 优化的环节", "为每个环节搭建 AI 辅助工作流", "学习 OpenClaw 等自动化工具", "开始在小红书/知乎/公众号等平台发布 AI 相关内容", "加入 AI 社群，持续学习交流", "里程碑：工作效率明显提升，开始积累个人品牌"],
+        details: [
+          "第 1 周：复盘日常工作，找到最耗时的 3 个重复性环节",
+          "第 2-4 周：为每个环节设计 AI 辅助工作流，用 DeepSeek V3.2 执行（$0.28/MTok）",
+          "第 5-8 周：安装 OpenClaw，将简单工作流升级为自动化（定时执行、多渠道通知）",
+          "第 9-12 周：开始在小红书/知乎等平台分享 AI 使用经验，积累个人品牌",
+          "成本：DeepSeek API 约 $5-15/月 + OpenClaw 免费",
+          "里程碑：工作效率明显提升，开始积累个人品牌和垂直领域知识"
+        ],
         fullContent: [
-          { subtitle: "1. 找到提效切入点", text: "回顾你每天的日常工作，找到最耗时的 3 个环节。通常这些环节有一定的重复性或规律性，最适合引入 AI。不要试图一次性改变所有工作方式，从小处着手。" },
-          { subtitle: "2. 持续输出", text: "在社交媒体上分享你的 AI 使用经验和心得。这不仅能帮你积累个人品牌，还能倒逼你持续学习和思考。很多超级个体的起点都是从分享开始的。" }
+          { subtitle: "1. 如何找到提效切入点？", text: "记录你一周内所有工作任务及耗时，找到\"重复性高、规律性强、不需要深度创意\"的环节。这类任务最适合 AI 优化。例如：每日数据汇总报告（30 分钟/天 → OpenClaw 自动化 → 0 分钟）、客户邮件分类和草拟回复（1 小时/天 → DeepSeek 自动处理 → 15 分钟审核）、竞品信息整理（2 小时/周 → OpenClaw 定时抓取 + AI 对比 → 20 分钟阅读报告）。" },
+          { subtitle: "2. 从手动到自动化的升级路径", text: "第一阶段（手动）：你手动把数据/问题喂给 AI，AI 给你答案。第二阶段（半自动）：你设计好 Prompt 模板，每次只需填入变量。第三阶段（全自动）：用 OpenClaw 的 Skills 系统，设置定时任务，AI 自动读取数据、处理、生成报告、推送通知。整个过程不需要你参与。" },
+          { subtitle: "3. 为什么要分享？", text: "分享不是自嗨，是战略。Ishan Sharma（TED2025 演讲者）在成为百万粉丝博主之前，也是从分享 AI 使用经验开始的。分享倒逼你持续学习，帮你建立垂直领域的专业形象，积累未来变现的受众基础。平台选择：小红书（适合实操教程）、知乎（适合深度分析）、公众号（适合长文）。" }
         ]
       },
       {
-        title: "阶段 2（3-6 月）：探索变现路径",
-        content: "目标：基于你的垂直领域专业知识和 AI 能力，构建个人产品或服务，开始探索变现方式。",
+        title: "阶段 2（3-6 月）：构建产品或服务，验证变现",
+        content: "目标：基于阶段 1 积累的垂直领域知识和 AI 工作流，构建 MVP 产品或服务，获得第一笔 AI 相关收入。不要辞去主业，先从副业开始验证。",
         image: "https://picsum.photos/seed/phase2/800/450",
-        details: ["方向 1：AI 辅助咨询/服务（如 AI 培训、Prompt 定制）", "方向 2：AI 工具/产品开发（如浏览器插件、小程序）", "方向 3：内容变现（课程、专栏、付费社群）", "方向 4：一人公司（用 AI 运营电商/自媒体）", "重要提醒：不要辞去主业，先从副业开始验证", "里程碑：获得第一笔 AI 相关收入"],
+        details: [
+          "方向 1：AI 培训/咨询（基于你的实战经验，帮企业/个人用 AI 提效）",
+          "方向 2：AI 工具/插件开发（用 Cursor Agent 开发 Chrome 插件、小程序等）",
+          "方向 3：付费内容（知识星球、付费专栏，基于阶段 1 积累的受众）",
+          "方向 4：一人公司（用 AI 运营电商/自媒体，OpenClaw 做自动化运营）",
+          "成本：Cursor Pro $20/月 + Claude API $10-30/月 + DeepSeek $5/月 ≈ $35-55/月",
+          "里程碑：获得第一笔 AI 相关收入（不论金额大小）"
+        ],
         fullContent: [
-          { subtitle: "1. 选择变现方向", text: "根据你在阶段 1 积累的专业知识和技能来选择变现方向。如果你擅长写作，可以考虑内容变现；如果你擅长编程，可以开发 AI 工具；如果你擅长培训，可以做 AI 课程。" },
-          { subtitle: "2. 小步快跑，快速验证", text: "不要花 3 个月打磨一个\"完美产品\"然后才上线。先做一个 MVP（最小可行产品），快速获取用户反馈，然后迭代改进。AI 的优势之一就是帮你快速试错。" },
-          { subtitle: "3. 管理预期", text: "根据公开报道的案例，从开始学习 AI 到实现稳定收入，通常需要 3-6 个月甚至更长。不要被\"月入 10 万\"的标题误导，大多数人的成长曲线是缓慢上升的。关键是持续行动，不放弃。" }
+          { subtitle: "1. 选择变现方向的核心原则", text: "不是\"AI 最火什么就做什么\"，而是\"你擅长什么 + AI 能放大什么\"。Samuel 的案例（腾讯云报道）说明了这一点：他原本是配镜师，但他选择的方向是复制已有成功的小型应用——这结合了他的执行力优势和 AI 的技术门槛降低。Every 公司的案例同样说明：他们的成功核心不是 AI，而是深厚的媒体行业经验。" },
+          { subtitle: "2. MVP 方法论", text: "不要花 3 个月打磨\"完美产品\"。先做一个最小可行产品（MVP），在 1-2 周内上线，快速获取反馈。如果是内容产品：先写 3 篇免费深度文章测试市场反应。如果是工具产品：用 Cursor Agent 在 1-2 周内开发核心功能，先发布免费版。如果是咨询服务：先免费帮 3 个人解决问题，收集案例和口碑。" },
+          { subtitle: "3. 成本与收入预期", text: "阶段 2 的月运营成本约 $35-55（Cursor Pro $20 + Claude API $10-30 + DeepSeek $5）。根据公开报道的案例，从开始学习 AI 到获得第一笔收入，通常需要 3-6 个月。Ishan Sharma 是长期积累的结果，Samuel 有配镜师收入支撑转型期，Every 团队有深厚的行业经验。不要被\"月入 10 万\"的标题误导，务实规划，持续行动。" }
+        ]
+      },
+      {
+        title: "持续迭代：跟进行业动态，保持竞争力",
+        content: "AI 行业进化速度极快。GPT-5.4 的知识截止是 2025 年 8 月，Claude Opus 4.6 的训练数据截止 2026 年 1 月。你需要持续跟进官方更新。",
+        image: "https://picsum.photos/seed/keep-learning/800/450",
+        details: [
+          "OpenAI 官方博客：platform.openai.com/blog — 新模型、新功能、API 更新",
+          "Anthropic 官方文档：platform.claude.com/docs — Claude 模型更新",
+          "DeepSeek 官方文档：api-docs.deepseek.com — 模型和定价更新",
+          "月之暗面开放平台：platform.moonshot.cn/docs — Kimi 模型更新",
+          "OpenClaw 官方网站：open-claw.org — 新 Skills、新功能",
+          "Cursor 更新日志：cursor.com — 新功能、Agent 能力提升"
+        ],
+        fullContent: [
+          { subtitle: "1. 模型进化速度", text: "以 OpenAI 为例：从 GPT-4o 到 GPT-5.4，上下文窗口从 128K 扩展到 1M，新增了网页搜索、文件搜索、计算机使用等能力。Anthropic 的 Claude 从 Sonnet 3.5 到 Opus 4.6，增加了扩展思维和自适应思维。DeepSeek V3.2 的思考模式提供了低成本深度推理。这些变化意味着你半年前的工作流可能已经可以大幅优化。" },
+          { subtitle: "2. 建立信息获取习惯", text: "每周花 30 分钟浏览各官方文档的更新日志（Changelog）。重点关注：新模型发布（可能有更好的性价比）、新 API 功能（可能简化你的工作流）、定价变化（可能降低成本）。也可以关注少数派、InfoQ 中文等中文技术媒体的 AI 专栏。" },
+          { subtitle: "3. 社群的力量", text: "加入 AI 相关社群，持续交流。你遇到的问题大概率别人也遇到过。社群的价值不仅是信息，更是人脉——很多合作和机会来自社群。从免费社群开始，找到志同道合的人，再考虑深度合作。" }
         ]
       }
     ]
@@ -672,13 +820,6 @@ const Modules = () => {
       color: "orange",
     },
     {
-      id: "toolbox",
-      title: "超级个体工具箱",
-      desc: "精选免费/低价 AI 工具合集 + 一人公司效率栈（Notion+AI+自动化+OpenClaw）。",
-      icon: Layers,
-      color: "blue",
-    },
-    {
       id: "cases",
       title: "真实案例库",
       desc: "公开报道的\"1人+AI\"赚钱案例深度拆解。不画大饼，只讲事实，标注来源。",
@@ -697,19 +838,19 @@ const Modules = () => {
   return (
     <section id="modules" className="py-24 px-6 max-w-7xl mx-auto">
       <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">七大核心模块</h2>
+        <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">六大核心模块</h2>
         <p className="text-gray-400 max-w-2xl mx-auto">
-          从入门到实战，从工具到案例。七大模块覆盖超级个体进化全链路，助你一人成军。
+          从入门到实战，从工具到案例。六大模块覆盖超级个体进化全链路，助你一人成军。
         </p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
         {[
-          { value: "7", label: "核心模块" },
+          { value: "6", label: "核心模块" },
           { value: "20+", label: "实战课程" },
-          { value: "50+", label: "Prompt 模板" },
-          { value: "10", label: "OpenClaw 工作流" },
+          { value: "50+", label: "工具推荐" },
+          { value: "3+", label: "真实案例" },
         ].map((stat, i) => (
           <div key={i} className="text-center p-6 bg-white/5 border border-white/10 rounded-2xl">
             <div className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mb-2">{stat.value}</div>
