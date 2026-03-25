@@ -1,0 +1,124 @@
+import type { LucideIcon } from 'lucide-react';
+
+export const MODULE_IDS = [
+  'super-individual',
+  'llm',
+  'openclaw',
+  'scenarios',
+  'cases',
+  'growth',
+] as const;
+
+export type ModuleId = (typeof MODULE_IDS)[number];
+
+export type ModuleColor = 'blue' | 'purple' | 'emerald' | 'orange';
+
+export interface ModuleSection {
+  title: string;
+  content: string;
+  icon: LucideIcon;
+}
+
+export interface LessonDetail {
+  subtitle: string;
+  text: string;
+}
+
+export interface Lesson {
+  title: string;
+  content: string;
+  image: string;
+  details: string[];
+  fullContent: LessonDetail[];
+}
+
+export interface ModuleCta {
+  text: string;
+  link: string;
+}
+
+export interface ModuleContent {
+  title: string;
+  subtitle: string;
+  icon: LucideIcon;
+  color: ModuleColor;
+  description: string;
+  keyTakeaways: string[];
+  sections: ModuleSection[];
+  lessons: Lesson[];
+  cta?: ModuleCta;
+}
+
+export interface ModuleCardData {
+  id: ModuleId;
+  title: string;
+  desc: string;
+  icon: LucideIcon;
+  color: ModuleColor;
+}
+
+export interface SourceLink {
+  label: string;
+  url: string;
+}
+
+export interface ActionChecklistItem {
+  title: string;
+  description: string;
+  timebox: string;
+  doneDefinition: string;
+}
+
+export interface ModelOption {
+  name: string;
+  vendor: string;
+  contextWindow: string;
+  inputPerMTok: number;
+  outputPerMTok: number;
+  latency: '低' | '中' | '高';
+  bestFor: string;
+  tier: '低预算' | '均衡' | '高质量';
+}
+
+export interface SecurityRule {
+  title: string;
+  detail: string;
+}
+
+export interface SopTemplate {
+  title: string;
+  input: string;
+  steps: string[];
+  output: string;
+  kpi: string;
+}
+
+export interface CaseEvidence {
+  title: string;
+  sourceLabel: string;
+  sourceUrl: string;
+  publishedOn: string;
+  reproducibility: '高' | '中' | '低';
+  riskWarning: string;
+}
+
+export interface WeeklyPlan {
+  week: number;
+  goal: string;
+  deliverable: string;
+  fallback: string;
+}
+
+export interface ModuleEnhancement {
+  lastVerifiedOn: string;
+  sources: SourceLink[];
+  actionChecklist?: ActionChecklistItem[];
+  modelOptions?: ModelOption[];
+  securityChecklist?: SecurityRule[];
+  sopTemplates?: SopTemplate[];
+  caseEvidence?: CaseEvidence[];
+  weeklyPlan?: WeeklyPlan[];
+}
+
+export const isModuleId = (value: string): value is ModuleId =>
+  MODULE_IDS.includes(value as ModuleId);
