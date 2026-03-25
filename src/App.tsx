@@ -45,654 +45,379 @@ const ScrollToTop = () => {
 
 // --- Data ---
 
+const NAV_LABELS: Record<string, string> = {
+  "super-individual": "入门",
+  "llm": "大模型",
+  "openclaw": "OpenClaw",
+  "scenarios": "场景库",
+  "toolbox": "工具箱",
+  "cases": "案例",
+  "growth": "成长",
+};
+
 const MODULE_CONTENT: Record<string, any> = {
-  "ai-basics": {
-    title: "AI 入门",
-    subtitle: "零基础 · 快速上手",
-    icon: Lightbulb,
+  "super-individual": {
+    title: "AI 超级个体入门",
+    subtitle: "零基础 · 快速上手 · 一人成军",
+    icon: Rocket,
     color: "blue",
-    description: "从零开始了解人工智能。打破认知壁垒，掌握 AI 时代的基本生存技能，开启您的超级个体进化之路。",
+    description: "理解\"超级个体\"的核心概念，掌握 Prompt Engineering 基础，搭建个人 AI 工具矩阵。从\"知道AI\"走向\"用好AI\"，开启你的超级个体之路。",
     keyTakeaways: [
-      "理解生成式 AI 的底层逻辑与未来趋势",
-      "掌握 Prompt Engineering 的核心指令公式",
-      "构建属于自己的个人 AI 工具矩阵",
-      "建立从“竞争”到“协作”的人机共生思维"
+      "理解超级个体的核心逻辑：AI 如何放大个人产出",
+      "掌握万能 Prompt 公式：角色 + 任务 + 约束 + 输出格式",
+      "搭建个人 AI 工具矩阵：对话/绘图/搜索/编程",
+      "避坑指南：AI 的幻觉、局限性、隐私安全问题"
     ],
     sections: [
-      {
-        title: "AI 认知觉醒",
-        content: "揭开 AI 的神秘面纱，理解为什么 2026 年是超级个体的元年。",
-        icon: Globe
-      },
-      {
-        title: "提示词工程入门",
-        content: "学会与 AI 沟通的艺术，让 AI 真正听懂你的指令。",
-        icon: Bot
-      },
-      {
-        title: "工具矩阵搭建",
-        content: "从文本到图像，从搜索到办公，挑选最适合你的 AI 武器库。",
-        icon: Layers
-      }
+      { title: "超级个体认知觉醒", content: "揭开超级个体的面纱，理解为什么 AI 时代是一个人也能成军的元年。", icon: Globe },
+      { title: "提示词工程入门", content: "学会与 AI 沟通的艺术，让 AI 真正听懂你的指令。", icon: Bot },
+      { title: "工具矩阵搭建", content: "从文本到图像，从搜索到办公，挑选最适合你的 AI 武器库。", icon: Layers }
     ],
     lessons: [
       {
         title: "AI 到底是什么？从图灵测试到 AGI 时代",
         content: "本课将带你穿越 AI 的发展史，理解大模型的本质，并探讨 AI 如何重塑我们的工作与生活。",
         image: "https://picsum.photos/seed/ai-intro/800/450",
-        details: [
-          "什么是生成式 AI (GenAI)？",
-          "Transformer 架构：AI 的“大脑”是如何工作的",
-          "从 GPT-1 到 GPT-5：模型进化的速度与激情",
-          "AGI (通用人工智能) 离我们还有多远？",
-          "AI 时代的职业替代与能力重构",
-          "超级个体的崛起：为什么你不再需要庞大的组织"
-        ],
+        details: ["什么是生成式 AI (GenAI)？", "Transformer 架构：AI 的\"大脑\"是如何工作的", "从 GPT-1 到 GPT-5：模型进化历程", "AGI (通用人工智能) 离我们还有多远？", "AI 时代的职业替代与能力重构", "超级个体的崛起：为什么你不再需要庞大的组织"],
         fullContent: [
-          {
-            subtitle: "1. 生成式 AI 的本质",
-            text: "生成式 AI 不仅仅是搜索，它是创造。它通过学习海量人类知识，掌握了语言的统计规律，从而能够根据你的指令生成全新的内容。"
-          },
-          {
-            subtitle: "2. 为什么是现在？",
-            text: "算力的爆发、算法 of 优化以及海量高质量数据的积累，使得 AI 在 2020 年代中期实现了质的飞跃，从“人工智障”进化为“数字天才”。"
-          },
-          {
-            subtitle: "3. 你的新身份：AI 导演",
-            text: "在 AI 时代，你不再是单纯的执行者，而是导演。AI 是你的演员、编剧和后期，你的核心价值在于你的审美、决策和跨界整合能力。"
-          }
+          { subtitle: "1. 生成式 AI 的本质", text: "生成式 AI 不仅仅是搜索，它是创造。它通过学习海量人类知识，掌握了语言的统计规律，从而能够根据你的指令生成全新的内容。" },
+          { subtitle: "2. 为什么是现在？", text: "算力的爆发、算法优化以及海量高质量数据的积累，使得 AI 在 2020 年代中期实现了质的飞跃，从\"人工智障\"进化为\"数字天才\"。" },
+          { subtitle: "3. 你的新身份：AI 导演", text: "在 AI 时代，你不再是单纯的执行者，而是导演。AI 是你的演员、编剧和后期，你的核心价值在于你的审美、决策和跨界整合能力。" }
         ]
       },
       {
         title: "Prompt Engineering：如何让 AI 成为你的顶级员工",
         content: "提示词工程（Prompt Engineering）是 AI 时代最重要的沟通技能。学会这套公式，你就能释放大模型 200% 的潜力。",
         image: "https://picsum.photos/seed/prompt/800/450",
-        details: [
-          "万能 Prompt 公式：角色 + 任务 + 约束 + 输出格式",
-          "少样本提示 (Few-Shot)：给 AI 几个例子，它会做得更好",
-          "思维链 (CoT)：引导 AI 逐步思考，解决复杂逻辑问题",
-          "结构化提示词：利用 Markdown 让 Prompt 更清晰",
-          "Prompt 调优：如何通过迭代获得完美答案",
-          "避坑指南：如何减少 AI 的幻觉与胡言乱语"
-        ],
+        details: ["万能 Prompt 公式：角色 + 任务 + 约束 + 输出格式", "少样本提示 (Few-Shot)：给 AI 几个例子", "思维链 (CoT)：引导 AI 逐步思考", "结构化提示词：利用 Markdown 让 Prompt 更清晰", "Prompt 调优：如何通过迭代获得完美答案", "避坑指南：如何减少 AI 的幻觉与胡言乱语"],
         fullContent: [
-          {
-            subtitle: "1. 角色设定的重要性",
-            text: "给 AI 一个身份（如“资深架构师”或“顶级文案专家”），能显著提升其回答的专业度和语气。这本质上是在引导模型在特定的参数空间内进行预测。"
-          },
-          {
-            subtitle: "2. 任务描述要具体",
-            text: "模糊的指令只会得到平庸的回答。明确你的目标、受众、字数限制和语气要求，越具体，AI 的表现就越出色。"
-          },
-          {
-            subtitle: "3. 迭代是关键",
-            text: "不要指望一次 Prompt 就能得到完美答案。通过追问、修改约束条件，不断引导 AI 逼近你心中的理想结果。"
-          },
-          {
-            subtitle: "4. 幻觉问题：为什么它会乱编？",
-            text: "由于 LLM 是基于概率生成的，当它面对知识盲区时，为了完成“接龙”，它可能会编造出听起来非常合理的错误信息。这就是所谓的“幻觉”。"
-          }
-        ]
-      },
-      {
-        title: "2026 个人 AI 工具箱：精选 Top 10 必装应用",
-        content: "工欲善其事，必先利其器。本课将为你推荐 2026 年最值得关注的 10 款 AI 工具，涵盖办公、创意与生活全场景。",
-        image: "https://picsum.photos/seed/tools2026/800/450",
-        details: [
-          "全能王：ChatGPT (GPT-5) & Claude 4",
-          "国产之光：DeepSeek-V3/R1 (极致性价比)",
-          "长文本之王：Kimi (支持 1000 万字上下文)",
-          "办公提效：通义千问 (深度集成钉钉/办公套件)",
-          "创意绘图：Midjourney v7 & Flux.1",
-          "AI 搜索：Perplexity & SearchGPT",
-          "视频生成：Sora & 可灵 (Kling)",
-          "代码神器：Cursor & GitHub Copilot",
-          "个人自动化：OpenClaw & Zapier AI",
-          "浏览器增强：Monica & MaxAI"
-        ],
-        fullContent: [
-          {
-            subtitle: "1. 文本对话：你的全能助理",
-            text: "ChatGPT 依然是目前最均衡的选择；Claude 在逻辑严密性和代码编写上有着独特的优势；而 DeepSeek 则以极高的性价比和强大的中文理解力成为 2026 年的黑马。"
-          },
-          {
-            subtitle: "2. 视觉创意：从文字到大片",
-            text: "Midjourney 依然统治着艺术绘图领域；而国产的可灵 (Kling) 在视频生成领域已经实现了全球领先，能够生成长达 2 分钟的高清视频。"
-          },
-          {
-            subtitle: "3. 搜索革命：不再需要翻页",
-            text: "Perplexity 改变了我们获取信息的方式。它直接阅读搜索结果并总结成答案，同时附上引用来源，极大地提高了研究效率。"
-          }
-        ]
-      },
-      {
-        title: "常用 AI 工具清单：找到最适合你的那一个",
-        content: "市面上的 AI 工具琳琅满目，从聊天机器人到绘图工具，从视频生成到代码助手。本课将为你梳理目前最顶尖的工具矩阵，帮你节省筛选时间，构建最高效的个人工作流。",
-        image: "https://picsum.photos/seed/tools/800/450",
-        details: [
-          "对话类：ChatGPT (全能), Claude (逻辑), Gemini (生态)",
-          "国产之光：文心一言 (本土化), Kimi (长文本), 通义千问",
-          "生产力：Notion AI (文档), Microsoft 365 Copilot (办公)",
-          "创意类：Midjourney (绘图), Runway (视频), Suno (音乐)",
-          "搜索类：Perplexity (AI 搜索), SearchGPT",
-          "插件与扩展：如何让你的浏览器武装到牙齿"
-        ],
-        fullContent: [
-          {
-            subtitle: "1. 文本对话：你的全能助理",
-            text: "ChatGPT 依然是目前最均衡的选择；Claude 在长文本理解和代码编写上有着独特的优势；而 Gemini 则深度集成了 Google 的生态系统。"
-          },
-          {
-            subtitle: "2. 视觉创意：从文字到图像",
-            text: "Midjourney 是目前艺术表现力最强的绘图工具；DALL-E 3 则胜在理解力极强，能精准执行复杂的文字指令。"
-          },
-          {
-            subtitle: "3. 搜索革命：不再需要翻页",
-            text: "Perplexity 改变了我们获取信息的方式。它直接阅读搜索结果并总结成答案，同时附上引用来源，极大地提高了研究效率。"
-          },
-          {
-            subtitle: "4. 国产大模型：更懂中国文化",
-            text: "DeepSeek 凭借 R1 推理模型打破了技术壁垒；Kimi 以其超长的上下文处理能力脱颖而出；通义千问则在处理中文语境和本土业务逻辑上更具优势。"
-          }
+          { subtitle: "1. 角色设定的重要性", text: "给 AI 一个身份（如\"资深架构师\"或\"顶级文案专家\"），能显著提升其回答的专业度和语气。这本质上是在引导模型在特定的参数空间内进行预测。" },
+          { subtitle: "2. 任务描述要具体", text: "模糊的指令只会得到平庸的回答。明确你的目标、受众、字数限制和语气要求，越具体，AI 的表现就越出色。" },
+          { subtitle: "3. 幻觉问题：为什么它会乱编？", text: "由于 LLM 是基于概率生成的，当它面对知识盲区时，为了完成\"接龙\"，它可能会编造出听起来非常合理的错误信息。这就是所谓的\"幻觉\"。" }
         ]
       },
       {
         title: "超级个体思维：如何利用 AI 放大个人价值",
-        content: "在 AI 时代，一个人就是一支团队。超级个体不再依赖庞大的组织，而是通过 AI 工具矩阵，实现从创意到执行的全流程闭环。本课将为你揭示超级个体的底层逻辑。",
+        content: "在 AI 时代，一个人就是一支团队。超级个体不再依赖庞大的组织，而是通过 AI 工具矩阵，实现从创意到执行的全流程闭环。",
         image: "https://picsum.photos/seed/super/800/450",
-        details: [
-          "杠杆效应：AI 是你的智力杠杆，放大你的产出",
-          "低成本试错：AI 降低了从 0 到 1 的创业门槛",
-          "个人品牌：利用 AI 辅助内容产出与全平台分发",
-          "未来趋势：AI Agent 驱动的个人自动化工作室",
-          "跨界能力：AI 帮你快速跨越不同领域的知识鸿沟",
-          "行动指南：从今天开始构建你的超级个体计划"
-        ],
+        details: ["杠杆效应：AI 是你的智力杠杆，放大你的产出", "低成本试错：AI 降低了从 0 到 1 的创业门槛", "个人品牌：利用 AI 辅助内容产出与全平台分发", "未来趋势：AI Agent 驱动的个人自动化工作室", "跨界能力：AI 帮你快速跨越不同领域的知识鸿沟", "行动指南：从今天开始构建你的超级个体计划"],
         fullContent: [
-          {
-            text: "超级个体是指那些能够熟练运用 AI 和数字化工具，独立完成复杂项目，并直接面向市场交付价值的人。他们不依附于公司，而是依附于自己的能力网。"
-          },
-          {
-            subtitle: "2. AI 带来的能力溢出",
-            text: "以前你需要请设计师、程序员、文案策划。现在，通过 AI，你一个人就能完成这些工作。AI 弥补了你的短板，让你的长板无限延伸。"
-          },
-          {
-            subtitle: "3. 商业模式的变革",
-            text: "超级个体的商业模式通常是：极低成本、高自动化、高单价。他们通过 AI 处理 80% 的琐事，将 20% 的精力投入到最具创造力的决策中。"
-          }
+          { subtitle: "1. 什么是超级个体？", text: "超级个体是指那些能够熟练运用 AI 和数字化工具，独立完成复杂项目，并直接面向市场交付价值的人。他们不依附于公司，而是依附于自己的能力网。" },
+          { subtitle: "2. AI 带来的能力溢出", text: "以前你需要请设计师、程序员、文案策划。现在，通过 AI，你一个人就能完成这些工作。AI 弥补了你的短板，让你的长板无限延伸。" },
+          { subtitle: "3. 商业模式的变革", text: "超级个体的商业模式通常是：极低成本、高自动化、高单价。他们通过 AI 处理 80% 的琐事，将 20% 的精力投入到最具创造力的决策中。" }
         ]
       }
     ],
-    cta: {
-      text: "掌握了基础？进阶了解 AI 的大脑 → 探索大模型模块",
-      link: "/module/llm"
-    }
-  },
-  "models2026": {
-    title: "AI 大模型",
-    subtitle: "进阶用户 · 核心能力",
-    icon: Brain,
-    color: "purple",
-    description: "深度解析 GPT-5、Claude 4、DeepSeek-V3/R1 等 2026 年主流大模型。重点对比国产大模型优势，为您的 AI 自动化之路选择最强“大脑”。",
-    keyTakeaways: [
-      "2026 全球大模型格局：GPT-5 vs Claude 4 vs DeepSeek",
-      "国产大模型深度对比：DeepSeek、Kimi、通义千问谁更强？",
-      "模型选型新标准：推理能力 (Reasoning) 与长上下文的权衡",
-      "实战：获取 DeepSeek 与 OpenAI API 并完成 OpenClaw 配置"
-    ],
-    sections: [
-      {
-        title: "2026 大模型全景图",
-        content: "从 OpenAI 的统治力到 DeepSeek 的平替神话，带你俯瞰当前最前沿的 AI 技术版图。",
-        icon: Layers
-      },
-      {
-        title: "国产大模型专题",
-        content: "深度剖析 DeepSeek 的极致性价比、Kimi 的超长上下文以及通义千问的行业落地能力。",
-        icon: Star
-      },
-      {
-        title: "推理模型 (O1/R1) 时代",
-        content: "理解“慢思考”模型的原理，学会利用 DeepSeek-R1 等推理模型解决复杂逻辑难题。",
-        icon: Cpu
-      }
-    ],
-    lessons: [
-      {
-        title: "为 OpenClaw 配置准备模型 API：开启自动化之路",
-        content: "想要在 OpenClaw 中使用大模型，你需要获取 API Key。本课将手把手教你如何注册开发者账号、创建 Key 以及在 OpenClaw 中进行配置。",
-        image: "https://picsum.photos/seed/api2026/800/450",
-        details: [
-          "API 基础知识：什么是 API Key？",
-          "OpenAI API 注册与充值全流程",
-          "DeepSeek 开放平台注册与 API 获取",
-          "国内大模型 API (Kimi/阿里/百度) 申请流程",
-          "中转 API 与聚合平台的优劣分析",
-          "OpenClaw 配置实操：填入 Key，激活你的 AI 助手"
-        ],
-        fullContent: [
-          {
-            subtitle: "1. API Key 的本质",
-            text: "API Key 就像是你的“数字身份证”和“钱包”。通过它，OpenClaw 可以代表你向大模型发送请求，并从你的账户余额中扣除相应的费用。"
-          },
-          {
-            subtitle: "2. 注册与风控规避",
-            text: "注册 OpenAI 或 Claude API 时，网络环境和支付卡片是最大的难点。我们会分享一些稳定的第三方支付方案和虚拟卡申请技巧。"
-          },
-          {
-            subtitle: "3. 安全第一：不要泄露你的 Key",
-            text: "永远不要在公开场合（如 GitHub）展示你的 API Key。一旦泄露，别人可以瞬间耗尽你的余额。学会使用环境变量来管理这些敏感信息。"
-          }
-        ]
-      }
-    ],
-    cta: {
-      text: "选择合适的模型是用好 OpenClaw 的第一步 → 前往学习 OpenClaw",
-      link: "/module/openclaw"
-    }
+    cta: { text: "掌握了基础？进阶了解大模型实战 → 探索大模型实战库", link: "/module/llm" }
   },
   "llm": {
-    title: "AI 大模型",
-    subtitle: "进阶用户 · 核心能力",
+    title: "大模型实战库",
+    subtitle: "不堆理论 · 场景驱动 · 即学即用",
     icon: Brain,
     color: "purple",
-    description: "深度解析 GPT、Claude、文心一言等主流大模型。了解模型的能力边界，为 OpenClaw 配置打下坚实基础。",
+    description: "深度解析 ChatGPT、Claude、DeepSeek、Gemini 等主流大模型。按场景分类提供 Prompt 模板，帮你为 OpenClaw 配置最强\"大脑\"。",
     keyTakeaways: [
-      "深度对比全球主流大模型的优劣势与适用场景",
-      "掌握模型选型的 5 个核心维度与成本控制策略",
-      "理解大模型的能力极限与幻觉规避方法",
-      "学会如何获取并配置模型 API，实现私有化应用"
+      "全球大模型格局：ChatGPT vs Claude vs DeepSeek vs Gemini",
+      "国产大模型对比：DeepSeek、Kimi、通义千问、文心一言",
+      "模型选型：推理能力、长上下文、成本的权衡",
+      "实战：获取 API Key 并完成 OpenClaw 配置"
     ],
     sections: [
-      {
-        title: "什么是大模型？",
-        content: "对比分析 GPT-4o 的全能、Claude 3.5 的逻辑以及文心一言等国产大模型的本土化优势。",
-        icon: Layers
-      },
-      {
-        title: "如何选择适合自己的模型？",
-        content: "选择合适的模型是用好 OpenClaw 的第一步。我们将根据您的需求场景，匹配最精准的 AI 大脑。",
-        icon: BookOpen
-      },
-      {
-        title: "大模型的能力边界",
-        content: "理解 AI 的幻觉、逻辑极限与知识截止日期，学会与 AI 协作的最佳姿势。",
-        icon: Cpu
-      }
+      { title: "2026 大模型全景图", content: "从 OpenAI 到 DeepSeek，带你俯瞰当前最前沿的 AI 技术版图。", icon: Layers },
+      { title: "场景化 Prompt 模板", content: "按写作、设计、编程、运营分类，提供可直接复用的 Prompt 模板。", icon: Star },
+      { title: "API 配置实战", content: "手把手教你获取 API Key，在 OpenClaw 中配置模型。", icon: Cpu }
     ],
     lessons: [
       {
         title: "全球主流大模型全景图：谁才是真正的王者？",
-        content: "从 OpenAI 的 GPT 系列到 Anthropic 的 Claude，再到 Google 的 Gemini 和国内的文心一言、Kimi。本课将带你深度剖析各大模型的“性格”与“特长”。",
+        content: "从 OpenAI 的 GPT 系列到 Anthropic 的 Claude，再到 Google Gemini 和国内的 DeepSeek、Kimi。深度剖析各大模型的\"性格\"与\"特长\"。",
         image: "https://picsum.photos/seed/models/800/450",
-        details: [
-          "GPT-4o: 全能冠军，多模态交互的标杆",
-          "Claude 3.5 Sonnet: 逻辑与编程的巅峰",
-          "Gemini 1.5 Pro: 超长上下文处理的专家",
-          "Llama 3: 开源界的领头羊",
-          "国产模型: 文心一言、通义千问、Kimi 的实测对比",
-          "模型排行榜: 如何参考 LMSYS 等权威榜单"
-        ],
+        details: ["ChatGPT (OpenAI): 全能冠军，多模态交互标杆", "Claude (Anthropic): 逻辑、编程与安全性的执着者", "Gemini (Google): 超长上下文与生态整合", "DeepSeek: 国产黑马，极致性价比", "Kimi (月之暗面): 超长上下文处理专家", "如何参考 LMSYS 等权威排行榜"],
         fullContent: [
-          {
-            subtitle: "1. OpenAI: 行业的领跑者",
-            text: "GPT-4o 是目前的旗舰模型，它不仅在逻辑推理上处于第一梯队，更重要的是其多模态能力——它能实时看懂视频、听懂情绪，是目前最接近 AGI 的产品。"
-          },
-          {
-            subtitle: "2. Anthropic: 逻辑与安全的执着者",
-            text: "Claude 3.5 Sonnet 在编程和复杂逻辑推理上经常超越 GPT-4o。它的语气更自然，更少“AI味”，是很多专业开发者的首选。"
-          },
-          {
-            subtitle: "3. Google: 庞大生态的整合者",
-            text: "Gemini 的杀手锏是超长上下文（高达 200万 tokens）。你可以把一整本书或者几个小时的视频喂给它，它能精准地找到其中的细节。"
-          },
-          {
-            subtitle: "4. 国产力量：更懂中国心",
-            text: "Kimi 凭借优秀的中文长文本处理能力迅速出圈；通义千问在企业级应用和中文语境理解上表现稳健；文心一言则拥有最深厚的本土知识库。"
-          }
+          { subtitle: "1. OpenAI: 行业的领跑者", text: "GPT-4o 是目前旗舰模型之一，不仅在逻辑推理上处于第一梯队，其多模态能力——能实时看懂视频、听懂情绪，是目前最接近 AGI 的产品之一。" },
+          { subtitle: "2. Anthropic: 逻辑与安全的执着者", text: "Claude 系列在编程和复杂逻辑推理上经常超越同类产品。它的语气更自然，更少\"AI味\"，是很多专业开发者的首选。" },
+          { subtitle: "3. 国产力量：更懂中文场景", text: "DeepSeek 凭借推理模型打破技术壁垒；Kimi 以超长上下文处理能力出圈；通义千问在企业级应用和中文语境理解上表现稳健。" }
         ]
       },
       {
-        title: "模型选择的 5 个维度：不选最贵的，只选最对的",
-        content: "面对琳琅满目的模型，如何根据自己的需求 and 预算做出选择？我们将从逻辑能力、响应速度、上下文长度、价格和多模态支持五个维度进行拆解。",
+        title: "模型选择指南：不选最贵的，只选最对的",
+        content: "面对琳琅满目的模型，如何根据需求和预算做出选择？从逻辑能力、响应速度、上下文长度、价格和多模态支持五个维度拆解。",
         image: "https://picsum.photos/seed/choice/800/450",
-        details: [
-          "逻辑复杂度：简单任务 vs 复杂推理",
-          "响应延迟：实时对话 vs 异步处理",
-          "长文本需求：处理 10 万字文档需要什么模型？",
-          "成本控制：API 调用计费模式与节省策略",
-          "多模态支持：是否需要识别图片或生成语音",
-          "合规性与隐私：数据安全与国产化替代方案"
-        ],
+        details: ["逻辑复杂度：简单任务 vs 复杂推理", "响应延迟：实时对话 vs 异步处理", "长文本需求：处理 10 万字文档需要什么模型？", "成本控制：API 调用计费模式与节省策略", "多模态支持：是否需要识别图片或生成语音", "合规性与隐私：数据安全与国产化替代"],
         fullContent: [
-          {
-            subtitle: "维度 1：逻辑深度",
-            text: "如果是写简单的邮件或总结，GPT-4o mini 这种轻量级模型就足够了，速度快且便宜。如果是写复杂代码或法律合同，必须上 GPT-4o 或 Claude 3.5。"
-          },
-          {
-            subtitle: "维度 2：上下文长度",
-            text: "如果你需要 AI 帮你分析整个项目的所有代码文件，或者总结一整年的财务报表，你需要关注模型的 Context Window。Gemini 1.5 Pro 在这方面是绝对的王者。"
-          },
-          {
-            subtitle: "维度 3：多模态需求",
-            text: "你需要 AI 帮你分析图表吗？还是需要它生成语音？不同的模型在这些子领域的表现差异巨大。例如，GPT-4o 的视觉分析能力目前公认最强。"
-          },
-          {
-            subtitle: "维度 4：成本与 API 额度",
-            text: "对于开发者来说，API 的价格和调用频率限制（Rate Limits）是核心考量。开源模型如 Llama 3 通过私有化部署可以彻底解决隐私和长期成本问题。"
-          }
+          { subtitle: "维度 1：逻辑深度", text: "简单邮件或总结，轻量级模型就足够了，速度快且便宜。复杂代码或法律合同，必须上旗舰模型。" },
+          { subtitle: "维度 2：上下文长度", text: "如果你需要 AI 分析整个项目的代码文件或总结一整年的财务报表，你需要关注模型的 Context Window。Gemini 在这方面是王者。" },
+          { subtitle: "维度 3：成本与 API 额度", text: "对于开发者来说，API 的价格和调用频率限制是核心考量。DeepSeek 等国产模型通过低成本方案为个人开发者提供了实惠选择。" }
         ]
       },
       {
-        title: "能力边界与幻觉识别：别让 AI 误导你",
-        content: "AI 不是万能的。它有知识截止日期，会有逻辑漏洞，更会产生“幻觉”。本课将教你如何识别 AI 的错误，并利用技巧降低幻觉发生的概率。",
-        image: "https://picsum.photos/seed/error/800/450",
-        details: [
-          "知识截止日期：为什么 AI 不知道昨天的新闻？",
-          "幻觉的成因：概率预测的副作用",
-          "事实核查技巧：如何验证 AI 给出的数据",
-          "降低幻觉的 Prompt 技巧：要求 AI 提供引用",
-          "逻辑陷阱：AI 在数学与复杂逻辑中的表现",
-          "边界测试：如何试探一个模型的“智力上限”"
-        ],
-        fullContent: [
-          {
-            subtitle: "1. 什么是“幻觉”？",
-            text: "幻觉是指 AI 以极其自信的语气编造事实。这是因为模型本质上是在预测概率，当它找不到确切答案时，它会根据概率生成一个看起来最像答案的回答。"
-          },
-          {
-            subtitle: "2. 知识截止日期的限制",
-            text: "大多数模型都是在历史数据上训练的。如果你问它今天的天气或者最新的股市动态，除非它连接了实时搜索插件，否则它给出的信息必然是过时的。"
-          },
-          {
-            subtitle: "3. 如何降低幻觉？",
-            text: "最有效的方法是：1. 在 Prompt 中明确要求：'如果你不知道，请直接回答不知道'；2. 提供参考资料，要求 AI 基于资料回答（RAG 模式）。"
-          }
-        ]
-      },
-      {
-        title: "为 OpenClaw 配置准备模型 API：开启自动化之路",
-        content: "想要在 OpenClaw 中使用大模型，你需要获取 API Key。本课将手把手教你如何注册开发者账号、创建 Key 以及在 OpenClaw 中进行配置。",
+        title: "为 OpenClaw 配置模型 API：开启自动化之路",
+        content: "想要在 OpenClaw 中使用大模型，你需要获取 API Key。本课将手把手教你注册账号、创建 Key 以及在 OpenClaw 中配置。",
         image: "https://picsum.photos/seed/api/800/450",
-        details: [
-          "API 基础知识：什么是 API Key？",
-          "OpenAI API 注册与充值全流程",
-          "Claude (Anthropic) API 获取指南",
-          "国内大模型 API (百度/阿里/月之暗面) 申请流程",
-          "中转 API 与聚合平台的优劣分析",
-          "OpenClaw 配置实操：填入 Key，激活你的 AI 助手"
-        ],
+        details: ["API 基础知识：什么是 API Key？", "OpenAI API 注册与充值全流程", "DeepSeek 开放平台注册与 API 获取", "国内大模型 API (Kimi/阿里/百度) 申请", "中转 API 与聚合平台的优劣", "OpenClaw 配置实操：填入 Key，激活 AI 助手"],
         fullContent: [
-          {
-            subtitle: "1. API Key 的本质",
-            text: "API Key 就像是你的“数字身份证”和“钱包”。通过它，OpenClaw 可以代表你向大模型发送请求，并从你的账户余额中扣除相应的费用。"
-          },
-          {
-            subtitle: "2. 注册与风控规避",
-            text: "注册 OpenAI 或 Claude API 时，网络环境和支付卡片是最大的难点。我们会分享一些稳定的第三方支付方案和虚拟卡申请技巧。"
-          },
-          {
-            subtitle: "3. 安全第一：不要泄露你的 Key",
-            text: "永远不要在公开场合（如 GitHub）展示你的 API Key。一旦泄露，别人可以瞬间耗尽你的余额。学会使用环境变量来管理这些敏感信息。"
-          }
+          { subtitle: "1. API Key 的本质", text: "API Key 就像是你的\"数字身份证\"和\"钱包\"。通过它，OpenClaw 可以代表你向大模型发送请求，并从你的账户余额中扣除相应的费用。" },
+          { subtitle: "2. 安全第一：不要泄露你的 Key", text: "永远不要在公开场合展示你的 API Key。一旦泄露，别人可以瞬间耗尽你的余额。学会使用环境变量来管理这些敏感信息。" }
         ]
       }
     ],
-    cta: {
-      text: "选择合适的模型是用好 OpenClaw 的第一步 → 前往学习 OpenClaw",
-      link: "/module/openclaw"
-    }
+    cta: { text: "选择好模型了？前往 OpenClaw 配置实战 → 学习 OpenClaw 实战专区", link: "/module/openclaw" }
   },
   "openclaw": {
-    title: "OpenClaw 模块",
-    subtitle: "开源力量，自由构建",
+    title: "OpenClaw 实战专区",
+    subtitle: "开源 · 自动化 · 本地部署",
     icon: Cpu,
     color: "emerald",
-    description: "探索 OpenClaw 生态系统，学习如何利用开源工具构建属于你自己的 AI 助手和自动化流程。",
+    description: "OpenClaw 是一个开源 AI 助手框架，支持本地部署，通过 Skills 技能系统实现邮件、日历、文件、浏览器等自动化。超级个体必学的效率神器。",
+    keyTakeaways: [
+      "理解 OpenClaw 架构：本地部署、Skills 技能系统、多渠道接入",
+      "掌握 10 个超级个体必用工作流",
+      "从安装配置到实战应用的完整路径",
+      "解决常见部署问题与性能优化"
+    ],
     sections: [
-      {
-        title: "什么是 OpenClaw？",
-        content: "OpenClaw 是一个致力于降低 AI 门槛的开源生态，提供了一系列开箱即用的工具和框架。",
-        icon: Code
-      },
-      {
-        title: "核心组件介绍",
-        content: "深入了解 OpenClaw 的工作流引擎、知识库插件以及多智能体协作协议。",
-        icon: Layers
-      },
-      {
-        title: "快速部署指南",
-        content: "手把手教您在本地或云端部署 OpenClaw 环境，开启您的私有化 AI 时代。",
-        icon: Rocket
-      }
+      { title: "OpenClaw 是什么？", content: "开源 AI 助手框架，支持 Telegram/WhatsApp/Discord/飞书/钉钉等多渠道，1700+ Skills 技能插件。", icon: Code },
+      { title: "安装与配置", content: "从零开始安装 OpenClaw，配置 API Key，连接你的消息渠道。", icon: Rocket },
+      { title: "实战工作流", content: "邮件自动处理、日程管理、文件整理、浏览器自动化等真实场景。", icon: Layers }
     ],
     lessons: [
       {
-        title: "OpenClaw 环境搭建：从零开始部署",
-        content: "学习如何在本地或云端快速部署 OpenClaw 环境。我们将涵盖 Docker 部署、源码安装以及基础配置，确保你的 AI 引擎能够平稳运行。",
-        image: "https://picsum.photos/seed/setup/800/450",
-        details: [
-          "Docker 一键部署指南",
-          "Python 环境与依赖配置",
-          "数据库 (Redis/PostgreSQL) 连接",
-          "前端界面与后端服务的联调",
-          "常见报错排查与性能优化",
-          "云端部署 (Vercel/Railway) 方案"
-        ],
+        title: "OpenClaw 快速上手：30 分钟完成安装与配置",
+        content: "学习如何在本地快速部署 OpenClaw，配置 API Key，并连接你常用的消息渠道（Telegram/微信/飞书等）。",
+        image: "https://picsum.photos/seed/openclaw-setup/800/450",
+        details: ["系统要求与环境准备", "安装 OpenClaw（Docker / 源码方式）", "配置 LLM API Key（DeepSeek / OpenAI）", "连接消息渠道（Telegram / WhatsApp / 飞书）", "基础对话测试与调优", "常见安装问题排查"],
         fullContent: [
-          {
-            subtitle: "1. 为什么选择 Docker？",
-            text: "Docker 能够提供一致的运行环境，避免了'在我电脑上能跑，在你那里不行'的尴尬。通过 Docker Compose，你可以一键启动所有必要的服务。"
-          },
-          {
-            subtitle: "2. 环境变量配置",
-            text: "OpenClaw 需要配置多个 API Key 和数据库连接字符串。我们将教你如何安全地管理这些敏感信息，防止泄露。"
-          },
-          {
-            subtitle: "3. 性能优化建议",
-            text: "对于高并发场景，如何配置 Redis 缓存和数据库连接池？本课将分享一些大厂级别的优化经验。"
-          }
+          { subtitle: "1. OpenClaw 简介", text: "OpenClaw 是一个开源 AI 助手项目，核心理念是让用户可以本地部署自己的 AI 助手，通过丰富的 Skills 技能系统实现各种自动化任务。支持 Telegram、WhatsApp、Discord、飞书、钉钉等多渠道接入。" },
+          { subtitle: "2. 安装步骤", text: "OpenClaw 提供多种安装方式。Docker 方式最简单，一行命令即可启动。也可以从源码安装进行自定义配置。安装后需要配置至少一个 LLM API Key（推荐使用 DeepSeek，性价比高）。" },
+          { subtitle: "3. 连接消息渠道", text: "通过简单的配置文件，你可以让 OpenClaw 接入你常用的聊天工具。配置完成后，你就可以在 Telegram 或飞书中直接与你的 AI 助手对话了。" }
         ]
       },
       {
-        title: "构建第一个 AI Agent：让 AI 动起来",
-        content: "Agent 是 AI 的高级形态。本课将教你如何利用 OpenClaw 的工作流引擎，构建一个能够自主思考、调用工具并完成复杂任务的智能体。",
-        image: "https://picsum.photos/seed/agent/800/450",
-        details: [
-          "Agent 的核心原理：感知、决策、执行",
-          "定义 Agent 的角色与目标 (System Prompt)",
-          "工具调用 (Function Calling) 机制",
-          "长短期记忆 (Memory) 的实现",
-          "多轮对话的状态管理",
-          "实战：构建一个自动搜索并总结新闻的 Agent"
-        ],
+        title: "Skills 技能系统：解锁 1700+ 自动化能力",
+        content: "OpenClaw 的 ClawHub 平台上有 1700+ Skills 技能插件，覆盖邮件、日历、文件管理、浏览器控制等多个领域。",
+        image: "https://picsum.photos/seed/openclaw-skills/800/450",
+        details: ["ClawHub 技能市场：浏览和安装 Skills", "邮件自动分类与回复", "日历/日程智能管理", "文件批量整理与重命名", "浏览器自动化（网页抓取/填表）", "自定义 Skill 开发入门"],
         fullContent: [
-          {
-            subtitle: "1. 什么是 AI Agent？",
-            text: "不同于简单的聊天机器人，Agent 拥有'自主性'。它能根据目标拆解任务，并主动调用外部工具（如搜索、计算器、代码执行器）来解决问题。"
-          },
-          {
-            subtitle: "2. 提示词工程 (Prompt Engineering) 进阶",
-            text: "如何写出让 Agent 听话的指令？我们将介绍 ReAct 框架、Chain of Thought 等高级提示词技术。"
-          },
-          {
-            subtitle: "3. 记忆系统：让 AI 记住你是谁",
-            text: "通过向量数据库实现长期记忆，让你的 Agent 能够随着交流的深入，越来越懂你的偏好和习惯。"
-          }
+          { subtitle: "1. 什么是 Skills？", text: "Skills 是 OpenClaw 的核心扩展机制。每个 Skill 都是一个独立的功能模块，让你的 AI 助手获得特定能力。ClawHub 社区已经贡献了 1700+ 个 Skills。" },
+          { subtitle: "2. 必装 Skills 推荐", text: "邮件管理（自动分类、智能回复）、日历管理（日程提醒、会议安排）、文件管理（批量重命名、格式转换）、浏览器控制（网页抓取、自动填表）是最常用的四大类 Skills。" },
+          { subtitle: "3. 自定义开发", text: "如果你有特殊需求，可以开发自己的 Skill。OpenClaw 提供了清晰的开发文档和模板，有编程基础的用户可以在几小时内完成一个基础 Skill。" }
         ]
       },
       {
-        title: "知识库 RAG 实践：让 AI 拥有你的私有知识",
-        content: "RAG (检索增强生成) 是解决 AI 幻觉和知识过时最有效的方案。学习如何将你的文档、笔记转化为 AI 的知识库。",
-        image: "https://picsum.photos/seed/rag/800/450",
-        details: [
-          "RAG 的工作流程：切片、向量化、检索、生成",
-          "向量数据库 (Pinecone/Milvus) 的选择与使用",
-          "文档切片 (Chunking) 的艺术：如何保持语义完整",
-          "检索算法优化：语义搜索 vs 关键词搜索",
-          "重排序 (Rerank) 技术提升准确率",
-          "实战：构建一个基于公司文档的智能客服"
-        ],
+        title: "超级个体必用 10 个工作流",
+        content: "精心整理的 10 个 OpenClaw 工作流，涵盖内容创作、客户服务、数据分析等超级个体高频场景。",
+        image: "https://picsum.photos/seed/openclaw-workflow/800/450",
+        details: ["工作流 1：自动写稿（选题→大纲→全文→排版）", "工作流 2：自动剪辑（素材整理→字幕生成→输出）", "工作流 3：自动客服（常见问题→智能回复→工单）", "工作流 4：邮件自动处理（分类→优先级→草拟回复）", "工作流 5：日程智能管理（日历同步→提醒→冲突检测）", "工作流 6：数据自动整理（表格清洗→汇总→可视化）", "工作流 7：竞品自动监控（定期抓取→对比→报告）", "工作流 8：社媒内容自动发布（生成→排版→定时发布）", "工作流 9：文件自动归档（分类→重命名→备份）", "工作流 10：学习笔记自动整理（摘要→标签→知识库）"],
         fullContent: [
-          {
-            subtitle: "1. 为什么需要 RAG？",
-            text: "大模型的知识是静态的。RAG 允许模型在回答前，先去你的私有数据库中'查资料'，从而提供最新、最准确的回答。"
-          },
-          {
-            subtitle: "2. 向量化的魔力",
-            text: "通过 Embedding 模型，我们将文字转化为高维向量。这样 AI 就能通过计算向量距离，找到语义上最相关的段落。"
-          },
-          {
-            subtitle: "3. 优化检索质量",
-            text: "切片太大会丢失细节，太小会丢失上下文。本课将分享如何寻找最佳的切片大小和重叠度。"
-          }
+          { subtitle: "1. 内容创作工作流", text: "结合选题分析、大纲生成、全文撰写、排版优化的完整工作流。你可以设置定时任务，每天自动根据热点生成初稿，你只需要审核和修改即可。" },
+          { subtitle: "2. 客户服务工作流", text: "OpenClaw 可以接入你的客服渠道，自动识别常见问题并给出智能回复。复杂问题自动创建工单并通知你处理，大幅提升响应速度。" },
+          { subtitle: "3. 数据整理工作流", text: "定期自动从指定文件夹或网盘读取数据文件，进行清洗、汇总和格式转换，生成可视化报告。适合需要定期做数据分析的超级个体。" }
+        ]
+      }
+    ],
+    cta: { text: "掌握了 OpenClaw？去场景库看看更多实战 → 探索超级个体场景库", link: "/module/scenarios" }
+  },
+  "scenarios": {
+    title: "超级个体场景库",
+    subtitle: "按职业分类 · 工具组合 · 真实案例",
+    icon: Zap,
+    color: "orange",
+    description: "按职业和副业分类，每个场景提供工具组合+流程+案例。内容创作者、设计师、程序员、电商从业者都能找到适合你的 AI 工作流。",
+    keyTakeaways: [
+      "掌握按职业分类的 AI 工具组合方案",
+      "学会构建完整的个人 AI 工作流",
+      "了解不同场景下的真实应用案例",
+      "探索 AI 变现的多种路径"
+    ],
+    sections: [
+      { title: "内容创作者", content: "自媒体、博主、UP主如何用 AI 提效：选题、写稿、配图、剪辑全流程。", icon: Video },
+      { title: "设计师 / 程序员", content: "AI 辅助设计与编程：从 Midjourney 出图到 Cursor 写代码。", icon: Code },
+      { title: "电商 / 自由职业", content: "AI 选品、AI 客服、AI 数据分析，一人公司的高效运营。", icon: Bot }
+    ],
+    lessons: [
+      {
+        title: "内容创作者：用 AI 打造日更自媒体矩阵",
+        content: "如何利用 AI 找选题、写脚本、配图、剪辑？拆解完整的自媒体 AI 工作流，让一个人产出十人团队的内容量。",
+        image: "https://picsum.photos/seed/media/800/450",
+        details: ["选题挖掘：AI 分析热点与用户痛点", "爆款标题生成：心理学钩子公式", "视频脚本拆解：黄金 3 秒与留存钩子", "AI 批量生成配图与封面", "AI 配音与字幕自动生成", "多平台分发与数据反馈分析"],
+        fullContent: [
+          { subtitle: "1. 选题的艺术", text: "AI 可以帮你分析成千上万条热门评论和搜索趋势，找出用户最关心的问题，从而精准定位你的内容方向。" },
+          { subtitle: "2. 脚本的结构化生产", text: "通过设定特定的角色和受众，AI 可以帮你写出极具共鸣感的文案，并自动标注出适合插入素材的时间点。" }
         ]
       },
       {
-        title: "社区插件开发指南：扩展 OpenClaw 的无限可能",
-        content: "OpenClaw 的强大在于其可扩展性。学习如何编写自己的插件，连接各种第三方服务，打造独一无二的 AI 助手。",
-        image: "https://picsum.photos/seed/plugin/800/450",
-        details: [
-          "OpenClaw 插件架构解析",
-          "开发环境准备与 SDK 使用",
-          "定义插件的输入输出协议",
-          "处理异步请求与错误重试",
-          "插件的安全性与权限控制",
-          "发布你的插件到 OpenClaw 社区"
-        ],
+        title: "AI 辅助编程：从小白到独立开发者的捷径",
+        content: "利用 Cursor、GitHub Copilot 等工具，通过自然语言描述需求，让 AI 帮你写代码。不会编程也能做产品。",
+        image: "https://picsum.photos/seed/code/800/450",
+        details: ["Cursor: 最好用的 AI 编程编辑器", "如何向 AI 描述复杂的业务逻辑", "代码调试 (Debug) 的 AI 技巧", "利用 AI 快速学习新框架", "构建并部署你的第一个产品", "代码安全与最佳实践"],
         fullContent: [
-          {
-            subtitle: "1. 插件的工作原理",
-            text: "插件本质上是连接 AI 与外部世界的桥梁。通过简单的代码，你可以让 AI 具备查天气、订机票、操作智能家居的能力。"
-          },
-          {
-            subtitle: "2. 快速起步模板",
-            text: "我们将提供一套标准的插件开发模板，让你在 10 分钟内就能写出自己的第一个插件。"
-          }
+          { subtitle: "1. 自然语言驱动开发", text: "现在的编程更像是'对话'。你只需要描述需求，AI 就能帮你搭建好基础框架。Cursor 是目前最主流的 AI 编程工具。" },
+          { subtitle: "2. 快速学习新领域", text: "遇到看不懂的代码？直接让 AI 逐行解释。它是你 24 小时在线的顶级编程导师。" }
+        ]
+      },
+      {
+        title: "电商 / 自由职业：一人公司的高效运营",
+        content: "AI 选品、AI 客服、AI 数据分析。探索如何用 AI 让一个人的电商/自由职业团队达到传统 5-10 人团队的效率。",
+        image: "https://picsum.photos/seed/ecommerce/800/450",
+        details: ["AI 选品：利用数据分析找到蓝海市场", "AI 客服：24 小时智能回复与问题分类", "AI 运营：文案、投放、数据分析自动化", "AI 设计：产品图、详情页批量生成", "AI 财务：收支分析与报表自动化", "自由职业者：项目管理与客户沟通提效"],
+        fullContent: [
+          { subtitle: "1. AI 选品策略", text: "利用 AI 分析电商平台数据、社交媒体趋势和用户评论，找到高需求低竞争的产品方向。这比传统的'凭感觉选品'效率高出数倍。" },
+          { subtitle: "2. 自动化客服系统", text: "通过 OpenClaw + AI 模型搭建 24 小时客服系统，自动处理 80% 的常见问题，复杂问题再转人工。大幅节省人力成本。" }
         ]
       }
     ]
   },
-  "scenarios": {
-    title: "AI 应用场景",
-    subtitle: "实战演练，生产力飞跃",
-    icon: Zap,
-    color: "orange",
-    description: "实战演练：AI 在办公、创意、编程、生活等全场景的应用。将技术转化为真实的生产力。",
+  "toolbox": {
+    title: "超级个体工具箱",
+    subtitle: "免费 · 低价 · 精选推荐",
+    icon: Layers,
+    color: "blue",
+    description: "精选免费/低价 AI 工具合集 + 一人公司效率栈（Notion+AI+自动化+OpenClaw）。帮你找到最适合的 AI 工具组合，不花冤枉钱。",
     keyTakeaways: [
-      "掌握 10+ 个高频职场 AI 提效场景",
-      "学会利用 AI 快速产出爆款自媒体内容",
-      "构建个人专属的 AI 知识库与第二大脑",
-      "探索 AI 在生活理财与旅行规划中的妙用"
+      "2026 年最值得关注的 AI 工具全景",
+      "免费/低价工具替代方案（不花冤枉钱）",
+      "一人公司效率栈搭建指南",
+      "按场景匹配最佳工具组合"
     ],
     sections: [
-      {
-        title: "职场办公自动化",
-        content: "利用 AI 快速生成周报、PPT 大纲、会议纪要，让重复性工作缩短 80%。",
-        icon: Zap
-      },
-      {
-        title: "创意内容生产",
-        content: "AI 辅助写作、设计、视频剪辑。一个人就是一支营销团队，释放无限创意。",
-        icon: Star
-      },
-      {
-        title: "个人知识库构建",
-        content: "将碎片化信息转化为结构化知识，利用 AI 构建您的“第二大脑”，永不遗忘。",
-        icon: BookOpen
-      }
+      { title: "AI 对话工具", content: "ChatGPT、Claude、DeepSeek、Kimi、通义千问等主流对话模型的对比与选型。", icon: Bot },
+      { title: "AI 创意工具", content: "Midjourney、可灵(Kling)、Suno、Gamma 等视觉/音乐/演示工具。", icon: Star },
+      { title: "一人公司效率栈", content: "Notion + AI + 自动化 + OpenClaw 的完整效率工具链。", icon: Rocket }
     ],
     lessons: [
       {
-        title: "AI 办公提效 36 计：告别加班的秘密武器",
-        content: "从写邮件到做 PPT，从数据分析到会议纪要。本课将分享 36 个即学即用的 AI 办公技巧，帮你每天节省 2 小时。",
-        image: "https://picsum.photos/seed/office/800/450",
-        details: [
-          "AI 撰写专业邮件：得体、高效、多语言",
-          "一键生成 PPT 大纲与视觉素材",
-          "Excel 高级公式与数据透视表 AI 助手",
-          "会议录音转纪要：自动提取行动项",
-          "PDF 长文档快速阅读与总结",
-          "多任务并行的 AI 时间管理法"
-        ],
+        title: "2026 AI 工具全景：对话、绘图、视频、编程一站全览",
+        content: "为你梳理 2026 年最值得关注的 AI 工具，涵盖对话、绘图、视频生成、编程辅助、AI 搜索等全场景。",
+        image: "https://picsum.photos/seed/tools2026/800/450",
+        details: ["对话类：ChatGPT (全能) / Claude (逻辑) / DeepSeek (性价比)", "国产推荐：Kimi (长文本) / 通义千问 (办公) / 文心一言 (知识库)", "创意绘图：Midjourney / DALL-E / Flux.1 / 通义万相", "视频生成：可灵 Kling / Sora / Runway", "AI 搜索：Perplexity / 秘塔AI搜索", "编程辅助：Cursor / GitHub Copilot / Windsurf"],
         fullContent: [
-          {
-            subtitle: "1. PPT 制作的革命",
-            text: "不再需要从零开始。先让 AI 帮你梳理逻辑大纲，再配合 AI 绘图工具生成高质量配图，最后使用 Gamma 等工具一键排版。"
-          },
-          {
-            subtitle: "2. 数据分析不再难",
-            text: "把原始数据丢给 AI，它能帮你写 Python 代码进行分析，并直接生成精美的可视化图表，你只需要负责解读结果。"
-          }
+          { subtitle: "1. 对话类工具", text: "ChatGPT 依然是最均衡的选择；Claude 在逻辑严密性和代码编写上优势独特；DeepSeek 以极高性价比和强大的中文理解力成为国产黑马。" },
+          { subtitle: "2. 视觉与视频", text: "Midjourney 依然统治艺术绘图领域；国产可灵(Kling)在视频生成方面表现突出；Suno 则是 AI 音乐生成的首选。" },
+          { subtitle: "3. 编程与效率", text: "Cursor 是目前最主流的 AI 编程编辑器，通过自然语言对话即可生成代码；Perplexity 改变了信息获取方式，直接总结答案并附引用来源。" }
         ]
       },
       {
-        title: "自媒体爆款内容生成：一个人就是一支团队",
-        content: "如何利用 AI 找选题、写脚本、配图、剪辑？我们将拆解一套完整的自媒体 AI 工作流，让你高产似母猪，质量赛大厂。",
-        image: "https://picsum.photos/seed/media/800/450",
-        details: [
-          "选题挖掘：利用 AI 分析热点与用户痛点",
-          "爆款标题生成：5 种心理学钩子公式",
-          "视频脚本拆解：黄金 3 秒与留存钩子",
-          "AI 批量生成高质量配图与封面",
-          "数字人播报与 AI 配音实战",
-          "全平台分发与数据反馈分析"
-        ],
+        title: "免费/低价工具替代方案：不花冤枉钱",
+        content: "很多付费 AI 工具都有免费的替代方案。本课帮你找到性价比最高的工具组合，用最少的钱获得最大的价值。",
+        image: "https://picsum.photos/seed/free-tools/800/450",
+        details: ["DeepSeek：免费模型能力媲美 GPT-4", "Kimi：200 万字长文本免费使用", "Stable Diffusion：免费本地部署替代 Midjourney", "Ollama：免费本地运行开源大模型", "Zotero + AI：免费文献管理与知识库", "LibreOffice + AI：免费替代 Office 365 Copilot"],
         fullContent: [
-          {
-            subtitle: "1. 选题的艺术",
-            text: "AI 可以帮你分析成千上万条热门评论，找出用户最关心的问题，从而精准定位你的内容方向。"
-          },
-          {
-            subtitle: "2. 脚本的结构化生产",
-            text: "通过设定特定的角色和受众，AI 可以帮你写出极具共鸣感的文案，并自动标注出适合插入素材的时间点。"
-          }
+          { subtitle: "1. 免费模型的力量", text: "DeepSeek 提供了免费额度，其模型能力在多项评测中接近甚至超过 GPT-4 水平。Kimi 同样提供 generous 的免费额度，200 万字上下文处理能力。" },
+          { subtitle: "2. 本地部署方案", text: "通过 Ollama 或 LM Studio，你可以在本地免费运行 Llama、Qwen 等开源大模型。配合 Stable Diffusion，你可以完全不花钱实现 AI 绘图。" }
         ]
       },
       {
-        title: "AI 辅助编程实战：从小白到全栈的捷径",
-        content: "不会写代码也能做产品？本课将教你如何利用 GitHub Copilot, Cursor 等工具，通过自然语言描述需求，让 AI 帮你写出高质量代码。",
-        image: "https://picsum.photos/seed/code/800/450",
-        details: [
-          "Cursor: 最好用的 AI 编程编辑器入门",
-          "如何向 AI 描述复杂的业务逻辑",
-          "代码调试 (Debug) 的 AI 技巧",
-          "利用 AI 快速学习新框架与新技术",
-          "构建并部署你的第一个 AI 小程序",
-          "代码安全与最佳实践"
-        ],
+        title: "一人公司效率栈：从 Notion 到 OpenClaw",
+        content: "搭建完整的个人效率工具链：Notion (知识管理) + AI (内容生成) + 自动化 (Zapier/n8n) + OpenClaw (AI 助手)。",
+        image: "https://picsum.photos/seed/efficiency-stack/800/450",
+        details: ["Notion：个人知识管理与项目管理", "AI 对话工具：内容生成与问题解决", "自动化工具：Zapier / n8n 连接一切", "OpenClaw：24/7 AI 助手处理琐事", "数据同步与备份策略", "实际案例：我的效率栈配置"],
         fullContent: [
-          {
-            subtitle: "1. 自然语言驱动开发",
-            text: "现在的编程更像是'对话'。你只需要描述：'我需要一个带登录功能的商城首页'，AI 就能帮你搭建好基础框架。"
-          },
-          {
-            subtitle: "2. 快速学习新领域",
-            text: "遇到看不懂的代码？直接让 AI 逐行解释。它是你 24 小时在线的顶级编程导师。"
-          }
+          { subtitle: "1. 为什么需要效率栈？", text: "单个工具只能解决单个问题。一套整合的效率栈能打通信息孤岛，让数据在工具间自动流转，实现\"设置一次，自动运行\"的效果。" },
+          { subtitle: "2. 推荐组合方案", text: "Notion 做知识和项目管理大脑，OpenClaw 做日常自动化助手，Cursor 做开发工具，Perplexity 做信息检索。这四个工具覆盖了超级个体 90% 的需求。" }
+        ]
+      }
+    ]
+  },
+  "cases": {
+    title: "真实案例库",
+    subtitle: "可验证 · 公开报道 · 深度拆解",
+    icon: Users,
+    color: "purple",
+    description: "精选公开报道的\"1人+AI\"真实案例，拆解他们用了什么工具、做了什么、收入如何。不画大饼，只讲事实。",
+    keyTakeaways: [
+      "了解真实的 AI 创业案例与收入数据",
+      "拆解成功案例的工具组合与工作流",
+      "认识 AI 创业的真实困难与挑战",
+      "找到适合你的 AI 变现路径"
+    ],
+    sections: [
+      { title: "海外案例", content: "Ishan Sharma、Every 公司等公开报道的真实 AI 创业故事。", icon: Globe },
+      { title: "国内案例", content: "被裁程序员、自由职业者用 AI 创业的真实经历。", icon: Users },
+      { title: "避坑指南", content: "AI 创业常见误区、真实困难与应对策略。", icon: ShieldCheck }
+    ],
+    lessons: [
+      {
+        title: "案例拆解：Ishan Sharma 如何用 8 个 AI 工具运营 300 万粉丝",
+        content: "Ishan Sharma 是一位印度 YouTuber，在 TED2025 上分享了如何用 8 个 AI 工具将团队从 40 人缩减到 25 人，同时维持 300 万粉丝的内容产出。（来源：TED2025 / 网易报道）",
+        image: "https://picsum.photos/seed/ishan/800/450",
+        details: ["背景：印度知名科技 YouTuber，300 万订阅", "8 个 AI 工具：ChatGPT / Claude / Midjourney / Cursor 等", "团队精简：40 人 → 25 人，效率不降反升", "核心策略：AI 负责草稿和初版，人类负责创意决策", "关键认知：AI 不是替代人，而是让每个人产出 10 倍", "启示：内容创作者的核心价值在于审美和判断力"],
+        fullContent: [
+          { subtitle: "1. 背景与工具组合", text: "Ishan Sharma 在 TED2025 演讲中详细介绍了他使用的 8 个 AI 工具：ChatGPT 用于脚本初稿，Claude 用于深度研究，Midjourney 用于缩略图，Cursor 用于网站开发，以及用于视频剪辑、SEO 优化等环节的 AI 工具。" },
+          { subtitle: "2. 团队变化", text: "通过引入 AI 工具，他的团队从 40 人缩减到 25 人，但内容产出量反而增加了。AI 处理了脚本初稿、素材整理、SEO 优化等重复性工作，让团队成员可以专注于创意和策略。" },
+          { subtitle: "3. 核心观点", text: "Ishan 强调：AI 不会取代内容创作者，但会用 AI 的创作者会取代不会用的人。他建议每个人都应该学会至少 3 个 AI 工具。" }
         ]
       },
       {
-        title: "生活助手：AI 旅游与理财妙用",
-        content: "AI 不仅能工作，还能让生活更美好。学习如何利用 AI 规划一场说走就走的旅行，或者制定一份科学的个人理财计划。",
-        image: "https://picsum.photos/seed/life/800/450",
-        details: [
-          "AI 旅游攻略：避坑、省钱、深度游",
-          "个人财务报表 AI 分析与预算建议",
-          "AI 辅助健康管理与食谱定制",
-          "智能家居场景联动配置",
-          "AI 辅助语言学习：你的私人外教",
-          "情感咨询与心理疏导 AI 实践"
-        ],
+        title: "案例拆解：Samuel 从配镜师到程序员，3 个月收入 $35K",
+        content: "Samuel 原本是一名配镜师，通过复制成功的应用并利用 AI 工具学习编程，在 3 个月内实现了月收入 3.5 万美元。（来源：腾讯云 2025.9 报道）",
+        image: "https://picsum.photos/seed/samuel/800/450",
+        details: ["背景：配镜师转行，零编程基础", "方法：复制已有成功应用的商业模式", "工具：Cursor / ChatGPT 辅助学习编程", "时间线：3 个月达到 $35K/月收入", "关键策略：找到验证过的市场需求，用 AI 降低技术门槛", "风险提示：复制模式有法律风险，需注意知识产权"],
         fullContent: [
-          {
-            subtitle: "1. 极致的旅行规划",
-            text: "告诉 AI 你的预算、兴趣和时间，它能帮你规划出精确到分钟的行程单，甚至帮你查好当地的特色美食和隐藏打卡点。"
-          },
-          {
-            subtitle: "2. 理财的小助手",
-            text: "输入你的收支数据，AI 能帮你分析消费习惯，并根据当前的经济形势，提供一些基础的资产配置建议。"
-          }
+          { subtitle: "1. 转型路径", text: "Samuel 的核心策略是：不发明轮子，而是找到已有成功的小型应用（如工具类 App），用 AI 工具快速复制并改进。Cursor 帮他处理了大部分编码工作，ChatGPT 帮他理解业务逻辑。" },
+          { subtitle: "2. 收入数据", text: "根据腾讯云报道，Samuel 在转型 3 个月后月收入达到 3.5 万美元。但需注意，这是经过筛选报道的案例，不代表普遍水平。大多数人的转型过程会更长、更艰难。" },
+          { subtitle: "3. 需要注意的风险", text: "复制模式存在知识产权风险。更重要的是，Samuel 有配镜师的工作收入支撑转型期，并非完全从零开始。AI 创业不能保证快速成功，需要充分的准备和持续的学习。" }
+        ]
+      },
+      {
+        title: "案例拆解：Every 公司 15 人团队如何实现 7 位数营收",
+        content: "Every 是一家美国媒体公司，通过大量使用 AI 自动化工具，仅 15 人团队实现了 7 位数的年营收。（来源：腾讯云 2026.3 报道）",
+        image: "https://picsum.photos/seed/every-co/800/450",
+        details: ["背景：美国媒体公司，垂直领域内容", "团队：仅 15 人，实现 7 位数年营收", "AI 应用：内容生成、编辑、分发全流程", "核心理念：AI 负责生产，人类负责质量和方向", "关键洞察：小团队 + AI 可以挑战大公司", "适用性分析：这个模式适合有媒体经验的人"],
+        fullContent: [
+          { subtitle: "1. Every 的 AI 策略", text: "Every 团队在内容生产的各个环节都引入了 AI：选题分析用 AI 搜索数据，初稿由 AI 撰写，编辑用 AI 辅助校对，分发用 AI 优化 SEO。人类编辑主要负责质量把控和方向决策。" },
+          { subtitle: "2. 关键成功因素", text: "Every 的成功不仅因为用了 AI，更因为他们有深厚的媒体行业经验。AI 是加速器，不是起点。团队对内容质量的把控能力才是核心竞争力。" },
+          { subtitle: "3. 对普通人的启示", text: "如果你想复制这种模式，首先要在某个垂直领域建立专业能力，然后再用 AI 放大你的产出。AI 不能替代专业知识。" }
+        ]
+      }
+    ]
+  },
+  "growth": {
+    title: "成长路径",
+    subtitle: "分阶段 · 可执行 · 循序渐进",
+    icon: BookOpen,
+    color: "emerald",
+    description: "从零基础到独立运营 AI 业务的成长路线图。分阶段规划你该学什么、做什么，避免走弯路。不承诺暴富，只提供务实的成长建议。",
+    keyTakeaways: [
+      "阶段 0：建立 AI 基础认知，搭建工具矩阵",
+      "阶段 1：找到你的垂直领域，用 AI 提效",
+      "阶段 2：构建个人产品或服务，开始变现",
+      "持续学习：关注行业动态，不断迭代"
+    ],
+    sections: [
+      { title: "阶段 0：入门", content: "了解 AI 基础概念，学会使用 ChatGPT/DeepSeek，掌握基本 Prompt 技巧。", icon: Lightbulb },
+      { title: "阶段 1：提效", content: "在现有工作中深度使用 AI，找到你的垂直领域优势。", icon: Zap },
+      { title: "阶段 2：变现", content: "构建个人产品或服务，探索 AI 变现路径。", icon: Rocket }
+    ],
+    lessons: [
+      {
+        title: "阶段 0（1-2 周）：建立 AI 基础认知",
+        content: "目标：了解 AI 基本概念，学会使用 3 个以上的 AI 工具，掌握基本 Prompt 技巧，为后续学习打下基础。",
+        image: "https://picsum.photos/seed/phase0/800/450",
+        details: ["Day 1-3：注册并使用 ChatGPT / DeepSeek，了解基本对话", "Day 4-7：学习 Prompt Engineering 基础公式", "Day 8-10：尝试 Midjourney / 可灵等创意工具", "Day 11-14：整理个人 AI 工具清单，建立工作流雏形", "推荐资源：本站 AI 超级个体入门模块", "里程碑：能用 AI 独立完成一个简单任务（写文章/做PPT）"],
+        fullContent: [
+          { subtitle: "1. 核心任务", text: "这个阶段的目标不是精通，而是\"上手\"。你需要亲自使用 3 个以上的 AI 工具，体验它们的能力边界。不需要学底层原理，只需要知道它们能做什么、不能做什么。" },
+          { subtitle: "2. 学习建议", text: "不要追求完美，先动手。哪怕只是用 ChatGPT 帮你写一封邮件、用 Midjourney 生成一张图片，都是好的开始。关键是建立\"AI 能帮我做事\"的直觉。" }
+        ]
+      },
+      {
+        title: "阶段 1（1-3 月）：深度使用 AI 提效",
+        content: "目标：在现有工作或副业中深度使用 AI，将效率提升 3-5 倍，找到你感兴趣且擅长的垂直领域。",
+        image: "https://picsum.photos/seed/phase1/800/450",
+        details: ["在当前工作中找到 3 个可用 AI 优化的环节", "为每个环节搭建 AI 辅助工作流", "学习 OpenClaw 等自动化工具", "开始在小红书/知乎/公众号等平台发布 AI 相关内容", "加入 AI 社群，持续学习交流", "里程碑：工作效率明显提升，开始积累个人品牌"],
+        fullContent: [
+          { subtitle: "1. 找到提效切入点", text: "回顾你每天的日常工作，找到最耗时的 3 个环节。通常这些环节有一定的重复性或规律性，最适合引入 AI。不要试图一次性改变所有工作方式，从小处着手。" },
+          { subtitle: "2. 持续输出", text: "在社交媒体上分享你的 AI 使用经验和心得。这不仅能帮你积累个人品牌，还能倒逼你持续学习和思考。很多超级个体的起点都是从分享开始的。" }
+        ]
+      },
+      {
+        title: "阶段 2（3-6 月）：探索变现路径",
+        content: "目标：基于你的垂直领域专业知识和 AI 能力，构建个人产品或服务，开始探索变现方式。",
+        image: "https://picsum.photos/seed/phase2/800/450",
+        details: ["方向 1：AI 辅助咨询/服务（如 AI 培训、Prompt 定制）", "方向 2：AI 工具/产品开发（如浏览器插件、小程序）", "方向 3：内容变现（课程、专栏、付费社群）", "方向 4：一人公司（用 AI 运营电商/自媒体）", "重要提醒：不要辞去主业，先从副业开始验证", "里程碑：获得第一笔 AI 相关收入"],
+        fullContent: [
+          { subtitle: "1. 选择变现方向", text: "根据你在阶段 1 积累的专业知识和技能来选择变现方向。如果你擅长写作，可以考虑内容变现；如果你擅长编程，可以开发 AI 工具；如果你擅长培训，可以做 AI 课程。" },
+          { subtitle: "2. 小步快跑，快速验证", text: "不要花 3 个月打磨一个\"完美产品\"然后才上线。先做一个 MVP（最小可行产品），快速获取用户反馈，然后迭代改进。AI 的优势之一就是帮你快速试错。" },
+          { subtitle: "3. 管理预期", text: "根据公开报道的案例，从开始学习 AI 到实现稳定收入，通常需要 3-6 个月甚至更长。不要被\"月入 10 万\"的标题误导，大多数人的成长曲线是缓慢上升的。关键是持续行动，不放弃。" }
         ]
       }
     ]
@@ -735,15 +460,15 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-6">
           <Link to="/" className="text-sm font-medium text-gray-400 hover:text-white transition-colors">首页</Link>
-          {Object.entries(MODULE_CONTENT).map(([id, content]) => (
+          {Object.entries(MODULE_CONTENT).map(([id]) => (
             <Link 
               key={id} 
               to={`/module/${id}`} 
               className="text-sm font-medium text-gray-400 hover:text-white transition-colors"
             >
-              {content.title.replace("模块", "")}
+              {NAV_LABELS[id] || id}
             </Link>
           ))}
           <motion.button 
@@ -775,14 +500,14 @@ const Navbar = () => {
             className="md:hidden absolute top-full left-0 right-0 bg-black border-b border-white/10 p-6 flex flex-col gap-4"
           >
             <Link to="/" className="text-lg font-medium text-gray-400" onClick={() => setIsMobileMenuOpen(false)}>首页</Link>
-            {Object.entries(MODULE_CONTENT).map(([id, content]) => (
+            {Object.entries(MODULE_CONTENT).map(([id]) => (
               <Link 
                 key={id} 
                 to={`/module/${id}`} 
                 className="text-lg font-medium text-gray-400"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                {content.title}
+                {NAV_LABELS[id] || id}
               </Link>
             ))}
             <motion.button 
@@ -837,8 +562,8 @@ const Hero = () => {
           <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-blue-400 uppercase bg-blue-400/10 border border-blue-400/20 rounded-full">
             让每个人成为超级个体
           </span>
-          <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
-            AI Superman <br />
+          <h1 className="text-4xl md:text-7xl font-black tracking-tighter text-white mb-10 leading-[1.1]">
+            AI Superman <br className="my-2" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
               EVOLUTION
             </span>
@@ -852,15 +577,15 @@ const Hero = () => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={handleStart}
-              className="w-full sm:w-auto px-6 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-500 transition-all shadow-[0_0_15px_rgba(37,99,235,0.2)] cursor-pointer text-base"
+              className="w-full sm:w-auto px-10 py-5 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-black text-lg rounded-2xl hover:from-blue-500 hover:to-purple-500 transition-all shadow-[0_0_20px_rgba(37,99,235,0.3)] cursor-pointer"
             >
-              立即开始探索
+              开始探索
             </motion.button>
             <motion.button 
-              whileHover={{ backgroundColor: "rgba(255,255,255,0.1)" }}
+              whileHover={{ scale: 1.02, boxShadow: "0 0 40px rgba(255,255,255,0.2)" }}
               whileTap={{ scale: 0.98 }}
               onClick={handleLearnMore}
-              className="w-full sm:w-auto px-6 py-3 bg-white/5 text-white font-bold rounded-xl border border-white/10 transition-all cursor-pointer text-base"
+              className="w-full sm:w-auto px-10 py-5 bg-white text-blue-600 font-black text-lg rounded-2xl hover:bg-gray-100 transition-all shadow-2xl cursor-pointer"
             >
               了解更多
             </motion.button>
@@ -919,45 +644,81 @@ const ModuleCard = ({ title, desc, icon: Icon, color, index, id }: any) => {
 const Modules = () => {
   const modules = [
     {
-      id: "ai-basics",
-      title: "AI 入门模块",
-      desc: "从零开始了解 AI 的基本概念、历史发展及未来趋势。为你的超级个体之路打下坚实基础。",
+      id: "super-individual",
+      title: "AI 超级个体入门",
+      desc: "从\"知道AI\"到\"用好AI\"。理解超级个体逻辑，掌握 Prompt 基础，搭建个人 AI 工具矩阵。",
       icon: Rocket,
       color: "blue",
     },
     {
       id: "llm",
-      title: "大模型模块",
-      desc: "深度解析 GPT、Claude、Gemini 等主流大模型。掌握 Prompt Engineering，释放模型最大潜力。",
+      title: "大模型实战库",
+      desc: "深度解析 ChatGPT、Claude、DeepSeek 等主流模型。按场景提供 Prompt 模板，选型配置一站搞定。",
       icon: Brain,
       color: "purple",
     },
     {
       id: "openclaw",
-      title: "OpenClaw 模块",
-      desc: "探索 OpenClaw 生态系统，学习如何利用开源工具构建属于你自己的 AI 助手 and 自动化流程。",
+      title: "OpenClaw 实战专区",
+      desc: "开源 AI 助手框架。本地部署、1700+ Skills 技能、10 个超级个体必用工作流。",
       icon: Cpu,
       color: "emerald",
     },
     {
       id: "scenarios",
-      title: "AI 应用场景",
-      desc: "实战演练：AI 在办公、创意、编程、生活等全场景的应用。将技术转化为真实的生产力。",
+      title: "超级个体场景库",
+      desc: "按职业分类：内容创作者、设计师、程序员、电商。每个场景给工具组合+流程+案例。",
       icon: Zap,
       color: "orange",
+    },
+    {
+      id: "toolbox",
+      title: "超级个体工具箱",
+      desc: "精选免费/低价 AI 工具合集 + 一人公司效率栈（Notion+AI+自动化+OpenClaw）。",
+      icon: Layers,
+      color: "blue",
+    },
+    {
+      id: "cases",
+      title: "真实案例库",
+      desc: "公开报道的\"1人+AI\"赚钱案例深度拆解。不画大饼，只讲事实，标注来源。",
+      icon: Users,
+      color: "purple",
+    },
+    {
+      id: "growth",
+      title: "成长路径",
+      desc: "从零基础到 AI 变现的务实路线图。分阶段规划学什么、做什么，避免走弯路。",
+      icon: BookOpen,
+      color: "emerald",
     },
   ];
 
   return (
     <section id="modules" className="py-24 px-6 max-w-7xl mx-auto">
       <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">核心学习模块</h2>
+        <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">七大核心模块</h2>
         <p className="text-gray-400 max-w-2xl mx-auto">
-          我们精心设计了四大核心模块，涵盖从理论到实战的全方位内容，助你全方位进化。
+          从入门到实战，从工具到案例。七大模块覆盖超级个体进化全链路，助你一人成军。
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {/* Stats */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+        {[
+          { value: "7", label: "核心模块" },
+          { value: "20+", label: "实战课程" },
+          { value: "50+", label: "Prompt 模板" },
+          { value: "10", label: "OpenClaw 工作流" },
+        ].map((stat, i) => (
+          <div key={i} className="text-center p-6 bg-white/5 border border-white/10 rounded-2xl">
+            <div className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mb-2">{stat.value}</div>
+            <div className="text-sm text-gray-400">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {modules.map((mod, i) => (
           <ModuleCard key={mod.title} {...mod} index={i} />
         ))}
@@ -1001,6 +762,62 @@ const HomePage = () => {
       <Hero />
       <Modules />
       
+      {/* Free Resources */}
+      <section className="py-24 px-6 max-w-7xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">免费资源</h2>
+          <p className="text-gray-400 max-w-2xl mx-auto">
+            我们为你准备了入门必备的免费资源，扫码进群即可领取完整版。
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            { icon: BookOpen, title: "入门电子书", desc: "《AI 超级个体入门指南》PDF，零基础友好" },
+            { icon: FileText, title: "Prompt 模板集", desc: "50+ 可直接复用的 Prompt 模板，按场景分类" },
+            { icon: Cpu, title: "OpenClaw 工作流", desc: "10 个超级个体必用自动化工作流详细教程" },
+            { icon: Users, title: "案例合集", desc: "精选 3 个公开报道的真实 AI 创业案例拆解" },
+          ].map((item, i) => (
+            <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+              className="p-6 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/8 transition-all">
+              <div className="w-12 h-12 bg-blue-600/20 rounded-xl flex items-center justify-center text-blue-400 mb-4"><item.icon size={24} /></div>
+              <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
+              <p className="text-sm text-gray-400">{item.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Growth Path Preview */}
+      <section className="py-24 px-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">成长路径</h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              从零基础到独立运营 AI 业务，循序渐进的务实成长路线。
+            </p>
+          </div>
+          <div className="space-y-8">
+            {[
+              { phase: "阶段 0", time: "1-2 周", title: "建立 AI 基础认知", desc: "学会使用 ChatGPT/DeepSeek，掌握 Prompt 基础公式，搭建个人工具矩阵", color: "blue" },
+              { phase: "阶段 1", time: "1-3 月", title: "深度使用 AI 提效", desc: "在现有工作中深度使用 AI，搭建自动化工作流，开始积累个人品牌", color: "purple" },
+              { phase: "阶段 2", time: "3-6 月", title: "探索变现路径", desc: "基于垂直领域知识 + AI 能力，构建个人产品或服务，获得第一笔收入", color: "emerald" },
+            ].map((step, i) => (
+              <motion.div key={i} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15 }}
+                className="flex items-start gap-6 p-8 bg-white/5 border border-white/10 rounded-3xl hover:bg-white/8 transition-all">
+                <div className={`w-16 h-16 rounded-2xl bg-${step.color}-600/20 flex items-center justify-center text-${step.color}-400 shrink-0 text-sm font-bold`}>{step.phase}</div>
+                <div>
+                  <div className="flex items-center gap-3 mb-2">
+                    <h3 className="text-xl font-bold text-white">{step.title}</h3>
+                    <span className="text-xs font-medium text-gray-500 bg-white/5 px-3 py-1 rounded-full">{step.time}</span>
+                  </div>
+                  <p className="text-gray-400">{step.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section id="community" className="py-24 px-6">
         <div className="max-w-5xl mx-auto bg-gradient-to-br from-blue-600 to-purple-700 rounded-[40px] p-12 md:p-20 text-center relative overflow-hidden">
