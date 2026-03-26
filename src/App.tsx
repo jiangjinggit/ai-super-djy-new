@@ -861,7 +861,7 @@ const Hero = () => {
           </span>
           <h1 className="text-4xl md:text-7xl font-black tracking-tighter text-white mb-10 leading-[1.1]">
             AI Superman <br className="my-2" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">EVOLUTION</span>
+            <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text [-webkit-text-fill-color:transparent] [-webkit-background-clip:text]">EVOLUTION</span>
           </h1>
           <p className="max-w-2xl mx-auto text-lg md:text-xl text-gray-400 mb-10 leading-relaxed">
             探索人工智能的无限可能。从零基础入门到掌握前沿大模型，
