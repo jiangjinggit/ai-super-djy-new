@@ -932,7 +932,7 @@ const Modules = () => {
           { value: "7", label: "职业场景" },
         ].map((stat, i) => (
           <div key={i} className="text-center p-6 bg-white/5 border border-white/10 rounded-2xl">
-            <div className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mb-2">{stat.value}</div>
+            <div className="text-3xl md:text-4xl font-black bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text [-webkit-text-fill-color:transparent] [-webkit-background-clip:text] mb-2">{stat.value}</div>
             <div className="text-sm text-gray-400">{stat.label}</div>
           </div>
         ))}
