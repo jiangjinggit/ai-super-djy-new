@@ -45,14 +45,14 @@ export const MODULE_CONTENT: Record<ModuleId, ModuleContent> = {
           "Transformer 架构：AI 的\"大脑\"，通过注意力机制理解上下文关系",
           "训练过程：预测下一个 token 的概率游戏，而非逐字记忆",
           "涌现能力：当模型规模足够大时，会自发产生推理、编程、翻译等能力",
-          "知识截止日期：GPT-5.4 截至 2025.8 / Claude Opus 4.6 训练数据截至 2026.1",
+          "知识截止日期：GPT-5.4 截至 2025.8 / Claude Opus 4.5 可靠知识截止 2025.3",
           "幻觉成因：面对知识盲区时，模型会\"接龙\"出看似合理的错误信息",
           "超级个体的前提：理解 AI 能做什么和不能做什么，才能正确地使用它"
         ],
         fullContent: [
           { subtitle: "1. 大模型是如何\"思考\"的？", text: "以 DeepSeek V3.2 为例：它不是在\"查找\"答案，而是在\"预测\"下一个最可能的 token（词元）。当你说\"中国的首都是\"，它预测下一个 token 是\"北京\"的概率接近 100%。对于复杂问题，它通过多步预测来\"推理\"出答案。DeepSeek reasoner（思考模式）会在输出前先进行内部推理链，类似人类\"思考后再回答\"。" },
-          { subtitle: "2. 为什么不同模型\"性格\"不同？", text: "模型的\"性格\"取决于训练数据、微调方式和 RLHF（人类反馈强化学习）。GPT-5.4 偏向全能和实用主义，Claude Opus 4.6 偏向严谨和安全，DeepSeek V3.2 中文理解力强且性价比极高。选择模型就像选择员工——不同岗位用不同的人。" },
-          { subtitle: "3. 知识截止日期与实时能力", text: "纯模型推理无法获取最新信息。GPT-5.4 知识截止 2025 年 8 月，Claude Opus 4.6 训练数据截止 2026 年 1 月。但 GPT-5.4 支持网页搜索和文件搜索，可以弥补这一限制。Claude 同样支持工具调用。这就是为什么 OpenClaw 等框架要给模型\"接手接脚\"——让它能搜索、读文件、浏览网页。" },
+          { subtitle: "2. 为什么不同模型\"性格\"不同？", text: "模型的\"性格\"取决于训练数据、微调方式和 RLHF（人类反馈强化学习）。GPT-5.4 偏向全能和实用主义，Claude Opus 4.5 偏向严谨和安全，DeepSeek V3.2 中文理解力强且性价比极高。选择模型就像选择员工——不同岗位用不同的人。" },
+          { subtitle: "3. 知识截止日期与实时能力", text: "纯模型推理无法获取最新信息。GPT-5.4 知识截止 2025 年 8 月，Claude Opus 4.5 可靠知识截止 2025 年 3 月。但 GPT-5.4 支持网页搜索和文件搜索，可以弥补这一限制。Claude 同样支持工具调用。这就是为什么 OpenClaw 等框架要给模型\"接手接脚\"——让它能搜索、读文件、浏览网页。" },
           { subtitle: "4. 幻觉是什么，怎么应对？", text: "幻觉（Hallucination）是指模型生成了听起来合理但实际错误的内容。成因：训练数据中没有相关知识时，模型仍会\"接龙\"出看似合理的答案。应对方法：①要求模型引用来源（\"请给出你的依据\"）；②对关键数据用 Perplexity 或 GPT-5.4 网页搜索验证；③使用 RAG（检索增强生成）让模型基于你提供的文档回答，而非凭空生成。" },
           { subtitle: "5. Token 是什么，为什么重要？", text: "Token 是模型处理文本的基本单位，大约 1 个中文字 = 1.5-2 个 token，1 个英文单词 ≈ 1.3 个 token。理解 token 有两个实际意义：①成本计算——所有 API 按 token 计费，DeepSeek V3.2 输入 $0.28/MTok 意味着处理 100 万个 token 花 $0.28；②上下文窗口——模型每次能\"看到\"的 token 数量有上限，GPT-5.4 是 100 万，DeepSeek V3.2 是 12.8 万，超出后早期内容会被截断。" }
         ]
@@ -72,7 +72,7 @@ export const MODULE_CONTENT: Record<ModuleId, ModuleContent> = {
         fullContent: [
           { subtitle: "1. 角色 + 规则 = System Prompt", text: "Claude 官方文档明确推荐：在 system 消息中定义 AI 的角色、行为规则和输出格式。例如：\"你是一位资深产品经理。回答必须包含：1）问题分析 2）解决方案 3）优先级排序。每个部分不超过 100 字。\" 这比在用户消息中描述角色效果更好，因为 system 消息的权重更高。" },
           { subtitle: "2. Few-Shot 比 Zero-Shot 更可靠", text: "与其花 500 字描述\"请按以下格式输出\"，不如直接给 2 个示例。OpenAI 官方研究表明，Few-Shot 在格式控制、风格一致性、减少幻觉方面显著优于 Zero-Shot。示例不需要多，2-3 个就足够。DeepSeek V3.2 的 128K 上下文窗口可以轻松容纳大量示例。" },
-          { subtitle: "3. 思维链：让 AI \"想清楚再说\"", text: "DeepSeek V3.2 的 deepseek-reasoner 接口原生支持思考模式，会在输出前自动进行多步推理。Claude Opus 4.6 支持\"扩展思维\"（Extended Thinking），可以在回复前进行深度推理。对于数学、逻辑、复杂决策类任务，思考模式的效果远优于普通模式。代价是响应更慢、成本更高。" },
+          { subtitle: "3. 思维链：让 AI \"想清楚再说\"", text: "DeepSeek V3.2 的 deepseek-reasoner 接口原生支持思考模式，会在输出前自动进行多步推理。Claude Opus 4.5 支持\"扩展思维\"（Extended Thinking），可以在回复前进行深度推理。对于数学、逻辑、复杂决策类任务，思考模式的效果远优于普通模式。代价是响应更慢、成本更高。" },
           { subtitle: "4. 结构化输出：让结果可被程序处理", text: "要求 AI 输出 JSON 格式，可以直接被代码解析，是构建自动化工作流的基础。OpenAI 官方支持 JSON Mode（在 API 请求中设置 response_format: { type: 'json_object' }），DeepSeek 同样支持。示例 Prompt：\"请以 JSON 格式输出，包含字段：title（标题）、summary（100 字摘要）、tags（3 个标签数组）、priority（1-5 优先级）。\"" },
           { subtitle: "5. 约束控制：用否定句减少废话", text: "很多人写 Prompt 只说\"要做什么\"，忘了说\"不要做什么\"。加上约束往往比加上要求更有效。例如：\"不要使用列表格式\"、\"不要重复我的问题\"、\"不要给出免责声明\"、\"回答不超过 200 字\"。Claude 官方文档建议：对于格式控制，否定约束比正面描述更精准。" }
         ]
@@ -90,9 +90,9 @@ export const MODULE_CONTENT: Record<ModuleId, ModuleContent> = {
           "关键认知：你的核心价值是\"判断力\"和\"品味\"，不是\"执行力\""
         ],
         fullContent: [
-          { subtitle: "1. 成本的量级变化", text: "以前请一个文案写一篇 1000 字文章：几百到几千元。现在用 Claude Sonnet 4.6（$3/MTok）：1000 字约消耗 2000 tokens，输入+输出总费用不到 $0.01。以前请一个程序员写一个简单功能：几千到几万元。现在用 Cursor Agent：几小时就能完成，API 成本不到 $1。AI 把\"找人做事\"的边际成本从千元级降到了分钱级。" },
+          { subtitle: "1. 成本的量级变化", text: "以前请一个文案写一篇 1000 字文章：几百到几千元。现在用 Claude Sonnet 4.5（$3/MTok）：1000 字约消耗 2000 tokens，输入+输出总费用不到 $0.01。以前请一个程序员写一个简单功能：几千到几万元。现在用 Cursor Agent：几小时就能完成，API 成本不到 $1。AI 把\"找人做事\"的边际成本从千元级降到了分钱级。" },
           { subtitle: "2. 什么不能交给 AI", text: "AI 不擅长的事：审美判断（什么是\"好看\"）、原创创意（从 0 到 1 的突破）、情感连接（与客户的深度信任关系）、战略决策（选什么赛道、什么时候转型）。这些是你的核心价值。Ishan Sharma 在 TED2025 的演讲中强调了这一点：AI 负责草稿，人类负责创意决策。" },
-          { subtitle: "3. 一人公司的运营模型", text: "传统一人公司：你一个人做所有事，产出有限。AI 超级个体：OpenClaw 24/7 运行处理日常任务（邮件、客服、监控），DeepSeek V3.2 做低成本分析，Claude Opus 4.6 做深度创作，GPT-5.4 做多模态任务。你只需要做决策和把关。月运营成本：API 费用约 50-200 元。" },
+          { subtitle: "3. 一人公司的运营模型", text: "传统一人公司：你一个人做所有事，产出有限。AI 超级个体：OpenClaw 24/7 运行处理日常任务（邮件、客服、监控），DeepSeek V3.2 做低成本分析，Claude Opus 4.5 做深度创作，GPT-5.4 做多模态任务。你只需要做决策和把关。月运营成本：API 费用约 50-200 元。" },
           { subtitle: "4. 如何衡量 AI 带来的提效？", text: "建议用\"时间置换率\"来衡量：某项任务原来需要 2 小时，用 AI 后需要 20 分钟（含审核），置换率 = 100/20 = 5 倍。记录你每周用 AI 完成的任务和节省的时间，3 个月后你会有一份清晰的数据，知道 AI 在哪些环节真正帮到了你，哪些环节还需要优化。" }
         ]
       },
@@ -101,7 +101,7 @@ export const MODULE_CONTENT: Record<ModuleId, ModuleContent> = {
         content: "基于 OpenAI、Anthropic、DeepSeek、月之暗面、Cursor 官方文档，梳理当前最值得关注的 AI 工具及其核心参数。",
         image: "https://picsum.photos/seed/tools2026/800/450",
         details: [
-          "对话：GPT-5.4（1M 上下文，全能）/ Claude Opus 4.6（100 万，推理）/ DeepSeek V3.2（128K，$0.28/MTok）",
+          "对话：GPT-5.4（1M 上下文，全能）/ Claude Opus 4.5（100 万，推理）/ DeepSeek V3.2（128K，$0.28/MTok）",
           "国产：Kimi K2.5（256K 多模态，月之暗面官方）/ 通义千问（阿里生态）/ 文心一言（百度知识库）",
           "图像：GPT Image 1.5（OpenAI 最新）/ Midjourney（艺术绘图）/ 通义万相（国产）",
           "视频：Sora 2（OpenAI 官方，支持同步音频）/ 可灵 Kling（国产领先）",
@@ -109,7 +109,7 @@ export const MODULE_CONTENT: Record<ModuleId, ModuleContent> = {
           "搜索：Perplexity（实时搜索 + 引用来源）/ 秘塔AI搜索（国产）"
         ],
         fullContent: [
-          { subtitle: "1. 对话类：按场景选模型", text: "日常问答和简单任务：DeepSeek V3.2（$0.28/MTok，成本最低）。复杂推理和编码：GPT-5.4（$2.50/MTok）或 Claude Opus 4.6（$5/MTok）。长文档分析：Claude Sonnet 4.6（100 万上下文，$3/MTok）或 Kimi K2.5（256K 上下文）。中文场景优先：DeepSeek 或 Kimi。" },
+          { subtitle: "1. 对话类：按场景选模型", text: "日常问答和简单任务：DeepSeek V3.2（$0.28/MTok，成本最低）。复杂推理和编码：GPT-5.4（$2.50/MTok）或 Claude Opus 4.5（$5/MTok）。长文档分析：Claude Sonnet 4.5（100 万上下文，$3/MTok）或 Kimi K2.5（256K 上下文）。中文场景优先：DeepSeek 或 Kimi。" },
           { subtitle: "2. 视觉与视频", text: "图像生成首选 GPT Image 1.5（OpenAI 官方最新），艺术绘图可选 Midjourney。视频生成 Sora 2 是 OpenAI 官方旗舰模型，支持同步音频生成。国产可灵 (Kling) 在视频生成方面表现突出，是性价比之选。" },
           { subtitle: "3. 编程与效率", text: "Cursor 是目前最主流的 AI 编程编辑器。核心能力：Agent 自主编程（自主理解需求→探索代码库→生成可工作代码）、Tab 智能补全（极快速度预测下一步）、深度代码库理解（语义搜索整个项目）。受 Y Combinator、NVIDIA、Stripe 等认可。Perplexity 改变了信息获取方式，直接阅读搜索结果并总结成答案，附引用来源。" }
         ]
@@ -140,7 +140,7 @@ export const MODULE_CONTENT: Record<ModuleId, ModuleContent> = {
         details: [
           "知识管理大脑：Notion（项目/笔记/数据库统一管理）",
           "24/7 AI 助手：OpenClaw（全渠道接入 + Skills 自动化 + 后台任务）",
-          "内容生成：Claude Sonnet 4.6（深度写作）/ GPT-5.4（多模态）",
+          "内容生成：Claude Sonnet 4.5（深度写作）/ GPT-5.4（多模态）",
           "低成本推理：DeepSeek V3.2（日常分析和处理）",
           "编程开发：Cursor Agent（自主编程）",
           "信息检索：Perplexity（实时搜索 + 引用来源）"
@@ -148,7 +148,7 @@ export const MODULE_CONTENT: Record<ModuleId, ModuleContent> = {
         fullContent: [
           { subtitle: "1. 效率栈的分工逻辑", text: "Notion 做\"存储层\"——所有知识、项目、数据统一管理。OpenClaw 做\"执行层\"——24/7 运行自动化任务（邮件处理、日程管理、竞品监控），通过你已有的聊天工具交互。AI 模型做\"智能层\"——DeepSeek 处理低成本任务，Claude 处理高质量创作，GPT-5.4 处理多模态任务。Cursor 做\"开发层\"——独立开发产品。" },
           { subtitle: "2. 数据流设计", text: "信息输入：Perplexity 搜索 → 自动存入 Notion 知识库。内容生产：Claude 写作 → OpenClaw 定时发布到多平台。数据分析：DeepSeek 分析 Notion 数据库 → 生成报告 → OpenClaw 推送通知。客服处理：OpenClaw 接收消息 → DeepSeek 生成回复 → 复杂问题转发给你。整个流程无需人工介入，你只需要做决策。" },
-          { subtitle: "3. 月运营成本估算", text: "Notion 免费版：$0。OpenClaw：免费开源，部署无成本。DeepSeek V3.2 API（日均 10 万字）：$1-5/月。Claude Sonnet 4.6（每周 2-3 次深度写作）：$5-15/月。GPT-5.4 nano（偶尔多模态任务）：$5-10/月。Cursor 免费版：$0。Perplexity 免费版：$0。总计：$11-30/月。" },
+          { subtitle: "3. 月运营成本估算", text: "Notion 免费版：$0。OpenClaw：免费开源，部署无成本。DeepSeek V3.2 API（日均 10 万字）：$1-5/月。Claude Sonnet 4.5（每周 2-3 次深度写作）：$5-15/月。GPT-5.4 nano（偶尔多模态任务）：$5-10/月。Cursor 免费版：$0。Perplexity 免费版：$0。总计：$11-30/月。" },
           { subtitle: "4. 从零搭建的优先顺序", text: "第 1 步：注册 DeepSeek，体验对话能力（1 天）。第 2 步：建立 Notion 知识库，把常用 Prompt 模板存进去（3 天）。第 3 步：安装 OpenClaw，配置 DeepSeek API，测试基础对话（1 天）。第 4 步：创建第一个自动化 Skill（如每日邮件摘要），跑通端到端流程（1 周）。第 5 步：根据实际需求逐步扩展工具栈。不要一次性搭建所有工具，先跑通核心流程。" }
         ]
       },
@@ -164,9 +164,9 @@ export const MODULE_CONTENT: Record<ModuleId, ModuleContent> = {
           "误区 5：追新模型焦虑——每周都有新模型，但你的 Prompt 模板才是核心资产"
         ],
         fullContent: [
-          { subtitle: "误区 1：把 AI 当实时搜索引擎", text: "大模型有知识截止日期（GPT-5.4 截至 2025.8，Claude Opus 4.6 截至 2026.1），对截止日期后的事件一无所知，且可能编造看似合理的答案。纠正方法：需要实时信息时，用 Perplexity 或 GPT-5.4 的网页搜索功能，而不是直接问模型。判断标准：如果你的问题包含\"最新\"、\"现在\"、\"今天\"，就需要搜索工具辅助。" },
+          { subtitle: "误区 1：把 AI 当实时搜索引擎", text: "大模型有知识截止日期（GPT-5.4 截至 2025.8，Claude Opus 4.5 可靠知识截止 2025.3），对截止日期后的事件一无所知，且可能编造看似合理的答案。纠正方法：需要实时信息时，用 Perplexity 或 GPT-5.4 的网页搜索功能，而不是直接问模型。判断标准：如果你的问题包含\"最新\"、\"现在\"、\"今天\"，就需要搜索工具辅助。" },
           { subtitle: "误区 2：Prompt 越长越好", text: "很多人认为 Prompt 越详细越好，结果写了 1000 字的指令，AI 反而抓不住重点。OpenAI 官方研究表明：关键指令应该放在 Prompt 的开头或结尾，中间的内容容易被\"遗忘\"（注意力稀释）。纠正方法：核心指令控制在 3-5 条，用编号列出，每条不超过 20 字。复杂需求用 Few-Shot 示例代替文字描述。" },
-          { subtitle: "误区 3：一个模型用到底", text: "很多人注册了 ChatGPT 就只用 ChatGPT，但不同任务用不同模型，成本和效果差异巨大。日常分析用 DeepSeek V3.2（$0.28/MTok），深度写作用 Claude Sonnet 4.6（$3/MTok），复杂推理用 Claude Opus 4.6（$5/MTok）。如果全部用 Claude Opus 4.6，月成本可能是 DeepSeek 的 18 倍。纠正方法：建立\"任务-模型\"对照表，按任务复杂度选模型。" },
+          { subtitle: "误区 3：一个模型用到底", text: "很多人注册了 ChatGPT 就只用 ChatGPT，但不同任务用不同模型，成本和效果差异巨大。日常分析用 DeepSeek V3.2（$0.28/MTok），深度写作用 Claude Sonnet 4.5（$3/MTok），复杂推理用 Claude Opus 4.5（$5/MTok）。如果全部用 Claude Opus 4.5，月成本可能是 DeepSeek 的 18 倍。纠正方法：建立\"任务-模型\"对照表，按任务复杂度选模型。" },
           { subtitle: "误区 4：AI 输出直接使用", text: "AI 生成的内容存在幻觉风险，特别是涉及数据、引用、专业知识的内容。直接发布未经审核的 AI 内容，轻则质量差，重则事实错误损害信誉。纠正方法：建立\"AI 生成 → 人工审核 → 发布\"的三步流程。对于数字、引用、专业术语，必须逐一核实。把审核时间计入工作流，而不是省略它。" },
           { subtitle: "误区 5：追新模型焦虑", text: "AI 行业每周都有新模型发布，很多人花大量时间测试新模型，反而忽略了真正重要的事：积累可复用的 Prompt 模板和工作流。你的 Prompt 模板才是核心资产，它可以迁移到任何新模型上。纠正方法：每季度评估一次模型选型，而不是每周追新。把精力放在优化 Prompt 和工作流上，而不是测试新模型。" }
         ]
@@ -197,18 +197,18 @@ export const MODULE_CONTENT: Record<ModuleId, ModuleContent> = {
         content: "不是理论，是每天具体要做什么。7 天结束后，你将拥有：3 个可复用 Prompt 模板、1 个自动化工作流、对 AI 能力边界的直觉认知。",
         image: "https://picsum.photos/seed/week-one-plan/800/450",
         details: [
-          "Day 1：注册 DeepSeek（platform.deepseek.com）和 Kimi（platform.moonshot.cn），完成免费额度激活",
+          "Day 1：注册 DeepSeek（chat.deepseek.com 网页版）和 Kimi（kimi.moonshot.cn），直接体验对话，无需配置",
           "Day 2：用 DeepSeek 完成 3 个真实工作任务，记录哪些好用、哪些不好用",
           "Day 3：学习并实践 System Prompt 技巧，为你最常用的任务写第一个 Prompt 模板",
           "Day 4：用 Kimi K2.5 的 256K 上下文，同时分析 3 篇长文档，体验长上下文能力",
-          "Day 5：安装 OpenClaw（open-claw.org），配置 DeepSeek API，完成第一次对话测试",
+          "Day 5：了解 OpenClaw（openclaw.ai），阅读官方文档，评估是否适合你的场景",
           "Day 6：创建第一个 OpenClaw Skill（推荐：每日邮件摘要或 RSS 订阅整理）",
           "Day 7：复盘本周，整理 3 个可复用 Prompt 模板，存入 Notion 知识库"
         ],
         fullContent: [
           { subtitle: "Day 1-2：建立直觉", text: "第一天不要急着学技巧，先注册工具，把你今天实际遇到的工作问题直接扔给 AI，看它能做到什么程度。记录下来：哪些任务 AI 做得很好（可以直接用）、哪些做得一般（需要修改）、哪些做得很差（暂时不适合用 AI）。这份记录是你后续优化的基础。第二天重复同样的任务，但这次尝试改进你的提问方式，观察结果是否有变化。" },
           { subtitle: "Day 3-4：掌握核心技巧", text: "第三天专注练习 System Prompt。选择你最高频的一个任务（如写邮件、做总结），按照\"角色 + 任务 + 约束 + 输出格式\"的结构写一个 Prompt，测试 5 次，每次微调，直到输出稳定满意。这个 Prompt 就是你的第一个模板资产。第四天体验长上下文：把 3 篇你平时需要参考的文档同时喂给 Kimi K2.5，让它做综合分析，感受 256K 上下文的威力。" },
-          { subtitle: "Day 5-6：搭建自动化", text: "第五天安装 OpenClaw，访问 open-claw.org 下载安装包。配置 DeepSeek API Key（platform.deepseek.com 获取），完成基础对话测试。不要急着做复杂的事，先确保基础功能正常。第六天创建第一个 Skill。推荐从\"每日邮件摘要\"开始：设置触发时间（每天早上 9 点），读取收件箱，按重要程度分类，生成摘要推送到你的 Telegram。这是最有实感的自动化场景。" },
+          { subtitle: "Day 5-6：搭建自动化", text: "第五天安装 OpenClaw，访问 openclaw.ai 下载安装包。配置 DeepSeek API Key（platform.deepseek.com 获取），完成基础对话测试。不要急着做复杂的事，先确保基础功能正常。第六天创建第一个 Skill。推荐从\"每日邮件摘要\"开始：设置触发时间（每天早上 9 点），读取收件箱，按重要程度分类，生成摘要推送到你的 Telegram。这是最有实感的自动化场景。" },
           { subtitle: "Day 7：沉淀与规划", text: "最后一天做复盘。整理本周所有有效的 Prompt，选出 3 个最常用的，规范化格式后存入 Notion。评估：哪个环节节省了最多时间？下周想优化哪个工作流？制定下两周的计划：继续深化 1 个已有工作流，或者探索 1 个新场景。记住：AI 工具的价值不在于你用了多少个，而在于你把哪几个用得足够深。" }
         ]
       }
@@ -223,7 +223,7 @@ export const MODULE_CONTENT: Record<ModuleId, ModuleContent> = {
     description: "基于 OpenAI、Anthropic、DeepSeek、月之暗面官方文档，深度对比 2026 年主流大模型的上下文窗口、价格和能力边界。帮你为 OpenClaw 选配最强\"大脑\"。",
     keyTakeaways: [
       "OpenAI GPT-5.4：1M 上下文，$2.50/MTok 输入，支持函数调用与网页搜索",
-      "Claude Opus 4.6：100 万上下文，$5/MTok 输入，扩展思维与自适应思维",
+      "Claude Opus 4.5：200K 上下文（扩展模式 1M），$5/MTok 输入，扩展思维与自适应思维",
       "DeepSeek V3.2：128K 上下文，$0.28/MTok 输入，极致性价比（约为 GPT-5.4 的 1/9）",
       "Kimi K2.5：256K 上下文，原生多模态，支持 Agent 与思考模式"
     ],
@@ -238,16 +238,16 @@ export const MODULE_CONTENT: Record<ModuleId, ModuleContent> = {
         content: "基于 OpenAI、Anthropic、DeepSeek、月之暗面四大厂商的官方 API 文档，整理最新模型参数、价格与能力对比。所有数据均来自官方，可验证。",
         image: "https://picsum.photos/seed/models-2026/800/450",
         details: [
-          "GPT-5.4：1M 上下文，输入 $2.50/MTok，输出 $15/MTok，最大 128K 输出",
+          "GPT-5.4：1M 上下文，输入 $2.50/MTok，输出 $20/MTok，最大 128K 输出",
           "GPT-5.4 mini：400K 上下文，输入 $0.75/MTok，输出 $4.50/MTok",
-          "Claude Opus 4.6：100 万上下文，输入 $5/MTok，输出 $25/MTok，最大 128K 输出",
-          "Claude Sonnet 4.6：100 万上下文，输入 $3/MTok，输出 $15/MTok",
+          "Claude Opus 4.5：200K 上下文（扩展模式 1M），输入 $5/MTok，输出 $25/MTok，最大 64K 输出",
+          "Claude Sonnet 4.5：100 万上下文，输入 $3/MTok，输出 $15/MTok",
           "DeepSeek V3.2：128K 上下文，输入 $0.28/MTok，输出 $0.42/MTok（支持思考模式）",
           "Kimi K2.5：256K 上下文，原生多模态，Agent 与思考模式"
         ],
         fullContent: [
           { subtitle: "1. OpenAI GPT-5.4（来源：platform.openai.com/docs/models）", text: "GPT-5.4 是 OpenAI 当前旗舰模型，为智能体、编码和专业工作流设计。支持 100 万 tokens 上下文窗口，128K 最大输出，支持函数调用、网页搜索、文件搜索、计算机使用。知识截止 2025 年 8 月。GPT-5.4 mini 是高性价比子版本，400K 上下文，输入价格仅 $0.75/MTok。还有更轻量的 GPT-5.4 nano，输入仅 $0.20/MTok。" },
-          { subtitle: "2. Claude Opus 4.6（来源：platform.claude.com/docs）", text: "Anthropic 旗舰模型。100 万 tokens 上下文窗口，128K 最大输出，训练数据截止 2026 年 1 月。支持扩展思维（Extended Thinking）和自适应思维（Adaptive Thinking），在复杂推理和编码任务上表现卓越。Claude Sonnet 4.6 是性价比之选，100 万上下文，输入 $3/MTok。Claude Haiku 4.5 最快最便宜，20 万上下文，输入 $1/MTok。" },
+          { subtitle: "2. Claude Opus 4.5（来源：platform.claude.com/docs）", text: "Anthropic 旗舰模型。200K tokens 上下文窗口（扩展模式支持 1M），64K 最大输出，可靠知识截止 2025 年 3 月。支持扩展思维（Extended Thinking）和自适应思维（Adaptive Thinking），在复杂推理和编码任务上表现卓越。Claude Sonnet 4.5 是性价比之选，200K 上下文（1M beta），输入 $3/MTok。Claude Haiku 4.5 最快最便宜，200K 上下文，输入 $1/MTok。" },
           { subtitle: "3. DeepSeek V3.2（来源：api-docs.deepseek.com）", text: "DeepSeek V3.2 提供两个接口：deepseek-chat（非思考模式）和 deepseek-reasoner（思考模式），均为 128K 上下文。思考模式默认输出 32K、最大 64K。价格极具竞争力：输入 $0.28/MTok（缓存命中仅 $0.028），输出 $0.42/MTok。以思考模式为例，完整处理 1M tokens 的总成本约 $0.42，约为 GPT-5.4 的 1/9。支持 JSON 输出和工具调用。" },
           { subtitle: "4. Kimi K2.5（来源：platform.moonshot.cn/docs）", text: "月之暗面最新旗舰模型，原生多模态架构，256K 上下文窗口。支持视觉与文本输入、思考与非思考模式、对话与 Agent 任务。开源评测中达到 SoTA 表现。提供 K2-turbo 高速版（60-100 tokens/秒）和 K2-thinking 思考模型。注意：kimi-latest 和 kimi-thinking-preview 已于 2025-2026 年下线，请使用新模型。" }
         ]
@@ -258,15 +258,15 @@ export const MODULE_CONTENT: Record<ModuleId, ModuleContent> = {
         image: "https://picsum.photos/seed/model-choice/800/450",
         details: [
           "预算敏感：DeepSeek V3.2（输入 $0.28/MTok）> GPT-5.4 mini（$0.75）> GPT-5.4（$2.50）",
-          "超长文本：Claude Opus/Sonnet 4.6（100 万）> GPT-5.4（100 万）> Kimi K2.5（256K）",
-          "复杂推理：Claude Opus 4.6（扩展思维）> GPT-5.4 > DeepSeek reasoner（思考模式）",
-          "编码开发：GPT-5.4 > Claude Opus 4.6 > Kimi K2.5（Agent Coding 能力）",
+          "超长文本：Claude Sonnet 4.5（1M beta）/ GPT-5.4（1M）> Kimi K2.5（256K）> Claude Opus 4.5（200K）",
+          "复杂推理：Claude Opus 4.5（扩展思维）> GPT-5.4 > DeepSeek reasoner（思考模式）",
+          "编码开发：GPT-5.4 > Claude Opus 4.5 > Kimi K2.5（Agent Coding 能力）",
           "成本对比：处理 100 万 tokens 输入 — DeepSeek $0.28 vs GPT-5.4 $2.50 vs Claude Opus $5"
         ],
         fullContent: [
           { subtitle: "1. 预算优先：DeepSeek V3.2", text: "如果你是个人开发者或刚开始探索 API 调用，DeepSeek 是最优选择。输入 $0.28/MTok，缓存命中仅 $0.028/MTok。即使使用思考模式（deepseek-reasoner），完整处理 1M tokens 输出也只需 $0.42。OpenClaw 默认支持 DeepSeek API，配置简单。" },
-          { subtitle: "2. 质量优先：Claude Opus 4.6", text: "对于需要深度推理、长文档分析、复杂编码的任务，Claude Opus 4.6 是最佳选择。100 万上下文 + 扩展思维模式，可以处理超大型代码库和复杂逻辑。价格较高（$5/MTok 输入），建议仅在复杂任务中使用。" },
-          { subtitle: "3. 均衡之选：GPT-5.4 / Claude Sonnet 4.6", text: "GPT-5.4 是全能型选手，支持函数调用、网页搜索、文件搜索、计算机使用。Claude Sonnet 4.6 在推理质量和速度之间取得最佳平衡，100 万上下文仅 $3/MTok。日常使用推荐 Sonnet 4.6，复杂任务切换到 Opus 4.6。" },
+          { subtitle: "2. 质量优先：Claude Opus 4.5", text: "对于需要深度推理、长文档分析、复杂编码的任务，Claude Opus 4.5 是最佳选择。100 万上下文 + 扩展思维模式，可以处理超大型代码库和复杂逻辑。价格较高（$5/MTok 输入），建议仅在复杂任务中使用。" },
+          { subtitle: "3. 均衡之选：GPT-5.4 / Claude Sonnet 4.5", text: "GPT-5.4 是全能型选手，支持函数调用、网页搜索、文件搜索、计算机使用。Claude Sonnet 4.5 在推理质量和速度之间取得最佳平衡，100 万上下文仅 $3/MTok。日常使用推荐 Sonnet 4.5，复杂任务切换到 Opus 4.5。" },
           { subtitle: "4. 多模态需求：Kimi K2.5 / GPT-5.4", text: "Kimi K2.5 原生多模态架构，同时支持视觉和文本输入，256K 上下文，适合需要同时处理图片和文本的场景。GPT-5.4 同样支持文本和图像输入，加上 Sora 2 视频生成和 GPT Image 1.5 图像生成，构建了完整的多模态生态。" }
         ]
       },
@@ -284,9 +284,9 @@ export const MODULE_CONTENT: Record<ModuleId, ModuleContent> = {
         ],
         fullContent: [
           { subtitle: "1. OpenAI API", text: "访问 platform.openai.com 注册开发者账号。创建 API Key 后即可调用 GPT-5.4 系列。充值支持国际信用卡，每个新账号有少量免费额度。API 调用通过 Responses API 和官方 SDK 进行。" },
-          { subtitle: "2. Anthropic API", text: "访问 console.anthropic.com 注册。Claude API 支持 AWS Bedrock 和 Google Vertex AI，适合有云服务需求的用户。Claude Opus 4.6 推荐作为复杂推理任务的默认模型。" },
+          { subtitle: "2. Anthropic API", text: "访问 console.anthropic.com 注册。Claude API 支持 AWS Bedrock 和 Google Vertex AI，适合有云服务需求的用户。Claude Opus 4.5 推荐作为复杂推理任务的默认模型。" },
           { subtitle: "3. DeepSeek API", text: "访问 platform.deepseek.com 注册，支持微信支付，对国内用户最友好。新用户有赠金额度，DeepSeek V3.2 的 deepseek-chat 和 deepseek-reasoner 接口均可直接调用。OpenClaw 默认支持 DeepSeek，配置 API Key 即可使用。" },
-          { subtitle: "4. OpenClaw 配置", text: "OpenClaw 内置支持 Opus 4.6、GLM-5、KIMI K2.5、GPT-5.2 Codex、Gemini 3 Pro 五种旗舰模型。也支持自定义 API 端点和 Ollama 本地模型。配置流程：打开 OpenClaw 设置 → 填入 API Key → 选择模型 → 测试对话。推荐先用 DeepSeek 测试，成本低、上手快。" }
+          { subtitle: "4. OpenClaw 配置", text: "OpenClaw 内置支持 Opus 4.5、GLM-5、KIMI K2.5、GPT-5.2 Codex、Gemini 3 Pro 五种旗舰模型。也支持自定义 API 端点和 Ollama 本地模型。配置流程：打开 OpenClaw 设置 → 填入 API Key → 选择模型 → 测试对话。推荐先用 DeepSeek 测试，成本低、上手快。" }
         ]
       },
       {
@@ -316,11 +316,11 @@ export const MODULE_CONTENT: Record<ModuleId, ModuleContent> = {
     subtitle: "开源 · 自动化 · 本地部署",
     icon: Cpu,
     color: "emerald",
-    description: "OpenClaw 是一款开源的个人 AI 助手与自主代理，本地部署保障数据隐私，支持 WhatsApp/Telegram/Discord/Slack/Signal/iMessage 全渠道接入，通过 Skills 技能系统实现邮件、文件、浏览器等自动化。（数据来源：open-claw.org）",
+    description: "OpenClaw 是一款开源的个人 AI 助手与自主代理，本地部署保障数据隐私，支持 WhatsApp/Telegram/Discord/Slack/Signal/iMessage 全渠道接入，通过 Skills 技能系统实现邮件、文件、浏览器等自动化。（数据来源：openclaw.ai）",
     keyTakeaways: [
       "本地运行，数据主权：所有对话历史、偏好、文件均保留在本地，不上传第三方",
       "全渠道接入：WhatsApp / Telegram / Discord / Slack / Signal / iMessage",
-      "内置 5 种旗舰模型：Opus 4.6 / GLM-5 / KIMI K2.5 / GPT-5.2 Codex / Gemini 3 Pro",
+      "内置 5 种旗舰模型：Opus 4.5 / GLM-5 / KIMI K2.5 / GPT-5.2 Codex / Gemini 3 Pro",
       "Skills 技能系统：用 Markdown 或 TypeScript 开发自定义自动化工作流"
     ],
     sections: [
@@ -330,7 +330,7 @@ export const MODULE_CONTENT: Record<ModuleId, ModuleContent> = {
     ],
     lessons: [
       {
-        title: "OpenClaw 架构与核心能力（来源：open-claw.org 官方文档）",
+        title: "OpenClaw 架构与核心能力（来源：openclaw.ai 官方文档）",
         content: "OpenClaw 不是普通的聊天机器人——它是具有\"双眼和双手\"的 AI 助手与自主代理。本课基于官方文档，深入解析其架构设计和核心能力。",
         image: "https://picsum.photos/seed/openclaw-arch/800/450",
         details: [
@@ -338,13 +338,13 @@ export const MODULE_CONTENT: Record<ModuleId, ModuleContent> = {
           "全渠道接入：WhatsApp、Telegram、Discord、Slack、Signal、iMessage",
           "24/7 主动自动化：后台任务、定时任务、心跳检测，自主评估并执行",
           "系统级权限：读写文件、执行 shell 命令、沙箱运行代码、浏览器控制",
-          "多模型支持：内置 Opus 4.6 / GLM-5 / KIMI K2.5 / GPT-5.2 Codex / Gemini 3 Pro",
+          "多模型支持：内置 Opus 4.5 / GLM-5 / KIMI K2.5 / GPT-5.2 Codex / Gemini 3 Pro",
           "自定义模型：支持自定义 API 端点，或通过 Ollama 部署完全本地模型"
         ],
         fullContent: [
           { subtitle: "1. 与聊天机器人的本质区别", text: "传统聊天机器人只能对话。OpenClaw 具备\"双眼和双手\"——它可以浏览网页、操作文件、执行终端命令、填写表单、提取网页数据、配置 OAuth 等。它能在安全沙箱中运行代码，并具备高级浏览器控制能力。这意味着你可以让它执行真实的任务，而不仅仅是回答问题。" },
           { subtitle: "2. 数据主权与隐私", text: "OpenClaw 默认在用户本地硬件运行。所有个人数据（对话历史、偏好、文件）均保留在本地，不上传至第三方服务器。你可以选择完全离线运行（通过 Ollama 部署本地模型）或混合模式（部分任务用云端模型，部分用本地模型）。" },
-          { subtitle: "3. 内置模型与订阅服务", text: "OpenClaw 内置支持 5 种旗舰模型：Opus 4.6、GLM-5、KIMI K2.5、GPT-5.2 Codex、Gemini 3 Pro。也提供\"内置 API 年费\"和\"Plus 年费\"两种订阅计划，包含专属 Gateway 实例和月度 API 额度，支持微信支付。订阅后无需自行配置 API Key，开箱即用。" }
+          { subtitle: "3. 内置模型与订阅服务", text: "OpenClaw 内置支持 5 种旗舰模型：Opus 4.5、GLM-5、KIMI K2.5、GPT-5.2 Codex、Gemini 3 Pro。也提供\"内置 API 年费\"和\"Plus 年费\"两种订阅计划，包含专属 Gateway 实例和月度 API 额度，支持微信支付。订阅后无需自行配置 API Key，开箱即用。" }
         ]
       },
       {
@@ -378,8 +378,8 @@ export const MODULE_CONTENT: Record<ModuleId, ModuleContent> = {
           "隐私模式选择：完全离线（Ollama）或混合模式（本地+云端）"
         ],
         fullContent: [
-          { subtitle: "1. 推荐安装方式", text: "对于非技术用户，推荐使用官方一键安装脚本。访问 open-claw.org 下载对应平台的安装包，按图形界面引导完成安装。安装完成后，首次启动会引导你配置模型和聊天渠道。如果你已有 DeepSeek API Key（推荐，性价比高），直接填入即可。" },
-          { subtitle: "2. 订阅服务方案", text: "如果你不想自己管理 API Key，OpenClaw 提供订阅服务。\"内置 API 年费\"计划包含专属 Gateway 实例和月度 API 额度，支持微信支付。订阅后所有内置模型（Opus 4.6 / GLM-5 / KIMI K2.5 等）均可直接使用。" },
+          { subtitle: "1. 推荐安装方式", text: "对于非技术用户，推荐使用官方一键安装脚本。访问 openclaw.ai 下载对应平台的安装包，按图形界面引导完成安装。安装完成后，首次启动会引导你配置模型和聊天渠道。如果你已有 DeepSeek API Key（推荐，性价比高），直接填入即可。" },
+          { subtitle: "2. 订阅服务方案", text: "如果你不想自己管理 API Key，OpenClaw 提供订阅服务。\"内置 API 年费\"计划包含专属 Gateway 实例和月度 API 额度，支持微信支付。订阅后所有内置模型（Opus 4.5 / GLM-5 / KIMI K2.5 等）均可直接使用。" },
           { subtitle: "3. 连接聊天渠道", text: "OpenClaw 的核心体验是通过你已有的聊天工具来使用。配置方式：在设置中添加对应渠道的 Token（如 Telegram Bot Token、Discord Bot Token），配置完成后你就可以在私聊或群聊中直接与 AI 助手对话。" }
         ]
       },
@@ -416,7 +416,7 @@ export const MODULE_CONTENT: Record<ModuleId, ModuleContent> = {
       "OpenClaw 官方：全渠道接入 + Skills 自动化 + 24/7 后台运行"
     ],
     sections: [
-      { title: "内容创作者", content: "GPT-5.4 选题研究 + Claude Sonnet 4.6 深度写作 + Sora 2 视频生成 + OpenClaw 定时发布。", icon: Video },
+      { title: "内容创作者", content: "GPT-5.4 选题研究 + Claude Sonnet 4.5 深度写作 + Sora 2 视频生成 + OpenClaw 定时发布。", icon: Video },
       { title: "独立开发者", content: "Cursor Agent 自主编程 + GPT-5.4 nano 轻量推理 + GitHub Copilot 代码审查。", icon: Code },
       { title: "电商 / 自由职业", content: "OpenClaw 全自动客服 + DeepSeek 低成本分析 + Sora 2 产品视频 + GPT Image 1.5 商品图。", icon: Bot }
     ],
@@ -427,7 +427,7 @@ export const MODULE_CONTENT: Record<ModuleId, ModuleContent> = {
         image: "https://picsum.photos/seed/content-creator/800/450",
         details: [
           "选题研究：GPT-5.4 网页搜索 + 文件搜索功能，分析热门话题和用户痛点",
-          "深度写作：Claude Sonnet 4.6（100 万上下文），可同时参考多篇长文档写作",
+          "深度写作：Claude Sonnet 4.5（100 万上下文），可同时参考多篇长文档写作",
           "视频生成：Sora 2（OpenAI 官方），支持同步音频生成，旗舰视频模型",
           "图像生成：GPT Image 1.5（OpenAI 官方），最先进的图像生成模型",
           "定时发布：OpenClaw 定时任务 + 全渠道推送（Telegram / Discord / Slack）",
@@ -435,7 +435,7 @@ export const MODULE_CONTENT: Record<ModuleId, ModuleContent> = {
         ],
         fullContent: [
           { subtitle: "1. 选题研究（GPT-5.4 官方能力）", text: "GPT-5.4 官方支持网页搜索和文件搜索功能。你可以让它：搜索指定平台的热门话题 → 分析热门评论中的用户痛点 → 筛选出与你领域相关的 3-5 个选题 → 为每个选题生成受众分析和内容角度。输入成本 $2.50/MTok，一次选题研究约消耗几千 tokens。" },
-          { subtitle: "2. 深度写作（Claude Sonnet 4.6 官方能力）", text: "Claude Sonnet 4.6 提供 100 万 tokens 上下文窗口，输入 $3/MTok。你可以同时喂给它 10+ 篇参考文章、竞品分析报告、用户评论数据，让它基于全面的信息进行深度写作。适合长文、深度分析、技术教程等需要高质量输出的场景。" },
+          { subtitle: "2. 深度写作（Claude Sonnet 4.5 官方能力）", text: "Claude Sonnet 4.5 提供 100 万 tokens 上下文窗口，输入 $3/MTok。你可以同时喂给它 10+ 篇参考文章、竞品分析报告、用户评论数据，让它基于全面的信息进行深度写作。适合长文、深度分析、技术教程等需要高质量输出的场景。" },
           { subtitle: "3. 视频与图像（OpenAI 官方工具链）", text: "Sora 2 是 OpenAI 旗舰视频生成模型，支持同步音频生成。Sora 2 Pro 是最先进的版本。GPT Image 1.5 是最新图像生成模型。你可以在 ChatGPT 中直接使用这些模型，也可以通过 API 调用。配合 GPT-5.4 nano（$0.20/MTok，成本极低）处理字幕和文案。" }
         ]
       },
@@ -463,7 +463,7 @@ export const MODULE_CONTENT: Record<ModuleId, ModuleContent> = {
         image: "https://picsum.photos/seed/ecommerce-auto/800/450",
         details: [
           "24/7 自动客服：OpenClaw 接入客服渠道，DeepSeek V3.2 处理 80% 常见问题",
-          "商品内容生成：GPT Image 1.5 生成商品图 + Claude Sonnet 4.6 撰写详情页",
+          "商品内容生成：GPT Image 1.5 生成商品图 + Claude Sonnet 4.5 撰写详情页",
           "选品数据分析：DeepSeek V3.2 思考模式分析平台数据，成本极低（$0.42/MTok）",
           "竞品监控：OpenClaw 浏览器控制定时抓取竞品价格和活动信息",
           "社媒自动发布：OpenClaw 定时任务生成内容并推送到多平台",
@@ -471,7 +471,7 @@ export const MODULE_CONTENT: Record<ModuleId, ModuleContent> = {
         ],
         fullContent: [
           { subtitle: "1. 24/7 自动客服体系", text: "方案：OpenClaw + DeepSeek V3.2。OpenClaw 接入你的客服渠道（WhatsApp / Telegram / 飞书等），使用 DeepSeek V3.2 作为后端模型。成本极低：输入 $0.28/MTok，缓存命中 $0.028/MTok。即使每天处理 1000 条消息，月成本也仅几十元。常见问题自动回复，复杂问题创建工单通知人工。" },
-          { subtitle: "2. 商品内容批量生成", text: "方案：GPT Image 1.5 + Claude Sonnet 4.6。用 Claude Sonnet 4.6 的 100 万上下文窗口，同时参考 10+ 个竞品详情页和用户评价，生成差异化的商品描述。再用 GPT Image 1.5 生成商品主图和场景图。成本估算：每个商品详情页约消耗 3000 tokens 输入 + 1500 tokens 输出，费用约 $0.01。" },
+          { subtitle: "2. 商品内容批量生成", text: "方案：GPT Image 1.5 + Claude Sonnet 4.5。用 Claude Sonnet 4.5 的 100 万上下文窗口，同时参考 10+ 个竞品详情页和用户评价，生成差异化的商品描述。再用 GPT Image 1.5 生成商品主图和场景图。成本估算：每个商品详情页约消耗 3000 tokens 输入 + 1500 tokens 输出，费用约 $0.01。" },
           { subtitle: "3. 选品与数据分析", text: "方案：DeepSeek V3.2 思考模式。将平台数据（销量、评价、价格趋势）喂给 DeepSeek reasoner，它会在输出前进行多步推理分析。128K 上下文窗口足够处理大量数据。思考模式输出最大 64K tokens，可以生成详细的分析报告。总成本约 $0.42/MTok 输出，比 GPT-5.4（$15/MTok）便宜 35 倍。" }
         ]
       }
@@ -565,7 +565,7 @@ export const MODULE_CONTENT: Record<ModuleId, ModuleContent> = {
         fullContent: [
           { subtitle: "1. 为什么从免费开始？", text: "很多人上来就充值 OpenAI API，结果发现不知道怎么用，钱白白浪费。正确的做法是先用免费工具（DeepSeek、Kimi、Claude 免费版）充分体验 AI 的能力边界。DeepSeek 平台新用户有赠金额度，Kimi 同样提供免费额度。只有当你明确了\"我需要 AI 帮我做什么\"之后，再考虑付费 API。" },
           { subtitle: "2. 重点体验什么？", text: "不是体验\"AI 能聊什么\"，而是体验\"AI 在你具体工作中能帮什么忙\"。试着把你每天最耗时的 3 个任务交给 AI：写邮件、整理数据、做周报。观察它做得好的地方和做得不好的地方。做好记录，这是你后续搭建自动化工作流的基础。" },
-          { subtitle: "3. 各工具的免费额度", text: "DeepSeek（platform.deepseek.com）：新用户赠金，deepseek-chat 接口免费额度。Kimi（platform.moonshot.cn）：按 Token 计费，但提供免费试用额度。Claude（claude.ai）：网页版免费使用，有每日消息限制。ChatGPT（chatgpt.com）：基础版免费。OpenClaw（open-claw.org）：完全免费开源。" }
+          { subtitle: "3. 各工具的免费额度", text: "DeepSeek（platform.deepseek.com）：新用户赠金，deepseek-chat 接口免费额度。Kimi（platform.moonshot.cn）：按 Token 计费，但提供免费试用额度。Claude（claude.ai）：网页版免费使用，有每日消息限制。ChatGPT（chatgpt.com）：基础版免费。OpenClaw（openclaw.ai）：完全免费开源。" }
         ]
       },
       {
@@ -606,18 +606,18 @@ export const MODULE_CONTENT: Record<ModuleId, ModuleContent> = {
       },
       {
         title: "持续迭代：跟进行业动态，保持竞争力",
-        content: "AI 行业进化速度极快。GPT-5.4 的知识截止是 2025 年 8 月，Claude Opus 4.6 的训练数据截止 2026 年 1 月。你需要持续跟进官方更新。",
+        content: "AI 行业进化速度极快。GPT-5.4 的知识截止是 2025 年 8 月，Claude Opus 4.5 的训练数据截止 2026 年 1 月。你需要持续跟进官方更新。",
         image: "https://picsum.photos/seed/keep-learning/800/450",
         details: [
           "OpenAI 官方博客：platform.openai.com/blog — 新模型、新功能、API 更新",
           "Anthropic 官方文档：platform.claude.com/docs — Claude 模型更新",
           "DeepSeek 官方文档：api-docs.deepseek.com — 模型和定价更新",
           "月之暗面开放平台：platform.moonshot.cn/docs — Kimi 模型更新",
-          "OpenClaw 官方网站：open-claw.org — 新 Skills、新功能",
+          "OpenClaw 官方网站：openclaw.ai — 新 Skills、新功能",
           "Cursor 更新日志：cursor.com — 新功能、Agent 能力提升"
         ],
         fullContent: [
-          { subtitle: "1. 模型进化速度", text: "以 OpenAI 为例：从 GPT-4o 到 GPT-5.4，上下文窗口从 128K 扩展到 1M，新增了网页搜索、文件搜索、计算机使用等能力。Anthropic 的 Claude 从 Sonnet 3.5 到 Opus 4.6，增加了扩展思维和自适应思维。DeepSeek V3.2 的思考模式提供了低成本深度推理。这些变化意味着你半年前的工作流可能已经可以大幅优化。" },
+          { subtitle: "1. 模型进化速度", text: "以 OpenAI 为例：从 GPT-4o 到 GPT-5.4，上下文窗口从 128K 扩展到 1M，新增了网页搜索、文件搜索、计算机使用等能力。Anthropic 的 Claude 从 Sonnet 3.5 到 Opus 4.5，增加了扩展思维和自适应思维。DeepSeek V3.2 的思考模式提供了低成本深度推理。这些变化意味着你半年前的工作流可能已经可以大幅优化。" },
           { subtitle: "2. 建立信息获取习惯", text: "每周花 30 分钟浏览各官方文档的更新日志（Changelog）。重点关注：新模型发布（可能有更好的性价比）、新 API 功能（可能简化你的工作流）、定价变化（可能降低成本）。也可以关注少数派、InfoQ 中文等中文技术媒体的 AI 专栏。" },
           { subtitle: "3. 社群的力量", text: "加入 AI 相关社群，持续交流。你遇到的问题大概率别人也遇到过。社群的价值不仅是信息，更是人脉——很多合作和机会来自社群。从免费社群开始，找到志同道合的人，再考虑深度合作。" }
         ]

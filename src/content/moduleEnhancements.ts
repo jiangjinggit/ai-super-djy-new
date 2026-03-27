@@ -57,14 +57,14 @@ export const MODULE_ENHANCEMENTS: Record<ModuleId, ModuleEnhancement> = {
         name: 'Kimi K2.5',
         vendor: 'Moonshot',
         contextWindow: '256K',
-        inputPerMTok: 1.2,
-        outputPerMTok: 5,
+        inputPerMTok: 0.6,
+        outputPerMTok: 2.5,
         latency: '中',
         bestFor: '长文档分析：同时处理多篇文档，中文理解力强',
         tier: '均衡',
       },
       {
-        name: 'Claude Sonnet 4.6',
+        name: 'Claude Sonnet 4.5',
         vendor: 'Anthropic',
         contextWindow: '1M',
         inputPerMTok: 3,
@@ -89,7 +89,7 @@ export const MODULE_ENHANCEMENTS: Record<ModuleId, ModuleEnhancement> = {
         vendor: 'OpenAI',
         contextWindow: '1M',
         inputPerMTok: 2.5,
-        outputPerMTok: 15,
+        outputPerMTok: 20,
         latency: '中',
         bestFor: '复杂代理、跨工具工作流、高质量代码任务',
         tier: '高质量',
@@ -105,7 +105,7 @@ export const MODULE_ENHANCEMENTS: Record<ModuleId, ModuleEnhancement> = {
         tier: '均衡',
       },
       {
-        name: 'Claude Opus 4.6',
+        name: 'Claude Opus 4.5',
         vendor: 'Anthropic',
         contextWindow: '1M',
         inputPerMTok: 5,
@@ -115,7 +115,7 @@ export const MODULE_ENHANCEMENTS: Record<ModuleId, ModuleEnhancement> = {
         tier: '高质量',
       },
       {
-        name: 'Claude Sonnet 4.6',
+        name: 'Claude Sonnet 4.5',
         vendor: 'Anthropic',
         contextWindow: '1M',
         inputPerMTok: 3,
@@ -138,8 +138,8 @@ export const MODULE_ENHANCEMENTS: Record<ModuleId, ModuleEnhancement> = {
         name: 'Kimi K2.5',
         vendor: 'Moonshot',
         contextWindow: '256K',
-        inputPerMTok: 1.2,
-        outputPerMTok: 5,
+        inputPerMTok: 0.6,
+        outputPerMTok: 2.5,
         latency: '中',
         bestFor: '中文多模态与长文本协作',
         tier: '均衡',
@@ -149,7 +149,7 @@ export const MODULE_ENHANCEMENTS: Record<ModuleId, ModuleEnhancement> = {
   openclaw: {
     lastVerifiedOn: '2026-03-25',
     sources: [
-      { label: 'OpenClaw', url: 'https://open-claw.org/' },
+      { label: 'OpenClaw', url: 'https://openclaw.ai/' },
       { label: 'OpenClaw GitHub', url: 'https://github.com/openclaw/openclaw' },
       { label: 'Ollama', url: 'https://ollama.com/' },
     ],
@@ -170,7 +170,7 @@ export const MODULE_ENHANCEMENTS: Record<ModuleId, ModuleEnhancement> = {
       { label: 'Cursor', url: 'https://cursor.com/' },
       { label: 'OpenAI API', url: 'https://platform.openai.com/docs' },
       { label: 'DeepSeek API', url: 'https://api-docs.deepseek.com/' },
-      { label: 'OpenClaw', url: 'https://open-claw.org/' },
+      { label: 'OpenClaw', url: 'https://openclaw.ai/' },
     ],
     sopTemplates: [
       {
