@@ -109,15 +109,54 @@ export interface WeeklyPlan {
   fallback: string;
 }
 
+export interface BaseEnhancementBlock {
+  title: string;
+  description?: string;
+}
+
+export interface ActionChecklistBlock extends BaseEnhancementBlock {
+  type: 'action-checklist';
+  items: ActionChecklistItem[];
+}
+
+export interface ModelOptionsBlock extends BaseEnhancementBlock {
+  type: 'model-options';
+  items: ModelOption[];
+  footer?: string;
+}
+
+export interface SecurityChecklistBlock extends BaseEnhancementBlock {
+  type: 'security-checklist';
+  items: SecurityRule[];
+}
+
+export interface SopTemplatesBlock extends BaseEnhancementBlock {
+  type: 'sop-templates';
+  items: SopTemplate[];
+}
+
+export interface CaseEvidenceBlock extends BaseEnhancementBlock {
+  type: 'case-evidence';
+  items: CaseEvidence[];
+}
+
+export interface WeeklyPlanBlock extends BaseEnhancementBlock {
+  type: 'weekly-plan';
+  items: WeeklyPlan[];
+}
+
+export type ModuleEnhancementBlock =
+  | ActionChecklistBlock
+  | ModelOptionsBlock
+  | SecurityChecklistBlock
+  | SopTemplatesBlock
+  | CaseEvidenceBlock
+  | WeeklyPlanBlock;
+
 export interface ModuleEnhancement {
   lastVerifiedOn: string;
   sources: SourceLink[];
-  actionChecklist?: ActionChecklistItem[];
-  modelOptions?: ModelOption[];
-  securityChecklist?: SecurityRule[];
-  sopTemplates?: SopTemplate[];
-  caseEvidence?: CaseEvidence[];
-  weeklyPlan?: WeeklyPlan[];
+  blocks: ModuleEnhancementBlock[];
 }
 
 export const isModuleId = (value: string): value is ModuleId =>

@@ -44,8 +44,8 @@ const Hero = () => {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">EVOLUTION</span>
           </h1>
           <p className="max-w-2xl mx-auto text-lg md:text-xl text-gray-400 mb-10 leading-relaxed">
-            探索人工智能的无限可能。从零基础入门到掌握前沿大模型，
-            DJY 助你打破边界，重塑自我，成为时代的超级个体。
+            从零基础到流程提效，再到 MVP 与服务验证。
+            这里不卖神话，只帮你把 AI 变成更稳、更可执行的工作能力。
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full px-4">
             <motion.button
@@ -89,16 +89,16 @@ const Modules = () => {
       <div className="text-center mb-16">
         <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">六大核心模块</h2>
         <p className="text-gray-400 max-w-2xl mx-auto">
-          从入门到实战，从工具到案例。六大模块覆盖超级个体进化全链路，助你一人成军。
+          从入门认知到模型选型，再到智能体、场景、案例和成长路径，按实际执行顺序组织内容。
         </p>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
         {[
           { value: '6', label: '核心模块' },
-          { value: '30+', label: '实战课程' },
-          { value: '50+', label: '工具推荐' },
-          { value: '7', label: '职业场景' },
+          { value: '24', label: '主题课程' },
+          { value: '12', label: '周执行路线' },
+          { value: '3', label: '典型场景' },
         ].map((stat) => (
           <div key={stat.label} className="text-center p-6 bg-white/5 border border-white/10 rounded-2xl">
             <div className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mb-2">
@@ -134,7 +134,7 @@ const LearningRoadmap = () => {
     <section id="learning-roadmap" className="py-24 px-6 max-w-6xl mx-auto">
       <div className="text-center mb-12">
         <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">学习路线图</h2>
-        <p className="text-gray-400">按顺序学习效果最佳，也可以根据需要跳转到任意模块。</p>
+        <p className="text-gray-400">建议按顺序学习；如果你已经有基础，也可以直接跳到当前最需要的模块。</p>
       </div>
 
       <div className="flex flex-col md:flex-row items-center gap-2 md:gap-0 justify-center">
@@ -209,7 +209,7 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">成长路径</h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">从零基础到独立运营 AI 业务，循序渐进的务实成长路线。</p>
+            <p className="text-gray-400 max-w-2xl mx-auto">先识别任务，再做提效，最后用最小验证来确认方向，而不是一开始就追求“大而全”。</p>
           </div>
           <div className="space-y-8">
             {GROWTH_STEPS.map((step, index) => {
@@ -247,8 +247,8 @@ export default function HomePage() {
             <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight">
               准备好开启你的 <br /> 超级个体进化了吗？
             </h2>
-            <p className="text-xl text-white/80 mb-6 max-w-2xl mx-auto">关注公众号「AI Superman DJY」，获取最新实战教程和社群入口。</p>
-            <p className="text-lg text-white/60 mb-10">所有内容免费开放，持续更新。</p>
+            <p className="text-xl text-white/80 mb-6 max-w-2xl mx-auto">从一个真实任务开始，把模板、流程和判断力慢慢搭起来。</p>
+            <p className="text-lg text-white/60 mb-10">内容会持续更新，但所有高时效参数都建议回到官方文档复核。</p>
             <Link to="/module/super-individual">
               <motion.button
                 whileHover={{ scale: 1.05 }}

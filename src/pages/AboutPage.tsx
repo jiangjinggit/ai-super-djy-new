@@ -30,11 +30,11 @@ export default function AboutPage() {
           <h3 className="text-xl font-bold text-white mb-4">内容原则</h3>
           <div className="space-y-3">
             {[
-              "所有模型数据来自官方 API 文档，标注来源和验证日期",
-              "案例来自公开报道，标注来源、风险提示和可复制性评估",
+              "高时效参数优先参考官方文档或公开原始来源，并标注整理日期",
+              "案例重点拆方法、前置条件与风险，不把个案包装成普遍结论",
               "不绑定单一工具，每个场景提供多平台方案",
-              "不承诺收入，务实标注每个阶段的成本和时间投入",
-              "持续更新，跟进各厂商官方文档变化",
+              "不承诺收入，优先强调任务边界、成本意识和验证节奏",
+              "持续更新，但鼓励用户对价格、版本和能力边界自行复核官方页面",
             ].map((item) => (
               <div key={item} className="flex items-start gap-3">
                 <ShieldCheck size={18} className="text-emerald-400 mt-1 shrink-0" />
