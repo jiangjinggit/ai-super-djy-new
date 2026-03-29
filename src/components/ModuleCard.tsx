@@ -26,7 +26,7 @@ export const ModuleCard = ({ title, desc, icon: Icon, color, index, id }: Module
         toast.success(`已进入: ${title}`, { description: '正在加载学习资源...' });
         navigate(`/module/${id}`);
       }}
-      className="group relative p-8 bg-white/5 border border-white/10 rounded-3xl transition-all cursor-pointer overflow-hidden"
+      className="group relative p-8 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-3xl transition-all cursor-pointer overflow-hidden"
       role="button"
       tabIndex={0}
       onKeyDown={(event) => {
@@ -42,10 +42,10 @@ export const ModuleCard = ({ title, desc, icon: Icon, color, index, id }: Module
         <Icon size={28} />
       </div>
 
-      <h3 className="text-2xl font-bold text-white mb-4">{title}</h3>
-      <p className="text-gray-400 leading-relaxed mb-6">{desc}</p>
+      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">{title}</h3>
+      <p className="text-slate-600 dark:text-gray-400 leading-relaxed mb-6">{desc}</p>
 
-      <div className="flex items-center text-sm font-bold text-white group-hover:text-blue-400 transition-colors">
+      <div className="flex items-center text-sm font-bold text-slate-900 dark:text-white group-hover:text-blue-400 transition-colors">
         进入模块 <ChevronRight size={16} className="ml-2 flex-shrink-0 group-hover:translate-x-1 transition-transform" />
       </div>
     </motion.div>

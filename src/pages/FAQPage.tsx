@@ -24,30 +24,30 @@ export default function FAQPage() {
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="pt-32 pb-24 px-6 max-w-4xl mx-auto">
-      <button type="button" onClick={() => navigate("/")} className="flex items-center gap-2 text-gray-400 hover:text-white mb-12 transition-colors group">
+      <button type="button" onClick={() => navigate("/")} className="flex items-center gap-2 text-slate-600 dark:text-gray-400 hover:text-white mb-12 transition-colors group">
         <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" /> 返回首页
       </button>
       <div className="flex items-center gap-6 mb-12">
-        <div className="w-20 h-20 rounded-3xl bg-purple-600/20 flex items-center justify-center text-purple-400">
+        <div className="w-20 h-20 rounded-3xl bg-purple-600/20 flex items-center justify-center text-purple-600 dark:text-purple-400">
           <HelpCircle size={40} />
         </div>
         <div>
-          <h1 className="text-5xl font-black text-white mb-2">常见问题</h1>
-          <p className="text-gray-400 text-lg">关于 AI Superman EVOLUTION 的常见疑问</p>
+          <h1 className="text-5xl font-black text-slate-900 dark:text-white mb-2">常见问题</h1>
+          <p className="text-slate-600 dark:text-gray-400 text-lg">关于 AI Superman EVOLUTION 的常见疑问</p>
         </div>
       </div>
       <div className="space-y-3">
         {FAQ_DATA.map((faq, i) => (
-          <div key={faq.q} className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
+          <div key={faq.q} className="bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl overflow-hidden">
             <button type="button" onClick={() => setOpenIndex(openIndex === i ? null : i)}
               className="w-full flex items-center justify-between p-6 text-left hover:bg-white/5 transition-colors">
-              <span className="text-white font-medium pr-4">{faq.q}</span>
-              <ChevronDown size={20} className={`text-gray-400 shrink-0 transition-transform ${openIndex === i ? "rotate-180" : ""}`} />
+              <span className="text-slate-900 dark:text-white font-medium pr-4">{faq.q}</span>
+              <ChevronDown size={20} className={`text-slate-600 dark:text-gray-400 shrink-0 transition-transform ${openIndex === i ? "rotate-180" : ""}`} />
             </button>
             <AnimatePresence>
               {openIndex === i && (
                 <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.2 }}>
-                  <p className="px-6 pb-6 text-gray-400 leading-relaxed">{faq.a}</p>
+                  <p className="px-6 pb-6 text-slate-600 dark:text-gray-400 leading-relaxed">{faq.a}</p>
                 </motion.div>
               )}
             </AnimatePresence>
