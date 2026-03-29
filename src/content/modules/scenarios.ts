@@ -1,34 +1,33 @@
 import { Bot, Code, Video, Zap } from 'lucide-react';
 
-import type { ModuleContent } from '@/types/course';
+import type { BaseModuleContent } from '@/types/course';
 
-export const scenariosModule: ModuleContent = {
+export const scenariosModule: BaseModuleContent = {
   title: '超级个体场景库',
   subtitle: '按角色拆流程 · 按任务配工具 · 按结果做复盘',
   icon: Zap,
   color: 'orange',
   description:
-    '这个模块不讲“万能工作流”，而是按典型角色拆开看：输入是什么、要交付什么、哪些步骤能让 AI 先接手、哪些地方必须保留人工判断。',
+    '不讲万能工作流，只拆 3 类高频角色的真实流程：输入是什么、步骤怎么走、哪些环节适合交给 AI。',
   keyTakeaways: [
-    '内容创作、独立开发、电商与自由职业的工作流结构完全不同',
-    '场景设计应从输入、步骤、输出和 KPI 反推工具组合',
-    '真正有效的流程一定包含复盘和质量门禁',
-    '先把一个角色的一个流程跑通，再复制到更多任务',
+    '拿到内容、开发、客服/报价三类场景的最小 SOP',
+    '知道每个场景里哪些环节适合 AI，哪些环节必须人工拍板',
+    '知道每条流程上线后该看哪些指标做复盘',
   ],
   sections: [
     {
-      title: '内容创作者',
-      content: '围绕选题、成稿、平台适配和数据复盘建立稳定内容流水线。',
+      title: '内容流水线',
+      content: '把研究、提纲、初稿、平台改写和复盘拆成固定动作，而不是每天从空白开始写。',
       icon: Video,
     },
     {
-      title: '独立开发者',
-      content: '围绕需求澄清、MVP、测试和反馈迭代构建交付闭环。',
+      title: 'MVP 交付',
+      content: '把需求澄清、主流程开发、验收和反馈固定下来，让 AI 真正为交付服务。',
       icon: Code,
     },
     {
-      title: '电商 / 自由职业',
-      content: '围绕客服、素材、报价、履约和复盘提升单人运营密度。',
+      title: '客服与报价闭环',
+      content: '先整理 FAQ、报价规则和升级条件，再让 AI 承担回复、草稿和整理工作。',
       icon: Bot,
     },
   ],
@@ -37,7 +36,7 @@ export const scenariosModule: ModuleContent = {
       title: '内容创作者：选题、写作、分发、复盘四段式流水线',
       content:
         '内容工作最容易陷入“每天都在做，但没有沉淀”。用 AI 的重点不是批量生成废稿，而是稳定地产出更快的研究、初稿和复盘。',
-      image: 'https://picsum.photos/seed/content-pipeline/800/450',
+      image: 'cover://content-pipeline',
       details: [
         '输入：选题方向、目标用户、平台和素材来源',
         '流程：选题聚类 -> 角度设计 -> 初稿 -> 平台适配 -> 发布复盘',
@@ -67,7 +66,7 @@ export const scenariosModule: ModuleContent = {
       title: '独立开发者：需求、MVP、测试、反馈四步法',
       content:
         'AI 编程最有价值的地方，不是“替你写完所有代码”，而是加速需求澄清、脚手架搭建、测试补全和反馈迭代。',
-      image: 'https://picsum.photos/seed/dev-mvp/800/450',
+      image: 'cover://dev-mvp',
       details: [
         '输入：问题定义、目标用户、核心流程和不做什么',
         '流程：需求澄清 -> 任务拆分 -> MVP -> 测试 -> 收集反馈',
@@ -97,7 +96,7 @@ export const scenariosModule: ModuleContent = {
       title: '电商 / 自由职业：客服、素材、报价、履约闭环',
       content:
         '这类工作最大的特点是碎片多、响应快、标准化机会高。AI 可以大幅降低沟通和整理成本，但最终成交和风险控制仍然需要人。',
-      image: 'https://picsum.photos/seed/ops-freelance/800/450',
+      image: 'cover://ops-freelance',
       details: [
         '输入：商品/服务信息、常见问题、报价规则和交付模板',
         '流程：咨询分流 -> 草拟回复 -> 素材生产 -> 报价 -> 交付 -> 复盘',

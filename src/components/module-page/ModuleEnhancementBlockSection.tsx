@@ -2,6 +2,7 @@ import { Copy, Sparkles } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { toast } from 'sonner';
 
+import { ContentMetaNote } from '@/components/module-page/ContentMetaNote';
 import type {
   ActionChecklistBlock,
   CaseEvidenceBlock,
@@ -21,13 +22,14 @@ const RELIABILITY_STYLES = {
 
 const tokenToCost = (tokens: number, unitPrice: number) => (tokens / 1_000_000) * unitPrice;
 
-const ActionChecklistSection = ({ title, description, items }: ActionChecklistBlock) => {
+const ActionChecklistSection = ({ title, description, items, updatedAt, sources, hideMeta }: ActionChecklistBlock) => {
   return (
     <section className="mb-20 p-10 bg-white/5 border border-white/10 rounded-[40px]">
       <h3 className="text-2xl font-bold text-white mb-3 flex items-center gap-3">
         <Sparkles className="text-blue-400" /> {title}
       </h3>
       {description && <p className="text-sm text-gray-400 mb-6">{description}</p>}
+      {!hideMeta && <ContentMetaNote updatedAt={updatedAt} sources={sources} />}
       <div className="space-y-4">
         {items.map((item) => (
           <div key={item.title} className="p-5 bg-white/5 rounded-2xl border border-white/10">
@@ -44,7 +46,7 @@ const ActionChecklistSection = ({ title, description, items }: ActionChecklistBl
   );
 };
 
-const ModelOptionsSection = ({ title, description, items, footer }: ModelOptionsBlock) => {
+const ModelOptionsSection = ({ title, description, items, footer, updatedAt, sources, hideMeta }: ModelOptionsBlock) => {
   const [inputTokens, setInputTokens] = useState(120000);
   const [outputTokens, setOutputTokens] = useState(30000);
   const [budgetTier, setBudgetTier] = useState<'全部' | '低预算' | '均衡' | '高质量'>('全部');
@@ -60,6 +62,7 @@ const ModelOptionsSection = ({ title, description, items, footer }: ModelOptions
     <section className="mb-20 p-10 bg-white/5 border border-white/10 rounded-[40px]">
       <h3 className="text-2xl font-bold text-white mb-3">{title}</h3>
       {description && <p className="text-sm text-gray-400 mb-6">{description}</p>}
+      {!hideMeta && <ContentMetaNote updatedAt={updatedAt} sources={sources} />}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <label className="text-sm text-gray-300">
           输入 Tokens
@@ -131,11 +134,12 @@ const ModelOptionsSection = ({ title, description, items, footer }: ModelOptions
   );
 };
 
-const SecurityChecklistSection = ({ title, description, items }: SecurityChecklistBlock) => {
+const SecurityChecklistSection = ({ title, description, items, updatedAt, sources, hideMeta }: SecurityChecklistBlock) => {
   return (
     <section className="mb-20 p-10 bg-white/5 border border-white/10 rounded-[40px]">
       <h3 className="text-2xl font-bold text-white mb-3">{title}</h3>
       {description && <p className="text-sm text-gray-400 mb-6">{description}</p>}
+      {!hideMeta && <ContentMetaNote updatedAt={updatedAt} sources={sources} />}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {items.map((rule) => (
           <div key={rule.title} className="p-5 bg-black/20 border border-white/10 rounded-2xl">
@@ -148,11 +152,12 @@ const SecurityChecklistSection = ({ title, description, items }: SecurityCheckli
   );
 };
 
-const SopTemplatesSection = ({ title, description, items }: SopTemplatesBlock) => {
+const SopTemplatesSection = ({ title, description, items, updatedAt, sources, hideMeta }: SopTemplatesBlock) => {
   return (
     <section className="mb-20 p-10 bg-white/5 border border-white/10 rounded-[40px]">
       <h3 className="text-2xl font-bold text-white mb-3">{title}</h3>
       {description && <p className="text-sm text-gray-400 mb-6">{description}</p>}
+      {!hideMeta && <ContentMetaNote updatedAt={updatedAt} sources={sources} />}
       <div className="space-y-5">
         {items.map((template) => (
           <div key={template.title} className="p-6 bg-black/20 border border-white/10 rounded-2xl">
@@ -193,11 +198,12 @@ const SopTemplatesSection = ({ title, description, items }: SopTemplatesBlock) =
   );
 };
 
-const CaseEvidenceSection = ({ title, description, items }: CaseEvidenceBlock) => {
+const CaseEvidenceSection = ({ title, description, items, updatedAt, sources, hideMeta }: CaseEvidenceBlock) => {
   return (
     <section className="mb-20 p-10 bg-white/5 border border-white/10 rounded-[40px]">
       <h3 className="text-2xl font-bold text-white mb-3">{title}</h3>
       {description && <p className="text-sm text-gray-400 mb-6">{description}</p>}
+      {!hideMeta && <ContentMetaNote updatedAt={updatedAt} sources={sources} />}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {items.map((evidence) => (
           <div key={evidence.title} className="p-5 bg-black/20 border border-white/10 rounded-2xl">
@@ -219,11 +225,12 @@ const CaseEvidenceSection = ({ title, description, items }: CaseEvidenceBlock) =
   );
 };
 
-const WeeklyPlanSection = ({ title, description, items }: WeeklyPlanBlock) => {
+const WeeklyPlanSection = ({ title, description, items, updatedAt, sources, hideMeta }: WeeklyPlanBlock) => {
   return (
     <section className="mb-20 p-10 bg-white/5 border border-white/10 rounded-[40px]">
       <h3 className="text-2xl font-bold text-white mb-3">{title}</h3>
       {description && <p className="text-sm text-gray-400 mb-6">{description}</p>}
+      {!hideMeta && <ContentMetaNote updatedAt={updatedAt} sources={sources} />}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {items.map((weekPlan) => (
           <div key={weekPlan.week} className="p-5 bg-black/20 border border-white/10 rounded-2xl">

@@ -2,8 +2,13 @@ import { ArrowLeft, ShieldCheck, User } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
 
+import { useDocumentTitle } from '@/hooks/useDocumentTitle';
+
 export default function AboutPage() {
   const navigate = useNavigate();
+
+  useDocumentTitle('关于 DJY');
+
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="pt-32 pb-24 px-6 max-w-4xl mx-auto">
       <button type="button" onClick={() => navigate("/")} className="flex items-center gap-2 text-gray-400 hover:text-white mb-12 transition-colors group">

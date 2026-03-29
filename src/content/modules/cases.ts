@@ -1,34 +1,33 @@
 import { Globe, ShieldCheck, Users } from 'lucide-react';
 
-import type { ModuleContent } from '@/types/course';
+import type { BaseModuleContent } from '@/types/course';
 
-export const casesModule: ModuleContent = {
+export const casesModule: BaseModuleContent = {
   title: '真实案例库',
   subtitle: '看方法，不追神话；看条件，不追标题',
   icon: Users,
   color: 'purple',
   description:
-    '这个模块的目标不是放大“暴富叙事”，而是教你读案例：哪些条件可复制、哪些只是个体优势、哪些结论只适用于特定阶段和特定人群。',
+    '这个模块教你怎么拆案例，不是带你追标题。重点只看前提条件、分工方式、风险和可复制动作。',
   keyTakeaways: [
-    '案例最大的价值是拆方法，而不是照搬结果',
-    '公开报道常带样本偏差，必须看前置条件和风险',
-    '个人品牌、行业经验、分发能力、现金流基础都会显著影响结果',
-    '把案例当作决策参考，不要把它当作收益承诺',
+    '识别案例里哪些条件本身就不可复制',
+    '把头部案例翻译成普通人一周内能试的小动作',
+    '学会把案例当实验参考，而不是当收益承诺',
   ],
   sections: [
     {
-      title: '个人品牌类',
-      content: '重点观察内容生产、分发能力和品牌基础如何被 AI 放大。',
+      title: '看内容团队怎么分工',
+      content: '重点看研究、初稿、分发和判断是怎么分层的，而不是盯着用了多少工具。',
       icon: Globe,
     },
     {
-      title: '转型路径类',
-      content: '重点观察非技术背景如何借助 AI 进入产品或服务交付。',
+      title: '看非技术背景怎么起步',
+      content: '重点看问题选择、验证顺序和风险控制，而不是只看收入截图。',
       icon: Users,
     },
     {
-      title: '团队协作类',
-      content: '重点观察小团队如何用 AI 重组岗位和工作流，而非单纯裁员。',
+      title: '看小团队怎么重组流程',
+      content: '重点看哪些重复环节被 AI 接手，哪些关键判断仍然必须留在人手里。',
       icon: ShieldCheck,
     },
   ],
@@ -37,7 +36,7 @@ export const casesModule: ModuleContent = {
       title: '个人品牌内容团队的 AI 提效经验：看分发与判断力，不只看工具',
       content:
         '公开分享里最容易被放大的，是用了多少工具；最容易被忽略的，是已有粉丝基础、内容判断力和分发节奏。',
-      image: 'https://picsum.photos/seed/case-creator-brand/800/450',
+      image: 'cover://case-creator-brand',
       details: [
         '强个人品牌本身就是放大器',
         'AI 适合放大研究、初稿、剪辑协同和运营节奏',
@@ -67,7 +66,7 @@ export const casesModule: ModuleContent = {
       title: '非技术背景转向小产品：看学习路径与风险控制，不只看收入标题',
       content:
         '这类故事吸引人的通常是收入数字，但真正值得研究的是：他如何选题、如何降低风险、如何边做边学。',
-      image: 'https://picsum.photos/seed/case-nontech-builder/800/450',
+      image: 'cover://case-nontech-builder',
       details: [
         '先做已被验证的需求，再谈创新',
         '边做边学通常比纯理论学习更快',
@@ -97,7 +96,7 @@ export const casesModule: ModuleContent = {
       title: 'AI-first 小团队协作：看岗位重组和系统分工，不只看人少不少年',
       content:
         '小团队案例最值得看的，是岗位如何重组、流程如何改变，而不是简单地把结果概括成“人变少了”。',
-      image: 'https://picsum.photos/seed/case-ai-team/800/450',
+      image: 'cover://case-ai-team',
       details: [
         'AI-first 团队通常先重做流程，再重做岗位分工',
         '小团队优势是决策快，但也更依赖通才能力',

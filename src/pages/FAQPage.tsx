@@ -3,6 +3,8 @@ import { AnimatePresence, motion } from 'motion/react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useDocumentTitle } from '@/hooks/useDocumentTitle';
+
 const FAQ_DATA = [
   { q: "我完全零基础，能学吗？", a: "完全可以。阶段 0 专门为零基础设计，所有工具都有免费版本，跟着步骤操作即可。不需要编程基础，不需要英语基础。" },
   { q: "需要花多少钱？", a: "可以先从免费额度和低成本工具开始。阶段 0 完全可以先不付费；进入高频使用后，再根据任务量决定是否订阅或接 API。重点不是一开始花多少钱，而是先确认 AI 是否真的帮你省下了时间。" },
@@ -17,6 +19,9 @@ const FAQ_DATA = [
 export default function FAQPage() {
   const navigate = useNavigate();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  useDocumentTitle('常见问题');
+
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="pt-32 pb-24 px-6 max-w-4xl mx-auto">
       <button type="button" onClick={() => navigate("/")} className="flex items-center gap-2 text-gray-400 hover:text-white mb-12 transition-colors group">

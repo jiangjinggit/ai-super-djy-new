@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
 
+import { useDocumentTitle } from '@/hooks/useDocumentTitle';
+
 export default function TermsPage() {
+  useDocumentTitle('服务条款');
+
   return (
     <div className="pt-32 pb-24 px-6 max-w-4xl mx-auto text-gray-300">
       <h1 className="text-4xl font-black text-white mb-6">服务条款</h1>

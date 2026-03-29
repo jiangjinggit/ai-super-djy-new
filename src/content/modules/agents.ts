@@ -1,34 +1,33 @@
 import { Code, Cpu, Layers, Rocket } from 'lucide-react';
 
-import type { ModuleContent } from '@/types/course';
+import type { BaseModuleContent } from '@/types/course';
 
-export const agentsModule: ModuleContent = {
+export const agentsModule: BaseModuleContent = {
   title: 'AI 智能体实战专区',
   subtitle: '先定边界，再做流程，再谈自治',
   icon: Cpu,
   color: 'emerald',
   description:
-    '智能体的关键不在于“会不会自动动起来”，而在于你是否设计清楚了输入、权限、确认点和回滚策略。这个模块重点讨论 OpenClaw 与 Claude Code 两类工作台的分工和落地方法。',
+    '这个模块只讲一件事：怎么让智能体真正可控地落地，包括输入、权限、日志、确认点和回退机制。',
   keyTakeaways: [
-    '智能体不是聊天机器人增强版，而是带工具和状态管理的执行系统',
-    '稳定、重复、跨渠道的流程更适合交给长期自治工作台',
-    '高变化、强上下文、需要快速迭代的任务更适合执行型工作台',
-    '先做半自动闭环，再逐步提高自动化密度',
+    '判断一个流程是否真的值得做成智能体',
+    '知道长期工作台和执行型工作台各自适合什么任务',
+    '先把只读、草稿、确认点和回退机制设计清楚再自动化',
   ],
   sections: [
     {
-      title: '智能体基本面',
-      content: '先理解任务拆解、状态管理、工具调用和人工确认点。',
+      title: '先看闭环是否成立',
+      content: '先确认输入、工具、状态、输出和停止条件是否完整，再决定值不值得做成智能体。',
       icon: Rocket,
     },
     {
-      title: '工作台分工',
-      content: '把 OpenClaw 一类的长期工作台和 Claude Code 一类的执行工作台分开看。',
+      title: '再选工作台类型',
+      content: '长期稳定流程交给长期工作台，高变化、强上下文任务交给执行型工作台。',
       icon: Code,
     },
     {
-      title: '落地治理',
-      content: '从权限、审批、日志和回滚设计，避免“自动化先于流程设计”。',
+      title: '最后补安全边界',
+      content: '把权限分层、人工确认、日志和回退补齐，避免自动化把错误成倍放大。',
       icon: Layers,
     },
   ],
@@ -37,7 +36,7 @@ export const agentsModule: ModuleContent = {
       title: '什么叫智能体：能感知、能调用工具、能执行、能回写状态',
       content:
         '判断一个系统是不是智能体，不看营销词，而看它是否真的能读取环境、使用工具、执行动作并记录结果。',
-      image: 'https://picsum.photos/seed/agent-basics/800/450',
+      image: 'cover://agent-basics',
       details: [
         '有输入：消息、文件、网页、数据库、定时触发',
         '有工具：搜索、终端、浏览器、知识库、通知',
@@ -67,7 +66,7 @@ export const agentsModule: ModuleContent = {
       title: 'OpenClaw 型工作台：适合长期、稳定、跨渠道流程',
       content:
         '如果你的需求是长期驻场、跨渠道接入、统一路由和后台运行，那么这类工作台的价值会很高。',
-      image: 'https://picsum.photos/seed/openclaw-style/800/450',
+      image: 'cover://openclaw-style',
       details: [
         '适合：消息路由、告警转发、资料归档、定时巡检',
         '优势：多渠道接入、统一网关、长时间在线',
@@ -97,7 +96,7 @@ export const agentsModule: ModuleContent = {
       title: 'Claude Code 型执行台：适合高变化、强上下文任务',
       content:
         '如果你的任务跨代码、文档、命令行和协作说明，而且变化快、需要持续调整，那么执行型工作台会更合适。',
-      image: 'https://picsum.photos/seed/claude-code-style/800/450',
+      image: 'cover://claude-code-style',
       details: [
         '适合：代码改动、发布检查、故障排查、文档整理、变更总结',
         '优势：上下文理解强，适合交互式推进复杂任务',
@@ -127,7 +126,7 @@ export const agentsModule: ModuleContent = {
       title: '先做半自动闭环，再谈全自动自治',
       content:
         '真正成熟的智能体系统，不是“自动化越多越好”，而是知道哪些步骤该自动、哪些步骤必须人工确认。',
-      image: 'https://picsum.photos/seed/automation-boundary/800/450',
+      image: 'cover://automation-boundary',
       details: [
         '先定义完成标准，再决定是否自动执行',
         '把资金、对外发送、批量变更设为高风险动作',

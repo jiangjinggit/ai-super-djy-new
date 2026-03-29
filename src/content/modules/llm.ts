@@ -1,34 +1,33 @@
 import { Brain, Cpu, Layers, Star } from 'lucide-react';
 
-import type { ModuleContent } from '@/types/course';
+import type { BaseModuleContent } from '@/types/course';
 
-export const llmModule: ModuleContent = {
+export const llmModule: BaseModuleContent = {
   title: '大模型实战库',
   subtitle: '评估框架优先 · 参数对比其次 · 选型为业务服务',
   icon: Brain,
   color: 'purple',
   description:
-    '这个模块不做“排行榜崇拜”，而是帮你建立一套可复用的模型评估框架。你会知道应该先看哪些指标、如何结合任务和预算做选择，以及怎样避免被过时参数误导。',
+    '不是教你背型号，而是帮你为真实任务选出默认模型、备选模型和预算规则。',
   keyTakeaways: [
-    '先看任务目标、预算和延迟，再看模型品牌',
-    '上下文窗口、输出长度、工具支持和缓存策略会直接影响使用体验',
-    '选型要区分通用问答、复杂推理、长文本、中文场景和工具调用',
-    '所有高时效参数都应回到官方文档核验',
+    '建立一张自己的模型评测表，而不是跟着榜单切模型',
+    '为不同任务指定默认、高质量和低成本模型',
+    '把 API 记录、预算和权限一起纳入日常治理',
   ],
   sections: [
     {
-      title: '评估框架',
-      content: '从质量、成本、延迟、上下文和工具支持五个维度判断模型是否适配。',
+      title: '先做任务映射',
+      content: '把摘要、写作、分析、长文和批处理拆开评估，不再用一个模型硬吃所有任务。',
       icon: Layers,
     },
     {
-      title: '主流供应商观察',
-      content: '理解 OpenAI、Anthropic、DeepSeek、Moonshot 等路线差异，而不是只记版本号。',
+      title: '再做真实试跑',
+      content: '用你自己的样本比较质量、返工量、速度和成本，直接产出默认模型决策。',
       icon: Star,
     },
     {
-      title: '接入与治理',
-      content: '把 API Key、预算、日志和实验记录一起纳入模型治理流程。',
+      title: '最后补治理规则',
+      content: '把 Key 分离、预算分级和调用记录补上，避免模型接进来之后越用越乱。',
       icon: Cpu,
     },
   ],
@@ -37,7 +36,7 @@ export const llmModule: ModuleContent = {
       title: '选模型先看五个维度，不要先看排行榜',
       content:
         '模型选型不是“谁最强就用谁”，而是谁最适合你当前的任务和成本结构。先建框架，再看参数。',
-      image: 'https://picsum.photos/seed/model-framework/800/450',
+      image: 'cover://model-framework',
       details: [
         '质量：回答稳定性、推理深度、格式遵循能力',
         '成本：输入、输出、缓存、工具调用的综合成本',
@@ -67,7 +66,7 @@ export const llmModule: ModuleContent = {
       title: '主流模型怎么分工：通用、推理、长文本、中文场景',
       content:
         '不同厂商在能力结构上各有侧重。理解“分工”比记住每一个版本号更重要。',
-      image: 'https://picsum.photos/seed/model-landscape/800/450',
+      image: 'cover://model-landscape',
       details: [
         '通用任务看稳定性和工具生态',
         '复杂推理看输出质量和长链路表现',
@@ -97,7 +96,7 @@ export const llmModule: ModuleContent = {
       title: 'API 接入与权限管理：先可用，再安全',
       content:
         '大部分人第一次接 API，不是败在技术复杂，而是败在密钥管理、额度控制和实验记录。',
-      image: 'https://picsum.photos/seed/api-governance/800/450',
+      image: 'cover://api-governance',
       details: [
         '区分测试、日常、生产三类用途',
         '不同用途使用不同密钥和额度上限',
@@ -127,7 +126,7 @@ export const llmModule: ModuleContent = {
       title: '建立你自己的模型评测表：别让“听说”替代测试',
       content:
         '最终能帮你做决策的，不是别人说哪家强，而是你用同一套任务样本跑出来的结果。',
-      image: 'https://picsum.photos/seed/model-eval-sheet/800/450',
+      image: 'cover://model-eval-sheet',
       details: [
         '为每类任务准备 3-5 个标准样本',
         '统一比较质量、速度、成本和格式遵循',

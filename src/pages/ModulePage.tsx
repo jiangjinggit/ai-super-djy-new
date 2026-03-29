@@ -3,20 +3,26 @@ import {
   ArrowRight,
   BookOpen,
   ChevronRight,
+  Clock3,
   Star,
+  Users,
 } from 'lucide-react';
-import { AnimatePresence, motion } from 'motion/react';
-import { useState } from 'react';
+import { motion } from 'motion/react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { LessonModal } from '@/components/module-page/LessonModal';
 import { ModuleEnhancementBlockSection } from '@/components/module-page/ModuleEnhancementBlockSection';
 import { ModuleReferencePanel } from '@/components/module-page/ModuleReferencePanel';
 import { MODULE_COLOR_STYLES } from '@/constants/moduleStyles';
 import { MODULE_ENHANCEMENTS } from '@/content/moduleEnhancements';
 import { MODULE_CONTENT } from '@/content/modules';
-import type { Lesson } from '@/types/course';
+import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 import { isModuleId } from '@/types/course';
+
+const DIFFICULTY_LABELS = {
+  beginner: '入门',
+  intermediate: '进阶',
+  advanced: '高级',
+} as const;
 
 const splitCta = (text: string) => {
   const [prefix, suffix] = text.split(' → ');
@@ -33,8 +39,10 @@ export default function ModulePage() {
 
   const content = moduleId ? MODULE_CONTENT[moduleId] : null;
   const enhancement = moduleId ? MODULE_ENHANCEMENTS[moduleId] : null;
+  const prioritizedBlocks = enhancement?.blocks.filter((block) => block.type === 'action-checklist') ?? [];
+  const remainingBlocks = enhancement?.blocks.filter((block) => block.type !== 'action-checklist') ?? [];
 
-  const [selectedLesson, setSelectedLesson] = useState<Lesson | null>(null);
+  useDocumentTitle(content?.title ?? '模块未找到');
 
   if (!content || !enhancement || !moduleId) {
     return (
@@ -73,9 +81,37 @@ export default function ModulePage() {
         </div>
       </div>
 
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+        <div className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4">
+          <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-2">学习难度</p>
+          <p className="text-white font-semibold">{DIFFICULTY_LABELS[content.difficulty]}</p>
+        </div>
+        <div className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4">
+          <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-2">建议周期</p>
+          <p className="text-white font-semibold inline-flex items-center gap-2">
+            <Clock3 size={16} className="text-blue-300" /> {content.estimatedTime}
+          </p>
+        </div>
+        <div className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4">
+          <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-2">适合人群</p>
+          <p className="text-white font-semibold inline-flex items-center gap-2">
+            <Users size={16} className="text-blue-300" /> {content.audience[0]}
+          </p>
+        </div>
+      </div>
+
+      {prioritizedBlocks.map((block) => (
+        <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
+      ))}
+
       <ModuleReferencePanel lastVerifiedOn={enhancement.lastVerifiedOn} sources={enhancement.sources} />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+      <div className="mb-20">
+        <div className="mb-8">
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-300 mb-3">模块结构</p>
+          <h2 className="text-3xl font-black text-white">这一模块主要解决 3 件事</h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {content.sections.map((section, index) => {
           const SectionIcon = section.icon;
           return (
@@ -94,25 +130,28 @@ export default function ModulePage() {
             </motion.div>
           );
         })}
-      </div>
-
-      <div className="mb-20 p-12 bg-blue-600/5 border border-blue-500/20 rounded-[40px]">
-        <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
-          <Star className="text-yellow-500" /> 核心收获
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {content.keyTakeaways.map((takeaway, index) => (
-            <div key={takeaway} className="flex items-start gap-4">
-              <div className="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 text-xs font-bold shrink-0 mt-1">
-                {index + 1}
-              </div>
-              <p className="text-gray-300 leading-relaxed">{takeaway}</p>
-            </div>
-          ))}
         </div>
       </div>
 
-      {enhancement.blocks.map((block) => (
+      {content.keyTakeaways.length > 0 && (
+        <div className="mb-20 p-12 bg-blue-600/5 border border-blue-500/20 rounded-[40px]">
+          <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+            <Star className="text-yellow-500" /> 学完后你应该拿到
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {content.keyTakeaways.map((takeaway, index) => (
+              <div key={takeaway} className="flex items-start gap-4">
+                <div className="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 text-xs font-bold shrink-0 mt-1">
+                  {index + 1}
+                </div>
+                <p className="text-gray-300 leading-relaxed">{takeaway}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {remainingBlocks.map((block) => (
         <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
       ))}
 
@@ -120,19 +159,39 @@ export default function ModulePage() {
         <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
           <BookOpen className="text-blue-500" /> 课程大纲
         </h3>
+        <p className="text-sm text-gray-400 mb-8">不要先通读，按顺序做。每节课先看目标，再立即完成 1 个动作。</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {content.lessons.map((lesson, index) => (
             <button
-              key={lesson.title}
+              key={lesson.slug}
               type="button"
-              onClick={() => setSelectedLesson(lesson)}
-              className="text-left flex items-center gap-4 p-4 bg-white/5 rounded-2xl hover:bg-white/10 transition-colors group"
+              onClick={() => navigate(`/module/${moduleId}/lesson/${lesson.slug}`)}
+              className="text-left p-5 bg-white/5 rounded-2xl hover:bg-white/10 transition-colors group border border-white/10"
             >
-              <div className="w-8 h-8 bg-blue-600/20 text-blue-400 rounded-lg flex items-center justify-center text-sm font-bold group-hover:bg-blue-600 group-hover:text-white transition-all">
-                {index + 1}
+              <div className="flex items-start gap-4">
+                <div className="w-8 h-8 bg-blue-600/20 text-blue-400 rounded-lg flex items-center justify-center text-sm font-bold group-hover:bg-blue-600 group-hover:text-white transition-all shrink-0">
+                  {index + 1}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-start justify-between gap-3 mb-2">
+                    <h4 className="text-base font-semibold text-gray-200 group-hover:text-white transition-colors leading-relaxed">
+                      {lesson.title}
+                    </h4>
+                    <span className="text-xs text-gray-500 shrink-0 inline-flex items-center gap-1">
+                      <Clock3 size={12} className="text-blue-300" /> {lesson.estimatedTime}
+                    </span>
+                  </div>
+                  <p className="text-sm text-gray-400 leading-relaxed mb-3">{lesson.content}</p>
+                  <div className="space-y-1.5">
+                    {lesson.details.slice(0, 2).map((detail) => (
+                      <p key={detail} className="text-xs text-gray-500 leading-relaxed">
+                        - {detail}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+                <ChevronRight size={16} className="ml-2 mt-1 text-gray-600 group-hover:text-white transition-colors shrink-0" />
               </div>
-              <span className="text-gray-300 group-hover:text-white transition-colors">{lesson.title}</span>
-              <ChevronRight size={16} className="ml-auto text-gray-600 group-hover:text-white transition-colors" />
             </button>
           ))}
         </div>
@@ -150,10 +209,6 @@ export default function ModulePage() {
           </button>
         </motion.div>
       )}
-
-      <AnimatePresence>
-        {selectedLesson && <LessonModal lesson={selectedLesson} onClose={() => setSelectedLesson(null)} />}
-      </AnimatePresence>
     </motion.div>
   );
 }

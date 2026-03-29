@@ -1,34 +1,33 @@
 import { BookOpen, Lightbulb, Rocket, Zap } from 'lucide-react';
 
-import type { ModuleContent } from '@/types/course';
+import type { BaseModuleContent } from '@/types/course';
 
-export const growthModule: ModuleContent = {
+export const growthModule: BaseModuleContent = {
   title: '成长路径',
   subtitle: '分阶段推进 · 先提效再验证 · 用结果说话',
   icon: BookOpen,
   color: 'emerald',
   description:
-    '这是一条偏务实的成长路径：先建立任务感知，再完成 3 个流程提效，然后围绕一个明确方向做 MVP 或服务验证。它不承诺暴富，只强调节奏、反馈和复盘。',
+    '把学习拆成入门、提效、验证、迭代四段，每一段只追一个目标，不靠焦虑推进。',
   keyTakeaways: [
-    '阶段 0 先建立任务感知和工具直觉，不急着投入太多成本',
-    '阶段 1 先把 3 个真实流程提效，而不是盲目上自动化',
-    '阶段 2 用 MVP 或服务验证需求，避免长期闭门打磨',
-    '持续迭代比一次性学完更重要，行业变化会持续发生',
+    '知道每个阶段结束时你应该交付什么结果',
+    '知道什么时候该继续提效，什么时候该开始做验证',
+    '建立按月迭代的节奏，而不是反复追新和重来',
   ],
   sections: [
     {
-      title: '阶段 0：建立直觉',
-      content: '识别重复任务、完成真实交付，形成“AI 能帮我什么”的任务感知。',
+      title: '入门阶段',
+      content: '先完成真实任务、写出模板、跑通闭环，建立最基本的任务感知。',
       icon: Lightbulb,
     },
     {
-      title: '阶段 1：放大效率',
-      content: '围绕 3 个真实流程做模板化、半自动化和复盘。',
+      title: '提效阶段',
+      content: '固定 3 个高频流程，持续做模板化、半自动化和复盘，拿到真实节省时间。',
       icon: Zap,
     },
     {
-      title: '阶段 2：验证方向',
-      content: '围绕一个明确问题做 MVP、服务或内容验证，而不是堆概念。',
+      title: '验证与迭代',
+      content: '围绕一个明确问题做最小验证，并用月度复盘驱动后续工具和流程升级。',
       icon: Rocket,
     },
   ],
@@ -37,7 +36,7 @@ export const growthModule: ModuleContent = {
       title: '阶段 0（1-2 周）：先建立任务感知，不急着买很多工具',
       content:
         '阶段 0 的目标不是学会所有概念，而是通过真实任务建立“哪些工作适合先交给 AI”的直觉。',
-      image: 'https://picsum.photos/seed/growth-stage0/800/450',
+      image: 'cover://growth-stage0',
       details: [
         '目标：完成 5 个真实任务，不追求复杂自动化',
         '动作：记录重复任务、写模板、做第一次复盘',
@@ -67,7 +66,7 @@ export const growthModule: ModuleContent = {
       title: '阶段 1（1-3 月）：围绕 3 个真实流程做提效',
       content:
         '真正的提效来自流程，而不是单点提问。阶段 1 的核心，是把 3 个高频流程变成稳定、可复用的工作方式。',
-      image: 'https://picsum.photos/seed/growth-stage1/800/450',
+      image: 'cover://growth-stage1',
       details: [
         '目标：选出 3 个高频流程并完成模板化',
         '动作：手动 -> 半自动 -> 低风险自动化',
@@ -97,7 +96,7 @@ export const growthModule: ModuleContent = {
       title: '阶段 2（3-6 月）：做一个最小验证，而不是做一个大梦想',
       content:
         '到了这一阶段，你应该围绕一个明确问题做 MVP、服务、内容产品或咨询验证，而不是停留在“我也想做点什么”。',
-      image: 'https://picsum.photos/seed/growth-stage2/800/450',
+      image: 'cover://growth-stage2',
       details: [
         '目标：拿到第一批真实反馈或首单验证',
         '动作：选方向、做最小版本、收集反馈、快速迭代',
@@ -127,7 +126,7 @@ export const growthModule: ModuleContent = {
       title: '持续迭代：用官方更新、任务变化和反馈闭环驱动升级',
       content:
         '行业变化不会停。你不需要每天追新闻，但必须保留轻量更新和定期复测的习惯。',
-      image: 'https://picsum.photos/seed/growth-iterate/800/450',
+      image: 'cover://growth-iterate',
       details: [
         '固定查看官方文档和变更日志',
         '关键流程在模型更新后做轻量复测',

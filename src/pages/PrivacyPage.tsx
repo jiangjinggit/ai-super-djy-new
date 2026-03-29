@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
 
+import { useDocumentTitle } from '@/hooks/useDocumentTitle';
+
 export default function PrivacyPage() {
+  useDocumentTitle('隐私政策');
+
   return (
     <div className="pt-32 pb-24 px-6 max-w-4xl mx-auto text-gray-300">
       <h1 className="text-4xl font-black text-white mb-6">隐私政策</h1>

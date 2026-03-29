@@ -1,40 +1,38 @@
-import { Github, Twitter, Zap } from 'lucide-react';
+import { Mail, MessageSquareText, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="border-t border-white/10 py-12 px-6">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-        <div>
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-8">
+        <div className="max-w-sm">
           <div className="flex items-center gap-2 mb-4">
             <Zap className="text-blue-500 fill-blue-500" size={20} />
             <span className="text-lg font-bold text-white tracking-tighter">AI Superman DJY</span>
           </div>
-          <p className="text-sm text-gray-500">© 2026 AI Superman DJY. 让每个人成为超级个体。</p>
+          <p className="text-sm text-gray-400 leading-relaxed">
+            一个围绕 AI 学习、工作流、模型选型与真实落地场景持续整理的内容站。
+          </p>
+          <p className="text-sm text-gray-500 mt-3">© {currentYear} AI Superman DJY. 让每个人成为超级个体。</p>
         </div>
 
-        <div className="flex items-center gap-6">
-          <a
-            href="https://x.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-400 hover:text-white transition-colors"
-            aria-label="X"
-          >
-            <Twitter size={20} />
-          </a>
-          <a
-            href="https://github.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-400 hover:text-white transition-colors"
-            aria-label="GitHub"
-          >
-            <Github size={20} />
-          </a>
+        <div className="rounded-3xl border border-white/10 bg-white/5 px-5 py-4">
+          <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-3">保持联系</p>
+          <div className="space-y-3 text-sm text-gray-300">
+            <p className="inline-flex items-center gap-2">
+              <MessageSquareText size={16} className="text-blue-300" />
+              公众号：AI Superman DJY
+            </p>
+            <a href="mailto:hello@aisupermandjy.com" className="inline-flex items-center gap-2 hover:text-white transition-colors">
+              <Mail size={16} className="text-blue-300" />
+              hello@aisupermandjy.com
+            </a>
+          </div>
         </div>
 
-        <div className="flex gap-8 text-sm font-medium text-gray-500">
+        <div className="flex flex-wrap gap-6 text-sm font-medium text-gray-500">
           <Link to="/about" className="hover:text-white transition-colors">
             关于 DJY
           </Link>
@@ -47,9 +45,9 @@ export const Footer = () => {
           <Link to="/terms" className="hover:text-white transition-colors">
             服务条款
           </Link>
-          <a href="mailto:hello@aisupermandjy.com" className="hover:text-white transition-colors">
-            联系我们
-          </a>
+          <Link to="/module/super-individual" className="hover:text-white transition-colors">
+            从入门开始
+          </Link>
         </div>
       </div>
     </footer>

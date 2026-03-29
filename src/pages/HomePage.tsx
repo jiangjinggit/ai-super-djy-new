@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 import { MODULE_COLOR_STYLES } from '@/constants/moduleStyles';
 import { MODULE_CARDS } from '@/content/moduleCatalog';
 import { ModuleCard } from '@/components/ModuleCard';
+import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 import type { ModuleColor, ModuleId } from '@/types/course';
 
 const Hero = () => {
@@ -199,6 +200,8 @@ const GROWTH_STEPS: Array<{
 ];
 
 export default function HomePage() {
+  useDocumentTitle('AI 学习地图');
+
   return (
     <>
       <Hero />

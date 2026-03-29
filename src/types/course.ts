@@ -12,6 +12,7 @@ export const MODULE_IDS = [
 export type ModuleId = (typeof MODULE_IDS)[number];
 
 export type ModuleColor = 'blue' | 'purple' | 'emerald' | 'orange';
+export type ContentDifficulty = 'beginner' | 'intermediate' | 'advanced';
 
 export interface ModuleSection {
   title: string;
@@ -25,6 +26,22 @@ export interface LessonDetail {
 }
 
 export interface Lesson {
+  slug: string;
+  title: string;
+  content: string;
+  image: string;
+  details: string[];
+  body: string;
+  estimatedTime: string;
+  difficulty: ContentDifficulty;
+  audience: string[];
+  tags: string[];
+  prerequisites: string[];
+  updatedAt: string;
+  sources: SourceLink[];
+}
+
+export interface BaseLesson {
   title: string;
   content: string;
   image: string;
@@ -37,7 +54,7 @@ export interface ModuleCta {
   link: string;
 }
 
-export interface ModuleContent {
+export interface BaseModuleContent {
   title: string;
   subtitle: string;
   icon: LucideIcon;
@@ -45,8 +62,18 @@ export interface ModuleContent {
   description: string;
   keyTakeaways: string[];
   sections: ModuleSection[];
-  lessons: Lesson[];
+  lessons: BaseLesson[];
   cta?: ModuleCta;
+}
+
+export interface ModuleContent extends Omit<BaseModuleContent, 'lessons'> {
+  estimatedTime: string;
+  difficulty: ContentDifficulty;
+  audience: string[];
+  tags: string[];
+  prerequisites: string[];
+  updatedAt: string;
+  lessons: Lesson[];
 }
 
 export interface ModuleCardData {
@@ -112,6 +139,9 @@ export interface WeeklyPlan {
 export interface BaseEnhancementBlock {
   title: string;
   description?: string;
+  updatedAt?: string;
+  sources?: SourceLink[];
+  hideMeta?: boolean;
 }
 
 export interface ActionChecklistBlock extends BaseEnhancementBlock {
