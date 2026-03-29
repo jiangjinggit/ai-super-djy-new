@@ -1,11 +1,12 @@
-import { BookOpen, Cpu, FileText, Rocket, Users } from 'lucide-react';
+import { ChevronRight, Rocket } from 'lucide-react';
 import { motion } from 'motion/react';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 
 import { MODULE_COLOR_STYLES } from '@/constants/moduleStyles';
 import { MODULE_CARDS } from '@/content/moduleCatalog';
 import { ModuleCard } from '@/components/ModuleCard';
-import type { ModuleColor } from '@/types/course';
+import type { ModuleColor, ModuleId } from '@/types/course';
 
 const Hero = () => {
   const handleStart = () => {
@@ -95,9 +96,9 @@ const Modules = () => {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
         {[
           { value: '6', label: '核心模块' },
-          { value: '20+', label: '实战课程' },
+          { value: '30+', label: '实战课程' },
           { value: '50+', label: '工具推荐' },
-          { value: '3+', label: '真实案例' },
+          { value: '7', label: '职业场景' },
         ].map((stat) => (
           <div key={stat.label} className="text-center p-6 bg-white/5 border border-white/10 rounded-2xl">
             <div className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mb-2">
@@ -112,6 +113,49 @@ const Modules = () => {
         {MODULE_CARDS.map((moduleCard, index) => (
           <ModuleCard key={moduleCard.id} {...moduleCard} index={index} />
         ))}
+      </div>
+    </section>
+  );
+};
+
+const LEARNING_STEPS: Array<{ id: ModuleId; label: string; time: string; color: ModuleColor }> = [
+  { id: 'super-individual', label: 'AI 入门', time: '1-2 周', color: 'blue' },
+  { id: 'llm', label: '大模型实战', time: '1-2 周', color: 'purple' },
+  { id: 'agents', label: '智能体实战', time: '2-4 周', color: 'emerald' },
+  { id: 'scenarios', label: '场景实战', time: '持续', color: 'orange' },
+  { id: 'cases', label: '案例学习', time: '随时', color: 'purple' },
+  { id: 'growth', label: '成长路径', time: '3-12 月', color: 'emerald' },
+];
+
+const LearningRoadmap = () => {
+  const navigate = useNavigate();
+
+  return (
+    <section id="learning-roadmap" className="py-24 px-6 max-w-6xl mx-auto">
+      <div className="text-center mb-12">
+        <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">学习路线图</h2>
+        <p className="text-gray-400">按顺序学习效果最佳，也可以根据需要跳转到任意模块。</p>
+      </div>
+
+      <div className="flex flex-col md:flex-row items-center gap-2 md:gap-0 justify-center">
+        {LEARNING_STEPS.map((step, index) => {
+          const stepStyle = MODULE_COLOR_STYLES[step.color];
+          return (
+            <div key={step.id} className="flex items-center">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => navigate(`/module/${step.id}`)}
+                className="px-5 py-3 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all text-center min-w-[120px] cursor-pointer"
+                type="button"
+              >
+                <p className={`font-bold text-sm ${stepStyle.subtitle}`}>{step.label}</p>
+                <p className="text-xs text-gray-500 mt-1">{step.time}</p>
+              </motion.button>
+              {index < LEARNING_STEPS.length - 1 && <ChevronRight size={20} className="text-gray-600 mx-1 hidden md:block" />}
+            </div>
+          );
+        })}
       </div>
     </section>
   );
@@ -145,45 +189,23 @@ const GROWTH_STEPS: Array<{
     desc: '基于垂直领域知识 + AI 能力，构建个人产品或服务，获得第一笔收入',
     color: 'emerald',
   },
+  {
+    phase: '阶段 3',
+    time: '6-12 月',
+    title: '规模化与护城河',
+    desc: '从副业到全职，建立竞争壁垒，探索规模化增长路径',
+    color: 'orange',
+  },
 ];
 
 export default function HomePage() {
   return (
     <>
       <Hero />
+      <LearningRoadmap />
       <Modules />
 
-      <section className="py-24 px-6 max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">免费资源</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">我们为你准备了入门必备的免费资源，扫码进群即可领取完整版。</p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            { icon: BookOpen, title: '入门电子书', desc: '《AI 超级个体入门指南》PDF，零基础友好' },
-            { icon: FileText, title: 'Prompt 模板集', desc: '50+ 可直接复用的 Prompt 模板，按场景分类' },
-            { icon: Cpu, title: 'OpenClaw 工作流', desc: '10 个超级个体必用自动化工作流详细教程' },
-            { icon: Users, title: '案例合集', desc: '精选 3 个公开报道的真实 AI 创业案例拆解' },
-          ].map((item, index) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.08 }}
-              className="p-6 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/8 transition-all"
-            >
-              <div className="w-12 h-12 bg-blue-600/20 rounded-xl flex items-center justify-center text-blue-400 mb-4">
-                <item.icon size={24} />
-              </div>
-              <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
-              <p className="text-sm text-gray-400">{item.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      <section id="learning-roadmap" className="py-24 px-6">
+      <section className="py-24 px-6">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">成长路径</h2>
@@ -225,16 +247,18 @@ export default function HomePage() {
             <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight">
               准备好开启你的 <br /> 超级个体进化了吗？
             </h2>
-            <p className="text-xl text-white/80 mb-10 max-w-2xl mx-auto">加入 AI Superman DJY 社区，与数万名先行者一起，用 AI 重塑未来。</p>
-            <motion.button
-              whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(255,255,255,0.2)' }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => toast.success('欢迎加入社区！', { description: '请检查您的邮箱以完成注册。' })}
-              className="px-10 py-5 bg-white text-blue-600 font-black text-lg rounded-2xl hover:bg-gray-100 transition-all shadow-2xl cursor-pointer"
-              type="button"
-            >
-              立即免费加入
-            </motion.button>
+            <p className="text-xl text-white/80 mb-6 max-w-2xl mx-auto">关注公众号「AI Superman DJY」，获取最新实战教程和社群入口。</p>
+            <p className="text-lg text-white/60 mb-10">所有内容免费开放，持续更新。</p>
+            <Link to="/module/super-individual">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-10 py-5 bg-white text-blue-600 font-black text-lg rounded-2xl hover:bg-gray-100 transition-all shadow-2xl cursor-pointer"
+                type="button"
+              >
+                从入门开始学习
+              </motion.button>
+            </Link>
           </motion.div>
         </div>
       </section>

@@ -35,6 +35,12 @@ export const Footer = () => {
         </div>
 
         <div className="flex gap-8 text-sm font-medium text-gray-500">
+          <Link to="/about" className="hover:text-white transition-colors">
+            关于 DJY
+          </Link>
+          <Link to="/faq" className="hover:text-white transition-colors">
+            常见问题
+          </Link>
           <Link to="/privacy" className="hover:text-white transition-colors">
             隐私政策
           </Link>

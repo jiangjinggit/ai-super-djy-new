@@ -3,7 +3,7 @@ import type { LucideIcon } from 'lucide-react';
 export const MODULE_IDS = [
   'super-individual',
   'llm',
-  'openclaw',
+  'agents',
   'scenarios',
   'cases',
   'growth',

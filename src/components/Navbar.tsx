@@ -7,6 +7,8 @@ import { toast } from 'sonner';
 import { NAV_LABELS } from '@/content/moduleCatalog';
 import { MODULE_IDS } from '@/types/course';
 
+const showCommunityCTA = false;
+
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -54,15 +56,23 @@ export const Navbar = () => {
               {NAV_LABELS[id]}
             </Link>
           ))}
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={handleAction}
-            className="px-5 py-2 bg-white text-black text-sm font-bold rounded-full hover:bg-blue-500 hover:text-white transition-all cursor-pointer"
-            type="button"
-          >
-            开启超级个体
-          </motion.button>
+          <Link to="/about" className="text-sm font-medium text-gray-400 hover:text-white transition-colors">
+            关于
+          </Link>
+          <Link to="/faq" className="text-sm font-medium text-gray-400 hover:text-white transition-colors">
+            FAQ
+          </Link>
+          {showCommunityCTA && (
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={handleAction}
+              className="px-5 py-2 bg-white text-black text-sm font-bold rounded-full hover:bg-blue-500 hover:text-white transition-all cursor-pointer"
+              type="button"
+            >
+              开启超级个体
+            </motion.button>
+          )}
         </div>
 
         <button
@@ -96,14 +106,22 @@ export const Navbar = () => {
                 {NAV_LABELS[id]}
               </Link>
             ))}
-            <motion.button
-              whileTap={{ scale: 0.98 }}
-              onClick={handleAction}
-              className="w-full py-3 bg-blue-600 text-white font-bold rounded-xl"
-              type="button"
-            >
-              开启超级个体
-            </motion.button>
+            <Link to="/about" className="text-lg font-medium text-gray-400" onClick={() => setIsMobileMenuOpen(false)}>
+              关于
+            </Link>
+            <Link to="/faq" className="text-lg font-medium text-gray-400" onClick={() => setIsMobileMenuOpen(false)}>
+              FAQ
+            </Link>
+            {showCommunityCTA && (
+              <motion.button
+                whileTap={{ scale: 0.98 }}
+                onClick={handleAction}
+                className="w-full py-3 bg-blue-600 text-white font-bold rounded-xl"
+                type="button"
+              >
+                开启超级个体
+              </motion.button>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

@@ -8,6 +8,8 @@ import AboutPage from '@/pages/AboutPage';
 import FAQPage from '@/pages/FAQPage';
 import HomePage from '@/pages/HomePage';
 import ModulePage from '@/pages/ModulePage';
+import PrivacyPage from '@/pages/PrivacyPage';
+import TermsPage from '@/pages/TermsPage';
 
 export default function App() {
   return (
@@ -21,6 +23,8 @@ export default function App() {
           <Route path="/module/:id" element={<ModulePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/faq" element={<FAQPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/terms" element={<TermsPage />} />
         </Routes>
         <Footer />
       </div>

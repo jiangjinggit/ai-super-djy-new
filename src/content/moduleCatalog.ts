@@ -5,7 +5,7 @@ import type { ModuleCardData, ModuleId } from '@/types/course';
 export const NAV_LABELS: Record<ModuleId, string> = {
   'super-individual': '入门',
   llm: '大模型',
-  openclaw: 'OpenClaw',
+  agents: '智能体',
   scenarios: '场景库',
   cases: '案例',
   growth: '成长',
@@ -27,9 +27,9 @@ export const MODULE_CARDS: ModuleCardData[] = [
     color: 'purple',
   },
   {
-    id: 'openclaw',
-    title: 'OpenClaw 实战专区',
-    desc: '开源 AI 助手框架。本地部署、1700+ Skills 技能、10 个超级个体必用工作流。',
+    id: 'agents',
+    title: 'AI 智能体实战专区',
+    desc: '系统掌握 OpenClaw 与 Claude Code 双主线（代码+文档+协作），并补充 Manus 等 Agent 落地工作流。',
     icon: Cpu,
     color: 'emerald',
   },
