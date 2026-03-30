@@ -1,13 +1,8 @@
 import type { ModuleEnhancement } from '@/types/course';
 
 export const scenariosEnhancement: ModuleEnhancement = {
-  lastVerifiedOn: '2026-03-29',
-  sources: [
-    { label: 'Cursor', url: 'https://cursor.com/' },
-    { label: 'OpenAI API Docs', url: 'https://developers.openai.com/api/docs/models' },
-    { label: 'DeepSeek API Docs', url: 'https://api-docs.deepseek.com/' },
-    { label: 'OpenClaw Docs', url: 'https://docs.openclaw.ai/' },
-  ],
+  lastVerifiedOn: '',
+  sources: [],
   blocks: [
     {
       type: 'sop-templates',

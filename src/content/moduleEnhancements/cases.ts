@@ -1,12 +1,8 @@
 import type { ModuleEnhancement } from '@/types/course';
 
 export const casesEnhancement: ModuleEnhancement = {
-  lastVerifiedOn: '2026-03-29',
-  sources: [
-    { label: 'TEDxIITDelhi', url: 'https://www.ted.com/tedx/events/61966' },
-    { label: '腾讯云开发者社区', url: 'https://cloud.tencent.com/developer/article/1884139' },
-    { label: 'Every Master Plan', url: 'https://every.to/on-every/every-s-master-plan-part-ii' },
-  ],
+  lastVerifiedOn: '',
+  sources: [],
   blocks: [
     {
       type: 'case-evidence',

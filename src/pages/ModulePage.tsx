@@ -104,7 +104,9 @@ export default function ModulePage() {
         <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
       ))}
 
-      <ModuleReferencePanel lastVerifiedOn={enhancement.lastVerifiedOn} sources={enhancement.sources} />
+      {(enhancement.lastVerifiedOn || enhancement.sources.length > 0) && (
+        <ModuleReferencePanel lastVerifiedOn={enhancement.lastVerifiedOn} sources={enhancement.sources} />
+      )}
 
       <div className="mb-20">
         <div className="mb-8">

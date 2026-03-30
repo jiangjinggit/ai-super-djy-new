@@ -1,13 +1,8 @@
 import type { ModuleEnhancement } from '@/types/course';
 
 export const superIndividualEnhancement: ModuleEnhancement = {
-  lastVerifiedOn: '2026-03-29',
-  sources: [
-    { label: 'OpenAI Models', url: 'https://developers.openai.com/api/docs/models' },
-    { label: 'Anthropic Prompt Guides', url: 'https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview' },
-    { label: 'DeepSeek API Docs', url: 'https://api-docs.deepseek.com/' },
-    { label: 'Moonshot Blog', url: 'https://platform.moonshot.cn/blog' },
-  ],
+  lastVerifiedOn: '',
+  sources: [],
   blocks: [
     {
       type: 'action-checklist',

@@ -1,13 +1,8 @@
 import type { ModuleEnhancement } from '@/types/course';
 
 export const growthEnhancement: ModuleEnhancement = {
-  lastVerifiedOn: '2026-03-29',
-  sources: [
-    { label: 'OpenAI Models', url: 'https://developers.openai.com/api/docs/models' },
-    { label: 'Anthropic Models Overview', url: 'https://docs.anthropic.com/en/docs/about-claude/models/overview' },
-    { label: 'DeepSeek Models & Pricing', url: 'https://api-docs.deepseek.com/quick_start/pricing/' },
-    { label: 'Moonshot Blog', url: 'https://platform.moonshot.cn/blog' },
-  ],
+  lastVerifiedOn: '',
+  sources: [],
   blocks: [
     {
       type: 'weekly-plan',

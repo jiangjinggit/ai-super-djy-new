@@ -1,14 +1,8 @@
 import type { ModuleEnhancement } from '@/types/course';
 
 export const llmEnhancement: ModuleEnhancement = {
-  lastVerifiedOn: '2026-03-29',
-  sources: [
-    { label: 'OpenAI Models', url: 'https://developers.openai.com/api/docs/models' },
-    { label: 'OpenAI Pricing', url: 'https://openai.com/api/pricing' },
-    { label: 'Anthropic Models Overview', url: 'https://docs.anthropic.com/en/docs/about-claude/models/overview' },
-    { label: 'DeepSeek Models & Pricing', url: 'https://api-docs.deepseek.com/quick_start/pricing/' },
-    { label: 'Moonshot Kimi K2 Update', url: 'https://platform.moonshot.cn/blog/posts/kimi-k2-0905' },
-  ],
+  lastVerifiedOn: '',
+  sources: [],
   blocks: [
     {
       type: 'model-options',

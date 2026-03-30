@@ -1,15 +1,8 @@
 import type { ModuleEnhancement } from '@/types/course';
 
 export const agentsEnhancement: ModuleEnhancement = {
-  lastVerifiedOn: '2026-03-29',
-  sources: [
-    { label: 'OpenClaw Docs', url: 'https://docs.openclaw.ai/' },
-    { label: 'OpenClaw Website', url: 'https://openclaw.ai/' },
-    { label: 'Claude Code Changelog', url: 'https://code.claude.com/docs/en/changelog' },
-    { label: 'Claude Code Platforms', url: 'https://code.claude.com/docs/en/platforms' },
-    { label: 'Claude Code Remote Control', url: 'https://code.claude.com/docs/en/remote-control' },
-    { label: 'Ollama', url: 'https://ollama.com/' },
-  ],
+  lastVerifiedOn: '',
+  sources: [],
   blocks: [
     {
       type: 'security-checklist',
