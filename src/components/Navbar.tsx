@@ -1,4 +1,4 @@
-import { Menu, X, Zap } from 'lucide-react';
+import { Cpu, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -40,11 +40,19 @@ export const Navbar = () => {
           onClick={() => navigate('/')}
           aria-label="返回首页"
         >
-          <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center shadow-[0_0_20px_rgba(37,99,235,0.5)]">
-            <Zap className="text-slate-900 dark:text-white fill-white" size={24} />
+          {/* 六边形 Logo 容器 */}
+          <div
+            className="w-10 h-10 flex items-center justify-center relative"
+            style={{
+              clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
+              background: 'linear-gradient(135deg, #0EA5E9, #22D3EE)',
+              boxShadow: '0 0 18px rgba(34,211,238,0.5)',
+            }}
+          >
+            <Cpu size={18} className="text-slate-950" strokeWidth={2} />
           </div>
-          <span className="text-xl font-bold tracking-tighter text-slate-900 dark:text-white">
-            AI Superman <span className="text-blue-500">DJY</span>
+          <span className="text-xl font-bold tracking-tighter text-slate-900 dark:text-white" style={{fontFamily: "'Syne', sans-serif"}}>
+            AI Superman <span className="text-cyan-400" style={{textShadow: '0 0 12px rgba(34,211,238,0.5)'}}>DJY</span>
           </span>
         </button>
 
@@ -98,7 +106,7 @@ export const Navbar = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="md:hidden absolute top-full left-0 right-0 bg-slate-900 dark:bg-white dark:bg-black border-b border-slate-200 dark:border-white/10 p-6 flex flex-col gap-4"
+            className="md:hidden absolute top-full left-0 right-0 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-white/10 p-6 flex flex-col gap-4"
           >
             <Link to="/" className="text-lg font-medium text-slate-600 dark:text-gray-400" onClick={() => setIsMobileMenuOpen(false)}>
               首页

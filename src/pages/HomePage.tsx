@@ -1,4 +1,4 @@
-import { ChevronRight, Rocket } from 'lucide-react';
+import { Rocket } from 'lucide-react';
 import { motion } from 'motion/react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -7,7 +7,24 @@ import { MODULE_COLOR_STYLES } from '@/constants/moduleStyles';
 import { MODULE_CARDS } from '@/content/moduleCatalog';
 import { ModuleCard } from '@/components/ModuleCard';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
+import { useCountUp } from '@/hooks/useCountUp';
 import type { ModuleColor, ModuleId } from '@/types/course';
+
+const StatCard = ({ target, label, suffix }: { target: number; label: string; suffix: string }) => {
+  const { count, ref } = useCountUp(target, 1000);
+  return (
+    <div ref={ref} className="card-scan card-hud relative text-center p-6 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-cyan-500/10 rounded-2xl hover:border-cyan-500/30 transition-colors">
+      <div
+        className="font-mono-tech text-3xl md:text-4xl font-bold text-cyan-400 mb-2 tabular-nums"
+        style={{ textShadow: '0 0 20px rgba(34,211,238,0.45)' }}
+      >
+        {String(count).padStart(2, '0')}
+        <span className="text-2xl text-cyan-300/70">{suffix}</span>
+      </div>
+      <div className="text-xs tracking-widest uppercase text-slate-500 dark:text-gray-500">{label}</div>
+    </div>
+  );
+};
 
 const Hero = () => {
   const handleStart = () => {
@@ -31,8 +48,13 @@ const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-20">
       <div className="absolute inset-0 z-0">
-        <div className="absolute top-1/4 -left-1/4 w-1/2 h-1/2 bg-blue-600/20 blur-[120px] rounded-full" />
-        <div className="absolute bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-purple-600/20 blur-[120px] rounded-full" />
+        {/* 点阵网格 */}
+        <div className="absolute inset-0 bg-grid-dots opacity-60" />
+        {/* 底部渐变遮罩，让网格在底部淡出 */}
+        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-white dark:from-black to-transparent" />
+        {/* 光晕 — 改为 cyan + indigo */}
+        <div className="absolute top-1/4 -left-1/4 w-1/2 h-1/2 bg-cyan-500/15 blur-[130px] rounded-full" />
+        <div className="absolute bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-indigo-600/15 blur-[130px] rounded-full" />
       </div>
 
       <div className="relative z-10 w-full max-w-6xl mx-auto px-8 text-center">
@@ -40,20 +62,43 @@ const Hero = () => {
           <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-blue-600 dark:text-blue-400 uppercase bg-blue-400/10 border border-blue-400/20 rounded-full">
             让每个人成为超级个体
           </span>
-          <h1 className="text-4xl md:text-7xl font-black tracking-tighter text-slate-900 dark:text-white mb-10 leading-[1.1]">
+          <h1 className="text-4xl md:text-7xl font-black tracking-tighter text-slate-900 dark:text-white mb-10 leading-[1.1]" style={{fontFamily: "'Syne', sans-serif"}}>
             AI Superman <br className="my-2" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">EVOLUTION</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500">EVOLUTION</span>
           </h1>
-          <p className="max-w-2xl mx-auto text-lg md:text-xl text-slate-600 dark:text-gray-400 mb-10 leading-relaxed">
+          <p className="max-w-2xl mx-auto text-lg md:text-xl text-slate-600 dark:text-gray-400 mb-8 leading-relaxed">
             从零基础到流程提效，再到 MVP 与服务验证。
             这里不卖神话，只帮你把 AI 变成更稳、更可执行的工作能力。
           </p>
+
+          {/* 终端装饰 */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mx-auto max-w-sm mb-10 rounded-xl border border-cyan-500/20 bg-black/30 dark:bg-black/50 backdrop-blur-sm overflow-hidden text-left shadow-[0_0_30px_rgba(34,211,238,0.08)]"
+          >
+            <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/5 bg-white/[0.02]">
+              <div className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
+              <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/50" />
+              <div className="w-2.5 h-2.5 rounded-full bg-green-500/50" />
+              <span className="ml-2 text-[11px] font-mono-tech text-slate-500">ai-superman ~ evolution</span>
+            </div>
+            <div className="p-4 font-mono-tech text-xs space-y-1.5">
+              <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> init super-individual</span></p>
+              <p className="text-emerald-400 pl-2">✓ AI 工具矩阵已就绪</p>
+              <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> load --module llm agents</span></p>
+              <p className="text-emerald-400 pl-2">✓ 6 个模块加载完成</p>
+              <p className="flex items-center gap-1"><span className="text-cyan-400">$</span><span className="inline-block w-1.5 h-3.5 bg-cyan-400/80 ml-1 animate-pulse" /></p>
+            </div>
+          </motion.div>
+
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full px-4">
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={handleStart}
-              className="w-full sm:w-auto px-10 py-5 bg-gradient-to-r from-blue-600 to-purple-600 text-slate-900 dark:text-white font-black text-lg rounded-2xl hover:from-blue-500 hover:to-purple-500 transition-all shadow-[0_0_20px_rgba(37,99,235,0.3)] cursor-pointer"
+              className="w-full sm:w-auto px-10 py-5 bg-gradient-to-r from-cyan-500 to-sky-600 text-white font-black text-lg rounded-2xl hover:from-cyan-400 hover:to-sky-500 transition-all shadow-[0_0_28px_rgba(34,211,238,0.35)] cursor-pointer"
               type="button"
             >
               开始探索
@@ -96,17 +141,12 @@ const Modules = () => {
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
         {[
-          { value: '6', label: '核心模块' },
-          { value: '24', label: '主题课程' },
-          { value: '12', label: '周执行路线' },
-          { value: '3', label: '典型场景' },
+          { target: 6,  label: '核心模块',  suffix: '' },
+          { target: 24, label: '主题课程',  suffix: '+' },
+          { target: 12, label: '周执行路线', suffix: '' },
+          { target: 3,  label: '典型场景',  suffix: '' },
         ].map((stat) => (
-          <div key={stat.label} className="text-center p-6 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl">
-            <div className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 mb-2">
-              {stat.value}
-            </div>
-            <div className="text-sm text-slate-600 dark:text-gray-400">{stat.label}</div>
-          </div>
+          <StatCard key={stat.label} {...stat} />
         ))}
       </div>
 
@@ -133,30 +173,86 @@ const LearningRoadmap = () => {
 
   return (
     <section id="learning-roadmap" className="py-24 px-6 max-w-6xl mx-auto">
-      <div className="text-center mb-12">
+      <div className="text-center mb-16">
         <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">学习路线图</h2>
         <p className="text-slate-600 dark:text-gray-400">建议按顺序学习；如果你已经有基础，也可以直接跳到当前最需要的模块。</p>
       </div>
 
-      <div className="flex flex-col md:flex-row items-center gap-2 md:gap-0 justify-center">
-        {LEARNING_STEPS.map((step, index) => {
-          const stepStyle = MODULE_COLOR_STYLES[step.color];
-          return (
-            <div key={step.id} className="flex items-center">
+      {/* 桌面时间线 */}
+      <div className="hidden md:block relative">
+        {/* 底部连接线 */}
+        <div className="absolute top-[22px] left-[calc(100%/12)] right-[calc(100%/12)] h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent" />
+
+        <div className="grid grid-cols-6 gap-2">
+          {LEARNING_STEPS.map((step, index) => {
+            const stepStyle = MODULE_COLOR_STYLES[step.color];
+            return (
               <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                key={step.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.08 }}
+                whileHover={{ y: -4 }}
+                whileTap={{ scale: 0.97 }}
                 onClick={() => navigate(`/module/${step.id}`)}
-                className="px-5 py-3 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:bg-white/10 transition-all text-center min-w-[120px] cursor-pointer"
+                className="group flex flex-col items-center gap-3 cursor-pointer"
                 type="button"
               >
-                <p className={`font-bold text-sm ${stepStyle.subtitle}`}>{step.label}</p>
-                <p className="text-xs text-slate-500 dark:text-gray-500 mt-1">{step.time}</p>
+                {/* 圆形序号节点 */}
+                <div
+                  className={`relative w-11 h-11 rounded-full border-2 flex items-center justify-center font-mono-tech text-sm font-bold transition-all
+                    border-slate-300 dark:border-white/15 text-slate-500 dark:text-gray-400
+                    group-hover:border-cyan-400 group-hover:text-cyan-400
+                    group-hover:shadow-[0_0_16px_rgba(34,211,238,0.45)]`}
+                >
+                  {String(index + 1).padStart(2, '0')}
+                  {/* 节点背景 */}
+                  <div className="absolute inset-0 rounded-full bg-white dark:bg-slate-950 -z-10" />
+                </div>
+                {/* 步骤信息 */}
+                <div className="text-center">
+                  <p className={`font-bold text-sm transition-colors group-hover:text-cyan-400 ${stepStyle.subtitle}`}>{step.label}</p>
+                  <p className="font-mono-tech text-[10px] text-slate-400 dark:text-gray-600 mt-0.5 tracking-wider">{step.time}</p>
+                </div>
               </motion.button>
-              {index < LEARNING_STEPS.length - 1 && <ChevronRight size={20} className="text-gray-600 mx-1 hidden md:block" />}
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
+      </div>
+
+      {/* 移动端竖向时间线 */}
+      <div className="md:hidden relative pl-8">
+        {/* 竖向连接线 */}
+        <div className="absolute left-[18px] top-3 bottom-3 w-px bg-gradient-to-b from-cyan-500/40 via-cyan-500/20 to-transparent" />
+
+        <div className="flex flex-col gap-5">
+          {LEARNING_STEPS.map((step, index) => {
+            const stepStyle = MODULE_COLOR_STYLES[step.color];
+            return (
+              <motion.button
+                key={step.id}
+                initial={{ opacity: 0, x: -16 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.06 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => navigate(`/module/${step.id}`)}
+                className="group flex items-center gap-4 cursor-pointer text-left"
+                type="button"
+              >
+                {/* 圆形节点（绝对定位到左侧线上）*/}
+                <div className="absolute left-0 w-9 h-9 rounded-full border-2 border-slate-300 dark:border-white/15 bg-white dark:bg-slate-950 flex items-center justify-center font-mono-tech text-xs font-bold text-slate-500 dark:text-gray-400 group-hover:border-cyan-400 group-hover:text-cyan-400 transition-all">
+                  {String(index + 1).padStart(2, '0')}
+                </div>
+                <div>
+                  <p className={`font-bold text-sm ${stepStyle.subtitle}`}>{step.label}</p>
+                  <p className="font-mono-tech text-[10px] text-slate-400 dark:text-gray-600 mt-0.5">{step.time}</p>
+                </div>
+              </motion.button>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
@@ -224,9 +320,9 @@ export default function HomePage() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.12 }}
-                  className="flex items-start gap-6 p-8 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-3xl hover:bg-white/8 transition-all"
+                  className="card-scan relative flex items-start gap-6 p-8 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-cyan-500/10 rounded-3xl hover:border-cyan-500/25 transition-all overflow-hidden"
                 >
-                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 text-sm font-bold ${stepStyle.stepBadge}`}>
+                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 text-xs font-bold font-mono-tech leading-tight ${stepStyle.stepBadge}`}>
                     {step.phase}
                   </div>
                   <div>
@@ -244,19 +340,22 @@ export default function HomePage() {
       </section>
 
       <section id="community" className="py-24 px-6">
-        <div className="max-w-5xl mx-auto bg-gradient-to-br from-blue-600 to-purple-700 rounded-[40px] p-12 md:p-20 text-center relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10" />
+        <div className="max-w-5xl mx-auto bg-gradient-to-br from-cyan-600 via-sky-600 to-indigo-700 rounded-[40px] p-12 md:p-20 text-center relative overflow-hidden">
+          {/* 纯 CSS 斜线纹理，替代外部 URL */}
+          <div className="absolute inset-0 bg-carbon-lines rounded-[40px]" />
+          {/* 发光边框效果 */}
+          <div className="absolute inset-0 rounded-[40px] ring-1 ring-cyan-400/20" />
           <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="relative z-10">
-            <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight">
+            <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight text-white">
               准备好开启你的 <br /> 超级个体进化了吗？
             </h2>
-            <p className="text-xl text-slate-800 dark:text-white/80 mb-6 max-w-2xl mx-auto">从一个真实任务开始，把模板、流程和判断力慢慢搭起来。</p>
-            <p className="text-lg text-slate-600 dark:text-white/60 mb-10">内容会持续更新，但所有高时效参数都建议回到官方文档复核。</p>
+            <p className="text-xl text-white/80 mb-6 max-w-2xl mx-auto">从一个真实任务开始，把模板、流程和判断力慢慢搭起来。</p>
+            <p className="text-lg text-white/55 mb-10">内容会持续更新，但所有高时效参数都建议回到官方文档复核。</p>
             <Link to="/module/super-individual">
               <motion.button
-                whileHover={{ scale: 1.05 }}
+                whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(34,211,238,0.4)' }}
                 whileTap={{ scale: 0.95 }}
-                className="px-10 py-5 bg-slate-900 dark:bg-white text-blue-600 font-black text-lg rounded-2xl hover:bg-gray-100 transition-all shadow-2xl cursor-pointer"
+                className="px-10 py-5 bg-slate-950 text-cyan-400 font-black text-lg rounded-2xl hover:bg-slate-900 transition-all shadow-2xl cursor-pointer border border-cyan-500/30"
                 type="button"
               >
                 从入门开始学习
