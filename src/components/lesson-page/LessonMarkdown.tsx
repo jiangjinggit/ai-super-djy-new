@@ -26,7 +26,7 @@ const PARAGRAPH_CALLOUTS = [
   {
     prefix: '✅',
     label: '推荐做法',
-    tone: 'border-emerald-500/25 bg-emerald-500/10 text-emerald-100',
+    tone: 'border-emerald-500/25 bg-emerald-500/10 text-emerald-800 dark:text-emerald-100',
   },
   {
     prefix: '❌',

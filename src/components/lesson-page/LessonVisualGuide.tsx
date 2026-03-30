@@ -159,27 +159,31 @@ const ToolStackVisual = () => {
   const items = [
     {
       icon: Bot,
-      title: '对话模型',
-      role: '起草、总结、提纲、整理',
-      avoid: '不要当成最终事实来源',
+      title: '对话助手',
+      example: '豆包 / Kimi / 元宝 / 通义千问',
+      role: '写草稿、做整理、出提纲',
+      avoid: '不要当事实来源，会编数据',
     },
     {
       icon: SearchCheck,
-      title: '搜索工具',
-      role: '查最新信息、找原始来源',
-      avoid: '不要替代长期沉淀',
+      title: '信息核查',
+      example: '秘塔 AI 搜索 + 官网确认',
+      role: '快速聚合信息，找到线索入口',
+      avoid: '关键数据必须去官网验证',
     },
     {
       icon: FolderKanban,
-      title: '知识库',
-      role: '存模板、案例、复盘',
-      avoid: '不要承担即时生成',
+      title: '知识沉淀',
+      example: '飞书文档 / Notion',
+      role: '存模板、案例、复盘记录',
+      avoid: '不要什么都存，只存能复用的',
     },
     {
       icon: Workflow,
-      title: '自动化工具',
-      role: '做提醒、搬运和串联',
-      avoid: '不要一开始就碰高风险执行',
+      title: '流程串联',
+      example: '飞书多维表格 / Coze',
+      role: '自动提醒、状态流转、定时汇总',
+      avoid: '新手先用工具自带功能，别急着接 API',
     },
   ];
 
@@ -187,8 +191,8 @@ const ToolStackVisual = () => {
     <section className="mb-10 rounded-[32px] border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 p-6 md:p-8">
       <SectionHeader
         eyebrow="VISUAL GUIDE"
-        title="新手只要配这 4 类工具"
-        description="先把每个工具的职责划清楚，再谈品牌。职责不清，工具越多越乱。"
+        title="4 个角色，每个只选 1 个工具"
+        description="先按角色选，不按品牌选。AI 搜索是线索入口，关键数据要去官网确认。"
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {items.map((item) => {
@@ -199,8 +203,9 @@ const ToolStackVisual = () => {
                 <Icon size={18} />
               </div>
               <h3 className="text-slate-900 dark:text-white font-semibold mb-2">{item.title}</h3>
-              <p className="text-sm text-slate-700 dark:text-gray-300 mb-2">负责：{item.role}</p>
-              <p className="text-sm text-slate-500 dark:text-gray-500">不要：{item.avoid}</p>
+              <p className="text-xs font-medium text-blue-600 dark:text-blue-300 mb-3">{item.example}</p>
+              <p className="text-sm text-slate-700 dark:text-gray-300 mb-2">✅ {item.role}</p>
+              <p className="text-sm text-slate-500 dark:text-gray-500">⚠️ {item.avoid}</p>
             </div>
           );
         })}
