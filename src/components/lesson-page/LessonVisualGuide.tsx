@@ -23,7 +23,7 @@ const SectionHeader = ({ eyebrow, title, description }: { eyebrow: string; title
   return (
     <div className="mb-6">
       <p className="text-xs font-bold uppercase tracking-[0.3em] text-blue-600 dark:text-blue-300 mb-3">{eyebrow}</p>
-      <h2 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white mb-3">{title}</h2>
+      <h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-white mb-3">{title}</h3>
       <p className="text-sm md:text-base text-slate-600 dark:text-gray-400 leading-relaxed">{description}</p>
     </div>
   );

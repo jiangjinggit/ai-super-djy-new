@@ -55,7 +55,7 @@ export default function LessonPage() {
 
       <div className="mb-8">
         <p className={`text-sm font-bold uppercase tracking-[0.2em] mb-3 ${accent.subtitle}`}>{moduleContent.title}</p>
-        <h1 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white leading-tight mb-5">{lesson.title}</h1>
+        <h1 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white leading-tight mb-5">{lesson.title}</h1>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">

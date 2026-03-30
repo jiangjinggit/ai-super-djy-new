@@ -48,14 +48,14 @@ const PARAGRAPH_CALLOUTS = [
 const components: Components = {
   h2: ({ node, ...props }) => (
     <h2
-      className="mt-14 mb-5 border-t border-slate-200 dark:border-white/10 pt-8 text-2xl md:text-3xl font-black tracking-tight text-slate-900 dark:text-white"
+      className="mt-14 mb-5 border-t border-slate-200 dark:border-white/10 pt-8 text-xl md:text-2xl font-black tracking-tight text-slate-900 dark:text-white"
       {...props}
     />
   ),
   h3: ({ node, ...props }) => (
-    <h3 className="mt-10 mb-4 text-xl md:text-2xl font-bold text-slate-900 dark:text-white tracking-tight" {...props} />
+    <h3 className="mt-10 mb-4 text-lg md:text-xl font-bold text-slate-900 dark:text-white tracking-tight" {...props} />
   ),
-  h4: ({ node, ...props }) => <h4 className="mt-8 mb-3 text-lg font-semibold text-slate-900 dark:text-white" {...props} />,
+  h4: ({ node, ...props }) => <h4 className="mt-8 mb-3 text-base font-semibold text-slate-900 dark:text-white" {...props} />,
   p: ({ node, children, ...props }) => {
     const text = flattenText(children);
     const callout = PARAGRAPH_CALLOUTS.find((item) => text.startsWith(item.prefix));
