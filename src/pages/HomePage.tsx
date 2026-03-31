@@ -310,31 +310,37 @@ export default function HomePage() {
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">成长路径</h2>
             <p className="text-slate-600 dark:text-gray-400 max-w-2xl mx-auto">先识别任务，再做提效，最后用最小验证来确认方向，而不是一开始就追求“大而全”。</p>
           </div>
-          <div className="space-y-8">
-            {GROWTH_STEPS.map((step, index) => {
-              const stepStyle = MODULE_COLOR_STYLES[step.color];
-              return (
-                <motion.div
-                  key={step.phase}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.12 }}
-                  className="card-scan relative flex items-start gap-6 p-8 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-cyan-500/10 rounded-3xl hover:border-cyan-500/25 transition-all overflow-hidden"
-                >
-                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 text-xs font-bold font-mono-tech leading-tight ${stepStyle.stepBadge}`}>
-                    {step.phase}
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-xl font-bold text-slate-900 dark:text-white">{step.title}</h3>
-                      <span className="text-xs font-medium text-slate-500 dark:text-gray-500 bg-slate-100 dark:bg-white/5 px-3 py-1 rounded-full">{step.time}</span>
+          <div className="relative">
+            {/* 竖向发光连接线 */}
+            <div className="absolute left-[39px] top-10 bottom-10 w-px bg-gradient-to-b from-cyan-500/50 via-cyan-500/20 to-transparent hidden md:block" />
+
+            <div className="space-y-5">
+              {GROWTH_STEPS.map((step, index) => {
+                const stepStyle = MODULE_COLOR_STYLES[step.color];
+                return (
+                  <motion.div
+                    key={step.phase}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.12 }}
+                    className="card-scan relative flex items-start gap-6 p-8 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-cyan-500/10 rounded-3xl hover:border-cyan-500/25 transition-all overflow-hidden"
+                  >
+                    <div className={`w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 text-xs font-bold font-mono-tech leading-tight border border-transparent ${stepStyle.stepBadge}`}
+                      style={{ boxShadow: '0 0 14px rgba(34,211,238,0.12)' }}>
+                      {step.phase}
                     </div>
-                    <p className="text-slate-600 dark:text-gray-400">{step.desc}</p>
-                  </div>
-                </motion.div>
-              );
-            })}
+                    <div>
+                      <div className="flex items-center gap-3 mb-2">
+                        <h3 className="text-xl font-bold text-slate-900 dark:text-white">{step.title}</h3>
+                        <span className="font-mono-tech text-[10px] tracking-wider text-slate-500 dark:text-gray-500 bg-slate-200 dark:bg-white/5 px-2.5 py-1 rounded-full">{step.time}</span>
+                      </div>
+                      <p className="text-slate-600 dark:text-gray-400">{step.desc}</p>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
