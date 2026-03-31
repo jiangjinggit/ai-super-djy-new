@@ -36,34 +36,34 @@ export const llmModule: BaseModuleContent = {
   ],
   lessons: [
     {
-      title: '选模型先看五个维度，不要先看排行榜',
+      title: '别跟着排行榜选模型，跟着你的任务选',
       content:
-        '模型选型不是"谁最强就用谁"，而是谁最适合你当前的任务和成本结构。4 步走：列任务 → 5 维打分 → 试跑对比 → 填表决策。',
+        '4 步选出你的默认模型：列任务 \u2192 5 维打分 \u2192 真实试跑 \u2192 填表决策。用数据说话，不用感觉。',
       image: 'cover://model-framework',
       details: [
-        '第一步：写下你的 3 个高频任务，越具体越好',
-        '第二步：用输出质量、成本、速度、上下文、稳定性 5 个维度打分',
-        '第三步：选 2-3 个候选模型用同一份输入做试跑',
-        '第四步：填写选型表，定出默认、高质量、低成本三档模型',
-        '案例：小王用这个框架从"跟风用 ChatGPT"变成了有依据的模型分配',
+        '第 1 步：写下你的 2-3 个高频任务，具体到"把 XX 整理成 XX"',
+        '第 2 步：用质量、成本、速度、上下文、稳定性 5 个维度打分',
+        '第 3 步：选 2 个候选模型，用同一份输入 + 同一份提示词做试跑',
+        '第 4 步：填选型表，定出默认、高质量、低成本三档模型',
+        '案例：小王从"跟风用 ChatGPT"到有数据支撑的模型分配',
       ],
       fullContent: [
         {
           subtitle: '1. 先列任务，再选模型',
-          text: '选型最容易犯的错误是先看榜单后看任务。正确顺序：先写下你的高频任务（比如会议纪要、文章初稿、信息提取），再用 5 个维度给候选模型打分。',
+          text: '\u5927\u90e8\u5206\u4eba\u9009\u6a21\u578b\u7684\u987a\u5e8f\u662f\u53cd\u7684\uff1a\u770b\u699c\u5355 \u2192 \u9009\u7b2c\u4e00 \u2192 \u5168\u90e8\u4efb\u52a1\u90fd\u7528\u5b83\u3002\u6b63\u786e\u505a\u6cd5\uff1a\u5148\u5199\u4e0b\u4f60\u7684\u9ad8\u9891\u4efb\u52a1\uff08\u6bd4\u5982\u201c\u628a\u4f1a\u8bae\u5f55\u97f3\u6574\u7406\u6210\u7eaa\u8981\u201d\uff09\uff0c\u518d\u7528 5 \u4e2a\u7ef4\u5ea6\u7ed9\u5019\u9009\u6a21\u578b\u6253\u5206\u3002',
         },
         {
-          subtitle: '2. 成本要算"一次可用成本"',
-          text: '不是只看输入单价。DeepSeek V3.2 输入 $0.28/百万 token，Claude Sonnet 4 输入 $3——但如果 DeepSeek 需要跑 3 次才能用，实际成本可能差不多。算法：模型费用 × 平均跑几次 + 返工时间。',
+          subtitle: '2. \u6210\u672c\u8981\u7b97\u201c\u4e00\u6b21\u53ef\u7528\u6210\u672c\u201d',
+          text: 'DeepSeek V3.2 \u8f93\u5165 $0.28/\u767e\u4e07 token\uff0cClaude Sonnet 4.6 \u8f93\u5165 $3\u2014\u2014\u770b\u8d77\u6765\u5dee 10 \u500d\u3002\u4f46\u5982\u679c DeepSeek \u8dd1 3 \u6b21\u624d\u80fd\u7528\uff0cClaude \u4e00\u6b21\u5c31\u8fc7\uff0c\u5b9e\u9645\u6210\u672c\u53ef\u80fd\u5dee\u4e0d\u591a\u3002\u516c\u5f0f\uff1a\u8c03\u7528\u8d39 \u00d7 \u8dd1\u51e0\u6b21 + \u4f60\u7684\u65f6\u95f4\u6210\u672c\u3002',
         },
         {
-          subtitle: '3. 至少分三档，不要一个模型吃所有',
-          text: '默认模型处理 80% 日常任务；高质量模型只在对外内容和复杂分析时启用；低成本模型负责批量分类和预处理。按任务分配，而不是按喜好选择。',
+          subtitle: '3. \u81f3\u5c11\u5206\u4e09\u6863\uff0c\u4e0d\u8981\u4e00\u4e2a\u6a21\u578b\u786c\u5403\u6240\u6709',
+          text: '\u9ed8\u8ba4\u6a21\u578b\u5904\u7406 80% \u65e5\u5e38\u4efb\u52a1\uff1b\u9ad8\u8d28\u91cf\u6a21\u578b\u53ea\u5728\u5bf9\u5916\u53d1\u5e03\u548c\u590d\u6742\u5206\u6790\u65f6\u542f\u7528\uff1b\u4f4e\u6210\u672c\u6a21\u578b\u8d1f\u8d23\u6279\u91cf\u5206\u7c7b\u548c\u9884\u5904\u7406\u3002\u7528 Claude Opus 4.6 \u505a\u6279\u91cf\u5206\u7c7b = \u7528\u8dd1\u8f66\u9001\u5916\u5356\u3002',
         },
       ],
     },
     {
-      title: '主流模型怎么分工：通用、推理、长文本、中文场景',
+      title: '给你的模型排个班：主力、替补、跑量各用谁',
       content:
         '按任务角色给模型分工，画一张你自己的模型地图。4 个角色：通用主力、深度推理、性价比、中文适配。',
       image: 'cover://model-landscape',
@@ -77,7 +77,7 @@ export const llmModule: BaseModuleContent = {
       fullContent: [
         {
           subtitle: '1. 用角色分工，不用品牌分工',
-          text: '把模型理解为不同风格的工具：通用主力型（GPT-5.4 mini、Claude Sonnet 4）、深度推理型（GPT-5.4、Claude Opus 4.1）、性价比型（DeepSeek V3.2、GPT-5.4 nano）、中文适配型（豆包、通义千问、Kimi）。先定角色，再选具体模型。',
+          text: '把模型理解为不同风格的工具：通用主力型（GPT-5.4 mini、Claude Sonnet 4.6）、深度推理型（GPT-5.4、Claude Opus 4.6）、性价比型（DeepSeek V3.2、GPT-5.4 nano）、中文适配型（豆包、通义千问、Kimi）。先定角色，再选具体模型。',
         },
         {
           subtitle: '2. 长文本不是"塞进去就行"',
@@ -90,7 +90,7 @@ export const llmModule: BaseModuleContent = {
       ],
     },
     {
-      title: 'API 接入与权限管理：先可用，再安全',
+      title: 'API 接了就别乱：Key 分开、成本记账、风险留痕',
       content:
         '4 步建立个人 API 治理：分 Key → 建记录表 → 设预算档 → 留高风险日志。用飞书多维表格就能搞定。',
       image: 'cover://api-governance',
@@ -117,7 +117,7 @@ export const llmModule: BaseModuleContent = {
       ],
     },
     {
-      title: '建立你自己的模型评测表：别让"听说"替代测试',
+      title: '用 10 个真实样本做一次系统评测，让选型经得起检验',
       content:
         '用 10 个真实样本做系统评测，从"感觉还行"升级到"数据说话"。产出任务-模型配对表和复评计划。',
       image: 'cover://model-eval-sheet',
