@@ -145,7 +145,7 @@ export const llmModule: BaseModuleContent = {
     },
   ],
   cta: {
-    text: '模型逻辑理顺后，再看智能体怎么落地 → 学习 AI 智能体实战',
-    link: '/module/agents',
+    text: '模型逻辑理顺后，先去建立智能体判断力 → 学习 AI 智能体入门',
+    link: '/module/agent-intro',
   },
 };

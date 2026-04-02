@@ -39,8 +39,10 @@ export default function ModulePage() {
 
   const content = moduleId ? MODULE_CONTENT[moduleId] : null;
   const enhancement = moduleId ? MODULE_ENHANCEMENTS[moduleId] : null;
-  const prioritizedBlocks = enhancement?.blocks.filter((block) => block.type === 'action-checklist') ?? [];
-  const remainingBlocks = enhancement?.blocks.filter((block) => block.type !== 'action-checklist') ?? [];
+  const prioritizedBlocks =
+    enhancement?.blocks.filter((block) => block.type === 'action-checklist' || block.type === 'tool-comparison') ?? [];
+  const remainingBlocks =
+    enhancement?.blocks.filter((block) => block.type !== 'action-checklist' && block.type !== 'tool-comparison') ?? [];
 
   useDocumentTitle(content?.title ?? '模块未找到');
 

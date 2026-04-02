@@ -1,0 +1,186 @@
+import type { ModuleEnhancement } from '@/types/course';
+
+export const openclawEnhancement: ModuleEnhancement = {
+  lastVerifiedOn: '',
+  sources: [],
+  blocks: [
+    {
+      type: 'weekly-plan',
+      title: '6 周路线：从配置到系统',
+      description: '先跑通一个场景，再逐步补规则、记忆、能力和治理。',
+      hideMeta: true,
+      items: [
+        {
+          week: 1,
+          goal: '选场景 + 跑通基础设施',
+          deliverable: '服务器、模型、飞书渠道可用，收到第一条回复并通过重启验证。',
+          fallback: '选不出场景就用"每日早报"起步。',
+        },
+        {
+          week: 2,
+          goal: '写好三件套 + 记忆分层',
+          deliverable: 'SOUL.md / USER.md / AGENTS.md 基础版就位，daily notes 和 MEMORY.md 边界明确。',
+          fallback: '规则太多就先只保留权限边界和通知分层。',
+        },
+        {
+          week: 3,
+          goal: '装好技能 + 跑通闭环',
+          deliverable: '按场景装好 1 组核心技能，完成从输入到输出的完整闭环。',
+          fallback: '技能误调用增加就减回最小能力包。',
+        },
+        {
+          week: 4,
+          goal: '上线主动系统',
+          deliverable: 'Heartbeat 或 Cron 稳定运行，通知不过吵。',
+          fallback: '刷屏就立刻缩窄条件。',
+        },
+        {
+          week: 5,
+          goal: '跑通 1 个实战案例',
+          deliverable: '飞书日报 / 内容监控 / 运营守夜台任选一个稳定运行。',
+          fallback: '不稳就先优化，别急着加第二个。',
+        },
+        {
+          week: 6,
+          goal: '治理 + 资产沉淀',
+          deliverable: '1 份复盘、1 套场景 SOP、1 份删减清单。',
+          fallback: '系统还乱就先删低价值通知和闲置技能。',
+        },
+      ],
+    },
+    {
+      type: 'security-checklist',
+      title: '上线前治理清单',
+      description: '长期在线之前，这 5 项必须过。',
+      hideMeta: true,
+      items: [
+        {
+          title: '密钥分开管理',
+          detail: '渠道 Token、模型 Key、服务器登录信息不混放，测试和正式环境不共用凭证。',
+        },
+        {
+          title: '高风险动作设为确认',
+          detail: '删除、外发、改配置直接列清单，不用"谨慎处理"这种空话。',
+        },
+        {
+          title: '共享能力和场景能力隔离',
+          detail: '全局目录只放通用能力，场景专用放工作区。',
+        },
+        {
+          title: '日志和成本有人看',
+          detail: '每周回顾失败任务、模型成本、闲置技能。',
+        },
+        {
+          title: '主动规则有频控',
+          detail: '能打断你的只有真正需要行动的事件，其余入摘要或静默。',
+        },
+      ],
+    },
+    {
+      type: 'resource-links',
+      title: '核心资源导航',
+      description: '按类别整理的 OpenClaw 外部资源，遇到问题先查官方文档和 GitHub Issues。',
+      hideMeta: true,
+      items: [
+        {
+          title: 'OpenClaw 官方文档',
+          url: 'https://docs.openclaw.ai/',
+          label: '官方',
+          description: 'API 参考、配置指南、架构说明，遇到问题先查这里',
+          category: '官方资源',
+        },
+        {
+          title: 'GitHub 主仓库',
+          url: 'https://github.com/openclaw/openclaw',
+          label: '源码',
+          description: '源码、Issues、Release Notes',
+          category: '官方资源',
+        },
+        {
+          title: 'ClawHub 技能市场',
+          url: 'https://clawhub.com/',
+          label: '市场',
+          description: '5400+ 社区技能，安装前务必检查权限声明',
+          category: '官方资源',
+        },
+        {
+          title: 'Awesome OpenClaw Skills',
+          url: 'https://github.com/VoltAgent/awesome-openclaw-skills',
+          label: '精选',
+          description: '社区精选技能，分类清晰、经过安全审查',
+          category: '官方资源',
+        },
+        {
+          title: '阿里云 — 轻量服务器部署',
+          url: 'https://help.aliyun.com/zh/simple-application-server/use-cases/quickly-deploy-and-use-openclaw',
+          label: '教程',
+          description: '阿里云官方，含钉钉接入',
+          category: '国内部署',
+        },
+        {
+          title: '腾讯云 — Lighthouse + 飞书全流程',
+          url: 'https://cloud.tencent.com/developer/article/2625073',
+          label: '教程',
+          description: '保姆级，含飞书机器人配置',
+          category: '国内部署',
+        },
+        {
+          title: '阿里云百炼 — 国内模型接入',
+          url: 'https://help.aliyun.com/zh/model-studio/openclaw',
+          label: '教程',
+          description: 'Qwen / DeepSeek / Kimi 多模型配置',
+          category: '国内部署',
+        },
+        {
+          title: 'B站 — 保姆级部署教程',
+          url: 'https://www.bilibili.com/video/BV1kH6nBFEPq/',
+          label: '视频',
+          description: '视频，小白友好',
+          category: '国内部署',
+        },
+        {
+          title: '知乎 — 一文读懂 OpenClaw',
+          url: 'https://zhuanlan.zhihu.com/p/2000850539936765122',
+          label: '中文',
+          description: 'SOUL.md / AGENTS.md / Skills 全拆解',
+          category: '中文社区',
+        },
+        {
+          title: 'DataWhale「哈喽！龙虾」',
+          url: 'https://github.com/datawhalechina/hello-claw',
+          label: '教程',
+          description: '体系化中文开源教程，从入门到架构',
+          category: '中文社区',
+        },
+        {
+          title: 'freeCodeCamp — OpenClaw Full Tutorial',
+          url: 'https://www.freecodecamp.org/news/openclaw-full-tutorial-for-beginners/',
+          label: '英文',
+          description: '从被动聊天到主动 Agent 的完整路径',
+          category: '国际教程',
+        },
+        {
+          title: 'Medium — How OpenClaw Memory Works',
+          url: 'https://medium.com/@databytoufik/how-openclaw-memory-works-802bd8465b1a',
+          label: '深度',
+          description: 'BM25 + 向量搜索混合检索原理',
+          category: '深度阅读',
+        },
+        {
+          title: 'Adversa AI — Security 101',
+          url: 'https://adversa.ai/blog/openclaw-security-101-vulnerabilities-hardening-2026/',
+          label: '安全',
+          description: 'CVE 清单、供应链风险、加固建议',
+          category: '安全资源',
+        },
+        {
+          title: 'The Hacker News — 341 个恶意技能',
+          url: 'https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html',
+          label: '安全',
+          description: 'ClawHub 供应链攻击详情',
+          category: '安全资源',
+        },
+      ],
+    },
+  ],
+};

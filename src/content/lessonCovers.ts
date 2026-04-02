@@ -13,11 +13,23 @@ const COVER_THEMES: Record<ModuleId, { accent: string; background: string; glow:
     glow: '#7c3aed',
     eyebrow: 'MODEL LAB',
   },
-  agents: {
+  'agent-intro': {
     accent: '#34d399',
     background: '#052e2b',
     glow: '#047857',
-    eyebrow: 'AGENT OPS',
+    eyebrow: 'AGENT FOUNDRY',
+  },
+  openclaw: {
+    accent: '#fb923c',
+    background: '#2b1608',
+    glow: '#c2410c',
+    eyebrow: 'OPENCLAW LAB',
+  },
+  'claude-agent': {
+    accent: '#a78bfa',
+    background: '#1d1633',
+    glow: '#6d28d9',
+    eyebrow: 'CLAUDE FLOW',
   },
   scenarios: {
     accent: '#fb923c',
@@ -108,8 +120,8 @@ export const createLessonCover = (moduleId: ModuleId, title: string, subtitle: s
         .join('')}
       <text x="124" y="786" fill="white" fill-opacity="0.56" font-size="30" font-family="'JetBrains Mono','SFMono-Regular',monospace">AI SUPERMAN DJY</text>
       <text x="1108" y="572" fill="${theme.accent}" font-size="22" font-family="'JetBrains Mono','SFMono-Regular',monospace" font-weight="700">LESSON COVER</text>
-      <text x="1108" y="624" fill="white" fill-opacity="0.80" font-size="36" font-family="'PingFang SC','Microsoft YaHei',sans-serif" font-weight="700">长期维护</text>
-      <text x="1108" y="674" fill="white" fill-opacity="0.60" font-size="24" font-family="'PingFang SC','Microsoft YaHei',sans-serif">独立 URL / 可分享 / 可更新</text>
+      <text x="1108" y="624" fill="white" fill-opacity="0.80" font-size="36" font-family="'PingFang SC','Microsoft YaHei',sans-serif" font-weight="700">实战课地图</text>
+      <text x="1108" y="674" fill="white" fill-opacity="0.60" font-size="24" font-family="'PingFang SC','Microsoft YaHei',sans-serif">原创结构 / 逐课推进 / 可长期更新</text>
     </svg>
   `.trim();
 

@@ -2,10 +2,12 @@ import { MODULE_ENHANCEMENTS } from '@/content/moduleEnhancements';
 import { createLessonCover } from '@/content/lessonCovers';
 import type { BaseLesson, BaseModuleContent, ContentDifficulty, Lesson, ModuleContent, ModuleId, SourceLink } from '@/types/course';
 
-import { agentsModule } from './agents';
+import { agentIntroModule } from './agentIntro';
 import { casesModule } from './cases';
+import { claudeAgentModule } from './claudeAgent';
 import { growthModule } from './growth';
 import { llmModule } from './llm';
+import { openclawModule } from './openclaw';
 import { scenariosModule } from './scenarios';
 import { superIndividualModule } from './superIndividual';
 
@@ -18,7 +20,9 @@ const lessonMarkdownFiles = import.meta.glob('../lessons/**/*.md', {
 const BASE_MODULES: Record<ModuleId, BaseModuleContent> = {
   'super-individual': superIndividualModule,
   llm: llmModule,
-  agents: agentsModule,
+  'agent-intro': agentIntroModule,
+  openclaw: openclawModule,
+  'claude-agent': claudeAgentModule,
   scenarios: scenariosModule,
   cases: casesModule,
   growth: growthModule,
@@ -48,12 +52,26 @@ const MODULE_METADATA: Record<
     tags: ['模型选型', 'API', '上下文', '成本控制'],
     prerequisites: ['完成入门模块，或已经能稳定使用 AI 完成真实任务'],
   },
-  agents: {
-    estimatedTime: '2-4 周',
+  'agent-intro': {
+    estimatedTime: '30 分钟',
+    difficulty: 'beginner',
+    audience: ['刚开始了解智能体的用户', '想系统建立认知框架的从业者'],
+    tags: ['智能体入门', '认知框架', '工具选型'],
+    prerequisites: ['了解基础的 AI 对话工具使用'],
+  },
+  openclaw: {
+    estimatedTime: '2-3 周',
     difficulty: 'intermediate',
-    audience: ['准备做自动化的个人用户', '需要跨工具执行链的开发与运营人员'],
-    tags: ['智能体', 'OpenClaw', 'Claude Code', '权限治理'],
-    prerequisites: ['理解模型选型和基础工作流概念'],
+    audience: ['需要多渠道信息自动化的用户', '想搭建 24/7 运行私人 AI 助手的用户'],
+    tags: ['OpenClaw', 'SOUL.md', 'USER.md', 'AGENTS.md', '心跳机制', '记忆迭代'],
+    prerequisites: ['完成 AI 智能体入门模块', '有基础的命令行操作经验'],
+  },
+  'claude-agent': {
+    estimatedTime: '1-2 周',
+    difficulty: 'intermediate',
+    audience: ['开发者', '需要代码文档命令行协作的用户'],
+    tags: ['Claude Code', 'CLAUDE.md', 'slash commands', '多智能体'],
+    prerequisites: ['完成 AI 智能体入门模块'],
   },
   scenarios: {
     estimatedTime: '持续',
@@ -101,7 +119,9 @@ const getLessonBody = (moduleId: ModuleId, slug: string, lesson: BaseLesson) => 
 const lessonEstimatedTime = (moduleId: ModuleId, lesson: BaseLesson) => {
   if (moduleId === 'super-individual') return '15-20 分钟';
   if (moduleId === 'llm') return '18-25 分钟';
-  if (moduleId === 'agents') return '20-30 分钟';
+  if (moduleId === 'agent-intro') return '15-20 分钟';
+  if (moduleId === 'openclaw') return '25-35 分钟';
+  if (moduleId === 'claude-agent') return '25-35 分钟';
   if (moduleId === 'scenarios') return '18-25 分钟';
   if (moduleId === 'cases') return '12-18 分钟';
   if (moduleId === 'growth') return '15-20 分钟';
@@ -166,7 +186,9 @@ const enrichModule = (moduleId: ModuleId, moduleContent: BaseModuleContent): Mod
 export const MODULE_CONTENT: Record<ModuleId, ModuleContent> = {
   'super-individual': enrichModule('super-individual', BASE_MODULES['super-individual']),
   llm: enrichModule('llm', BASE_MODULES.llm),
-  agents: enrichModule('agents', BASE_MODULES.agents),
+  'agent-intro': enrichModule('agent-intro', BASE_MODULES['agent-intro']),
+  openclaw: enrichModule('openclaw', BASE_MODULES.openclaw),
+  'claude-agent': enrichModule('claude-agent', BASE_MODULES['claude-agent']),
   scenarios: enrichModule('scenarios', BASE_MODULES.scenarios),
   cases: enrichModule('cases', BASE_MODULES.cases),
   growth: enrichModule('growth', BASE_MODULES.growth),

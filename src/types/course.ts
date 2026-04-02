@@ -3,7 +3,9 @@ import type { LucideIcon } from 'lucide-react';
 export const MODULE_IDS = [
   'super-individual',
   'llm',
-  'agents',
+  'agent-intro',
+  'openclaw',
+  'claude-agent',
   'scenarios',
   'cases',
   'growth',
@@ -136,6 +138,12 @@ export interface WeeklyPlan {
   fallback: string;
 }
 
+export interface ToolComparisonRow {
+  aspect: string;
+  cli: string;
+  cowork: string;
+}
+
 export interface BaseEnhancementBlock {
   title: string;
   description?: string;
@@ -175,13 +183,35 @@ export interface WeeklyPlanBlock extends BaseEnhancementBlock {
   items: WeeklyPlan[];
 }
 
+export interface ToolComparisonBlock extends BaseEnhancementBlock {
+  type: 'tool-comparison';
+  cliTitle: string;
+  coworkTitle: string;
+  items: ToolComparisonRow[];
+}
+
+export interface ResourceLinkItem {
+  title: string;
+  url: string;
+  label: string;
+  description: string;
+  category: string;
+}
+
+export interface ResourceLinksBlock extends BaseEnhancementBlock {
+  type: 'resource-links';
+  items: ResourceLinkItem[];
+}
+
 export type ModuleEnhancementBlock =
   | ActionChecklistBlock
   | ModelOptionsBlock
   | SecurityChecklistBlock
   | SopTemplatesBlock
   | CaseEvidenceBlock
-  | WeeklyPlanBlock;
+  | WeeklyPlanBlock
+  | ToolComparisonBlock
+  | ResourceLinksBlock;
 
 export interface ModuleEnhancement {
   lastVerifiedOn: string;

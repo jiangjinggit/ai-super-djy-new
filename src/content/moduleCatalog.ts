@@ -1,11 +1,13 @@
-import { BookOpen, Brain, Cpu, Rocket, Users, Zap } from 'lucide-react';
+import { BookOpen, Bot, Brain, Cpu, Rocket, Terminal, Users, Zap } from 'lucide-react';
 
 import type { ModuleCardData, ModuleId } from '@/types/course';
 
 export const NAV_LABELS: Record<ModuleId, string> = {
   'super-individual': '入门',
   llm: '大模型',
-  agents: '智能体',
+  'agent-intro': '智能体入门',
+  openclaw: 'OpenClaw',
+  'claude-agent': 'Claude',
   scenarios: '场景库',
   cases: '案例',
   growth: '成长',
@@ -27,11 +29,25 @@ export const MODULE_CARDS: ModuleCardData[] = [
     color: 'purple',
   },
   {
-    id: 'agents',
-    title: 'AI 智能体实战专区',
-    desc: '先理解权限边界和流程设计，再学习 OpenClaw、Claude Code 这类执行工作台如何落地。',
+    id: 'agent-intro',
+    title: 'AI 智能体入门',
+    desc: '先统一智能体认知，再用任务适配和工具分流两张判断表决定下一步学什么。',
     icon: Cpu,
     color: 'emerald',
+  },
+  {
+    id: 'openclaw',
+    title: 'OpenClaw 实战',
+    desc: '先判断是否适合，再完成部署、三件套配置、技能、主动通知和长期调优。',
+    icon: Bot,
+    color: 'orange',
+  },
+  {
+    id: 'claude-agent',
+    title: 'Claude 智能体实战',
+    desc: '先分清 Claude Code CLI 与 Cowork，再建立工作流、上下文、安全边界和协作方法。',
+    icon: Terminal,
+    color: 'purple',
   },
   {
     id: 'scenarios',

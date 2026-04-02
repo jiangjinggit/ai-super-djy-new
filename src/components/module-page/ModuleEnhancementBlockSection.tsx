@@ -1,5 +1,5 @@
 import { Copy, Sparkles } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 
 import { ContentMetaNote } from '@/components/module-page/ContentMetaNote';
@@ -9,8 +9,10 @@ import type {
   ModelOption,
   ModelOptionsBlock,
   ModuleEnhancementBlock,
+  ResourceLinksBlock,
   SecurityChecklistBlock,
   SopTemplatesBlock,
+  ToolComparisonBlock,
   WeeklyPlanBlock,
 } from '@/types/course';
 
@@ -245,6 +247,90 @@ const WeeklyPlanSection = ({ title, description, items, updatedAt, sources, hide
   );
 };
 
+const ToolComparisonSection = ({
+  title,
+  description,
+  items,
+  cliTitle,
+  coworkTitle,
+  updatedAt,
+  sources,
+  hideMeta,
+}: ToolComparisonBlock) => {
+  return (
+    <section className="mb-20 p-10 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[40px] overflow-hidden">
+      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-3">
+        <Sparkles className="text-blue-600 dark:text-blue-400" /> {title}
+      </h3>
+      {description && <p className="text-sm text-slate-600 dark:text-gray-400 mb-6">{description}</p>}
+      {!hideMeta && <ContentMetaNote updatedAt={updatedAt} sources={sources} />}
+
+      <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1.45fr_1.45fr] gap-3">
+        <div className="hidden lg:flex items-center px-4 py-3 text-xs uppercase tracking-[0.2em] text-slate-500 dark:text-gray-500 font-mono-tech">
+          判断维度
+        </div>
+        <div className="rounded-2xl border border-purple-500/20 bg-purple-500/10 px-5 py-4">
+          <p className="font-mono-tech text-[11px] tracking-[0.25em] text-purple-600 dark:text-purple-300 uppercase mb-2">Path A</p>
+          <h4 className="text-lg font-bold text-slate-900 dark:text-white">{cliTitle}</h4>
+        </div>
+        <div className="rounded-2xl border border-cyan-500/20 bg-cyan-500/10 px-5 py-4">
+          <p className="font-mono-tech text-[11px] tracking-[0.25em] text-cyan-600 dark:text-cyan-300 uppercase mb-2">Path B</p>
+          <h4 className="text-lg font-bold text-slate-900 dark:text-white">{coworkTitle}</h4>
+        </div>
+
+        {items.map((item) => (
+          <Fragment key={item.aspect}>
+            <div key={`${item.aspect}-label`} className="rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-200/70 dark:bg-black/20 px-5 py-4">
+              <p className="text-sm font-semibold text-slate-900 dark:text-white">{item.aspect}</p>
+            </div>
+            <div key={`${item.aspect}-cli`} className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white/70 dark:bg-white/[0.03] px-5 py-4">
+              <p className="text-sm text-slate-700 dark:text-gray-300 leading-relaxed">{item.cli}</p>
+            </div>
+            <div key={`${item.aspect}-cowork`} className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white/70 dark:bg-white/[0.03] px-5 py-4">
+              <p className="text-sm text-slate-700 dark:text-gray-300 leading-relaxed">{item.cowork}</p>
+            </div>
+          </Fragment>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+const ResourceLinksSection = ({ title, description, items, hideMeta, updatedAt, sources }: ResourceLinksBlock) => {
+  const categories = [...new Set(items.map((item) => item.category))];
+  return (
+    <section className="mb-20 p-10 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[40px]">
+      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">{title}</h3>
+      {description && <p className="text-sm text-slate-600 dark:text-gray-400 mb-6">{description}</p>}
+      {!hideMeta && <ContentMetaNote updatedAt={updatedAt} sources={sources} />}
+      <div className="space-y-6">
+        {categories.map((category) => (
+          <div key={category}>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400 mb-3">{category}</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {items.filter((item) => item.category === category).map((item) => (
+                <a
+                  key={item.url}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex flex-col gap-1 p-4 bg-slate-200 dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-2xl hover:border-blue-500/40 transition-colors"
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-slate-900 dark:text-white font-semibold text-sm group-hover:text-blue-600 dark:group-hover:text-blue-300 transition-colors">{item.title}</span>
+                    <span className="text-xs text-slate-500 dark:text-gray-500 shrink-0">{item.label}</span>
+                  </div>
+                  <p className="text-xs text-slate-600 dark:text-gray-400 leading-relaxed">{item.description}</p>
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
 interface ModuleEnhancementBlockSectionProps {
   block: ModuleEnhancementBlock;
 }
@@ -263,6 +349,10 @@ export const ModuleEnhancementBlockSection = ({ block }: ModuleEnhancementBlockS
       return <CaseEvidenceSection {...block} />;
     case 'weekly-plan':
       return <WeeklyPlanSection {...block} />;
+    case 'tool-comparison':
+      return <ToolComparisonSection {...block} />;
+    case 'resource-links':
+      return <ResourceLinksSection {...block} />;
     default:
       return null;
   }

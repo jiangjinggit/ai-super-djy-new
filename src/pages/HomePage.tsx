@@ -5,6 +5,7 @@ import { toast } from 'sonner';
 
 import { MODULE_COLOR_STYLES } from '@/constants/moduleStyles';
 import { MODULE_CARDS } from '@/content/moduleCatalog';
+import { MODULE_CONTENT } from '@/content/modules';
 import { ModuleCard } from '@/components/ModuleCard';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 import { useCountUp } from '@/hooks/useCountUp';
@@ -25,6 +26,17 @@ const StatCard = ({ target, label, suffix }: { target: number; label: string; su
     </div>
   );
 };
+
+const HOME_STATS = [
+  { target: MODULE_CARDS.length, label: '核心模块', suffix: '' },
+  {
+    target: Object.values(MODULE_CONTENT).reduce((total, module) => total + module.lessons.length, 0),
+    label: '主题课程',
+    suffix: '+',
+  },
+  { target: 3, label: '智能体路径', suffix: '' },
+  { target: MODULE_CONTENT.scenarios.lessons.length, label: '典型场景', suffix: '' },
+] as const;
 
 const Hero = () => {
   const handleStart = () => {
@@ -67,7 +79,7 @@ const Hero = () => {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500">EVOLUTION</span>
           </h1>
           <p className="max-w-2xl mx-auto text-lg md:text-xl text-slate-600 dark:text-gray-400 mb-8 leading-relaxed">
-            从零基础到流程提效，再到 MVP 与服务验证。
+            从零基础到模型判断，再到智能体工作台与真实场景验证。
             这里不卖神话，只帮你把 AI 变成更稳、更可执行的工作能力。
           </p>
 
@@ -87,8 +99,9 @@ const Hero = () => {
             <div className="p-4 font-mono-tech text-xs space-y-1.5">
               <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> init super-individual</span></p>
               <p className="text-emerald-400 pl-2">✓ AI 工具矩阵已就绪</p>
-              <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> load --module llm agents</span></p>
-              <p className="text-emerald-400 pl-2">✓ 6 个模块加载完成</p>
+              <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> load --module agent-intro openclaw</span></p>
+              <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> attach --module claude-agent scenarios</span></p>
+              <p className="text-emerald-400 pl-2">✓ 8 个模块加载完成</p>
               <p className="flex items-center gap-1"><span className="text-cyan-400">$</span><span className="inline-block w-1.5 h-3.5 bg-cyan-400/80 ml-1 animate-pulse" /></p>
             </div>
           </motion.div>
@@ -133,19 +146,14 @@ const Modules = () => {
   return (
     <section id="modules" className="py-24 px-6 max-w-7xl mx-auto">
       <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">六大核心模块</h2>
+        <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">核心模块地图</h2>
         <p className="text-slate-600 dark:text-gray-400 max-w-2xl mx-auto">
-          从入门认知到模型选型，再到智能体、场景、案例和成长路径，按实际执行顺序组织内容。
+          从入门、模型到智能体三段式实战，再接场景、案例和成长路径，按真实执行顺序组织内容。
         </p>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
-        {[
-          { target: 6,  label: '核心模块',  suffix: '' },
-          { target: 24, label: '主题课程',  suffix: '+' },
-          { target: 12, label: '周执行路线', suffix: '' },
-          { target: 3,  label: '典型场景',  suffix: '' },
-        ].map((stat) => (
+        {HOME_STATS.map((stat) => (
           <StatCard key={stat.label} {...stat} />
         ))}
       </div>
@@ -162,7 +170,9 @@ const Modules = () => {
 const LEARNING_STEPS: Array<{ id: ModuleId; label: string; time: string; color: ModuleColor }> = [
   { id: 'super-individual', label: 'AI 入门', time: '1-2 周', color: 'blue' },
   { id: 'llm', label: '大模型实战', time: '1-2 周', color: 'purple' },
-  { id: 'agents', label: '智能体实战', time: '2-4 周', color: 'emerald' },
+  { id: 'agent-intro', label: '智能体入门', time: '30 分钟', color: 'emerald' },
+  { id: 'openclaw', label: 'OpenClaw', time: '2-3 周', color: 'orange' },
+  { id: 'claude-agent', label: 'Claude 实战', time: '1-2 周', color: 'purple' },
   { id: 'scenarios', label: '场景实战', time: '持续', color: 'orange' },
   { id: 'cases', label: '案例学习', time: '随时', color: 'purple' },
   { id: 'growth', label: '成长路径', time: '3-12 月', color: 'emerald' },
@@ -179,11 +189,11 @@ const LearningRoadmap = () => {
       </div>
 
       {/* 桌面时间线 */}
-      <div className="hidden md:block relative">
+      <div className="hidden lg:block relative">
         {/* 底部连接线 */}
-        <div className="absolute top-[22px] left-[calc(100%/12)] right-[calc(100%/12)] h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent" />
+        <div className="absolute top-[22px] left-[calc(100%/16)] right-[calc(100%/16)] h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent" />
 
-        <div className="grid grid-cols-6 gap-2">
+        <div className="grid grid-cols-8 gap-2">
           {LEARNING_STEPS.map((step, index) => {
             const stepStyle = MODULE_COLOR_STYLES[step.color];
             return (
@@ -222,7 +232,7 @@ const LearningRoadmap = () => {
       </div>
 
       {/* 移动端竖向时间线 */}
-      <div className="md:hidden relative pl-8">
+      <div className="lg:hidden relative pl-8">
         {/* 竖向连接线 */}
         <div className="absolute left-[18px] top-3 bottom-3 w-px bg-gradient-to-b from-cyan-500/40 via-cyan-500/20 to-transparent" />
 

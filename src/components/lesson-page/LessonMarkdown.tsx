@@ -81,12 +81,17 @@ const components: Components = {
   ol: ({ node, ...props }) => <ol className="mb-7 list-decimal space-y-3 pl-6" {...props} />,
   li: ({ node, ...props }) => <li className="pl-1 text-base leading-7 text-slate-800 dark:text-gray-200 md:text-[1.02rem]" {...props} />,
   strong: ({ node, ...props }) => <strong className="font-semibold text-slate-900 dark:text-white" {...props} />,
-  a: ({ node, ...props }) => (
-    <a
-      className="font-medium text-blue-600 dark:text-blue-300 underline decoration-blue-400/40 underline-offset-4 transition-colors hover:text-white"
-      {...props}
-    />
-  ),
+  a: ({ node, href, ...props }) => {
+    const isExternal = href && /^https?:\/\//.test(href);
+    return (
+      <a
+        href={href}
+        className="font-medium text-blue-600 dark:text-blue-300 underline decoration-blue-400/40 underline-offset-4 transition-colors hover:text-white"
+        {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+        {...props}
+      />
+    );
+  },
   hr: ({ node, ...props }) => (
     <div className="my-10 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" {...props} />
   ),
