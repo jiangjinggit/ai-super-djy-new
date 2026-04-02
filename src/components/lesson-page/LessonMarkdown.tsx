@@ -6,6 +6,15 @@ interface LessonMarkdownProps {
   body: string;
 }
 
+const headingId = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[`*_~]/g, '')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/\s+/g, '-')
+    .replace(/[!"#$%&'()*+,./:;<=>?@[\\\]^_{|}~]/g, '')
+    .trim();
+
 const flattenText = (node: ReactNode): string =>
   Children.toArray(node)
     .map((child) => {
@@ -46,16 +55,29 @@ const PARAGRAPH_CALLOUTS = [
 ] as const;
 
 const components: Components = {
-  h2: ({ node, ...props }) => (
+  h2: ({ node, children, ...props }) => (
     <h2
+      id={headingId(flattenText(children))}
       className="mt-14 mb-5 border-t border-slate-200 dark:border-white/10 pt-8 text-xl md:text-2xl font-black tracking-tight text-slate-900 dark:text-white"
       {...props}
-    />
+    >
+      {children}
+    </h2>
   ),
-  h3: ({ node, ...props }) => (
-    <h3 className="mt-10 mb-4 text-lg md:text-xl font-bold text-slate-900 dark:text-white tracking-tight" {...props} />
+  h3: ({ node, children, ...props }) => (
+    <h3
+      id={headingId(flattenText(children))}
+      className="mt-10 mb-4 text-lg md:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+      {...props}
+    >
+      {children}
+    </h3>
   ),
-  h4: ({ node, ...props }) => <h4 className="mt-8 mb-3 text-base font-semibold text-slate-900 dark:text-white" {...props} />,
+  h4: ({ node, children, ...props }) => (
+    <h4 id={headingId(flattenText(children))} className="mt-8 mb-3 text-base font-semibold text-slate-900 dark:text-white" {...props}>
+      {children}
+    </h4>
+  ),
   p: ({ node, children, ...props }) => {
     const text = flattenText(children);
     const callout = PARAGRAPH_CALLOUTS.find((item) => text.startsWith(item.prefix));

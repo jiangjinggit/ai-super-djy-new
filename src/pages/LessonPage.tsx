@@ -16,6 +16,7 @@ const DIFFICULTY_LABELS = {
   advanced: '高级',
 } as const;
 
+
 export default function LessonPage() {
   const { id, lessonSlug } = useParams();
   const navigate = useNavigate();
@@ -100,6 +101,8 @@ export default function LessonPage() {
           <span>{lesson.content}</span>
         </p>
       </div>
+
+
 
       <LessonVisualGuide moduleId={moduleId} lessonSlug={lesson.slug} />
 

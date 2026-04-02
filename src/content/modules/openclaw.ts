@@ -8,8 +8,13 @@ export const openclawModule: BaseModuleContent = {
   icon: Bot,
   color: 'orange',
   description:
-    '14 节课，从判断是否值得搭、30 分钟跑通飞书日报，到三件套配置、技能组合、主动通知和长期治理。拿走模板和配置，不讲空话。',
-  keyTakeaways: [],
+    '12 节课，从判断是否值得搭、30 分钟搭好环境，到三件套配置、技能组合、主动通知和长期治理。拿走模板和配置，不讲空话。',
+  keyTakeaways: [
+    '30 分钟在国内服务器跑通飞书日报，不依赖翻墙',
+    '规则三件套（SOUL.md / USER.md / AGENTS.md）配置模板，拿走即用',
+    '主动通知不刷屏：Heartbeat + Cron + 三层分流配置方法',
+    '安全与成本治理：4 类边界 + 每周巡检框架',
+  ],
   sections: [
     {
       title: '搭起来',
@@ -23,7 +28,7 @@ export const openclawModule: BaseModuleContent = {
     },
     {
       title: '用起来',
-      content: '飞书日报、内容监控台、运营守夜台三个实战案例，配好就能长期跑。',
+      content: 'AI 热点日报手把手跑通，内容监控和运营守夜作为进阶参考，配好就能长期跑。',
       icon: Wrench,
     },
   ],
@@ -74,7 +79,7 @@ export const openclawModule: BaseModuleContent = {
       ],
     },
     {
-      title: '中国用户：30 分钟跑通飞书日报',
+      title: '中国用户：30 分钟搭好环境',
       content: '服务器 + 模型 + 飞书，最短路径。含国内/国外模型选型指南。',
       image: 'cover://openclaw-china-quickstart',
       details: [
@@ -82,6 +87,24 @@ export const openclawModule: BaseModuleContent = {
         '国内/国外模型怎么选 + 社区资源',
       ],
       fullContent: [
+        {
+          subtitle: '0. 配置不用自己手写',
+          text: [
+            '遇到配置文件（SOUL.md、AGENTS.md 等）有两种省力方式：',
+            '',
+            '**方式一：直接跟 OpenClaw 聊天**，用自然语言告诉它你要什么，它会自动写进配置文件。',
+            '',
+            '**方式二：用 Claude Code 帮你配**，打开 OpenClaw 配置目录，让 Claude Code 读取现有结构直接帮你写：',
+            '',
+            '```bash',
+            'claude ~/Library/Application\\ Support/OpenClaw  # macOS',
+            'claude %APPDATA%\\OpenClaw                       # Windows',
+            'claude ~/.config/openclaw                       # Linux',
+            '```',
+            '',
+            '后面每节课涉及配置的地方，都可以用这两种方式完成，不需要照着模板一行一行手写。',
+          ].join('\n'),
+        },
         {
           subtitle: '1. 推荐技术栈',
           text: [
@@ -145,68 +168,51 @@ export const openclawModule: BaseModuleContent = {
       ],
     },
     {
-      title: '部署验证 + 渠道接入',
-      content: '6 项验证清单 + 飞书双通道路由配置。',
+      title: '部署验证：6 项全过才算稳',
+      content: '第一条回复不等于部署完成，6 项验证清单 + 通知路由配置。',
       image: 'cover://openclaw-setup',
       details: [
-        '6 项部署验证清单 + 故障排查速查表',
-        '飞书接入命令 + 双通道路由模板',
+        '6 项验证清单 + 常见故障速查',
+        '双通道路由模板（写进 AGENTS.md 即用）',
       ],
       fullContent: [
         {
           subtitle: '1. 6 项验证清单',
           text: [
-            '第一条回复不等于部署完成，6 项全过才算：',
+            '第一条回复不等于部署完成，6 项全过才算稳：',
             '',
-            '| 检查项 | 命令 |',
-            '| --- | --- |',
-            '| 进程存活 | `openclaw gateway status` |',
-            '| 模型可用 | 发测试消息 |',
-            '| 渠道通畅 | 双向测试 |',
-            '| 重启恢复 | `openclaw daemon restart` |',
-            '| 日志可见 | `openclaw logs --follow` |',
-            '| 控制台可用 | `openclaw dashboard` |',
+            '| 检查项 | 命令 | 预期结果 |',
+            '| --- | --- | --- |',
+            '| 进程存活 | `openclaw gateway status` | running |',
+            '| 模型可用 | 发测试消息 | 正常回复 |',
+            '| 渠道通畅 | 双向收发测试 | 消息可达 |',
+            '| 重启恢复 | `openclaw daemon restart` | 自动重连 |',
+            '| 日志可见 | `openclaw logs --follow` | 无报错 |',
+            '| 控制台可用 | `openclaw dashboard` | 页面正常 |',
           ].join('\n'),
         },
         {
-          subtitle: '2. 渠道接入 + 路由',
+          subtitle: '2. 常见故障速查',
           text: [
-            '```bash',
-            'openclaw channels add  # 选 Feishu，填 App ID 和 App Secret',
-            'openclaw gateway status  # feishu 应为 connected',
+            '| 现象 | 先查 |',
+            '| --- | --- |',
+            '| 渠道显示 disconnected | 检查 App ID / Secret 是否填错，安全组 443 端口是否开放 |',
+            '| 发消息无回复 | `openclaw logs --follow` 看有没有报错 |',
+            '| 重启后渠道断开 | 检查 daemon 是否随系统启动 `openclaw daemon status` |',
+            '| 模型超时 | 检查 Base URL 是否正确，国内模型不要填 OpenAI 地址 |',
+          ].join('\n'),
+        },
+        {
+          subtitle: '3. 验证完成后：配双通道路由',
+          text: [
+            '6 项全过之后，把通知路由写进 AGENTS.md，避免后续主动通知刷屏：',
+            '',
+            '```text',
+            '通知路由规则：',
+            '- P1 异常（需立即处理）→ Telegram + 主渠道',
+            '- 常规日报/摘要 → 主渠道（飞书/企微/钉钉）',
+            '- 22:00-08:00 → 仅 P1 可打扰，其余静默',
             '```',
-            '',
-            '双通道路由写进 AGENTS.md：飞书承接日报/常规通知，Telegram 只做 P1 强提醒，22:00-08:00 静默。',
-          ].join('\n'),
-        },
-      ],
-    },
-    {
-      title: '生态结构：4 个对象怎么分层',
-      content: '工作区、Agent、渠道、节点的边界和常见错误。',
-      image: 'cover://openclaw-architecture',
-      details: [
-        '4 个对象的分工',
-        '拆分 vs 共享的判断标准',
-      ],
-      fullContent: [
-        {
-          subtitle: '1. 4 个对象',
-          text: [
-            '| 对象 | 管什么 |',
-            '| --- | --- |',
-            '| 工作区 | 场景专用的规则、技能和资产 |',
-            '| Agent | 执行任务的主体 |',
-            '| 渠道 | 消息进出 |',
-            '| 节点 | 设备级执行能力 |',
-            '',
-            '> 📖 [DEV Community — Unleashing OpenClaw](https://dev.to/mechcloud_academy/unleashing-openclaw-the-ultimate-guide-to-local-ai-agents-for-developers-in-2026-3k0h)（Gateway 架构深度解析）',
-          ].join('\n'),
-        },
-        {
-          subtitle: '2. 拆分原则',
-          text: [
-            '能跨场景稳定复用的才共享，只服务一个场景的别急着全局化。涉及外发、删改、生产环境的必须隔离。',
           ].join('\n'),
         },
       ],
@@ -275,6 +281,36 @@ export const openclawModule: BaseModuleContent = {
       ],
     },
     {
+      title: '生态结构：4 个对象怎么分层',
+      content: '工作区、Agent、渠道、节点的边界和常见错误。',
+      image: 'cover://openclaw-architecture',
+      details: [
+        '4 个对象的分工',
+        '拆分 vs 共享的判断标准',
+      ],
+      fullContent: [
+        {
+          subtitle: '1. 4 个对象',
+          text: [
+            '| 对象 | 管什么 |',
+            '| --- | --- |',
+            '| 工作区 | 场景专用的规则、技能和资产 |',
+            '| Agent | 执行任务的主体 |',
+            '| 渠道 | 消息进出 |',
+            '| 节点 | 设备级执行能力 |',
+            '',
+            '> 📖 [DEV Community — Unleashing OpenClaw](https://dev.to/mechcloud_academy/unleashing-openclaw-the-ultimate-guide-to-local-ai-agents-for-developers-in-2026-3k0h)（Gateway 架构深度解析）',
+          ].join('\n'),
+        },
+        {
+          subtitle: '2. 拆分原则',
+          text: [
+            '能跨场景稳定复用的才共享，只服务一个场景的别急着全局化。涉及外发、删改、生产环境的必须隔离。',
+          ].join('\n'),
+        },
+      ],
+    },
+    {
       title: '技能与节点扩展',
       content: '按场景装技能、ClawHub 安全提醒、Skill vs Node 判断。',
       image: 'cover://openclaw-skills',
@@ -335,62 +371,36 @@ export const openclawModule: BaseModuleContent = {
       ],
     },
     {
-      title: '实战：飞书日报',
-      content: '邮件 + 日历 + 待办 → 一条飞书日报，附模板和排错。',
+      title: '实战：飞书 AI 热点日报',
+      content: '36氪 AI 频道 + GitHub Trending + 少数派 → 每天早上一条飞书推送，5 步跑通。',
       image: 'cover://openclaw-feishu-daily-report',
       details: [
-        '最小闭环 + 日报规则模板',
-        '消息/文档/表格分工',
+        '信息源配置（无翻墙/有翻墙两套）+ 过滤规则模板',
+        '5 步手把手跑通 + 常见故障排查',
       ],
       fullContent: [
         {
           subtitle: '1. 最小流程',
           text: [
-            '抓取（邮件、日历、待办）→ 过滤（立即/关注/了解三层）→ 组装（套模板）→ 推送（飞书）→ 回收（次日优化）。',
+            '安装 web-search 技能 → 配信息源 → 写过滤规则到 AGENTS.md → 配 Cron 定时触发 → 验证输出质量。',
           ].join('\n'),
         },
         {
-          subtitle: '2. 资产分工',
+          subtitle: '2. 信息源两套方案',
           text: [
-            '飞书消息：今日重点（极短）。飞书文档：邮件摘要、日历明细（承接长信息）。多维表格：日期、负责人、优先级、状态（持续追踪）。',
-          ].join('\n'),
-        },
-      ],
-    },
-    {
-      title: '实战：飞书内容监控台',
-      content: '关键词 + 竞品 → 飞书线索流 + 多维表格素材池。',
-      image: 'cover://openclaw-feishu-content-monitor',
-      details: [
-        'Heartbeat 巡检 + Cron 汇总配置',
-        '多维表格素材池字段结构',
-      ],
-      fullContent: [
-        {
-          subtitle: '1. 核心',
-          text: [
-            '不是抓得多，而是筛得准。异常变化 → 立即推送。正常更新 → 摘要。噪音 → 静默。',
+            '无翻墙：36氪 AI 频道 + GitHub Trending + 少数派 + 虎嗅前沿科技。有翻墙：加上 X/Twitter 关键账号 + Hacker News + Product Hunt。',
             '',
-            '监控系统的终点不是群消息，而是飞书多维表格素材池。',
+            '先用无翻墙版跑通，再按需扩展。',
           ].join('\n'),
         },
-      ],
-    },
-    {
-      title: '实战：飞书运营守夜台',
-      content: '运营异常 P1/P2/P3 分级 → 飞书工单表。',
-      image: 'cover://openclaw-feishu-ops-watch',
-      details: [
-        'P1/P2/P3 分级规则 + 升级机制',
-        '飞书工单多维表格结构',
-      ],
-      fullContent: [
         {
-          subtitle: '1. 核心',
+          subtitle: '3. 过滤规则核心',
           text: [
-            '先分级，再通知。P1 立即进飞书群指定责任人，P2 进摘要和工单表，P3 只记日志。',
+            '保留：涉及大模型/AI Agent/AI 工具的新产品或重大更新、GitHub 单日 star 增长超 500、融资超千万美元的 AI 项目。',
             '',
-            '飞书群提醒不是终点，工单多维表格才是。',
+            '过滤：纯广告软文、昨日已推送内容、与 AI 无关的泛科技新闻。',
+            '',
+            '每日最多 5 条，按重要性排序，每条一句话摘要 + 来源链接。',
           ].join('\n'),
         },
       ],
@@ -433,6 +443,14 @@ export const openclawModule: BaseModuleContent = {
             '> 📖 [SitePoint — OpenClaw Production Guide](https://www.sitepoint.com/openclaw-production-lessons-4-weeks-self-hosted-ai/)（4 周自托管真实记录）',
           ].join('\n'),
         },
+        {
+          subtitle: '2. 下一步：去场景库找更多落地场景',
+          text: [
+            'AI 热点日报只是起点。场景库里还有内容监控、运营守夜、竞品追踪等更多已验证的流程，配置模板可以直接复用。',
+            '',
+            '→ [前往场景库](/module/scenarios)',
+          ].join('\n'),
+        },
       ],
     },
     {
@@ -471,7 +489,7 @@ export const openclawModule: BaseModuleContent = {
     },
   ],
   cta: {
-    text: 'OpenClaw 主线跑通后，去场景库挑一个流程真正落地 →',
+    text: '日报跑通了？场景库里还有更多可以直接复用的流程，按需取用 →',
     link: '/module/scenarios',
   },
 };

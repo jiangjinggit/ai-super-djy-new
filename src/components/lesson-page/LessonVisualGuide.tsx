@@ -491,18 +491,18 @@ const OpenClawSecurityVisual = () => {
 
 const OpenClawDailyReportVisual = () => {
   const items = [
-    { title: '输入源', desc: '邮箱、日历、待办' },
-    { title: '过滤层', desc: '立即处理 / 今天关注 / 仅供了解' },
-    { title: '飞书日报', desc: '结构化发送到个人或项目群' },
-    { title: '回收优化', desc: '根据噪音和遗漏继续收紧规则' },
+    { title: '配搜索 + 信息源', desc: 'Brave Search API Key + 36氪 / GitHub Trending / 少数派' },
+    { title: '过滤筛选', desc: '按保留规则留下 AI 相关热点，丢弃广告和噪音' },
+    { title: '整理推送', desc: '最多 5 条，一句话摘要 + 来源链接，发到飞书' },
+    { title: '观察收紧', desc: '连续 3 天看过空/过长/重复，持续调过滤规则' },
   ];
 
   return (
     <section className="mb-10 rounded-[32px] border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 p-6 md:p-8">
       <SectionHeader
         eyebrow="CASE FLOW"
-        title="飞书日报系统的最小闭环"
-        description="这类系统最重要的不是发出去，而是先过滤，再推送，再根据反馈收紧。"
+        title="AI 热点日报的最小闭环"
+        description="先配信息源，再写过滤规则，定时推送到飞书，根据实际效果持续收紧。"
       />
       <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
         {items.map((item, index) => (
@@ -611,9 +611,9 @@ export const LessonVisualGuide = ({ lessonSlug, moduleId }: LessonVisualGuidePro
     switch (lessonSlug) {
       case 'openclaw-intro':
         return <OpenClawLayersVisual />;
-      case 'openclaw-deploy':
+      case 'openclaw-china-quickstart':
         return <OpenClawDeployVisual />;
-      case 'openclaw-channels':
+      case 'openclaw-setup':
         return <OpenClawChannelsVisual />;
       case 'openclaw-skills':
         return <OpenClawSkillsVisual />;

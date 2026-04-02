@@ -24,6 +24,32 @@ const DIFFICULTY_LABELS = {
   advanced: '高级',
 } as const;
 
+const OPENCLAW_LESSON_GROUPS = [
+  {
+    stage: 'Stage 01',
+    title: '先判断，再把基础盘起来',
+    description: '这一段只做两件事：判断值不值得搭，以及把第一条结果跑出来。',
+    lessonSlugs: ['openclaw-intro', 'openclaw-china-quickstart', 'openclaw-setup', 'openclaw-architecture'],
+  },
+  {
+    stage: 'Stage 02',
+    title: '把规则、记忆和能力配稳',
+    description: '装上只是开始，真正稳定取决于边界、记忆结构和技能组合。',
+    lessonSlugs: ['openclaw-rules', 'openclaw-memory', 'openclaw-skills', 'openclaw-proactive'],
+  },
+  {
+    stage: 'Stage 03',
+    title: '先落一个案例，再做治理',
+    description: '选一个真实场景跑两周，最后再补安全边界和长期调优。',
+    lessonSlugs: [
+      'openclaw-feishu-daily-report',
+      'openclaw-security',
+      'openclaw-grow',
+      'openclaw-resources',
+    ],
+  },
+] as const;
+
 const splitCta = (text: string) => {
   const [prefix, suffix] = text.split(' → ');
   return {
@@ -31,6 +57,47 @@ const splitCta = (text: string) => {
     suffix: suffix ?? '继续学习',
   };
 };
+
+const renderLessonCard = (
+  lesson: (typeof MODULE_CONTENT)[keyof typeof MODULE_CONTENT]['lessons'][number],
+  index: number,
+  onOpen: () => void,
+) => (
+  <button
+    key={lesson.slug}
+    type="button"
+    onClick={onOpen}
+    className="card-scan relative text-left p-5 bg-white/50 dark:bg-white/5 rounded-2xl hover:border-cyan-500/30 transition-all group border border-slate-200 dark:border-cyan-500/10 overflow-hidden"
+  >
+    <div className="flex items-start gap-4">
+      <div
+        className="font-mono-tech w-8 h-8 bg-cyan-500/10 text-cyan-400 rounded-lg flex items-center justify-center text-xs font-bold group-hover:bg-cyan-500/20 transition-all shrink-0"
+        style={{ textShadow: '0 0 8px rgba(34,211,238,0.5)' }}
+      >
+        {String(index + 1).padStart(2, '0')}
+      </div>
+      <div className="min-w-0 flex-1">
+        <div className="flex items-start justify-between gap-3 mb-2">
+          <h4 className="text-base font-semibold text-slate-800 dark:text-gray-200 group-hover:text-white transition-colors leading-relaxed">
+            {lesson.title}
+          </h4>
+          <span className="font-mono-tech text-[10px] text-slate-500 dark:text-gray-500 shrink-0 inline-flex items-center gap-1 tracking-wider">
+            <Clock3 size={10} /> {lesson.estimatedTime}
+          </span>
+        </div>
+        <p className="text-sm text-slate-600 dark:text-gray-400 leading-relaxed mb-2">{lesson.content}</p>
+        <div className="space-y-1">
+          {lesson.details.slice(0, 2).map((detail) => (
+            <p key={detail} className="text-xs text-slate-500 dark:text-gray-500 leading-relaxed">
+              — {detail}
+            </p>
+          ))}
+        </div>
+      </div>
+      <ChevronRight size={15} className="mt-1 text-slate-400 group-hover:text-cyan-400 group-hover:translate-x-0.5 transition-all shrink-0" />
+    </div>
+  </button>
+);
 
 export default function ModulePage() {
   const { id } = useParams();
@@ -43,6 +110,11 @@ export default function ModulePage() {
     enhancement?.blocks.filter((block) => block.type === 'action-checklist' || block.type === 'tool-comparison') ?? [];
   const remainingBlocks =
     enhancement?.blocks.filter((block) => block.type !== 'action-checklist' && block.type !== 'tool-comparison') ?? [];
+  const isOpenClaw = moduleId === 'openclaw';
+
+  // OpenClaw 专用：按 type 拆分 blocks，分别插入合适位置
+  const openclawWeeklyPlan = enhancement?.blocks.filter((b) => b.type === 'weekly-plan') ?? [];
+  const openclawPostLessonBlocks = enhancement?.blocks.filter((b) => b.type !== 'weekly-plan') ?? [];
 
   useDocumentTitle(content?.title ?? '模块未找到');
 
@@ -61,6 +133,13 @@ export default function ModulePage() {
 
   const accent = MODULE_COLOR_STYLES[content.color];
   const Icon = content.icon;
+  const lessonLookup = new Map(content.lessons.map((lesson) => [lesson.slug, lesson] as const));
+  const openclawLessonGroups = OPENCLAW_LESSON_GROUPS.map((group) => ({
+    ...group,
+    lessons: group.lessonSlugs
+      .map((slug) => lessonLookup.get(slug))
+      .filter((lesson): lesson is typeof content.lessons[number] => Boolean(lesson)),
+  })).filter((group) => group.lessons.length > 0);
 
   return (
     <motion.div
@@ -112,9 +191,15 @@ export default function ModulePage() {
         ))}
       </div>
 
-      {prioritizedBlocks.map((block) => (
-        <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
-      ))}
+      {!isOpenClaw &&
+        prioritizedBlocks.map((block) => (
+          <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
+        ))}
+
+      {!isOpenClaw &&
+        remainingBlocks.map((block) => (
+          <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
+        ))}
 
       {(enhancement.lastVerifiedOn || enhancement.sources.length > 0) && (
         <ModuleReferencePanel lastVerifiedOn={enhancement.lastVerifiedOn} sources={enhancement.sources} />
@@ -124,7 +209,14 @@ export default function ModulePage() {
       <div className="mb-20">
         <div className="mb-8">
           <p className={`font-mono-tech text-xs font-bold uppercase tracking-[0.25em] mb-3 ${accent.subtitle}`}>模块结构</p>
-          <h2 className="text-3xl font-black text-slate-900 dark:text-white">这一模块主要解决 3 件事</h2>
+          <h2 className="text-3xl font-black text-slate-900 dark:text-white">
+            {isOpenClaw ? '从跑通到长期稳定使用的实战路径' : '这一模块主要解决 3 件事'}
+          </h2>
+          {isOpenClaw && (
+            <p className="mt-3 text-sm text-slate-600 dark:text-gray-400 max-w-3xl leading-7">
+              默认顺序很简单：先跑通最小闭环，再把规则、技能和主动策略配稳，最后用真实案例和治理动作把它长期用起来。
+            </p>
+          )}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {content.sections.map((section, index) => {
@@ -148,8 +240,8 @@ export default function ModulePage() {
         </div>
       </div>
 
-      {/* 学完后你应该拿到 */}
-      {content.keyTakeaways.length > 0 && (
+      {/* 学完后你应该拿到 - OpenClaw 不展示，sections 已覆盖 */}
+      {!isOpenClaw && content.keyTakeaways.length > 0 && (
         <div className="mb-20 p-10 bg-cyan-500/5 border border-cyan-500/20 rounded-3xl">
           <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-8 flex items-center gap-3">
             <Star className="text-yellow-400" size={22} /> 学完后你应该拿到
@@ -168,9 +260,11 @@ export default function ModulePage() {
         </div>
       )}
 
-      {remainingBlocks.map((block) => (
-        <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
-      ))}
+      {/* OpenClaw：6 周路线放在课程大纲前，帮用户建立节奏感 */}
+      {isOpenClaw &&
+        openclawWeeklyPlan.map((block) => (
+          <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
+        ))}
 
       {/* 课程大纲 */}
       <div className="bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-cyan-500/10 rounded-3xl p-10">
@@ -180,43 +274,45 @@ export default function ModulePage() {
         <p className="font-mono-tech text-xs text-slate-500 dark:text-gray-500 mb-8 tracking-wide">
           不要先通读，按顺序做。每节课先看目标，再立即完成 1 个动作。
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {content.lessons.map((lesson, index) => (
-            <button
-              key={lesson.slug}
-              type="button"
-              onClick={() => navigate(`/module/${moduleId}/lesson/${lesson.slug}`)}
-              className="card-scan relative text-left p-5 bg-white/50 dark:bg-white/5 rounded-2xl hover:border-cyan-500/30 transition-all group border border-slate-200 dark:border-cyan-500/10 overflow-hidden"
-            >
-              <div className="flex items-start gap-4">
-                <div className="font-mono-tech w-8 h-8 bg-cyan-500/10 text-cyan-400 rounded-lg flex items-center justify-center text-xs font-bold group-hover:bg-cyan-500/20 transition-all shrink-0"
-                  style={{ textShadow: '0 0 8px rgba(34,211,238,0.5)' }}>
-                  {String(index + 1).padStart(2, '0')}
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-start justify-between gap-3 mb-2">
-                    <h4 className="text-base font-semibold text-slate-800 dark:text-gray-200 group-hover:text-white transition-colors leading-relaxed">
-                      {lesson.title}
-                    </h4>
-                    <span className="font-mono-tech text-[10px] text-slate-500 dark:text-gray-500 shrink-0 inline-flex items-center gap-1 tracking-wider">
-                      <Clock3 size={10} /> {lesson.estimatedTime}
-                    </span>
+        {isOpenClaw ? (
+          <div className="space-y-6">
+            {openclawLessonGroups.map((group) => (
+              <div key={group.title} className="rounded-[28px] border border-slate-200 dark:border-white/10 bg-white/60 dark:bg-black/20 p-6">
+                <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-5">
+                  <div>
+                    <p className={`font-mono-tech text-[10px] uppercase tracking-[0.24em] mb-2 ${accent.subtitle}`}>{group.stage}</p>
+                    <h4 className="text-xl font-bold text-slate-900 dark:text-white mb-2">{group.title}</h4>
+                    <p className="text-sm text-slate-600 dark:text-gray-400 leading-7 max-w-2xl">{group.description}</p>
                   </div>
-                  <p className="text-sm text-slate-600 dark:text-gray-400 leading-relaxed mb-2">{lesson.content}</p>
-                  <div className="space-y-1">
-                    {lesson.details.slice(0, 2).map((detail) => (
-                      <p key={detail} className="text-xs text-slate-500 dark:text-gray-500 leading-relaxed">
-                        — {detail}
-                      </p>
-                    ))}
+                  <div className="rounded-2xl border border-slate-200 dark:border-cyan-500/10 bg-slate-100 dark:bg-white/5 px-4 py-3 shrink-0">
+                    <p className="font-mono-tech text-[10px] uppercase tracking-[0.2em] text-slate-500 dark:text-gray-500 mb-1">阶段规模</p>
+                    <p className="text-sm font-semibold text-slate-900 dark:text-white">{group.lessons.length} 节课</p>
                   </div>
                 </div>
-                <ChevronRight size={15} className="mt-1 text-slate-400 group-hover:text-cyan-400 group-hover:translate-x-0.5 transition-all shrink-0" />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {group.lessons.map((lesson) =>
+                    renderLessonCard(lesson, content.lessons.findIndex((item) => item.slug === lesson.slug), () =>
+                      navigate(`/module/${moduleId}/lesson/${lesson.slug}`),
+                    ),
+                  )}
+                </div>
               </div>
-            </button>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {content.lessons.map((lesson, index) =>
+              renderLessonCard(lesson, index, () => navigate(`/module/${moduleId}/lesson/${lesson.slug}`)),
+            )}
+          </div>
+        )}
       </div>
+
+      {/* OpenClaw：治理清单 + 资源导航放在课程大纲后 */}
+      {isOpenClaw &&
+        openclawPostLessonBlocks.map((block) => (
+          <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
+        ))}
 
       {/* CTA */}
       {content.cta && (
