@@ -252,6 +252,6 @@ export const claudeAgentModule: BaseModuleContent = {
   ],
   cta: {
     text: '15 课跑完了？场景库里还有更多可以直接复用的流程，按需取用 →',
-    link: '/module/scenarios',
+    link: '/module/cases',
   },
 };

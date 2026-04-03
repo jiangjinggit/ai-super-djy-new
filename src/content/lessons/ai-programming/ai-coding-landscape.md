@@ -3,7 +3,7 @@
 - 建立 AI 编程从 `Autocomplete -> Chat -> Agent -> Cloud Agent -> Spec-driven` 的演进认知
 - 分清 `CLI Agent / IDE Agent / Cloud Agent / Review Bot` 四类主流入口
 - 理解“选工具”与“选模型”是两层不同决策
-- 能把 `Claude Code / Codex / Cursor / Gemini / Kiro` 正确放进同一张坐标图
+- 能把 `Claude Code / Codex / Cursor / Google（Gemini CLI / Code Assist / Antigravity）/ Kiro` 正确放进同一张坐标图
 
 ## 适合谁
 
@@ -53,9 +53,9 @@
 | 入口 | 代表产品 | 最适合 | 不适合 |
 | --- | --- | --- | --- |
 | CLI Agent | Claude Code、Gemini CLI、Codex CLI | 本地仓库、小步快跑、强监督、改完马上验 | 想把很多任务丢后台异步处理 |
-| IDE Agent | Cursor、通义灵码、TRAE、CodeBuddy IDE | 边看代码边改、上下文切换频繁、团队日常开发 | 需要大规模并行委托的任务 |
+| IDE Agent | Cursor、通义灵码、Qoder、TRAE、CodeBuddy IDE | 边看代码边改、上下文切换频繁、团队日常开发 | 需要大规模并行委托的任务 |
 | Cloud Agent | Codex、Cursor Background Agents | 可拆分、等待成本高、能异步回收结果的任务 | 高敏感、强依赖本地环境的仓库 |
-| Spec-driven / Workflow IDE | Kiro、部分企业平台 | 需求明确、多人协作、需要先写规格再实现 | 极小改动、一次性脚手架需求 |
+| Spec-driven / Workflow IDE | Kiro、部分企业平台 | 需求明确、多人协作、需要先写规格再实现；也可先 vibe 再收敛 | 极小改动时如果一上来就强上完整规格，会显得过重 |
 
 第一层判断通常不是“我喜欢哪个产品”，而是“我的任务属于哪个入口”。
 
@@ -76,6 +76,8 @@
 - 模型层：按任务分工配置主力、回退、跑量
 - 流程层：定读、计划、执行、验证、总结
 
+像 Google 这类产品线，尤其不能只看成单个工具名。`Gemini CLI`、`Gemini Code Assist`、`Antigravity` 分别对应终端、IDE、Agent 平台三种不同入口。
+
 ### 5. 一张够用的 AI 编程工具坐标图
 
 你可以先用下面这张“任务视角”坐标图记住主流产品：
@@ -85,8 +87,8 @@
 | Claude Code | 终端 | 本地、强监督、规则丰富 | 仓库内真实改动与验证 |
 | Codex | 云端 + CLI | 异步委托、并行、远程执行 | 可拆分、等待成本高的编码任务 |
 | Cursor | IDE | 编辑器原生 Agent、协作顺滑 | 日常开发与 Review |
-| Gemini CLI / Code Assist | 终端 + IDE | 开放入口、Google 生态、多模态 | 终端代理与云生态协同 |
-| Kiro | IDE | 规格驱动、流程先行 | 需求到实现的团队型流程 |
+| Google（Gemini CLI / Code Assist / Antigravity） | 终端 + IDE + Agent 平台 | 多入口、Google 生态、多模态 | 终端代理、云协同与多 Agent 编排 |
+| Kiro | IDE | 支持 vibe，但强在规格驱动、流程先行 | 需求到实现的团队型流程 |
 
 这张表现在只解决一件事：让你知道这些工具不是同一种东西。
 

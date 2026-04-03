@@ -45,7 +45,7 @@ export const ModuleCard = ({ title, desc, icon: Icon, color, index, id }: Module
       <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">{title}</h3>
       <p className="text-slate-600 dark:text-gray-400 leading-relaxed mb-6">{desc}</p>
 
-      <div className="flex items-center text-sm font-bold text-slate-900 dark:text-white group-hover:text-blue-400 transition-colors">
+      <div className="flex items-center text-sm font-bold text-slate-900 dark:text-white group-hover:text-cyan-400 transition-colors">
         进入模块 <ChevronRight size={16} className="ml-2 flex-shrink-0 group-hover:translate-x-1 transition-transform" />
       </div>
     </motion.div>

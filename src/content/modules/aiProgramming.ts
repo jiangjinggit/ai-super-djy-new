@@ -8,7 +8,7 @@ export const aiProgrammingModule: BaseModuleContent = {
   icon: Code2,
   color: 'blue',
   description:
-    '8 节课帮你把 AI 编程这件事讲明白：不是追单个最火工具，而是理解 Claude Code、Codex、Cursor、Gemini、Kiro 这些国外前沿产品，以及通义灵码、TRAE、CodeBuddy 这些国内主流路线分别适合什么任务，再把模型、工作流和治理规则接成一套可执行系统。',
+    '8 节课帮你把 AI 编程这件事讲明白：不是追单个最火工具，而是理解 Claude Code、Codex、Cursor、Gemini、Kiro 这些国外前沿产品，以及通义灵码、Qoder、TRAE、CodeBuddy 这些国内主流路线分别适合什么任务，再把模型、工作流和治理规则接成一套可执行系统。',
   keyTakeaways: [
     '理解 AI 编程已经从补全工具进入 Agentic Coding 阶段',
     '分清 CLI、IDE、Cloud Agent、Spec-driven 四种主流入口',
@@ -61,39 +61,39 @@ export const aiProgrammingModule: BaseModuleContent = {
       ],
     },
     {
-      title: 'Claude Code 与 Codex：本地终端 Agent vs 云端编码代理',
-      content: '理解当前国际前沿里最值得对比的两条主线：本地、强监督、终端优先的 Claude Code；以及云端、异步、委托优先的 Codex。',
+      title: 'Claude Code 与 Codex：两大编码代理的真实差异与选型',
+      content: '两者都已是"本地 + 云端"混合形态。真正的差异在安全模型、配置体系、模型绑定和生态集成，而不是"谁在本地谁在云端"。',
       image: 'cover://claude-code-vs-codex',
       details: [
-        '本地执行和云端委托的本质差异',
-        'CLAUDE.md、权限模式、异步任务、仓库连接各自解决什么问题',
-        '什么时候要盯着 AI 做，什么时候适合丢给 AI 去做',
-        '本地执行 / 云端委托判断模板',
+        '安全模型差异：内核层沙箱 vs 应用层 Hooks',
+        '配置体系差异：Profile 切换 vs 分层继承',
+        '模型绑定与第三方模型接入方式',
+        '基于真实差异维度的选型判断模板',
       ],
       fullContent: [
         {
-          subtitle: '1. Claude Code 的代表性',
-          text: 'Claude Code 代表的是“在本地仓库内、强监督、逐步推进”的工作方式。它强调上下文文件、权限边界、工具调用和人在回路中的确认点。',
+          subtitle: '1. 不再是“本地 vs 云端”',
+          text: 'Claude Code 和 Codex 都已演化成本地终端 + 云端异步的混合形态。用“本地 vs 云端”做选型依据会导致误判。',
         },
         {
-          subtitle: '2. Codex 的代表性',
-          text: 'Codex 代表的是“把编码任务封装成委托，交给云端代理并行处理”的工作方式。它更适合等待成本高、可并行拆分、你不想一直盯着终端的任务。',
+          subtitle: '2. 真正的差异维度',
+          text: '安全模型（内核隔离 vs 应用层 Hooks）、配置体系（Profile 切换 vs 分层继承）、模型绑定（都可通过 Gateway 接其他模型）、生态集成（ChatGPT+Slack vs Anthropic+Bedrock/Vertex）。',
         },
         {
           subtitle: '3. 学这节课的目标',
-          text: '不是判断谁更强，而是知道面对不同任务风险、等待成本和协作方式时，应该选哪条路径作为默认入口。',
+          text: '不是判断谁更强，而是从安全治理、配置体系、生态绑定等稳定维度做出适合自己团队的选型。',
         },
       ],
     },
     {
-      title: 'Cursor、Gemini、Kiro：IDE Agent、开源 CLI 与 Spec-driven 路线',
-      content: 'Cursor 代表编辑器原生 Agent，Gemini 代表开源 CLI 与 Google 生态，Kiro 代表先规格再实现的 Agentic IDE。三条路线各有最佳场景。',
+      title: 'Cursor、Gemini、Kiro：IDE Agent、Google 多入口与 Spec-driven 路线',
+      content: 'Cursor 代表编辑器原生 Agent，Google 这条线不只 Gemini CLI，还包括 Code Assist 与 Antigravity；Kiro 也支持 vibe coding，但它真正拉开差异的是 spec-driven。三条路线各有最佳场景。',
       image: 'cover://cursor-gemini-kiro',
       details: [
         'Cursor 的 Rules、Background Agents、Bugbot 分别适合什么任务',
-        'Gemini CLI 与 Gemini Code Assist 的开放路线',
-        'Kiro 的 Specs、Steering、Hooks 为什么适合团队流程',
-        'IDE Agent / 开源 CLI / Spec-driven 决策表',
+        'Gemini CLI、Gemini Code Assist、Antigravity 的 Google 路线',
+        'Kiro 为什么不是只能 vibe，也不是只能 Spec',
+        'IDE Agent / Google 多入口 / Spec-driven 决策表',
       ],
       fullContent: [
         {
@@ -102,7 +102,7 @@ export const aiProgrammingModule: BaseModuleContent = {
         },
         {
           subtitle: '2. Gemini 与 Kiro 的代表性',
-          text: 'Gemini 强在开放入口、多模态和 Google 生态连接；Kiro 强在先写规格、再设规则、再触发自动化的流程化思维。',
+          text: 'Google 这条线强在多入口、多模态和生态连接；Gemini CLI 只是其中的终端入口，Antigravity 则把 agent-first 的异步编排继续往前推；Kiro 则是既支持 vibe coding，又把 Specs、Steering、Hooks 做成了更完整的流程化能力。',
         },
         {
           subtitle: '3. 学这节课的目标',
@@ -111,52 +111,52 @@ export const aiProgrammingModule: BaseModuleContent = {
       ],
     },
     {
-      title: '通义灵码、TRAE、CodeBuddy：国内 AI 编程工具怎么选',
-      content: '对中国用户来说，体验不只看能力上限，还要看中文表达、支付与采购、网络条件、企业合规和云生态。',
+      title: '通义灵码、Qoder、TRAE、CodeBuddy：国内 IDE Agent 怎么选',
+      content: '国内工具都在走 IDE Agent 路线，但成熟度和产品重心差异很大。TRAE 当前更成熟，CodeBuddy 更适合先小范围试点。',
       image: 'cover://china-coding-tools',
       details: [
-        '阿里、字节、腾讯三条国内工具路线的差异',
-        '国内开发者最在意的中文、采购、合规与生态协同',
-        '个人开发、小团队、企业接入的优先选择逻辑',
+        '阿里双路线：通义灵码与 Qoder 的边界',
+        'TRAE、CodeBuddy、通义灵码、Qoder 四条路线的真实差异',
+        '成熟度、稳定性与团队推广三类判断',
         '一张国内 AI 编程工具选择表',
       ],
       fullContent: [
         {
-          subtitle: '1. 通义灵码的代表性',
-          text: '通义灵码代表国内开发者最容易上手的一条路线：IDE 与企业工具集成成熟，适合中国团队做规范化接入和大规模推广。',
+          subtitle: '1. 国内工具正在收敛到 IDE Agent',
+          text: '现在国内主流工具比的已经不只是补全质量，而是 IDE 里谁能把读仓库、改多文件、规则、知识库、Agent 和团队接入做成主工作台。',
         },
         {
-          subtitle: '2. TRAE 与 CodeBuddy 的代表性',
-          text: 'TRAE 更强调 AI IDE、Builder、项目级能力和中文产品体验；CodeBuddy 更强调团队协作、腾讯云生态和企业治理接入。',
+          subtitle: '2. 阿里要拆成通义灵码与 Qoder 两条线',
+          text: '通义灵码更像低摩擦普及和企业接入入口；Qoder 更像深度 Agentic IDE，强调 Quest、Repo Wiki、Rules、Hooks 和仓库级执行。',
         },
         {
           subtitle: '3. 学这节课的目标',
-          text: '不是简单认为“国外更强”或“国产更方便”，而是理解中国用户真正的落地约束，再按场景做选择。',
+          text: '不是简单认为“国外更强”或“国产更方便”，而是结合官方能力和真实体验做判断：TRAE 当前更成熟，CodeBuddy 更适合先试点验证。',
         },
       ],
     },
     {
       title: '编程模型选型：把模型家族分成角色，而不是背版本号',
-      content: '真正稳定的 AI 编程配置，不是全仓库只用一个模型，而是给不同任务分配主力、回退和跑量角色。',
+      content: '这节课只看国内 6 家：GLM、Kimi、MiniMax、豆包、DeepSeek、Qwen。重点不是追热度，而是按任务角色和官网价格做选择。',
       image: 'cover://coding-model-selection',
       details: [
-        '为什么代码任务不能只看 benchmark',
-        'Claude、GPT/Codex、Gemini、Qwen、DeepSeek、混元等家族怎么分工',
-        '高质量主力、低成本跑量、中文优先、企业内控四种角色',
-        '一份代码任务评测表模板',
+        '只比较 GLM、Kimi、MiniMax、豆包、DeepSeek、Qwen 六家',
+        '默认模型、复杂主力、低成本跑量、回退模型怎么分工',
+        '输入价、输出价、长上下文阶梯价要怎么看',
+        '基于最新官网数据整理的精简选型表',
       ],
       fullContent: [
         {
-          subtitle: '1. 工具和模型不要混为一谈',
-          text: 'Cursor、Claude Code、CodeBuddy 这些是工作台；Claude、GPT、Gemini、Qwen 是底层模型。先分清这一层，你的选型讨论才不会乱。',
+          subtitle: '1. 只看国内 6 家，不再泛泛聊“全模型宇宙”',
+          text: '这节课直接聚焦 GLM、Kimi、MiniMax、豆包、DeepSeek、Qwen 六家，去掉混元这类当前没有明显编程优势的候选，减少无效比较。',
         },
         {
-          subtitle: '2. 角色化分工',
-          text: '高质量主力负责复杂变更和关键 PR；低成本模型负责批量分析和预处理；中文优先模型负责中文代码注释、文档和团队沟通；企业内控模型负责敏感环境和合规要求。',
+          subtitle: '2. 价格必须一起看',
+          text: '代码模型不能只看 benchmark。输入价、输出价、缓存价、长上下文阶梯价都会影响真实成本，尤其是大仓库和多步 Agent 任务。',
         },
         {
           subtitle: '3. 学这节课的目标',
-          text: '你要学会为不同任务指定默认模型和回退模型，而不是每有新版本就重写整套工作流。',
+          text: '你要拿到一套更短、更能落地的模型分工方案：默认模型、复杂主力、低成本跑量和回退模型分别怎么配。',
         },
       ],
     },
@@ -238,6 +238,6 @@ export const aiProgrammingModule: BaseModuleContent = {
   ],
   cta: {
     text: '工具与模型思路理顺后，去场景库挑你的第一条落地路径 →',
-    link: '/module/scenarios',
+    link: '/module/cases',
   },
 };

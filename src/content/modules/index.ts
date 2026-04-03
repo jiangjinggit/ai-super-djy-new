@@ -6,10 +6,8 @@ import { agentIntroModule } from './agentIntro';
 import { aiProgrammingModule } from './aiProgramming';
 import { casesModule } from './cases';
 import { claudeAgentModule } from './claudeAgent';
-import { growthModule } from './growth';
 import { llmModule } from './llm';
 import { openclawModule } from './openclaw';
-import { scenariosModule } from './scenarios';
 import { superIndividualModule } from './superIndividual';
 
 const lessonMarkdownFiles = import.meta.glob('../lessons/**/*.md', {
@@ -25,9 +23,7 @@ const BASE_MODULES: Record<ModuleId, BaseModuleContent> = {
   openclaw: openclawModule,
   'claude-agent': claudeAgentModule,
   'ai-programming': aiProgrammingModule,
-  scenarios: scenariosModule,
   cases: casesModule,
-  growth: growthModule,
 };
 
 const MODULE_METADATA: Record<
@@ -79,29 +75,15 @@ const MODULE_METADATA: Record<
     estimatedTime: '2-3 周',
     difficulty: 'intermediate',
     audience: ['开发者', '技术负责人', '产品经理', '希望系统做 AI 编程选型的团队'],
-    tags: ['AI 编程', 'Claude Code', 'Codex', 'Cursor', 'Gemini', 'Kiro', '通义灵码', 'CodeBuddy'],
+    tags: ['AI 编程', 'Claude Code', 'Codex', 'Cursor', 'Gemini', 'Kiro', '通义灵码', 'Qoder', 'TRAE', 'CodeBuddy'],
     prerequisites: ['完成 AI 智能体入门模块', '建议已了解基础的大模型选型逻辑'],
-  },
-  scenarios: {
-    estimatedTime: '持续',
-    difficulty: 'intermediate',
-    audience: ['内容创作者', '独立开发者', '电商与自由职业从业者'],
-    tags: ['场景库', 'SOP', '内容生产', 'MVP'],
-    prerequisites: ['已能把 AI 用在至少一个真实流程中'],
   },
   cases: {
     estimatedTime: '随时',
     difficulty: 'beginner',
-    audience: ['想通过案例理解 AI 落地路径的用户'],
-    tags: ['案例拆解', '风险判断', '可复制性', '方法论'],
+    audience: ['内容创作者', '独立开发者', '电商与自由职业从业者', '想通过案例理解 AI 落地路径的用户'],
+    tags: ['场景库', 'SOP', '内容生产', 'MVP', '案例拆解', '风险判断', '可复制性'],
     prerequisites: ['建议先了解入门模块中的能力边界与工作流概念'],
-  },
-  growth: {
-    estimatedTime: '3-12 月',
-    difficulty: 'beginner',
-    audience: ['想系统规划学习和验证节奏的用户'],
-    tags: ['成长路径', 'MVP', '验证', '复盘'],
-    prerequisites: [],
   },
 };
 
@@ -132,9 +114,7 @@ const lessonEstimatedTime = (moduleId: ModuleId, lesson: BaseLesson) => {
   if (moduleId === 'openclaw') return '25-35 分钟';
   if (moduleId === 'claude-agent') return '25-35 分钟';
   if (moduleId === 'ai-programming') return '22-30 分钟';
-  if (moduleId === 'scenarios') return '18-25 分钟';
-  if (moduleId === 'cases') return '12-18 分钟';
-  if (moduleId === 'growth') return '15-20 分钟';
+  if (moduleId === 'cases') return '15-25 分钟';
   return `${lesson.details.length * 5} 分钟`;
 };
 
@@ -200,7 +180,5 @@ export const MODULE_CONTENT: Record<ModuleId, ModuleContent> = {
   openclaw: enrichModule('openclaw', BASE_MODULES.openclaw),
   'claude-agent': enrichModule('claude-agent', BASE_MODULES['claude-agent']),
   'ai-programming': enrichModule('ai-programming', BASE_MODULES['ai-programming']),
-  scenarios: enrichModule('scenarios', BASE_MODULES.scenarios),
   cases: enrichModule('cases', BASE_MODULES.cases),
-  growth: enrichModule('growth', BASE_MODULES.growth),
 };

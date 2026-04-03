@@ -490,6 +490,6 @@ export const openclawModule: BaseModuleContent = {
   ],
   cta: {
     text: '日报跑通了？场景库里还有更多可以直接复用的流程，按需取用 →',
-    link: '/module/scenarios',
+    link: '/module/cases',
   },
 };

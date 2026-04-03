@@ -37,23 +37,11 @@ const COVER_THEMES: Record<ModuleId, { accent: string; background: string; glow:
     glow: '#0369a1',
     eyebrow: 'AI CODING',
   },
-  scenarios: {
-    accent: '#fb923c',
-    background: '#1c1917',
-    glow: '#ea580c',
-    eyebrow: 'SCENARIO KIT',
-  },
   cases: {
     accent: '#f472b6',
     background: '#1f1120',
     glow: '#be185d',
-    eyebrow: 'CASE REVIEW',
-  },
-  growth: {
-    accent: '#22c55e',
-    background: '#07130c',
-    glow: '#15803d',
-    eyebrow: 'GROWTH MAP',
+    eyebrow: 'SCENE & CASE',
   },
 };
 

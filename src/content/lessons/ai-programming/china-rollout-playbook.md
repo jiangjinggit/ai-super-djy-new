@@ -55,8 +55,8 @@
 
 典型组合：
 
-- 工具：通义灵码 / TRAE / CodeBuddy
-- 模型：Qwen / DeepSeek / 混元 / 国内企业模型
+- 工具：TRAE / 通义灵码 / Qoder / CodeBuddy
+- 模型：Qwen / DeepSeek / Kimi / GLM / 豆包 / MiniMax
 
 优点：
 

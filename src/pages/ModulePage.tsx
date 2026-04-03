@@ -99,7 +99,7 @@ const AI_PROGRAMMING_LESSON_GROUPS = [
   {
     stage: 'Stage 02',
     title: '国际前沿工具：三条主线',
-    description: 'Claude Code vs Codex 的本地/云端之争，Cursor、Gemini、Kiro 的 IDE/CLI/Spec-driven 路线——理解产品设计逻辑，而不只是背品牌。',
+    description: 'Claude Code 与 Codex 的安全模型、配置体系与生态差异，Cursor、Gemini、Kiro 的 IDE/Google 多入口/Spec-driven 路线。理解产品设计逻辑，而不只是背品牌。',
     lessonSlugs: ['claude-code-vs-codex', 'cursor-gemini-kiro'],
   },
   {

@@ -1,4 +1,4 @@
-import { BookOpen, Bot, Brain, Code2, Cpu, Rocket, Terminal, Users, Zap } from 'lucide-react';
+import { Bot, Brain, Code2, Cpu, Rocket, Terminal, Users } from 'lucide-react';
 
 import type { ModuleCardData, ModuleId } from '@/types/course';
 
@@ -9,9 +9,7 @@ export const NAV_LABELS: Record<ModuleId, string> = {
   openclaw: 'OpenClaw',
   'claude-agent': 'Claude',
   'ai-programming': 'AI 编程',
-  scenarios: '场景库',
-  cases: '案例',
-  growth: '成长',
+  cases: '场景与案例',
 };
 
 export const MODULE_CARDS: ModuleCardData[] = [
@@ -58,24 +56,10 @@ export const MODULE_CARDS: ModuleCardData[] = [
     color: 'blue',
   },
   {
-    id: 'scenarios',
-    title: '超级个体场景库',
-    desc: '聚焦内容创作者、独立开发者、电商与自由职业三类典型场景，按流程拆方法。',
-    icon: Zap,
-    color: 'orange',
-  },
-  {
     id: 'cases',
-    title: '真实案例库',
-    desc: '不追神话叙事，重点拆案例里的可复制方法、前置条件和风险边界。',
+    title: '场景与案例',
+    desc: '内容创作、独立开发、电商客服三类场景 SOP，加上内容团队、非技术建产品、AI-first 小团队三个案例拆解。看可复制的动作，不追神话叙事。',
     icon: Users,
     color: 'purple',
-  },
-  {
-    id: 'growth',
-    title: '成长路径',
-    desc: '按阶段推进：先识别任务、再做提效、最后做 MVP 或服务验证，用反馈驱动成长。',
-    icon: BookOpen,
-    color: 'emerald',
   },
 ];

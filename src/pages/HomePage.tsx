@@ -35,7 +35,7 @@ const HOME_STATS = [
     suffix: '+',
   },
   { target: 3, label: '智能体路径', suffix: '' },
-  { target: MODULE_CONTENT.scenarios.lessons.length, label: '典型场景', suffix: '' },
+  { target: MODULE_CONTENT.cases.lessons.length, label: '场景与案例', suffix: '' },
 ] as const;
 
 const Hero = () => {
@@ -71,7 +71,8 @@ const Hero = () => {
 
       <div className="relative z-10 w-full max-w-6xl mx-auto px-8 text-center">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-          <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-blue-600 dark:text-blue-400 uppercase bg-blue-400/10 border border-blue-400/20 rounded-full">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-blue-600 dark:text-blue-400 uppercase bg-blue-400/10 border border-blue-400/20 rounded-full">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
             让每个人成为超级个体
           </span>
           <h1 className="text-4xl md:text-7xl font-black tracking-tighter text-slate-900 dark:text-white mb-10 leading-[1.1]" style={{fontFamily: "'Syne', sans-serif"}}>
@@ -100,8 +101,8 @@ const Hero = () => {
               <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> init super-individual</span></p>
               <p className="text-emerald-400 pl-2">✓ AI 工具矩阵已就绪</p>
               <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> load --module agent-intro openclaw</span></p>
-              <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> attach --module claude-agent scenarios</span></p>
-              <p className="text-emerald-400 pl-2">✓ 8 个模块加载完成</p>
+              <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> attach --module claude-agent cases</span></p>
+              <p className="text-emerald-400 pl-2">✓ 7 个模块加载完成</p>
               <p className="flex items-center gap-1"><span className="text-cyan-400">$</span><span className="inline-block w-1.5 h-3.5 bg-cyan-400/80 ml-1 animate-pulse" /></p>
             </div>
           </motion.div>
@@ -146,9 +147,10 @@ const Modules = () => {
   return (
     <section id="modules" className="py-24 px-6 max-w-7xl mx-auto">
       <div className="text-center mb-16">
+        <p className="font-mono-tech text-xs text-cyan-400/70 tracking-[0.3em] uppercase mb-4">// module library</p>
         <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">核心模块地图</h2>
         <p className="text-slate-600 dark:text-gray-400 max-w-2xl mx-auto">
-          从入门、模型、智能体到 AI 编程，再接场景、案例和成长路径，按真实执行顺序组织内容。
+          从入门、模型、智能体到 AI 编程，最后接场景与案例实战，按真实执行顺序组织内容。
         </p>
       </div>
 
@@ -167,121 +169,32 @@ const Modules = () => {
   );
 };
 
-const LEARNING_STEPS: Array<{ id: ModuleId; label: string; time: string; color: ModuleColor }> = [
-  { id: 'super-individual', label: 'AI 入门', time: '1-2 周', color: 'blue' },
-  { id: 'llm', label: '大模型实战', time: '1-2 周', color: 'purple' },
-  { id: 'agent-intro', label: '智能体入门', time: '30 分钟', color: 'emerald' },
-  { id: 'openclaw', label: 'OpenClaw', time: '2-3 周', color: 'orange' },
-  { id: 'claude-agent', label: 'Claude 实战', time: '1-2 周', color: 'purple' },
-  { id: 'ai-programming', label: 'AI 编程', time: '2-3 周', color: 'blue' },
-  { id: 'scenarios', label: '场景实战', time: '持续', color: 'orange' },
-  { id: 'cases', label: '案例学习', time: '随时', color: 'purple' },
-  { id: 'growth', label: '成长路径', time: '3-12 月', color: 'emerald' },
-];
-
-const LearningRoadmap = () => {
-  const navigate = useNavigate();
-
-  return (
-    <section id="learning-roadmap" className="py-24 px-6 max-w-6xl mx-auto">
-      <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">学习路线图</h2>
-        <p className="text-slate-600 dark:text-gray-400">建议按顺序学习；如果你已经有基础，也可以直接跳到当前最需要的模块。</p>
-      </div>
-
-      {/* 桌面时间线 */}
-      <div className="hidden lg:block relative">
-        {/* 底部连接线 */}
-        <div className="absolute top-[22px] left-[calc(100%/18)] right-[calc(100%/18)] h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent" />
-
-        <div className="grid grid-cols-9 gap-2">
-          {LEARNING_STEPS.map((step, index) => {
-            const stepStyle = MODULE_COLOR_STYLES[step.color];
-            return (
-              <motion.button
-                key={step.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.08 }}
-                whileHover={{ y: -4 }}
-                whileTap={{ scale: 0.97 }}
-                onClick={() => navigate(`/module/${step.id}`)}
-                className="group flex flex-col items-center gap-3 cursor-pointer"
-                type="button"
-              >
-                {/* 圆形序号节点 */}
-                <div
-                  className={`relative w-11 h-11 rounded-full border-2 flex items-center justify-center font-mono-tech text-sm font-bold transition-all
-                    border-slate-300 dark:border-white/15 text-slate-500 dark:text-gray-400
-                    group-hover:border-cyan-400 group-hover:text-cyan-400
-                    group-hover:shadow-[0_0_16px_rgba(34,211,238,0.45)]`}
-                >
-                  {String(index + 1).padStart(2, '0')}
-                  {/* 节点背景 */}
-                  <div className="absolute inset-0 rounded-full bg-white dark:bg-slate-950 -z-10" />
-                </div>
-                {/* 步骤信息 */}
-                <div className="text-center">
-                  <p className={`font-bold text-sm transition-colors group-hover:text-cyan-400 ${stepStyle.subtitle}`}>{step.label}</p>
-                  <p className="font-mono-tech text-[10px] text-slate-400 dark:text-gray-600 mt-0.5 tracking-wider">{step.time}</p>
-                </div>
-              </motion.button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* 移动端竖向时间线 */}
-      <div className="lg:hidden relative pl-8">
-        {/* 竖向连接线 */}
-        <div className="absolute left-[18px] top-3 bottom-3 w-px bg-gradient-to-b from-cyan-500/40 via-cyan-500/20 to-transparent" />
-
-        <div className="flex flex-col gap-5">
-          {LEARNING_STEPS.map((step, index) => {
-            const stepStyle = MODULE_COLOR_STYLES[step.color];
-            return (
-              <motion.button
-                key={step.id}
-                initial={{ opacity: 0, x: -16 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.06 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => navigate(`/module/${step.id}`)}
-                className="group flex items-center gap-4 cursor-pointer text-left"
-                type="button"
-              >
-                {/* 圆形节点（绝对定位到左侧线上）*/}
-                <div className="absolute left-0 w-9 h-9 rounded-full border-2 border-slate-300 dark:border-white/15 bg-white dark:bg-slate-950 flex items-center justify-center font-mono-tech text-xs font-bold text-slate-500 dark:text-gray-400 group-hover:border-cyan-400 group-hover:text-cyan-400 transition-all">
-                  {String(index + 1).padStart(2, '0')}
-                </div>
-                <div>
-                  <p className={`font-bold text-sm ${stepStyle.subtitle}`}>{step.label}</p>
-                  <p className="font-mono-tech text-[10px] text-slate-400 dark:text-gray-600 mt-0.5">{step.time}</p>
-                </div>
-              </motion.button>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
+const CHIP_STYLES: Record<ModuleColor, string> = {
+  blue: 'border-blue-500/30 text-blue-500 dark:text-blue-400 bg-blue-500/5 hover:border-blue-400/60 hover:bg-blue-500/10',
+  purple: 'border-purple-500/30 text-purple-500 dark:text-purple-400 bg-purple-500/5 hover:border-purple-400/60 hover:bg-purple-500/10',
+  emerald: 'border-emerald-500/30 text-emerald-500 dark:text-emerald-400 bg-emerald-500/5 hover:border-emerald-400/60 hover:bg-emerald-500/10',
+  orange: 'border-orange-500/30 text-orange-500 dark:text-orange-400 bg-orange-500/5 hover:border-orange-400/60 hover:bg-orange-500/10',
 };
 
-const GROWTH_STEPS: Array<{
+const JOURNEY_PHASES: Array<{
   phase: string;
   time: string;
   title: string;
   desc: string;
   color: ModuleColor;
+  modules: Array<{ id: ModuleId; label: string; time: string; color: ModuleColor }>;
 }> = [
   {
     phase: '阶段 0',
     time: '1-2 周',
     title: '建立 AI 基础认知',
-    desc: '学会使用 ChatGPT/DeepSeek，掌握 Prompt 基础公式，搭建个人工具矩阵',
+    desc: '认识 AI 工具的能力边界，掌握 Prompt 核心方法，搭建适合自己的初始工具矩阵',
     color: 'blue',
+    modules: [
+      { id: 'super-individual', label: '入门', time: '1-2 周', color: 'blue' },
+      { id: 'llm', label: '大模型', time: '1-2 周', color: 'purple' },
+      { id: 'agent-intro', label: '智能体入门', time: '30 分钟', color: 'emerald' },
+    ],
   },
   {
     phase: '阶段 1',
@@ -289,6 +202,11 @@ const GROWTH_STEPS: Array<{
     title: '深度使用 AI 提效',
     desc: '在现有工作中深度使用 AI，搭建自动化工作流，开始积累个人品牌',
     color: 'purple',
+    modules: [
+      { id: 'openclaw', label: 'OpenClaw', time: '2-3 周', color: 'orange' },
+      { id: 'claude-agent', label: 'Claude', time: '1-2 周', color: 'purple' },
+      { id: 'ai-programming', label: 'AI 编程', time: '2-3 周', color: 'blue' },
+    ],
   },
   {
     phase: '阶段 2',
@@ -296,6 +214,9 @@ const GROWTH_STEPS: Array<{
     title: '探索变现路径',
     desc: '基于垂直领域知识 + AI 能力，构建个人产品或服务，获得第一笔收入',
     color: 'emerald',
+    modules: [
+      { id: 'cases', label: '场景与案例', time: '随时', color: 'purple' },
+    ],
   },
   {
     phase: '阶段 3',
@@ -303,8 +224,82 @@ const GROWTH_STEPS: Array<{
     title: '规模化与护城河',
     desc: '从副业到全职，建立竞争壁垒，探索规模化增长路径',
     color: 'orange',
+    modules: [
+      { id: 'cases', label: '场景与案例', time: '随时', color: 'purple' },
+    ],
   },
 ];
+
+const LearningJourney = () => {
+  const navigate = useNavigate();
+
+  return (
+    <section id="learning-roadmap" className="py-24 px-6">
+      <div className="max-w-5xl mx-auto">
+        <div className="text-center mb-16">
+          <p className="font-mono-tech text-xs text-cyan-400/70 tracking-[0.3em] uppercase mb-4">// evolution roadmap</p>
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">成长路线图</h2>
+          <p className="text-slate-600 dark:text-gray-400 max-w-2xl mx-auto">
+            先定位你在哪个阶段，再选对应的模块按需学习。点击模块标签可直接跳转。
+          </p>
+        </div>
+        <div className="relative">
+          {/* 竖向发光连接线 */}
+          <div className="absolute left-[39px] top-10 bottom-10 w-px bg-gradient-to-b from-cyan-500/50 via-cyan-500/20 to-transparent hidden md:block" />
+
+          <div className="space-y-5">
+            {JOURNEY_PHASES.map((phase, index) => {
+              const phaseStyle = MODULE_COLOR_STYLES[phase.color];
+              return (
+                <motion.div
+                  key={phase.phase}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="card-scan card-hud relative flex items-start gap-6 p-8 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-cyan-500/10 rounded-3xl hover:border-cyan-500/25 transition-all overflow-hidden"
+                >
+                  <div
+                    className={`w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 text-xs font-bold font-mono-tech leading-tight border border-transparent ${phaseStyle.stepBadge}`}
+                    style={{ boxShadow: '0 0 14px rgba(34,211,238,0.12)' }}
+                  >
+                    {phase.phase}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex flex-wrap items-center gap-3 mb-2">
+                      <h3 className="text-xl font-bold text-slate-900 dark:text-white">{phase.title}</h3>
+                      <span className="font-mono-tech text-[10px] tracking-wider text-slate-500 dark:text-gray-500 bg-slate-200 dark:bg-white/5 px-2.5 py-1 rounded-full shrink-0">
+                        {phase.time}
+                      </span>
+                    </div>
+                    <p className="text-slate-600 dark:text-gray-400 mb-4">{phase.desc}</p>
+                    {phase.modules.length > 0 && (
+                      <div className="flex flex-wrap gap-2">
+                        {phase.modules.map((mod) => (
+                          <button
+                            key={mod.id}
+                            type="button"
+                            onClick={() => navigate(`/module/${mod.id}`)}
+                            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-bold font-mono-tech transition-all cursor-pointer ${CHIP_STYLES[mod.color]}`}
+                          >
+                            <span className="w-1.5 h-1.5 rounded-full bg-current opacity-70 shrink-0" />
+                            {mod.label}
+                            <span className="opacity-40">·</span>
+                            <span className="opacity-50 font-normal">{mod.time}</span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 export default function HomePage() {
   useDocumentTitle('AI 学习地图');
@@ -312,49 +307,10 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <LearningRoadmap />
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-cyan-500/10 to-transparent" />
+      <LearningJourney />
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-cyan-500/10 to-transparent" />
       <Modules />
-
-      <section className="py-24 px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">成长路径</h2>
-            <p className="text-slate-600 dark:text-gray-400 max-w-2xl mx-auto">先识别任务，再做提效，最后用最小验证来确认方向，而不是一开始就追求“大而全”。</p>
-          </div>
-          <div className="relative">
-            {/* 竖向发光连接线 */}
-            <div className="absolute left-[39px] top-10 bottom-10 w-px bg-gradient-to-b from-cyan-500/50 via-cyan-500/20 to-transparent hidden md:block" />
-
-            <div className="space-y-5">
-              {GROWTH_STEPS.map((step, index) => {
-                const stepStyle = MODULE_COLOR_STYLES[step.color];
-                return (
-                  <motion.div
-                    key={step.phase}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.12 }}
-                    className="card-scan relative flex items-start gap-6 p-8 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-cyan-500/10 rounded-3xl hover:border-cyan-500/25 transition-all overflow-hidden"
-                  >
-                    <div className={`w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 text-xs font-bold font-mono-tech leading-tight border border-transparent ${stepStyle.stepBadge}`}
-                      style={{ boxShadow: '0 0 14px rgba(34,211,238,0.12)' }}>
-                      {step.phase}
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-xl font-bold text-slate-900 dark:text-white">{step.title}</h3>
-                        <span className="font-mono-tech text-[10px] tracking-wider text-slate-500 dark:text-gray-500 bg-slate-200 dark:bg-white/5 px-2.5 py-1 rounded-full">{step.time}</span>
-                      </div>
-                      <p className="text-slate-600 dark:text-gray-400">{step.desc}</p>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </section>
 
       <section id="community" className="py-24 px-6">
         <div className="max-w-5xl mx-auto bg-gradient-to-br from-cyan-600 via-sky-600 to-indigo-700 rounded-[40px] p-12 md:p-20 text-center relative overflow-hidden">

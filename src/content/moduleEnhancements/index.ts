@@ -4,10 +4,8 @@ import { agentIntroEnhancement } from './agentIntro';
 import { aiProgrammingEnhancement } from './aiProgramming';
 import { casesEnhancement } from './cases';
 import { claudeAgentEnhancement } from './claudeAgent';
-import { growthEnhancement } from './growth';
 import { llmEnhancement } from './llm';
 import { openclawEnhancement } from './openclaw';
-import { scenariosEnhancement } from './scenarios';
 import { superIndividualEnhancement } from './superIndividual';
 
 const BASE_ENHANCEMENTS: Record<ModuleId, ModuleEnhancement> = {
@@ -17,9 +15,7 @@ const BASE_ENHANCEMENTS: Record<ModuleId, ModuleEnhancement> = {
   openclaw: openclawEnhancement,
   'claude-agent': claudeAgentEnhancement,
   'ai-programming': aiProgrammingEnhancement,
-  scenarios: scenariosEnhancement,
   cases: casesEnhancement,
-  growth: growthEnhancement,
 };
 
 const hydrateBlockMeta = (enhancement: ModuleEnhancement): ModuleEnhancementBlock[] => {
@@ -44,7 +40,5 @@ export const MODULE_ENHANCEMENTS: Record<ModuleId, ModuleEnhancement> = {
   openclaw: hydrateEnhancement(BASE_ENHANCEMENTS.openclaw),
   'claude-agent': hydrateEnhancement(BASE_ENHANCEMENTS['claude-agent']),
   'ai-programming': hydrateEnhancement(BASE_ENHANCEMENTS['ai-programming']),
-  scenarios: hydrateEnhancement(BASE_ENHANCEMENTS.scenarios),
   cases: hydrateEnhancement(BASE_ENHANCEMENTS.cases),
-  growth: hydrateEnhancement(BASE_ENHANCEMENTS.growth),
 };
