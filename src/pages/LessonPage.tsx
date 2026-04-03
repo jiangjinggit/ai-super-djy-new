@@ -111,7 +111,7 @@ export default function LessonPage() {
       <ContentMetaNote updatedAt={lesson.updatedAt} sources={lesson.sources} />
 
       {/* 上一课 / 下一课 导航 */}
-      <div className="mt-12 rounded-3xl border border-slate-200 dark:border-cyan-500/10 bg-slate-100 dark:bg-white/5 p-8">
+      <div className="mt-12 rounded-3xl border border-slate-200 dark:border-cyan-500/10 bg-slate-100 dark:bg-white/5 p-6 md:p-8">
         <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-gray-500 mb-6 font-mono-tech tracking-wider">
           <Layers3 size={14} className="text-cyan-500" />
           第 <span className="text-cyan-400">{String(lessonIndex + 1).padStart(2, '0')}</span> / {String(moduleContent.lessons.length).padStart(2, '0')} 课

@@ -227,7 +227,7 @@ export default function ModulePage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="card-scan card-hud relative p-8 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-cyan-500/10 rounded-3xl hover:border-cyan-500/25 transition-all overflow-hidden"
+                className="card-scan card-hud relative p-6 md:p-8 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-cyan-500/10 rounded-3xl hover:border-cyan-500/25 transition-all overflow-hidden"
               >
                 <div className="w-12 h-12 bg-slate-200 dark:bg-white/8 rounded-xl flex items-center justify-center text-slate-900 dark:text-white mb-6">
                   <SectionIcon size={24} />
@@ -242,7 +242,7 @@ export default function ModulePage() {
 
       {/* 学完后你应该拿到 - OpenClaw 不展示，sections 已覆盖 */}
       {!isOpenClaw && content.keyTakeaways.length > 0 && (
-        <div className="mb-20 p-10 bg-cyan-500/5 border border-cyan-500/20 rounded-3xl">
+        <div className="mb-20 p-6 md:p-10 bg-cyan-500/5 border border-cyan-500/20 rounded-3xl">
           <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-8 flex items-center gap-3">
             <Star className="text-yellow-400" size={22} /> 学完后你应该拿到
           </h3>
@@ -267,7 +267,7 @@ export default function ModulePage() {
         ))}
 
       {/* 课程大纲 */}
-      <div className="bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-cyan-500/10 rounded-3xl p-10">
+      <div className="bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-cyan-500/10 rounded-3xl p-6 md:p-10">
         <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-3">
           <BookOpen className="text-cyan-400" size={22} /> 课程大纲
         </h3>
@@ -319,7 +319,7 @@ export default function ModulePage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mt-10 p-8 bg-gradient-to-r from-cyan-500/10 to-sky-500/10 border border-cyan-500/25 rounded-3xl text-center"
+          className="mt-10 p-6 md:p-8 bg-gradient-to-r from-cyan-500/10 to-sky-500/10 border border-cyan-500/25 rounded-3xl text-center"
         >
           <p className="text-lg text-cyan-700 dark:text-cyan-300 mb-6">{splitCta(content.cta.text).prefix}</p>
           <button

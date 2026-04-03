@@ -26,7 +26,7 @@ const tokenToCost = (tokens: number, unitPrice: number) => (tokens / 1_000_000) 
 
 const ActionChecklistSection = ({ title, description, items, updatedAt, sources, hideMeta }: ActionChecklistBlock) => {
   return (
-    <section className="mb-20 p-10 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[40px]">
+    <section className="mb-20 p-6 md:p-10 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[40px]">
       <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-3">
         <Sparkles className="text-blue-600 dark:text-blue-400" /> {title}
       </h3>
@@ -61,7 +61,7 @@ const ModelOptionsSection = ({ title, description, items, footer, updatedAt, sou
   }, [budgetTier, items]);
 
   return (
-    <section className="mb-20 p-10 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[40px]">
+    <section className="mb-20 p-6 md:p-10 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[40px]">
       <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">{title}</h3>
       {description && <p className="text-sm text-slate-600 dark:text-gray-400 mb-6">{description}</p>}
       {!hideMeta && <ContentMetaNote updatedAt={updatedAt} sources={sources} />}
@@ -138,7 +138,7 @@ const ModelOptionsSection = ({ title, description, items, footer, updatedAt, sou
 
 const SecurityChecklistSection = ({ title, description, items, updatedAt, sources, hideMeta }: SecurityChecklistBlock) => {
   return (
-    <section className="mb-20 p-10 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[40px]">
+    <section className="mb-20 p-6 md:p-10 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[40px]">
       <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">{title}</h3>
       {description && <p className="text-sm text-slate-600 dark:text-gray-400 mb-6">{description}</p>}
       {!hideMeta && <ContentMetaNote updatedAt={updatedAt} sources={sources} />}
@@ -156,7 +156,7 @@ const SecurityChecklistSection = ({ title, description, items, updatedAt, source
 
 const SopTemplatesSection = ({ title, description, items, updatedAt, sources, hideMeta }: SopTemplatesBlock) => {
   return (
-    <section className="mb-20 p-10 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[40px]">
+    <section className="mb-20 p-6 md:p-10 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[40px]">
       <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">{title}</h3>
       {description && <p className="text-sm text-slate-600 dark:text-gray-400 mb-6">{description}</p>}
       {!hideMeta && <ContentMetaNote updatedAt={updatedAt} sources={sources} />}
@@ -202,7 +202,7 @@ const SopTemplatesSection = ({ title, description, items, updatedAt, sources, hi
 
 const CaseEvidenceSection = ({ title, description, items, updatedAt, sources, hideMeta }: CaseEvidenceBlock) => {
   return (
-    <section className="mb-20 p-10 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[40px]">
+    <section className="mb-20 p-6 md:p-10 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[40px]">
       <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">{title}</h3>
       {description && <p className="text-sm text-slate-600 dark:text-gray-400 mb-6">{description}</p>}
       {!hideMeta && <ContentMetaNote updatedAt={updatedAt} sources={sources} />}
@@ -229,7 +229,7 @@ const CaseEvidenceSection = ({ title, description, items, updatedAt, sources, hi
 
 const WeeklyPlanSection = ({ title, description, items, updatedAt, sources, hideMeta }: WeeklyPlanBlock) => {
   return (
-    <section className="mb-20 p-10 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[40px]">
+    <section className="mb-20 p-6 md:p-10 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[40px]">
       <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">{title}</h3>
       {description && <p className="text-sm text-slate-600 dark:text-gray-400 mb-6">{description}</p>}
       {!hideMeta && <ContentMetaNote updatedAt={updatedAt} sources={sources} />}
@@ -258,7 +258,7 @@ const ToolComparisonSection = ({
   hideMeta,
 }: ToolComparisonBlock) => {
   return (
-    <section className="mb-20 p-10 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[40px] overflow-hidden">
+    <section className="mb-20 p-6 md:p-10 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[40px] overflow-hidden">
       <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-3">
         <Sparkles className="text-blue-600 dark:text-blue-400" /> {title}
       </h3>
@@ -299,7 +299,7 @@ const ToolComparisonSection = ({
 const ResourceLinksSection = ({ title, description, items, hideMeta, updatedAt, sources }: ResourceLinksBlock) => {
   const categories = [...new Set(items.map((item) => item.category))];
   return (
-    <section className="mb-20 p-10 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[40px]">
+    <section className="mb-20 p-6 md:p-10 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[40px]">
       <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">{title}</h3>
       {description && <p className="text-sm text-slate-600 dark:text-gray-400 mb-6">{description}</p>}
       {!hideMeta && <ContentMetaNote updatedAt={updatedAt} sources={sources} />}
