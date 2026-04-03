@@ -34,7 +34,6 @@ export const ContentMetaNote = ({ updatedAt, sources = [] }: ContentMetaNoteProp
 
   return (
     <div className="mb-6 rounded-2xl border border-slate-200 dark:border-white/10 bg-slate-200 dark:bg-black/20 px-4 py-4">
-      {updatedAt && <p className="text-xs text-slate-600 dark:text-gray-400">整理日期：{updatedAt}</p>}
       {freshness?.isStale && (
         <p className="mt-2 text-xs text-amber-600 dark:text-amber-300">
           该内容距离上次整理已超过 {STALE_AFTER_DAYS} 天，涉及价格、版本、窗口等高时效信息时建议优先复核官方页面。

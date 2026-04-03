@@ -1,6 +1,7 @@
 import type { ModuleEnhancement, ModuleEnhancementBlock, ModuleId } from '@/types/course';
 
 import { agentIntroEnhancement } from './agentIntro';
+import { aiProgrammingEnhancement } from './aiProgramming';
 import { casesEnhancement } from './cases';
 import { claudeAgentEnhancement } from './claudeAgent';
 import { growthEnhancement } from './growth';
@@ -15,6 +16,7 @@ const BASE_ENHANCEMENTS: Record<ModuleId, ModuleEnhancement> = {
   'agent-intro': agentIntroEnhancement,
   openclaw: openclawEnhancement,
   'claude-agent': claudeAgentEnhancement,
+  'ai-programming': aiProgrammingEnhancement,
   scenarios: scenariosEnhancement,
   cases: casesEnhancement,
   growth: growthEnhancement,
@@ -41,6 +43,7 @@ export const MODULE_ENHANCEMENTS: Record<ModuleId, ModuleEnhancement> = {
   'agent-intro': hydrateEnhancement(BASE_ENHANCEMENTS['agent-intro']),
   openclaw: hydrateEnhancement(BASE_ENHANCEMENTS.openclaw),
   'claude-agent': hydrateEnhancement(BASE_ENHANCEMENTS['claude-agent']),
+  'ai-programming': hydrateEnhancement(BASE_ENHANCEMENTS['ai-programming']),
   scenarios: hydrateEnhancement(BASE_ENHANCEMENTS.scenarios),
   cases: hydrateEnhancement(BASE_ENHANCEMENTS.cases),
   growth: hydrateEnhancement(BASE_ENHANCEMENTS.growth),

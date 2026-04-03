@@ -3,6 +3,7 @@ import { createLessonCover } from '@/content/lessonCovers';
 import type { BaseLesson, BaseModuleContent, ContentDifficulty, Lesson, ModuleContent, ModuleId, SourceLink } from '@/types/course';
 
 import { agentIntroModule } from './agentIntro';
+import { aiProgrammingModule } from './aiProgramming';
 import { casesModule } from './cases';
 import { claudeAgentModule } from './claudeAgent';
 import { growthModule } from './growth';
@@ -23,6 +24,7 @@ const BASE_MODULES: Record<ModuleId, BaseModuleContent> = {
   'agent-intro': agentIntroModule,
   openclaw: openclawModule,
   'claude-agent': claudeAgentModule,
+  'ai-programming': aiProgrammingModule,
   scenarios: scenariosModule,
   cases: casesModule,
   growth: growthModule,
@@ -67,11 +69,18 @@ const MODULE_METADATA: Record<
     prerequisites: ['完成 AI 智能体入门模块', '有基础的命令行操作经验'],
   },
   'claude-agent': {
-    estimatedTime: '1-2 周',
+    estimatedTime: '3-4 周',
     difficulty: 'intermediate',
-    audience: ['开发者', '需要代码文档命令行协作的用户'],
-    tags: ['Claude Code', 'CLAUDE.md', 'slash commands', '多智能体'],
+    audience: ['对 AI 提效感兴趣的任何人', '开发者', '产品经理', '运营与市场人员', '研究人员与分析师', '创业者与独立开发者', '自由职业者', '学生与求职者', '希望用 AI 减少重复劳动的知识工作者'],
+    tags: ['Claude Code', 'Cowork', 'CLAUDE.md', 'MCP', 'Skills', 'Subagents', 'Hooks', '安全边界'],
     prerequisites: ['完成 AI 智能体入门模块'],
+  },
+  'ai-programming': {
+    estimatedTime: '2-3 周',
+    difficulty: 'intermediate',
+    audience: ['开发者', '技术负责人', '产品经理', '希望系统做 AI 编程选型的团队'],
+    tags: ['AI 编程', 'Claude Code', 'Codex', 'Cursor', 'Gemini', 'Kiro', '通义灵码', 'CodeBuddy'],
+    prerequisites: ['完成 AI 智能体入门模块', '建议已了解基础的大模型选型逻辑'],
   },
   scenarios: {
     estimatedTime: '持续',
@@ -122,6 +131,7 @@ const lessonEstimatedTime = (moduleId: ModuleId, lesson: BaseLesson) => {
   if (moduleId === 'agent-intro') return '15-20 分钟';
   if (moduleId === 'openclaw') return '25-35 分钟';
   if (moduleId === 'claude-agent') return '25-35 分钟';
+  if (moduleId === 'ai-programming') return '22-30 分钟';
   if (moduleId === 'scenarios') return '18-25 分钟';
   if (moduleId === 'cases') return '12-18 分钟';
   if (moduleId === 'growth') return '15-20 分钟';
@@ -189,6 +199,7 @@ export const MODULE_CONTENT: Record<ModuleId, ModuleContent> = {
   'agent-intro': enrichModule('agent-intro', BASE_MODULES['agent-intro']),
   openclaw: enrichModule('openclaw', BASE_MODULES.openclaw),
   'claude-agent': enrichModule('claude-agent', BASE_MODULES['claude-agent']),
+  'ai-programming': enrichModule('ai-programming', BASE_MODULES['ai-programming']),
   scenarios: enrichModule('scenarios', BASE_MODULES.scenarios),
   cases: enrichModule('cases', BASE_MODULES.cases),
   growth: enrichModule('growth', BASE_MODULES.growth),

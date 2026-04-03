@@ -50,6 +50,84 @@ const OPENCLAW_LESSON_GROUPS = [
   },
 ] as const;
 
+const CLAUDE_AGENT_LESSON_GROUPS = [
+  {
+    stage: 'Stage 01',
+    title: '认知建立：为什么这个工具值得学',
+    description: '先建立正确认知——Claude Code 不是聊天框，而是能读文件、跑命令、调工具的执行代理。',
+    lessonSlugs: ['lesson-01-what-is-claude-code'],
+  },
+  {
+    stage: 'Stage 02',
+    title: '快速上手：第一天就能用起来',
+    description: '安装环境、选对入口、跑通第一个真实任务，建立最小可用的工作习惯。',
+    lessonSlugs: ['lesson-02-install-and-setup', 'lesson-03-platform-map'],
+  },
+  {
+    stage: 'Stage 03',
+    title: '核心工作流：从"能跑"到"好用"',
+    description: '5 步执行法、结构化 Prompt、CLAUDE.md 配置——把一次通过率和产出质量拉上来。',
+    lessonSlugs: ['lesson-04-five-step-workflow', 'lesson-05-prompt-engineering', 'lesson-06-claude-md-and-memory'],
+  },
+  {
+    stage: 'Stage 04',
+    title: '进阶能力：效率再翻倍',
+    description: 'Skills 封装高频动作、MCP 接通外部工具、上下文管理防止长任务失忆。',
+    lessonSlugs: ['lesson-07-skills-and-commands', 'lesson-08-mcp-toolchain', 'lesson-09-context-management'],
+  },
+  {
+    stage: 'Stage 05',
+    title: 'Agent 架构：专家级用法',
+    description: 'Subagents 拆分复杂任务、安全边界四层叠加、Hooks + Schedule 做自动化。',
+    lessonSlugs: ['lesson-10-subagents-and-teams', 'lesson-11-security-boundaries', 'lesson-12-hooks-schedule-auto'],
+  },
+  {
+    stage: 'Stage 06',
+    title: '真实场景实战：把所有能力串起来',
+    description: '产品经理、开发者、知识工作者三个真实场景，跑通从输入到交付的完整链路。',
+    lessonSlugs: ['lesson-13-case-product-manager', 'lesson-14-case-developer', 'lesson-15-case-researcher'],
+  },
+] as const;
+
+const AI_PROGRAMMING_LESSON_GROUPS = [
+  {
+    stage: 'Stage 01',
+    title: '工具范式：先搭坐标系',
+    description: '从 Autocomplete 到 Agentic Coding，先理解 AI 编程的演进线和四种主流入口，后面每个工具才能准确落位。',
+    lessonSlugs: ['ai-coding-landscape'],
+  },
+  {
+    stage: 'Stage 02',
+    title: '国际前沿工具：三条主线',
+    description: 'Claude Code vs Codex 的本地/云端之争，Cursor、Gemini、Kiro 的 IDE/CLI/Spec-driven 路线——理解产品设计逻辑，而不只是背品牌。',
+    lessonSlugs: ['claude-code-vs-codex', 'cursor-gemini-kiro'],
+  },
+  {
+    stage: 'Stage 03',
+    title: '国内落地工具：中国用户的真实约束',
+    description: '通义灵码、TRAE、CodeBuddy 三条国内路线，从中文体验、采购合规和云生态协同出发做选择。',
+    lessonSlugs: ['china-coding-tools'],
+  },
+  {
+    stage: 'Stage 04',
+    title: '模型选型：按角色分工，不背版本号',
+    description: '高质量主力、低成本跑量、中文优先、企业内控——给不同任务指定默认模型和回退模型。',
+    lessonSlugs: ['coding-model-selection'],
+  },
+  {
+    stage: 'Stage 05',
+    title: '工作流与治理：从单兵到团队',
+    description: '把 AI 接进需求、实现、验证、评审的完整链路，再用权限、隐私、成本和回退规则兜底。',
+    lessonSlugs: ['ai-coding-workflows', 'ai-coding-governance'],
+  },
+  {
+    stage: 'Stage 06',
+    title: '30 天落地：选出你的默认方案',
+    description: '海外优先、国内优先、混合栈三条路线，按个人、团队、企业身份收口成可执行计划。',
+    lessonSlugs: ['china-rollout-playbook'],
+  },
+] as const;
+
 const splitCta = (text: string) => {
   const [prefix, suffix] = text.split(' → ');
   return {
@@ -111,10 +189,22 @@ export default function ModulePage() {
   const remainingBlocks =
     enhancement?.blocks.filter((block) => block.type !== 'action-checklist' && block.type !== 'tool-comparison') ?? [];
   const isOpenClaw = moduleId === 'openclaw';
+  const isClaudeAgent = moduleId === 'claude-agent';
+  const isAiProgramming = moduleId === 'ai-programming';
 
   // OpenClaw 专用：按 type 拆分 blocks，分别插入合适位置
   const openclawWeeklyPlan = enhancement?.blocks.filter((b) => b.type === 'weekly-plan') ?? [];
   const openclawPostLessonBlocks = enhancement?.blocks.filter((b) => b.type !== 'weekly-plan') ?? [];
+
+  // Claude Agent 专用：tool-comparison + weekly-plan 放课程前，其余放课程后
+  const claudeAgentPreLessonBlocks = enhancement?.blocks.filter((b) => b.type === 'tool-comparison' || b.type === 'weekly-plan') ?? [];
+  const claudeAgentPostLessonBlocks = enhancement?.blocks.filter((b) => b.type !== 'tool-comparison' && b.type !== 'weekly-plan') ?? [];
+
+  // AI Programming 专用：tool-comparison + weekly-plan 放课程前，其余放课程后
+  const aiProgrammingPreLessonBlocks = enhancement?.blocks.filter((b) => b.type === 'tool-comparison' || b.type === 'weekly-plan') ?? [];
+  const aiProgrammingPostLessonBlocks = enhancement?.blocks.filter((b) => b.type !== 'tool-comparison' && b.type !== 'weekly-plan') ?? [];
+
+  const isCustomLayout = isOpenClaw || isClaudeAgent || isAiProgramming;
 
   useDocumentTitle(content?.title ?? '模块未找到');
 
@@ -135,6 +225,20 @@ export default function ModulePage() {
   const Icon = content.icon;
   const lessonLookup = new Map(content.lessons.map((lesson) => [lesson.slug, lesson] as const));
   const openclawLessonGroups = OPENCLAW_LESSON_GROUPS.map((group) => ({
+    ...group,
+    lessons: group.lessonSlugs
+      .map((slug) => lessonLookup.get(slug))
+      .filter((lesson): lesson is typeof content.lessons[number] => Boolean(lesson)),
+  })).filter((group) => group.lessons.length > 0);
+
+  const claudeAgentLessonGroups = CLAUDE_AGENT_LESSON_GROUPS.map((group) => ({
+    ...group,
+    lessons: group.lessonSlugs
+      .map((slug) => lessonLookup.get(slug))
+      .filter((lesson): lesson is typeof content.lessons[number] => Boolean(lesson)),
+  })).filter((group) => group.lessons.length > 0);
+
+  const aiProgrammingLessonGroups = AI_PROGRAMMING_LESSON_GROUPS.map((group) => ({
     ...group,
     lessons: group.lessonSlugs
       .map((slug) => lessonLookup.get(slug))
@@ -191,17 +295,17 @@ export default function ModulePage() {
         ))}
       </div>
 
-      {!isOpenClaw &&
+      {!isCustomLayout &&
         prioritizedBlocks.map((block) => (
           <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
         ))}
 
-      {!isOpenClaw &&
+      {!isCustomLayout &&
         remainingBlocks.map((block) => (
           <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
         ))}
 
-      {(enhancement.lastVerifiedOn || enhancement.sources.length > 0) && (
+      {!isClaudeAgent && !isAiProgramming && (enhancement.lastVerifiedOn || enhancement.sources.length > 0) && (
         <ModuleReferencePanel lastVerifiedOn={enhancement.lastVerifiedOn} sources={enhancement.sources} />
       )}
 
@@ -210,11 +314,15 @@ export default function ModulePage() {
         <div className="mb-8">
           <p className={`font-mono-tech text-xs font-bold uppercase tracking-[0.25em] mb-3 ${accent.subtitle}`}>模块结构</p>
           <h2 className="text-3xl font-black text-slate-900 dark:text-white">
-            {isOpenClaw ? '从跑通到长期稳定使用的实战路径' : '这一模块主要解决 3 件事'}
+            {isOpenClaw ? '从跑通到长期稳定使用的实战路径' : isClaudeAgent ? '从跑起来到稳住它的实战路径' : isAiProgramming ? '先看清工具范式，再设计自己的默认工作栈' : '这一模块主要解决 3 件事'}
           </h2>
-          {isOpenClaw && (
+          {(isOpenClaw || isClaudeAgent || isAiProgramming) && (
             <p className="mt-3 text-sm text-slate-600 dark:text-gray-400 max-w-3xl leading-7">
-              默认顺序很简单：先跑通最小闭环，再把规则、技能和主动策略配稳，最后用真实案例和治理动作把它长期用起来。
+              {isOpenClaw
+                ? '默认顺序很简单：先跑通最小闭环，再把规则、技能和主动策略配稳，最后用真实案例和治理动作把它长期用起来。'
+                : isClaudeAgent
+                  ? '先选对入口跑通首任务，再用 CLAUDE.md、Skills、MCP 把工作流配稳，最后用安全边界、多智能体和自动化把它长期用起来。'
+                  : '先理解不同产品解决哪段开发链路，再横向比较国内外工具路线，然后把模型、工作流和治理规则接成一套可执行系统。'}
             </p>
           )}
         </div>
@@ -240,8 +348,8 @@ export default function ModulePage() {
         </div>
       </div>
 
-      {/* 学完后你应该拿到 - OpenClaw 不展示，sections 已覆盖 */}
-      {!isOpenClaw && content.keyTakeaways.length > 0 && (
+      {/* 学完后你应该拿到 - OpenClaw / Claude Agent 不展示 */}
+      {!isOpenClaw && !isClaudeAgent && !isAiProgramming && content.keyTakeaways.length > 0 && (
         <div className="mb-20 p-6 md:p-10 bg-cyan-500/5 border border-cyan-500/20 rounded-3xl">
           <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-8 flex items-center gap-3">
             <Star className="text-yellow-400" size={22} /> 学完后你应该拿到
@@ -266,6 +374,18 @@ export default function ModulePage() {
           <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
         ))}
 
+      {/* Claude Agent：tool-comparison 放在课程大纲前做入口引导 */}
+      {isClaudeAgent &&
+        claudeAgentPreLessonBlocks.map((block) => (
+          <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
+        ))}
+
+      {/* AI Programming：tool-comparison + weekly-plan 放在课程大纲前 */}
+      {isAiProgramming &&
+        aiProgrammingPreLessonBlocks.map((block) => (
+          <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
+        ))}
+
       {/* 课程大纲 */}
       <div className="bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-cyan-500/10 rounded-3xl p-6 md:p-10">
         <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-3">
@@ -274,9 +394,9 @@ export default function ModulePage() {
         <p className="font-mono-tech text-xs text-slate-500 dark:text-gray-500 mb-8 tracking-wide">
           不要先通读，按顺序做。每节课先看目标，再立即完成 1 个动作。
         </p>
-        {isOpenClaw ? (
+        {isOpenClaw || isClaudeAgent || isAiProgramming ? (
           <div className="space-y-6">
-            {openclawLessonGroups.map((group) => (
+            {(isOpenClaw ? openclawLessonGroups : isClaudeAgent ? claudeAgentLessonGroups : aiProgrammingLessonGroups).map((group) => (
               <div key={group.title} className="rounded-[28px] border border-slate-200 dark:border-white/10 bg-white/60 dark:bg-black/20 p-6">
                 <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-5">
                   <div>
@@ -313,6 +433,28 @@ export default function ModulePage() {
         openclawPostLessonBlocks.map((block) => (
           <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
         ))}
+
+      {/* Claude Agent：SOP 模板、周计划、安全清单、资源导航放在课程大纲后 */}
+      {isClaudeAgent &&
+        claudeAgentPostLessonBlocks.map((block) => (
+          <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
+        ))}
+
+      {/* AI Programming：模型角色表、安全清单、资源导航放在课程大纲后 */}
+      {isAiProgramming &&
+        aiProgrammingPostLessonBlocks.map((block) => (
+          <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
+        ))}
+
+      {/* Claude Agent：参考资料放最后 */}
+      {isClaudeAgent && (enhancement.lastVerifiedOn || enhancement.sources.length > 0) && (
+        <ModuleReferencePanel lastVerifiedOn={enhancement.lastVerifiedOn} sources={enhancement.sources} />
+      )}
+
+      {/* AI Programming：参考资料放最后 */}
+      {isAiProgramming && (enhancement.lastVerifiedOn || enhancement.sources.length > 0) && (
+        <ModuleReferencePanel lastVerifiedOn={enhancement.lastVerifiedOn} sources={enhancement.sources} />
+      )}
 
       {/* CTA */}
       {content.cta && (

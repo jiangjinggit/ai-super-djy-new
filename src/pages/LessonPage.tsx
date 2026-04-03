@@ -4,7 +4,6 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import { LessonMarkdown } from '@/components/lesson-page/LessonMarkdown';
 import { LessonVisualGuide } from '@/components/lesson-page/LessonVisualGuide';
-import { ContentMetaNote } from '@/components/module-page/ContentMetaNote';
 import { MODULE_COLOR_STYLES } from '@/constants/moduleStyles';
 import { MODULE_CONTENT } from '@/content/modules';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
@@ -107,8 +106,6 @@ export default function LessonPage() {
       <LessonVisualGuide moduleId={moduleId} lessonSlug={lesson.slug} />
 
       <LessonMarkdown body={lesson.body} />
-
-      <ContentMetaNote updatedAt={lesson.updatedAt} sources={lesson.sources} />
 
       {/* 上一课 / 下一课 导航 */}
       <div className="mt-12 rounded-3xl border border-slate-200 dark:border-cyan-500/10 bg-slate-100 dark:bg-white/5 p-6 md:p-8">

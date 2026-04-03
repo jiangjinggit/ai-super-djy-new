@@ -31,6 +31,12 @@ const COVER_THEMES: Record<ModuleId, { accent: string; background: string; glow:
     glow: '#6d28d9',
     eyebrow: 'CLAUDE FLOW',
   },
+  'ai-programming': {
+    accent: '#38bdf8',
+    background: '#071a2a',
+    glow: '#0369a1',
+    eyebrow: 'AI CODING',
+  },
   scenarios: {
     accent: '#fb923c',
     background: '#1c1917',

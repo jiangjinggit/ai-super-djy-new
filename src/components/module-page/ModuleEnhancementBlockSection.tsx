@@ -2,7 +2,6 @@ import { Copy, Sparkles } from 'lucide-react';
 import { Fragment, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 
-import { ContentMetaNote } from '@/components/module-page/ContentMetaNote';
 import type {
   ActionChecklistBlock,
   CaseEvidenceBlock,
@@ -31,7 +30,6 @@ const ActionChecklistSection = ({ title, description, items, updatedAt, sources,
         <Sparkles className="text-blue-600 dark:text-blue-400" /> {title}
       </h3>
       {description && <p className="text-sm text-slate-600 dark:text-gray-400 mb-6">{description}</p>}
-      {!hideMeta && <ContentMetaNote updatedAt={updatedAt} sources={sources} />}
       <div className="space-y-4">
         {items.map((item) => (
           <div key={item.title} className="p-5 bg-slate-100 dark:bg-white/5 rounded-2xl border border-slate-200 dark:border-white/10">
@@ -64,7 +62,6 @@ const ModelOptionsSection = ({ title, description, items, footer, updatedAt, sou
     <section className="mb-20 p-6 md:p-10 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[40px]">
       <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">{title}</h3>
       {description && <p className="text-sm text-slate-600 dark:text-gray-400 mb-6">{description}</p>}
-      {!hideMeta && <ContentMetaNote updatedAt={updatedAt} sources={sources} />}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <label className="text-sm text-slate-700 dark:text-gray-300">
           输入 Tokens
@@ -141,7 +138,6 @@ const SecurityChecklistSection = ({ title, description, items, updatedAt, source
     <section className="mb-20 p-6 md:p-10 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[40px]">
       <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">{title}</h3>
       {description && <p className="text-sm text-slate-600 dark:text-gray-400 mb-6">{description}</p>}
-      {!hideMeta && <ContentMetaNote updatedAt={updatedAt} sources={sources} />}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {items.map((rule) => (
           <div key={rule.title} className="p-5 bg-slate-200 dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-2xl">
@@ -159,7 +155,6 @@ const SopTemplatesSection = ({ title, description, items, updatedAt, sources, hi
     <section className="mb-20 p-6 md:p-10 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[40px]">
       <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">{title}</h3>
       {description && <p className="text-sm text-slate-600 dark:text-gray-400 mb-6">{description}</p>}
-      {!hideMeta && <ContentMetaNote updatedAt={updatedAt} sources={sources} />}
       <div className="space-y-5">
         {items.map((template) => (
           <div key={template.title} className="p-6 bg-slate-200 dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-2xl">
@@ -205,7 +200,6 @@ const CaseEvidenceSection = ({ title, description, items, updatedAt, sources, hi
     <section className="mb-20 p-6 md:p-10 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[40px]">
       <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">{title}</h3>
       {description && <p className="text-sm text-slate-600 dark:text-gray-400 mb-6">{description}</p>}
-      {!hideMeta && <ContentMetaNote updatedAt={updatedAt} sources={sources} />}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {items.map((evidence) => (
           <div key={evidence.title} className="p-5 bg-slate-200 dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-2xl">
@@ -232,7 +226,6 @@ const WeeklyPlanSection = ({ title, description, items, updatedAt, sources, hide
     <section className="mb-20 p-6 md:p-10 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[40px]">
       <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">{title}</h3>
       {description && <p className="text-sm text-slate-600 dark:text-gray-400 mb-6">{description}</p>}
-      {!hideMeta && <ContentMetaNote updatedAt={updatedAt} sources={sources} />}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {items.map((weekPlan) => (
           <div key={weekPlan.week} className="p-5 bg-slate-200 dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-2xl">
@@ -263,7 +256,6 @@ const ToolComparisonSection = ({
         <Sparkles className="text-blue-600 dark:text-blue-400" /> {title}
       </h3>
       {description && <p className="text-sm text-slate-600 dark:text-gray-400 mb-6">{description}</p>}
-      {!hideMeta && <ContentMetaNote updatedAt={updatedAt} sources={sources} />}
 
       <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1.45fr_1.45fr] gap-3">
         <div className="hidden lg:flex items-center px-4 py-3 text-xs uppercase tracking-[0.2em] text-slate-500 dark:text-gray-500 font-mono-tech">
@@ -302,7 +294,6 @@ const ResourceLinksSection = ({ title, description, items, hideMeta, updatedAt, 
     <section className="mb-20 p-6 md:p-10 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-[40px]">
       <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">{title}</h3>
       {description && <p className="text-sm text-slate-600 dark:text-gray-400 mb-6">{description}</p>}
-      {!hideMeta && <ContentMetaNote updatedAt={updatedAt} sources={sources} />}
       <div className="space-y-6">
         {categories.map((category) => (
           <div key={category}>

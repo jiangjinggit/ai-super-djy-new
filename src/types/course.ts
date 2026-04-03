@@ -6,6 +6,7 @@ export const MODULE_IDS = [
   'agent-intro',
   'openclaw',
   'claude-agent',
+  'ai-programming',
   'scenarios',
   'cases',
   'growth',

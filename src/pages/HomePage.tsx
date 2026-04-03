@@ -148,7 +148,7 @@ const Modules = () => {
       <div className="text-center mb-16">
         <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">核心模块地图</h2>
         <p className="text-slate-600 dark:text-gray-400 max-w-2xl mx-auto">
-          从入门、模型到智能体三段式实战，再接场景、案例和成长路径，按真实执行顺序组织内容。
+          从入门、模型、智能体到 AI 编程，再接场景、案例和成长路径，按真实执行顺序组织内容。
         </p>
       </div>
 
@@ -173,6 +173,7 @@ const LEARNING_STEPS: Array<{ id: ModuleId; label: string; time: string; color: 
   { id: 'agent-intro', label: '智能体入门', time: '30 分钟', color: 'emerald' },
   { id: 'openclaw', label: 'OpenClaw', time: '2-3 周', color: 'orange' },
   { id: 'claude-agent', label: 'Claude 实战', time: '1-2 周', color: 'purple' },
+  { id: 'ai-programming', label: 'AI 编程', time: '2-3 周', color: 'blue' },
   { id: 'scenarios', label: '场景实战', time: '持续', color: 'orange' },
   { id: 'cases', label: '案例学习', time: '随时', color: 'purple' },
   { id: 'growth', label: '成长路径', time: '3-12 月', color: 'emerald' },
@@ -191,9 +192,9 @@ const LearningRoadmap = () => {
       {/* 桌面时间线 */}
       <div className="hidden lg:block relative">
         {/* 底部连接线 */}
-        <div className="absolute top-[22px] left-[calc(100%/16)] right-[calc(100%/16)] h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent" />
+        <div className="absolute top-[22px] left-[calc(100%/18)] right-[calc(100%/18)] h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent" />
 
-        <div className="grid grid-cols-8 gap-2">
+        <div className="grid grid-cols-9 gap-2">
           {LEARNING_STEPS.map((step, index) => {
             const stepStyle = MODULE_COLOR_STYLES[step.color];
             return (
