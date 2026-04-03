@@ -213,4 +213,8 @@ export const casesModule: BaseModuleContent = {
       ],
     },
   ],
+  cta: {
+    text: '看完案例后，回到对应能力模块把自己的版本真正搭起来 → 选择要补的核心能力',
+    link: '/',
+  },
 };

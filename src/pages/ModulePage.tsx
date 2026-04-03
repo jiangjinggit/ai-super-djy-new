@@ -191,6 +191,7 @@ export default function ModulePage() {
   const isOpenClaw = moduleId === 'openclaw';
   const isClaudeAgent = moduleId === 'claude-agent';
   const isAiProgramming = moduleId === 'ai-programming';
+  const isCases = moduleId === 'cases';
 
   // OpenClaw 专用：按 type 拆分 blocks，分别插入合适位置
   const openclawWeeklyPlan = enhancement?.blocks.filter((b) => b.type === 'weekly-plan') ?? [];
@@ -305,7 +306,7 @@ export default function ModulePage() {
           <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
         ))}
 
-      {!isClaudeAgent && !isAiProgramming && (enhancement.lastVerifiedOn || enhancement.sources.length > 0) && (
+      {!isClaudeAgent && !isAiProgramming && !isCases && (enhancement.lastVerifiedOn || enhancement.sources.length > 0) && (
         <ModuleReferencePanel lastVerifiedOn={enhancement.lastVerifiedOn} sources={enhancement.sources} />
       )}
 
@@ -314,15 +315,25 @@ export default function ModulePage() {
         <div className="mb-8">
           <p className={`font-mono-tech text-xs font-bold uppercase tracking-[0.25em] mb-3 ${accent.subtitle}`}>模块结构</p>
           <h2 className="text-3xl font-black text-slate-900 dark:text-white">
-            {isOpenClaw ? '从跑通到长期稳定使用的实战路径' : isClaudeAgent ? '从跑起来到稳住它的实战路径' : isAiProgramming ? '先看清工具范式，再设计自己的默认工作栈' : '这一模块主要解决 3 件事'}
+            {isOpenClaw
+              ? '从跑通到长期稳定使用的实战路径'
+              : isClaudeAgent
+                ? '从跑起来到稳住它的实战路径'
+                : isAiProgramming
+                  ? '先看清工具范式，再设计自己的默认工作栈'
+                  : isCases
+                    ? '这一模块主要给你 6 个可直接复用的落地场景'
+                    : '这一模块主要解决 3 件事'}
           </h2>
-          {(isOpenClaw || isClaudeAgent || isAiProgramming) && (
+          {(isOpenClaw || isClaudeAgent || isAiProgramming || isCases) && (
             <p className="mt-3 text-sm text-slate-600 dark:text-gray-400 max-w-3xl leading-7">
               {isOpenClaw
                 ? '默认顺序很简单：先跑通最小闭环，再把规则、技能和主动策略配稳，最后用真实案例和治理动作把它长期用起来。'
                 : isClaudeAgent
                   ? '先选对入口跑通首任务，再用 CLAUDE.md、Skills、MCP 把工作流配稳，最后用安全边界、多智能体和自动化把它长期用起来。'
-                  : '先理解不同产品解决哪段开发链路，再横向比较国内外工具路线，然后把模型、工作流和治理规则接成一套可执行系统。'}
+                  : isAiProgramming
+                    ? '先理解不同产品解决哪段开发链路，再横向比较国内外工具路线，然后把模型、工作流和治理规则接成一套可执行系统。'
+                    : '不要把这 6 个案例当故事看，而是按你的行业、现有工具和可用资源去挑一个最接近的场景，先跑通一个最小闭环。'}
             </p>
           )}
         </div>
@@ -349,7 +360,7 @@ export default function ModulePage() {
       </div>
 
       {/* 学完后你应该拿到 - OpenClaw / Claude Agent 不展示 */}
-      {!isOpenClaw && !isClaudeAgent && !isAiProgramming && content.keyTakeaways.length > 0 && (
+      {!isOpenClaw && !isClaudeAgent && !isAiProgramming && !isCases && content.keyTakeaways.length > 0 && (
         <div className="mb-20 p-6 md:p-10 bg-cyan-500/5 border border-cyan-500/20 rounded-3xl">
           <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-8 flex items-center gap-3">
             <Star className="text-yellow-400" size={22} /> 学完后你应该拿到
@@ -445,6 +456,11 @@ export default function ModulePage() {
         aiProgrammingPostLessonBlocks.map((block) => (
           <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
         ))}
+
+      {/* 场景与案例：参考资料放到课程大纲后，再接 CTA */}
+      {isCases && (enhancement.lastVerifiedOn || enhancement.sources.length > 0) && (
+        <ModuleReferencePanel lastVerifiedOn={enhancement.lastVerifiedOn} sources={enhancement.sources} />
+      )}
 
       {/* Claude Agent：参考资料放最后 */}
       {isClaudeAgent && (enhancement.lastVerifiedOn || enhancement.sources.length > 0) && (
