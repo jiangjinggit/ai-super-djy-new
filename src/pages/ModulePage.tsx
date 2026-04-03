@@ -251,32 +251,33 @@ export default function ModulePage() {
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="pt-32 pb-24 px-6 max-w-5xl mx-auto"
+      className="pt-24 md:pt-32 pb-24 px-5 md:px-6 max-w-5xl mx-auto"
     >
       <button
         type="button"
         onClick={() => navigate('/')}
-        className="flex items-center gap-2 text-slate-500 dark:text-gray-500 hover:text-cyan-400 mb-12 transition-colors group font-mono-tech text-sm tracking-wide"
+        className="flex items-center gap-2 text-slate-500 dark:text-gray-500 hover:text-cyan-400 mb-8 md:mb-12 transition-colors group font-mono-tech text-sm tracking-wide"
       >
         <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> 返回首页
       </button>
 
       {/* 模块 Hero */}
-      <div className="flex flex-col md:flex-row items-start gap-10 mb-16">
+      <div className="flex flex-col md:flex-row items-start gap-6 md:gap-10 mb-12 md:mb-16">
         <div
-          className={`w-24 h-24 rounded-3xl flex items-center justify-center shrink-0 ${accent.iconWrap}`}
+          className={`w-16 h-16 md:w-24 md:h-24 rounded-2xl md:rounded-3xl flex items-center justify-center shrink-0 ${accent.iconWrap}`}
           style={{ boxShadow: '0 0 32px rgba(34,211,238,0.15)' }}
         >
-          <Icon size={48} />
+          <Icon size={32} className="md:hidden" />
+          <Icon size={48} className="hidden md:block" />
         </div>
         <div>
-          <span className={`font-mono-tech text-xs font-bold uppercase tracking-[0.25em] mb-4 block ${accent.subtitle}`}>
+          <span className={`font-mono-tech text-[10px] md:text-xs font-bold uppercase tracking-[0.25em] mb-3 md:mb-4 block ${accent.subtitle}`}>
             {content.subtitle}
           </span>
-          <h1 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white mb-6 leading-tight" style={{ fontFamily: "'Syne', sans-serif" }}>
+          <h1 className="text-3xl sm:text-4xl md:text-7xl font-black text-slate-900 dark:text-white mb-4 md:mb-6 leading-tight break-words" style={{ fontFamily: "'Syne', sans-serif" }}>
             {content.title}
           </h1>
-          <p className="text-xl text-slate-600 dark:text-gray-400 leading-relaxed max-w-3xl">{content.description}</p>
+          <p className="text-base md:text-xl text-slate-600 dark:text-gray-400 leading-relaxed max-w-3xl">{content.description}</p>
         </div>
       </div>
 

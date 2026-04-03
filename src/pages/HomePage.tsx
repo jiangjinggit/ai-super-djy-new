@@ -58,7 +58,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-20">
+    <section className="relative min-h-screen flex items-center justify-center pt-24 md:pt-20">
       <div className="absolute inset-0 z-0">
         {/* 点阵网格 */}
         <div className="absolute inset-0 bg-grid-dots opacity-60" />
@@ -69,17 +69,17 @@ const Hero = () => {
         <div className="absolute bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-indigo-600/15 blur-[130px] rounded-full" />
       </div>
 
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-8 text-center">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-5 md:px-8 text-center">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-blue-600 dark:text-blue-400 uppercase bg-blue-400/10 border border-blue-400/20 rounded-full">
+          <span className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 mb-6 text-[10px] md:text-xs font-bold tracking-widest text-blue-600 dark:text-blue-400 uppercase bg-blue-400/10 border border-blue-400/20 rounded-full">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
             让每个人成为超级个体
           </span>
-          <h1 className="text-4xl md:text-7xl font-black tracking-tighter text-slate-900 dark:text-white mb-10 leading-[1.1]" style={{fontFamily: "'Syne', sans-serif"}}>
-            AI Superman <br className="my-2" />
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter text-slate-900 dark:text-white mb-6 md:mb-10 leading-[1.1] break-words" style={{fontFamily: "'Syne', sans-serif"}}>
+            AI Superman <br className="hidden sm:block my-2" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500">DJY</span>
           </h1>
-          <p className="max-w-2xl mx-auto text-lg md:text-xl text-slate-600 dark:text-gray-400 mb-8 leading-relaxed">
+          <p className="max-w-2xl mx-auto text-base md:text-xl text-slate-600 dark:text-gray-400 mb-8 leading-relaxed px-2">
             从零基础到模型判断，再到智能体工作台与真实场景验证。
             这里不卖神话，只帮你把 AI 变成更稳、更可执行的工作能力。
           </p>
@@ -89,15 +89,15 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="mx-auto max-w-sm mb-10 rounded-xl border border-cyan-500/20 bg-black/30 dark:bg-black/50 backdrop-blur-sm overflow-hidden text-left shadow-[0_0_30px_rgba(34,211,238,0.08)]"
+            className="mx-auto w-full max-w-[340px] md:max-w-sm mb-10 rounded-xl border border-cyan-500/20 bg-black/30 dark:bg-black/50 backdrop-blur-sm overflow-hidden text-left shadow-[0_0_30px_rgba(34,211,238,0.08)]"
           >
             <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/5 bg-white/[0.02]">
-              <div className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
-              <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/50" />
-              <div className="w-2.5 h-2.5 rounded-full bg-green-500/50" />
-              <span className="ml-2 text-[11px] font-mono-tech text-slate-500">ai-superman ~ djy</span>
+              <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-red-500/50" />
+              <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-yellow-500/50" />
+              <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-green-500/50" />
+              <span className="ml-2 text-[10px] md:text-[11px] font-mono-tech text-slate-500">ai-superman ~ djy</span>
             </div>
-            <div className="p-4 font-mono-tech text-xs space-y-1.5">
+            <div className="p-3 md:p-4 font-mono-tech text-[10px] md:text-xs space-y-1.5">
               <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> init super-individual</span></p>
               <p className="text-emerald-400 pl-2">✓ AI 工具矩阵已就绪</p>
               <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> load --module agent-intro openclaw</span></p>
@@ -107,12 +107,12 @@ const Hero = () => {
             </div>
           </motion.div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full px-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full px-4">
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={handleStart}
-              className="w-full sm:w-auto px-10 py-5 bg-gradient-to-r from-cyan-500 to-sky-600 text-white font-black text-lg rounded-2xl hover:from-cyan-400 hover:to-sky-500 transition-all shadow-[0_0_28px_rgba(34,211,238,0.35)] cursor-pointer"
+              className="w-full sm:w-auto px-8 md:px-10 py-4 md:py-5 bg-gradient-to-r from-cyan-500 to-sky-600 text-white font-black text-base md:text-lg rounded-2xl hover:from-cyan-400 hover:to-sky-500 transition-all shadow-[0_0_28px_rgba(34,211,238,0.35)] cursor-pointer"
               type="button"
             >
               开始探索
@@ -121,7 +121,7 @@ const Hero = () => {
               whileHover={{ scale: 1.02, boxShadow: '0 0 40px rgba(255,255,255,0.2)' }}
               whileTap={{ scale: 0.98 }}
               onClick={handleLearnMore}
-              className="w-full sm:w-auto px-10 py-5 bg-slate-900 dark:bg-white text-blue-600 font-black text-lg rounded-2xl hover:bg-gray-100 transition-all shadow-2xl cursor-pointer"
+              className="w-full sm:w-auto px-8 md:px-10 py-4 md:py-5 bg-slate-900 dark:bg-white text-blue-600 font-black text-base md:text-lg rounded-2xl hover:bg-gray-100 transition-all shadow-2xl cursor-pointer"
               type="button"
             >
               了解更多
@@ -257,22 +257,22 @@ const LearningJourney = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="card-scan card-hud relative flex items-start gap-6 p-8 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-cyan-500/10 rounded-3xl hover:border-cyan-500/25 transition-all overflow-hidden"
+                  className="card-scan card-hud relative flex flex-col md:flex-row items-start gap-4 md:gap-6 p-6 md:p-8 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-cyan-500/10 rounded-3xl hover:border-cyan-500/25 transition-all overflow-hidden"
                 >
                   <div
-                    className={`w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 text-xs font-bold font-mono-tech leading-tight border border-transparent ${phaseStyle.stepBadge}`}
+                    className={`w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl flex items-center justify-center shrink-0 text-[10px] md:text-xs font-bold font-mono-tech leading-tight border border-transparent ${phaseStyle.stepBadge}`}
                     style={{ boxShadow: '0 0 14px rgba(34,211,238,0.12)' }}
                   >
                     {phase.phase}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex flex-wrap items-center gap-3 mb-2">
-                      <h3 className="text-xl font-bold text-slate-900 dark:text-white">{phase.title}</h3>
-                      <span className="font-mono-tech text-[10px] tracking-wider text-slate-500 dark:text-gray-500 bg-slate-200 dark:bg-white/5 px-2.5 py-1 rounded-full shrink-0">
+                    <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-2">
+                      <h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-white">{phase.title}</h3>
+                      <span className="font-mono-tech text-[9px] md:text-[10px] tracking-wider text-slate-500 dark:text-gray-500 bg-slate-200 dark:bg-white/5 px-2 py-0.5 md:px-2.5 md:py-1 rounded-full shrink-0">
                         {phase.time}
                       </span>
                     </div>
-                    <p className="text-slate-600 dark:text-gray-400 mb-4">{phase.desc}</p>
+                    <p className="text-sm md:text-base text-slate-600 dark:text-gray-400 mb-4">{phase.desc}</p>
                     {phase.modules.length > 0 && (
                       <div className="flex flex-wrap gap-2">
                         {phase.modules.map((mod) => (

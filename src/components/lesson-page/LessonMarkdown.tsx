@@ -58,7 +58,7 @@ const components: Components = {
   h2: ({ node, children, ...props }) => (
     <h2
       id={headingId(flattenText(children))}
-      className="mt-14 mb-5 border-t border-slate-200 dark:border-white/10 pt-8 text-xl md:text-2xl font-black tracking-tight text-slate-900 dark:text-white"
+      className="mt-10 md:mt-14 mb-5 border-t border-slate-200 dark:border-white/10 pt-8 text-xl md:text-2xl font-black tracking-tight text-slate-900 dark:text-white"
       {...props}
     >
       {children}
@@ -67,7 +67,7 @@ const components: Components = {
   h3: ({ node, children, ...props }) => (
     <h3
       id={headingId(flattenText(children))}
-      className="mt-10 mb-4 text-lg md:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
+      className="mt-8 md:mt-10 mb-4 text-lg md:text-xl font-bold text-slate-900 dark:text-white tracking-tight"
       {...props}
     >
       {children}
@@ -186,7 +186,7 @@ const components: Components = {
 
 export const LessonMarkdown = ({ body }: LessonMarkdownProps) => {
   return (
-    <div className="rounded-[32px] border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/[0.03] px-6 py-8 md:px-10 md:py-10">
+    <div className="rounded-[24px] md:rounded-[32px] border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/[0.03] px-4 py-6 md:px-10 md:py-10">
       <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
         {body}
       </ReactMarkdown>

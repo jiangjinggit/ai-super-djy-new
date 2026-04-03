@@ -48,7 +48,7 @@ export default function LessonPage() {
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45, ease: 'easeOut' }}
-      className="pt-32 pb-24 px-6 max-w-4xl mx-auto"
+      className="pt-24 md:pt-32 pb-24 px-5 md:px-6 max-w-4xl mx-auto"
     >
       <button
         type="button"

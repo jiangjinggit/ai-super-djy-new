@@ -29,29 +29,29 @@ export const Navbar = () => {
 
   const navClassName = isScrolled
     ? 'fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b bg-white/80 dark:bg-black/80 backdrop-blur-md border-slate-200 dark:border-white/10 py-4'
-    : 'fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b bg-transparent border-transparent py-6';
+    : 'fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b bg-transparent border-transparent py-4 md:py-6';
 
   return (
     <nav className={navClassName}>
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 flex items-center justify-between">
         <button
           type="button"
-          className="flex items-center gap-2 cursor-pointer"
+          className="flex items-center gap-2 cursor-pointer shrink-0"
           onClick={() => navigate('/')}
           aria-label="返回首页"
         >
           {/* 六边形 Logo 容器 */}
           <div
-            className="w-10 h-10 flex items-center justify-center relative"
+            className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center relative shrink-0"
             style={{
               clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
               background: 'linear-gradient(135deg, #0EA5E9, #22D3EE)',
               boxShadow: '0 0 18px rgba(34,211,238,0.5)',
             }}
           >
-            <Cpu size={18} className="text-slate-950" strokeWidth={2} />
+            <Cpu size={16} className="text-slate-950" strokeWidth={2} />
           </div>
-          <span className="text-xl font-bold tracking-tighter text-slate-900 dark:text-white" style={{fontFamily: "'Syne', sans-serif"}}>
+          <span className="text-lg md:text-xl font-bold tracking-tighter text-slate-900 dark:text-white whitespace-nowrap" style={{fontFamily: "'Syne', sans-serif"}}>
             AI Superman <span className="text-cyan-400" style={{textShadow: '0 0 12px rgba(34,211,238,0.5)'}}>DJY</span>
           </span>
         </button>
