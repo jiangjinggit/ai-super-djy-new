@@ -83,7 +83,7 @@ const MODULE_METADATA: Record<
     difficulty: 'intermediate',
     audience: ['各行各业的从业者', '想通过案例理解 AI 落地路径的用户', '希望把 AI 真的接进业务流程的人'],
     tags: ['场景库', 'SOP', '内容生产', 'MVP', '案例拆解', '风险判断', '可复制性'],
-    prerequisites: ['建议先了解入门模块中的能力边界与工作流概念'],
+    prerequisites: ['建议已完成入门模块，并理解 AI 工作流和能力边界', '建议至少熟悉其中一项：命令行、机器人配置、表格数据处理、云端定时任务'],
   },
 };
 

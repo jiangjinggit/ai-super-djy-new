@@ -16,6 +16,7 @@
 - 有飞书账号（发送报告用）
 - 安装了 Python（系统自带或 python.org 下载，3.9 以上）
 - 能使用 Claude Code 或 Cursor
+- （可选）如果希望用 AI 生成报告摘要，需要 Anthropic API Key（[console.anthropic.com](https://console.anthropic.com) 注册获取，按用量计费，单次报告通常不到 ¥0.1）。不配置也可以，脚本会用 Python 字符串拼接生成报告
 
 ---
 
@@ -26,7 +27,7 @@
 | 需求描述 | Claude Code / Cursor | 用自然语言描述脚本功能 |
 | 脚本生成 | Claude Code | 生成 Python 脚本 |
 | 数据读取 | Python + 飞书 API / pandas | 从数据源读取数据 |
-| 报告生成 | Python + Claude API | AI 格式化成文字报告 |
+| 报告生成 | Python 字符串格式化（或可选 Claude API） | 拼接成文字报告；如需 AI 润色摘要，可接入 Claude API |
 | 发送 | 飞书 Webhook | 推送到飞书群 |
 | 定时执行 | crontab / GitHub Actions | 自动定期运行 |
 
@@ -92,11 +93,17 @@ curl -X POST "https://open.feishu.cn/open-apis/bot/v2/hook/你的WEBHOOK后缀" 
 
 飞书 Webhook URL：[你的 Webhook URL]
 
+要求：
+- 所有敏感信息（Webhook URL、App ID、App Secret、API Key）从环境变量读取，不要硬编码
+- 用 .env 文件管理本地开发的环境变量，配合 python-dotenv 加载
+
 请生成脚本，并告诉我：
 1. 如何安装所需的依赖包
 2. 如何运行脚本测试
 3. 如何配置每周一早上 9:00 自动运行
 ```
+
+> 为什么要强调"从环境变量读取"？因为后面配置 GitHub Actions 时，敏感信息必须通过 Secrets 注入环境变量。如果脚本里硬编码了这些值，本地能跑但云端会失败。提前在 Prompt 里说清楚，Claude Code 生成的代码就会自带 `os.environ.get()` 的写法。
 
 Claude Code 会生成：
 - 完整的 Python 脚本
@@ -108,9 +115,16 @@ Claude Code 会生成：
 
 ### Step 4：测试脚本
 
-按照 Claude Code 的说明安装依赖：
+先创建虚拟环境（避免依赖包和系统其他项目冲突），再安装依赖：
 
 ```bash
+# 创建虚拟环境（只需执行一次）
+python3 -m venv venv
+
+# 激活虚拟环境（每次打开新终端都要执行）
+source venv/bin/activate
+
+# 安装依赖
 pip install -r requirements.txt
 ```
 
@@ -143,12 +157,19 @@ python report.py
 
 如果数据在飞书多维表格里，需要额外配置飞书 API：
 
+> 建议先用 CSV 或 Excel 本地文件跑通整个流程，确认报告格式和发送都没问题后，再接飞书 API。飞书 API 的权限审批可能需要 1-2 个工作日，不要让它阻塞你的进度。
+
 **获取飞书 App ID 和 App Secret**：
-1. open.feishu.cn → 创建企业自建应用（如果还没有）
+1. 打开 [open.feishu.cn](https://open.feishu.cn) → 创建企业自建应用（如果还没有）
 2. 应用凭证 → 复制 App ID 和 App Secret
+3. 进入"权限管理" → 搜索并申请 `bitable:app:readonly` 权限
+4. 进入"版本管理与发布" → 创建版本 → 提交审核（需要飞书管理员审批）
+
+⚠️ 注意：创建企业自建应用和审批权限通常需要飞书管理员操作。如果你不是管理员，需要找管理员协助，整个流程可能需要 1-2 个工作日。
 
 **需要的权限**：
 - `bitable:app:readonly`（读取多维表格）
+- 在"数据权限"中，还需要指定该应用可以访问哪些多维表格（不是给了权限就能读所有表）
 
 **告诉 Claude Code**：
 
@@ -172,10 +193,14 @@ python report.py
 crontab -e
 
 # 在编辑器里添加一行（例：每周一 9:00 运行）
-0 9 * * 1 /usr/bin/python3 /你的文件路径/report.py >> /你的文件路径/report.log 2>&1
+# 注意：这里用虚拟环境里的 Python，才能加载 pip 安装的依赖包
+0 9 * * 1 /你的文件路径/venv/bin/python3 /你的文件路径/report.py >> /你的文件路径/report.log 2>&1
 ```
 
-注意：电脑必须开着且没有睡眠才能触发，适合白天要开着电脑的情况。
+注意：
+- 电脑必须开着且没有睡眠才能触发，适合白天要开着电脑的情况
+- Python 路径必须用虚拟环境里的（`venv/bin/python3`），不要用 `/usr/bin/python3`，否则找不到安装的依赖包
+- 如果不确定路径，激活虚拟环境后运行 `which python3` 查看
 
 **方案 B：GitHub Actions（云端免费运行，推荐）**
 
@@ -187,15 +212,15 @@ name: 自动周报
 
 on:
   schedule:
-    - cron: '0 1 * * 1'  # UTC 时间 1:00 = 北京时间 9:00，每周一
+    - cron: '0 1 * * 1'  # UTC 时间 1:00 = 北京时间 9:00，每周一（实际触发可能延迟 5-30 分钟）
   workflow_dispatch:  # 允许手动触发测试
 
 jobs:
   send-report:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       - run: pip install -r requirements.txt
@@ -210,6 +235,8 @@ jobs:
 4. 每次到时间，GitHub Actions 会自动运行脚本
 
 **优点**：不需要自己的服务器，完全免费，可靠性高。
+
+⚠️ GitHub Actions 的定时任务有 5-30 分钟的延迟（官方文档明确说明），不保证准时触发。如果你的报告对发送时间精度要求高（比如必须 9:00 准时），考虑腾讯云函数或自建服务器。对于周报场景，这个延迟通常可以接受。
 
 **方案 C：腾讯云函数（有服务器，国内稳定）**
 
@@ -262,8 +289,13 @@ jobs:
 
 常见原因：
 - Mac 系统睡眠了
-- Python 路径不对（用 `which python3` 查看路径后替换）
+- Python 路径不对（用虚拟环境里的路径 `venv/bin/python3`，不要用 `/usr/bin/python3`）
 - 时区问题（crontab 默认用系统时区，确认系统时区是 Asia/Shanghai）
+- 没有用虚拟环境的 Python，导致 import 依赖包失败（日志里会有 `ModuleNotFoundError`）
+
+**问题 5：飞书 Webhook 调试时被限流**
+
+飞书自定义机器人 Webhook 有频率限制（每分钟约 100 条）。正常使用不会触发，但调试时如果在循环里连续发送，可能会被临时限流。调试时建议每次只发一条测试消息。
 
 ---
 

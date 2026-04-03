@@ -58,7 +58,7 @@ export const MODULE_CARDS: ModuleCardData[] = [
   {
     id: 'cases',
     title: '场景与案例',
-    desc: '内容创作、独立开发、电商客服三类场景 SOP，加上内容团队、非技术建产品、AI-first 小团队三个案例拆解。看可复制的动作，不追神话叙事。',
+    desc: '6 个真实工作流案例，覆盖内容自动化、行业监控、市场研究、Vibe Coding 上线、MVP 推进、自动化报告，重点看前置条件、落地路径和风险边界。',
     icon: Users,
     color: 'purple',
   },
