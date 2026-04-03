@@ -1,4 +1,4 @@
-import { Cpu, Mail, MessageSquareText } from 'lucide-react';
+import { Cpu, MessageSquareText, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const Footer = () => {
@@ -27,7 +27,7 @@ export const Footer = () => {
             </span>
           </div>
           <p className="text-sm text-slate-600 dark:text-gray-400 leading-relaxed">
-            一个围绕 AI 学习、工作流、模型选型与真实落地场景持续整理的内容站。
+            一个围绕 AI 入门、大模型选型、智能体开发、AI 编程及真实落地案例持续整理的内容站。
           </p>
           <p className="font-mono-tech text-xs text-slate-400 dark:text-gray-600 mt-3 tracking-wider">
             © {currentYear} AI Superman DJY
@@ -42,13 +42,10 @@ export const Footer = () => {
               <MessageSquareText size={15} className="text-cyan-500" />
               公众号：AI Superman DJY
             </p>
-            <a
-              href="mailto:hello@aisupermandjy.com"
-              className="inline-flex items-center gap-2 hover:text-cyan-400 transition-colors"
-            >
-              <Mail size={15} className="text-cyan-500" />
-              hello@aisupermandjy.com
-            </a>
+            <p className="inline-flex items-center gap-2">
+              <User size={15} className="text-cyan-500" />
+              微信：AI-Superman-DJY
+            </p>
           </div>
         </div>
 

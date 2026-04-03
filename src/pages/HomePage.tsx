@@ -77,7 +77,7 @@ const Hero = () => {
           </span>
           <h1 className="text-4xl md:text-7xl font-black tracking-tighter text-slate-900 dark:text-white mb-10 leading-[1.1]" style={{fontFamily: "'Syne', sans-serif"}}>
             AI Superman <br className="my-2" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500">EVOLUTION</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500">DJY</span>
           </h1>
           <p className="max-w-2xl mx-auto text-lg md:text-xl text-slate-600 dark:text-gray-400 mb-8 leading-relaxed">
             从零基础到模型判断，再到智能体工作台与真实场景验证。
@@ -95,7 +95,7 @@ const Hero = () => {
               <div className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
               <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/50" />
               <div className="w-2.5 h-2.5 rounded-full bg-green-500/50" />
-              <span className="ml-2 text-[11px] font-mono-tech text-slate-500">ai-superman ~ evolution</span>
+              <span className="ml-2 text-[11px] font-mono-tech text-slate-500">ai-superman ~ djy</span>
             </div>
             <div className="p-4 font-mono-tech text-xs space-y-1.5">
               <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> init super-individual</span></p>
@@ -237,7 +237,7 @@ const LearningJourney = () => {
     <section id="learning-roadmap" className="py-24 px-6">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-16">
-          <p className="font-mono-tech text-xs text-cyan-400/70 tracking-[0.3em] uppercase mb-4">// evolution roadmap</p>
+          <p className="font-mono-tech text-xs text-cyan-400/70 tracking-[0.3em] uppercase mb-4">// djy roadmap</p>
           <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">成长路线图</h2>
           <p className="text-slate-600 dark:text-gray-400 max-w-2xl mx-auto">
             先定位你在哪个阶段，再选对应的模块按需学习。点击模块标签可直接跳转。
