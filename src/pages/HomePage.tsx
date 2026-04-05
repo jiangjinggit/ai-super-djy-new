@@ -81,7 +81,7 @@ const Hero = () => {
           </h1>
           <p className="max-w-2xl mx-auto text-base md:text-xl text-slate-600 dark:text-gray-400 mb-8 leading-relaxed px-2">
             从零基础到模型判断，再到智能体工作台与真实场景验证。
-            这里不卖神话，只帮你把 AI 变成更稳、更可执行的工作能力。
+            不讲概念神话，只帮你把 AI 变成更稳、更可执行的工作能力。
           </p>
 
           {/* 终端装饰 */}
@@ -89,13 +89,13 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="mx-auto w-full max-w-[340px] md:max-w-sm mb-10 rounded-xl border border-cyan-500/20 bg-black/30 dark:bg-black/50 backdrop-blur-sm overflow-hidden text-left shadow-[0_0_30px_rgba(34,211,238,0.08)]"
+            className="mx-auto w-full max-w-[340px] md:max-w-sm mb-10 rounded-xl border border-slate-700/80 dark:border-cyan-500/20 bg-slate-950 dark:bg-black/50 overflow-hidden text-left shadow-[0_8px_32px_rgba(0,0,0,0.18),0_2px_8px_rgba(0,0,0,0.12)] dark:shadow-[0_0_30px_rgba(34,211,238,0.08)]"
           >
-            <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/5 bg-white/[0.02]">
-              <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-red-500/50" />
-              <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-yellow-500/50" />
-              <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-green-500/50" />
-              <span className="ml-2 text-[10px] md:text-[11px] font-mono-tech text-slate-500">ai-superman ~ djy</span>
+            <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-slate-700/60 dark:border-white/5 bg-slate-800/60 dark:bg-white/[0.02]">
+              <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-red-400/70 dark:bg-red-500/50" />
+              <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-yellow-400/70 dark:bg-yellow-500/50" />
+              <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-green-400/70 dark:bg-green-500/50" />
+              <span className="ml-2 text-[10px] md:text-[11px] font-mono-tech text-slate-400 dark:text-slate-500">ai-superman ~ djy</span>
             </div>
             <div className="p-3 md:p-4 font-mono-tech text-[10px] md:text-xs space-y-1.5">
               <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> init super-individual</span></p>

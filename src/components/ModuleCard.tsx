@@ -18,7 +18,7 @@ export const ModuleCard = ({ title, desc, icon: Icon, color, index, id }: Module
     <motion.div
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -10, backgroundColor: 'rgba(255,255,255,0.08)' }}
+      whileHover={{ y: -10 }}
       whileTap={{ scale: 0.98 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.08 }}
@@ -26,7 +26,7 @@ export const ModuleCard = ({ title, desc, icon: Icon, color, index, id }: Module
         toast.success(`已进入: ${title}`, { description: '正在加载学习资源...' });
         navigate(`/module/${id}`);
       }}
-      className="card-scan card-hud group relative p-8 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-cyan-500/10 rounded-3xl transition-all cursor-pointer overflow-hidden hover:border-cyan-500/25"
+      className="card-scan card-hud group relative p-8 bg-slate-100 hover:bg-slate-200/80 dark:bg-white/5 dark:hover:bg-white/[0.08] border border-slate-200 dark:border-cyan-500/10 rounded-3xl transition-all cursor-pointer overflow-hidden hover:border-cyan-500/25"
       role="button"
       tabIndex={0}
       onKeyDown={(event) => {
