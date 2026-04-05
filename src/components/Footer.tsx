@@ -32,6 +32,14 @@ export const Footer = () => {
           <p className="font-mono-tech text-xs text-slate-400 dark:text-gray-600 mt-3 tracking-wider">
             © {currentYear} AI Superman DJY
           </p>
+          <a
+            href="https://beian.miit.gov.cn/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono-tech text-xs text-slate-400 dark:text-gray-600 mt-1 tracking-wider hover:text-cyan-400 transition-colors"
+          >
+            湘ICP备2026010800号
+          </a>
         </div>
 
         {/* 联系卡片 */}
