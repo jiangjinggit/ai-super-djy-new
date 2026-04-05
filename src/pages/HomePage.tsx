@@ -75,7 +75,7 @@ const Hero = () => {
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
             让每个人成为超级个体
           </span>
-          <h1 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter text-slate-900 dark:text-white mb-6 md:mb-10 leading-[1.1] break-words" style={{fontFamily: "'Syne', sans-serif"}}>
+          <h1 className="font-black tracking-tighter text-slate-900 dark:text-white mb-6 md:mb-10 leading-[1.1]" style={{fontFamily: "'Syne', sans-serif", fontSize: 'clamp(1.75rem, 9vw, 4.5rem)'}}>
             AI Superman <br className="hidden sm:block my-2" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500">DJY</span>
           </h1>
@@ -147,7 +147,7 @@ const Modules = () => {
   return (
     <section id="modules" className="py-24 px-6 max-w-7xl mx-auto">
       <div className="text-center mb-16">
-        <p className="font-mono-tech text-xs text-cyan-400/70 tracking-[0.3em] uppercase mb-4">// module library</p>
+
         <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">核心模块地图</h2>
         <p className="text-slate-600 dark:text-gray-400 max-w-2xl mx-auto">
           从入门、模型、智能体到 AI 编程，最后接场景与案例实战，按真实执行顺序组织内容。
@@ -237,61 +237,102 @@ const LearningJourney = () => {
     <section id="learning-roadmap" className="py-24 px-6">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-16">
-          <p className="font-mono-tech text-xs text-cyan-400/70 tracking-[0.3em] uppercase mb-4">// djy roadmap</p>
+
           <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">成长路线图</h2>
           <p className="text-slate-600 dark:text-gray-400 max-w-2xl mx-auto">
             先定位你在哪个阶段，再选对应的模块按需学习。点击模块标签可直接跳转。
           </p>
         </div>
         <div className="relative">
-          {/* 竖向发光连接线 */}
-          <div className="absolute left-[39px] top-10 bottom-10 w-px bg-gradient-to-b from-cyan-500/50 via-cyan-500/20 to-transparent hidden md:block" />
-
-          <div className="space-y-5">
+          <div className="flex flex-col">
             {JOURNEY_PHASES.map((phase, index) => {
               const phaseStyle = MODULE_COLOR_STYLES[phase.color];
+              const isLast = index === JOURNEY_PHASES.length - 1;
               return (
-                <motion.div
-                  key={phase.phase}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="card-scan card-hud relative flex flex-col md:flex-row items-start gap-4 md:gap-6 p-6 md:p-8 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-cyan-500/10 rounded-3xl hover:border-cyan-500/25 transition-all overflow-hidden"
-                >
-                  <div
-                    className={`w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl flex items-center justify-center shrink-0 text-[10px] md:text-xs font-bold font-mono-tech leading-tight border border-transparent ${phaseStyle.stepBadge}`}
-                    style={{ boxShadow: '0 0 14px rgba(34,211,238,0.12)' }}
+                <div key={phase.phase}>
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="card-scan card-hud relative flex flex-col md:flex-row items-start gap-4 md:gap-6 p-6 md:p-8 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-cyan-500/10 rounded-3xl hover:border-cyan-500/25 transition-all overflow-hidden"
                   >
-                    {phase.phase}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-2">
-                      <h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-white">{phase.title}</h3>
-                      <span className="font-mono-tech text-[9px] md:text-[10px] tracking-wider text-slate-500 dark:text-gray-500 bg-slate-200 dark:bg-white/5 px-2 py-0.5 md:px-2.5 md:py-1 rounded-full shrink-0">
-                        {phase.time}
-                      </span>
+                    <div
+                      className={`w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl flex items-center justify-center shrink-0 text-[10px] md:text-xs font-bold font-mono-tech leading-tight border border-transparent ${phaseStyle.stepBadge}`}
+                      style={{ boxShadow: '0 0 14px rgba(34,211,238,0.12)' }}
+                    >
+                      {phase.phase}
                     </div>
-                    <p className="text-sm md:text-base text-slate-600 dark:text-gray-400 mb-4">{phase.desc}</p>
-                    {phase.modules.length > 0 && (
-                      <div className="flex flex-wrap gap-2">
-                        {phase.modules.map((mod) => (
-                          <button
-                            key={mod.id}
-                            type="button"
-                            onClick={() => navigate(`/module/${mod.id}`)}
-                            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-bold font-mono-tech transition-all cursor-pointer ${CHIP_STYLES[mod.color]}`}
-                          >
-                            <span className="w-1.5 h-1.5 rounded-full bg-current opacity-70 shrink-0" />
-                            {mod.label}
-                            <span className="opacity-40">·</span>
-                            <span className="opacity-50 font-normal">{mod.time}</span>
-                          </button>
-                        ))}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-2">
+                        <h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-white">{phase.title}</h3>
+                        <span className="font-mono-tech text-[9px] md:text-[10px] tracking-wider text-slate-500 dark:text-gray-500 bg-slate-200 dark:bg-white/5 px-2 py-0.5 md:px-2.5 md:py-1 rounded-full shrink-0">
+                          {phase.time}
+                        </span>
                       </div>
-                    )}
-                  </div>
-                </motion.div>
+                      <p className="text-sm md:text-base text-slate-600 dark:text-gray-400 mb-4">{phase.desc}</p>
+                      {phase.modules.length > 0 && (
+                        <div className="flex flex-wrap gap-2">
+                          {phase.modules.map((mod) => (
+                            <button
+                              key={mod.id}
+                              type="button"
+                              onClick={() => navigate(`/module/${mod.id}`)}
+                              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-bold font-mono-tech transition-all cursor-pointer ${CHIP_STYLES[mod.color]}`}
+                            >
+                              <span className="w-1.5 h-1.5 rounded-full bg-current opacity-70 shrink-0" />
+                              {mod.label}
+                              <span className="opacity-40">·</span>
+                              <span className="opacity-50 font-normal">{mod.time}</span>
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </motion.div>
+                  {!isLast && (
+                    <div className="pl-12 md:pl-16">
+                      <div className="relative h-12 md:h-16 w-0.5">
+                        {/* 轨道底色与环境光 */}
+                        <div className="absolute inset-0 bg-slate-200 dark:bg-cyan-500/10 rounded-full" />
+                        <div className="absolute inset-0 bg-cyan-400/20 blur-[2px] rounded-full opacity-0 dark:opacity-100" />
+                        
+                        {/* 动态能量流 */}
+                        <motion.div
+                          animate={{ 
+                            top: ["-10%", "110%"],
+                            opacity: [0, 1, 1, 0]
+                          }}
+                          transition={{
+                            duration: 3,
+                            repeat: Infinity,
+                            ease: "linear"
+                          }}
+                          className="absolute left-0 right-0 h-1/3 bg-gradient-to-b from-transparent via-cyan-400 to-transparent z-10"
+                        />
+
+                        {/* 核心脉冲光头 */}
+                        <motion.div
+                          animate={{ 
+                            top: ["0%", "100%"],
+                            scale: [1, 1.2, 1],
+                            opacity: [0, 1, 0]
+                          }}
+                          transition={{
+                            duration: 3,
+                            repeat: Infinity,
+                            ease: "linear"
+                          }}
+                          className="absolute -left-1 w-2.5 h-2.5 rounded-full bg-white shadow-[0_0_15px_rgba(34,211,238,1),0_0_5px_white] z-20"
+                        />
+                        
+                        {/* 端点装饰 */}
+                        <div className="absolute -top-0.5 -left-0.5 w-1.5 h-1.5 rounded-full bg-cyan-500/30 dark:bg-cyan-400/40 blur-[1px]" />
+                        <div className="absolute -bottom-0.5 -left-0.5 w-1.5 h-1.5 rounded-full bg-cyan-500/30 dark:bg-cyan-400/40 blur-[1px]" />
+                      </div>
+                    </div>
+                  )}
+                </div>
               );
             })}
           </div>
