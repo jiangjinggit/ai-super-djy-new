@@ -41,7 +41,7 @@ export const Footer = () => {
             rel="noopener noreferrer"
             className="font-mono-tech text-xs text-slate-400 dark:text-gray-600 mt-1 tracking-wider hover:text-cyan-400 transition-colors"
           >
-            湘ICP备2026010800号
+            湘ICP备2026010800号-1
           </a>
         </div>
 

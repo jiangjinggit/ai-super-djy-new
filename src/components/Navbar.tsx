@@ -2,7 +2,6 @@ import { Cpu, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'sonner';
 
 import { NAV_LABELS } from '@/content/moduleCatalog';
 import { MODULE_IDS } from '@/types/course';
@@ -20,12 +19,6 @@ export const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const handleAction = () => {
-    toast.success('即将开启您的超级个体之旅！', {
-      description: '该功能正在开发中，敬请期待。',
-    });
-  };
 
   const navClassName = isScrolled
     ? 'fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b bg-white/80 dark:bg-black/80 backdrop-blur-md border-slate-200 dark:border-white/10 py-4'
