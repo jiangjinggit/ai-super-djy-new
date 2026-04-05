@@ -32,6 +32,9 @@ export const Footer = () => {
           <p className="font-mono-tech text-xs text-slate-400 dark:text-gray-600 mt-3 tracking-wider">
             © {currentYear} AI Superman DJY
           </p>
+          <p className="font-mono-tech text-xs text-slate-400 dark:text-gray-600 mt-1 tracking-wider">
+            超能个体成长笔记
+          </p>
           <a
             href="https://beian.miit.gov.cn/"
             target="_blank"

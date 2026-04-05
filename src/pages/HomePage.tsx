@@ -145,8 +145,8 @@ const Hero = () => {
 
 const Modules = () => {
   return (
-    <section id="modules" className="py-24 px-6 max-w-7xl mx-auto">
-      <div className="text-center mb-16">
+    <section id="modules" className="py-16 md:py-24 px-6 max-w-7xl mx-auto">
+      <div className="text-center mb-10 md:mb-16">
 
         <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">核心模块地图</h2>
         <p className="text-slate-600 dark:text-gray-400 max-w-2xl mx-auto">
@@ -234,9 +234,9 @@ const LearningJourney = () => {
   const navigate = useNavigate();
 
   return (
-    <section id="learning-roadmap" className="py-24 px-6">
+    <section id="learning-roadmap" className="py-16 md:py-24 px-6">
       <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 md:mb-16">
 
           <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">成长路线图</h2>
           <p className="text-slate-600 dark:text-gray-400 max-w-2xl mx-auto">
@@ -353,18 +353,18 @@ export default function HomePage() {
       <div className="w-full h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-cyan-500/10 to-transparent" />
       <Modules />
 
-      <section id="community" className="py-24 px-6">
-        <div className="max-w-5xl mx-auto bg-gradient-to-br from-cyan-600 via-sky-600 to-indigo-700 rounded-[40px] p-12 md:p-20 text-center relative overflow-hidden">
+      <section id="community" className="py-16 md:py-24 px-6">
+        <div className="max-w-5xl mx-auto bg-gradient-to-br from-cyan-600 via-sky-600 to-indigo-700 rounded-[28px] md:rounded-[40px] p-8 md:p-20 text-center relative overflow-hidden">
           {/* 纯 CSS 斜线纹理，替代外部 URL */}
-          <div className="absolute inset-0 bg-carbon-lines rounded-[40px]" />
+          <div className="absolute inset-0 bg-carbon-lines rounded-[28px] md:rounded-[40px]" />
           {/* 发光边框效果 */}
-          <div className="absolute inset-0 rounded-[40px] ring-1 ring-cyan-400/20" />
+          <div className="absolute inset-0 rounded-[28px] md:rounded-[40px] ring-1 ring-cyan-400/20" />
           <motion.div initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="relative z-10">
-            <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight text-white">
+            <h2 className="text-3xl md:text-6xl font-black mb-6 md:mb-8 leading-tight text-white">
               准备好开启你的 <br /> 超级个体进化了吗？
             </h2>
-            <p className="text-xl text-white/80 mb-6 max-w-2xl mx-auto">从一个真实任务开始，把模板、流程和判断力慢慢搭起来。</p>
-            <p className="text-lg text-white/55 mb-10">内容会持续更新，但所有高时效参数都建议回到官方文档复核。</p>
+            <p className="text-base md:text-xl text-white/80 mb-4 md:mb-6 max-w-2xl mx-auto">从一个真实任务开始，把模板、流程和判断力慢慢搭起来。</p>
+            <p className="text-sm md:text-lg text-white/55 mb-8 md:mb-10">内容会持续更新，但所有高时效参数都建议回到官方文档复核。</p>
             <Link to="/module/super-individual">
               <motion.button
                 whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(34,211,238,0.4)' }}

@@ -26,7 +26,7 @@ export const ModuleCard = ({ title, desc, icon: Icon, color, index, id }: Module
         toast.success(`已进入: ${title}`, { description: '正在加载学习资源...' });
         navigate(`/module/${id}`);
       }}
-      className="card-scan card-hud group relative p-8 bg-slate-100 hover:bg-slate-200/80 dark:bg-white/5 dark:hover:bg-white/[0.08] border border-slate-200 dark:border-cyan-500/10 rounded-3xl transition-all cursor-pointer overflow-hidden hover:border-cyan-500/25"
+      className="card-scan card-hud group relative p-6 md:p-8 bg-slate-100 hover:bg-slate-200/80 dark:bg-white/5 dark:hover:bg-white/[0.08] border border-slate-200 dark:border-cyan-500/10 rounded-3xl transition-all cursor-pointer overflow-hidden hover:border-cyan-500/25"
       role="button"
       tabIndex={0}
       onKeyDown={(event) => {
