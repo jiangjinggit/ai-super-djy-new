@@ -63,7 +63,7 @@ const Hero = () => {
         <div className="absolute bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-indigo-600/15 blur-[130px] rounded-full" />
       </div>
 
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-5 md:px-8 text-center pb-16 md:pb-0">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-5 md:px-8 text-center pb-16 md:pb-20">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
           <span className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 mb-6 text-[10px] md:text-xs font-bold tracking-widest text-blue-600 dark:text-blue-400 uppercase bg-blue-400/10 border border-blue-400/20 rounded-full">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
@@ -127,7 +127,7 @@ const Hero = () => {
       <motion.div
         animate={{ y: [0, 10, 0] }}
         transition={{ repeat: Infinity, duration: 2 }}
-        className="absolute bottom-4 left-1/2 -translate-x-1/2 text-slate-500 dark:text-gray-500 z-20 hidden md:block"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-slate-500 dark:text-gray-500 z-20 hidden md:block"
       >
         <div className="w-6 h-10 border-2 border-gray-700 rounded-full flex justify-center pt-2">
           <div className="w-1 h-2 bg-gray-500 rounded-full" />
