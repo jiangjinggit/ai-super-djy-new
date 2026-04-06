@@ -197,9 +197,9 @@ const JOURNEY_PHASES: Array<{
     desc: '在现有工作中深度使用 AI，搭建自动化工作流，开始积累个人品牌',
     color: 'purple',
     modules: [
-      { id: 'openclaw', label: 'OpenClaw', time: '2-3 周', color: 'orange' },
       { id: 'claude-agent', label: 'Claude', time: '1-2 周', color: 'purple' },
       { id: 'ai-programming', label: 'AI 编程', time: '2-3 周', color: 'blue' },
+      { id: 'openclaw', label: 'OpenClaw', time: '2-3 周', color: 'orange' },
     ],
   },
   {
