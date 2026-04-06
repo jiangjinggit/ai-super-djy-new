@@ -57,7 +57,7 @@ export const MobileTableOfContents = ({ body }: { body: string }) => {
       <motion.div
         drag
         dragMomentum={false}
-        className="lg:hidden fixed bottom-10 left-6 z-[60] touch-none"
+        className="lg:hidden fixed bottom-10 right-6 z-[60] touch-none"
       >
         <motion.button
           whileHover={{ scale: 1.1 }}
