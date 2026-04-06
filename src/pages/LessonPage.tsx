@@ -7,6 +7,7 @@ import { toast } from 'sonner';
 import { LessonMarkdown } from '@/components/lesson-page/LessonMarkdown';
 import { LessonVisualGuide } from '@/components/lesson-page/LessonVisualGuide';
 import { TableOfContents } from '@/components/lesson-page/TableOfContents';
+import { MobileTableOfContents } from '@/components/lesson-page/MobileTableOfContents';
 import { MODULE_COLOR_STYLES } from '@/constants/moduleStyles';
 import { MODULE_CONTENT } from '@/content/modules';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
@@ -90,6 +91,7 @@ export default function LessonPage() {
       />
 
       <TableOfContents body={lesson.body} />
+      <MobileTableOfContents body={lesson.body} />
 
       <motion.article
         initial={{ opacity: 0, y: 24 }}

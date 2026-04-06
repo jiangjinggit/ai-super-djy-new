@@ -96,11 +96,18 @@ export const Navbar = ({ onSearchClick }: { onSearchClick: () => void }) => {
           )}
         </div>
 
-        <div className="flex items-center gap-4 md:hidden">
+        <div className="flex items-center gap-2 md:hidden">
+          <button
+            onClick={onSearchClick}
+            className="p-2 text-slate-500 dark:text-gray-400 hover:text-cyan-400 transition-colors"
+            aria-label="搜索"
+          >
+            <Search size={20} />
+          </button>
           <ThemeToggle />
           <button
             type="button"
-            className="text-slate-900 dark:text-white"
+            className="p-2 text-slate-900 dark:text-white"
             onClick={() => setIsMobileMenuOpen((prev) => !prev)}
             aria-label={isMobileMenuOpen ? '关闭菜单' : '打开菜单'}
           >
@@ -115,25 +122,37 @@ export const Navbar = ({ onSearchClick }: { onSearchClick: () => void }) => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="md:hidden absolute top-full left-0 right-0 bg-white dark:bg-slate-950 border-b border-slate-200 dark:border-white/10 p-6 flex flex-col gap-4"
+            className="md:hidden absolute top-full left-0 right-0 bg-white dark:bg-[#0d1117] border-b border-slate-200 dark:border-white/10 p-6 flex flex-col gap-4 shadow-2xl"
           >
-            <Link to="/" className="text-lg font-medium text-slate-600 dark:text-gray-400" onClick={() => setIsMobileMenuOpen(false)}>
+            {/* 移动端菜单搜索入口 */}
+            <button
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                onSearchClick();
+              }}
+              className="flex items-center gap-3 px-4 py-3 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-500"
+            >
+              <Search size={18} />
+              <span className="text-sm font-medium">搜索课程、工具或场景...</span>
+            </button>
+
+            <Link to="/" className="text-lg font-medium text-slate-600 dark:text-gray-400 py-2 border-b border-slate-100 dark:border-white/5" onClick={() => setIsMobileMenuOpen(false)}>
               首页
             </Link>
             {MODULE_IDS.map((id) => (
               <Link
                 key={id}
                 to={`/module/${id}`}
-                className="text-lg font-medium text-slate-600 dark:text-gray-400"
+                className="text-lg font-medium text-slate-600 dark:text-gray-400 py-2 border-b border-slate-100 dark:border-white/5"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {NAV_LABELS[id]}
               </Link>
             ))}
-            <Link to="/about" className="text-lg font-medium text-slate-600 dark:text-gray-400" onClick={() => setIsMobileMenuOpen(false)}>
+            <Link to="/about" className="text-lg font-medium text-slate-600 dark:text-gray-400 py-2 border-b border-slate-100 dark:border-white/5" onClick={() => setIsMobileMenuOpen(false)}>
               关于
             </Link>
-            <Link to="/faq" className="text-lg font-medium text-slate-600 dark:text-gray-400" onClick={() => setIsMobileMenuOpen(false)}>
+            <Link to="/faq" className="text-lg font-medium text-slate-600 dark:text-gray-400 py-2 border-b border-slate-100 dark:border-white/5" onClick={() => setIsMobileMenuOpen(false)}>
               FAQ
             </Link>
             {showCommunityCTA && (
