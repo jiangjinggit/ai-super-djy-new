@@ -28,20 +28,6 @@ export const MODULE_CARDS: ModuleCardData[] = [
     color: 'purple',
   },
   {
-    id: 'agent-intro',
-    title: 'AI 智能体入门',
-    desc: '先统一智能体认知，再用任务适配和工具分流两张判断表决定下一步学什么。',
-    icon: Cpu,
-    color: 'emerald',
-  },
-  {
-    id: 'openclaw',
-    title: 'OpenClaw 实战',
-    desc: '先判断是否适合，再完成部署、三件套配置、技能、主动通知和长期调优。',
-    icon: Bot,
-    color: 'orange',
-  },
-  {
     id: 'claude-agent',
     title: 'Claude 智能体实战',
     desc: '15 课从认知到落地：CLI、Cowork、工作流、Prompt、上下文、MCP、安全边界、多智能体与三大真实场景。',
@@ -54,6 +40,20 @@ export const MODULE_CARDS: ModuleCardData[] = [
     desc: '横向理解 Claude Code、Codex、Cursor、Gemini、Kiro 与国内工具路线，再把模型、流程和治理接成一套默认工作栈。',
     icon: Code2,
     color: 'blue',
+  },
+  {
+    id: 'agent-intro',
+    title: 'AI 智能体入门',
+    desc: '先统一智能体认知，再用任务适配和工具分流两张判断表决定下一步学什么。',
+    icon: Cpu,
+    color: 'emerald',
+  },
+  {
+    id: 'openclaw',
+    title: 'OpenClaw 实战',
+    desc: '先判断是否适合，再完成部署、三件套配置、技能、主动通知和长期调优。',
+    icon: Bot,
+    color: 'orange',
   },
   {
     id: 'cases',

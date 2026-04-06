@@ -237,7 +237,7 @@ export const aiProgrammingModule: BaseModuleContent = {
     },
   ],
   cta: {
-    text: '工具与模型思路理顺后，去场景库挑你的第一条落地路径 →',
-    link: '/module/cases',
+    text: '工具与模型思路理顺后，建立智能体判断力 → 学习 AI 智能体入门',
+    link: '/module/agent-intro',
   },
 };
