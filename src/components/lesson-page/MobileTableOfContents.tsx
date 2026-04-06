@@ -53,26 +53,24 @@ export const MobileTableOfContents = ({ body }: { body: string }) => {
 
   return (
     <>
-      {/* 悬浮触发按钮 - 支持自由拖拽 */}
+      {/* 悬浮触发按钮 - 支持全屏自由拖拽 */}
       <motion.div
         drag
-        dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
-        dragElastic={0.1}
-        className="lg:hidden fixed bottom-24 right-6 z-[60] touch-none"
-        style={{ x: 0, y: 0 }}
+        dragMomentum={false}
+        className="lg:hidden fixed bottom-10 left-6 z-[60] touch-none"
       >
         <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95, opacity: 1 }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9, opacity: 1 }}
           onClick={() => setIsOpen(true)}
-          className="w-11 h-11 bg-cyan-500/80 dark:bg-cyan-500/90 text-slate-950 rounded-xl flex items-center justify-center shadow-[0_4px_12px_rgba(0,0,0,0.2),0_0_15px_rgba(34,211,238,0.3)] border border-cyan-400/30 relative overflow-hidden group opacity-60 active:opacity-100 transition-opacity"
-          style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}
+          className="w-8 h-8 flex items-center justify-center relative shrink-0 shadow-[0_0_15px_rgba(34,211,238,0.4)] transition-opacity opacity-80 active:opacity-100 cursor-pointer"
+          style={{
+            clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
+            background: 'linear-gradient(135deg, #0EA5E9, #22D3EE)',
+          }}
         >
-          <div className="absolute inset-0 bg-gradient-to-tr from-white/30 to-transparent" />
-          <ListTree size={18} />
-          
-          {/* 拖拽手感提示点 */}
-          <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-0.5 bg-slate-950/20 rounded-full" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent pointer-events-none" />
+          <ListTree size={14} className="text-slate-950 relative z-10" strokeWidth={2.5} />
         </motion.button>
       </motion.div>
 
