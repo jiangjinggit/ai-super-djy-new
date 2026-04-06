@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
-    "build": "vite build",
+    "build": "vite build && find dist -type f \\( -name \"*.js\" -o -name \"*.css\" -o -name \"*.html\" -o -name \"*.svg\" -o -name \"*.json\" \\) -exec gzip -9 -k {} \\;",
     "preview": "vite preview",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit"
