@@ -1,10 +1,39 @@
 import { Children, isValidElement, type ReactNode } from 'react';
 import ReactMarkdown, { type Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { Copy, Check } from 'lucide-react';
+import { toast } from 'sonner';
+import { useState } from 'react';
 
 interface LessonMarkdownProps {
   body: string;
 }
+
+const CopyButton = ({ text }: { text: string }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      toast.success('指令已成功复制到剪贴板');
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      toast.error('复制失败，请手动选择复制');
+    }
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={handleCopy}
+      className="flex items-center gap-1.5 px-2 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer bg-slate-200/50 dark:bg-white/5 hover:bg-blue-500/10 hover:text-blue-600 dark:hover:text-blue-400 text-slate-500 dark:text-gray-500 border border-transparent hover:border-blue-500/20"
+    >
+      {copied ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
+      {copied ? 'Copied' : 'Copy'}
+    </button>
+  );
+};
 
 const headingId = (value: string) =>
   value
@@ -125,15 +154,19 @@ const components: Components = {
   ),
   pre: ({ node, children, ...props }) => {
     const firstChild = Children.toArray(children)[0];
-    const className = isValidElement<{ className?: string }>(firstChild) ? firstChild.props.className : '';
+    const className = isValidElement<{ className?: string; children?: ReactNode }>(firstChild) ? firstChild.props.className : '';
+    const content = isValidElement<{ children?: ReactNode }>(firstChild) ? flattenText(firstChild.props.children) : '';
     const languageMatch = className?.match(/language-([\w-]+)/);
-    const label = languageMatch?.[1] ? languageMatch[1].toUpperCase() : '可直接复制';
+    const label = languageMatch?.[1] ? languageMatch[1].toUpperCase() : 'EXECUTABLE';
 
     return (
       <div className="my-8 overflow-hidden rounded-[28px] border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-[#09111f] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
         <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/[0.03] px-5 py-3">
-          <span className="text-xs font-bold uppercase tracking-[0.25em] text-blue-700 dark:text-blue-200">{label}</span>
-          <span className="text-xs text-slate-500 dark:text-gray-500">Template</span>
+          <div className="flex items-center gap-3">
+            <span className="text-xs font-bold uppercase tracking-[0.25em] text-blue-700 dark:text-blue-200">{label}</span>
+            <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse hidden md:block" />
+          </div>
+          <CopyButton text={content} />
         </div>
         <pre className="custom-scrollbar overflow-x-auto px-5 py-5 text-sm leading-7 text-slate-800 dark:text-gray-100" {...props}>
           {children}

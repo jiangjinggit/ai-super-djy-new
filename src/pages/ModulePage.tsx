@@ -2,12 +2,14 @@ import {
   ArrowLeft,
   ArrowRight,
   BookOpen,
+  CheckCircle2,
   ChevronRight,
   Clock3,
   Star,
   Users,
 } from 'lucide-react';
 import { motion } from 'motion/react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { ModuleEnhancementBlockSection } from '@/components/module-page/ModuleEnhancementBlockSection';
@@ -136,51 +138,80 @@ const splitCta = (text: string) => {
   };
 };
 
-const renderLessonCard = (
-  lesson: (typeof MODULE_CONTENT)[keyof typeof MODULE_CONTENT]['lessons'][number],
-  index: number,
-  onOpen: () => void,
-) => (
-  <button
-    key={lesson.slug}
-    type="button"
-    onClick={onOpen}
-    className="card-scan relative text-left p-5 bg-white/50 dark:bg-white/5 rounded-2xl hover:border-cyan-500/30 transition-all group border border-slate-200 dark:border-cyan-500/10 overflow-hidden"
-  >
-    <div className="flex items-start gap-4">
-      <div
-        className="font-mono-tech w-8 h-8 bg-cyan-500/10 text-cyan-400 rounded-lg flex items-center justify-center text-xs font-bold group-hover:bg-cyan-500/20 transition-all shrink-0"
-        style={{ textShadow: '0 0 8px rgba(34,211,238,0.5)' }}
-      >
-        {String(index + 1).padStart(2, '0')}
-      </div>
-      <div className="min-w-0 flex-1">
-        <div className="flex items-start justify-between gap-3 mb-2">
-          <h4 className="text-base font-semibold text-slate-800 dark:text-gray-200 group-hover:text-white transition-colors leading-relaxed">
-            {lesson.title}
-          </h4>
-          <span className="font-mono-tech text-[10px] text-slate-500 dark:text-gray-500 shrink-0 inline-flex items-center gap-1 tracking-wider">
-            <Clock3 size={10} /> {lesson.estimatedTime}
-          </span>
-        </div>
-        <p className="text-sm text-slate-600 dark:text-gray-400 leading-relaxed mb-2">{lesson.content}</p>
-        <div className="space-y-1">
-          {lesson.details.slice(0, 2).map((detail) => (
-            <p key={detail} className="text-xs text-slate-500 dark:text-gray-500 leading-relaxed">
-              — {detail}
-            </p>
-          ))}
-        </div>
-      </div>
-      <ChevronRight size={15} className="mt-1 text-slate-400 group-hover:text-cyan-400 group-hover:translate-x-0.5 transition-all shrink-0" />
-    </div>
-  </button>
-);
-
 export default function ModulePage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const moduleId = id && isModuleId(id) ? id : null;
+
+  const [completedSlugs, setCompletedSlugs] = useState<string[]>([]);
+
+  useEffect(() => {
+    const loadProgress = () => {
+      const completed = JSON.parse(localStorage.getItem('completed-lessons') || '[]');
+      setCompletedSlugs(completed);
+    };
+
+    loadProgress();
+    window.addEventListener('storage', loadProgress);
+    return () => window.removeEventListener('storage', loadProgress);
+  }, []);
+
+  const renderLessonCard = (
+    lesson: (typeof MODULE_CONTENT)[keyof typeof MODULE_CONTENT]['lessons'][number],
+    index: number,
+    onOpen: () => void,
+  ) => {
+    const isCompleted = completedSlugs.includes(lesson.slug);
+    
+    return (
+      <button
+        key={lesson.slug}
+        type="button"
+        onClick={onOpen}
+        className={`card-scan relative text-left p-5 rounded-2xl transition-all group border overflow-hidden ${
+          isCompleted 
+            ? 'bg-emerald-500/[0.03] dark:bg-emerald-500/[0.05] border-emerald-500/20 hover:border-emerald-500/40' 
+            : 'bg-white/50 dark:bg-white/5 border-slate-200 dark:border-cyan-500/10 hover:border-cyan-500/30'
+        }`}
+      >
+        <div className="flex items-start gap-4">
+          <div
+            className={`font-mono-tech w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold transition-all shrink-0 ${
+              isCompleted 
+                ? 'bg-emerald-500/20 text-emerald-500' 
+                : 'bg-cyan-500/10 text-cyan-400 group-hover:bg-cyan-500/20'
+            }`}
+            style={{ textShadow: isCompleted ? 'none' : '0 0 8px rgba(34,211,238,0.5)' }}
+          >
+            {isCompleted ? <CheckCircle2 size={16} /> : String(index + 1).padStart(2, '0')}
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="flex items-start justify-between gap-3 mb-2">
+              <h4 className={`text-base font-semibold transition-colors leading-relaxed ${
+                isCompleted ? 'text-emerald-700 dark:text-emerald-300' : 'text-slate-800 dark:text-gray-200 group-hover:text-white'
+              }`}>
+                {lesson.title}
+              </h4>
+              <span className="font-mono-tech text-[10px] text-slate-500 dark:text-gray-500 shrink-0 inline-flex items-center gap-1 tracking-wider">
+                <Clock3 size={10} /> {lesson.estimatedTime}
+              </span>
+            </div>
+            <p className="text-sm text-slate-600 dark:text-gray-400 leading-relaxed mb-2">{lesson.content}</p>
+            <div className="space-y-1">
+              {lesson.details.slice(0, 2).map((detail) => (
+                <p key={detail} className="text-xs text-slate-500 dark:text-gray-500 leading-relaxed">
+                  — {detail}
+                </p>
+              ))}
+            </div>
+          </div>
+          <ChevronRight size={15} className={`mt-1 transition-all shrink-0 ${
+            isCompleted ? 'text-emerald-500' : 'text-slate-400 group-hover:text-cyan-400 group-hover:translate-x-0.5'
+          }`} />
+        </div>
+      </button>
+    );
+  };
 
   const content = moduleId ? MODULE_CONTENT[moduleId] : null;
   const enhancement = moduleId ? MODULE_ENHANCEMENTS[moduleId] : null;
