@@ -8,6 +8,7 @@ import { LessonMarkdown } from '@/components/lesson-page/LessonMarkdown';
 import { LessonVisualGuide } from '@/components/lesson-page/LessonVisualGuide';
 import { TableOfContents } from '@/components/lesson-page/TableOfContents';
 import { MobileTableOfContents } from '@/components/lesson-page/MobileTableOfContents';
+import { CyberConfetti } from '@/components/CyberConfetti';
 import { MODULE_COLOR_STYLES } from '@/constants/moduleStyles';
 import { MODULE_CONTENT } from '@/content/modules';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
@@ -28,6 +29,8 @@ export default function LessonPage() {
   const lesson = lessonIndex >= 0 && moduleContent ? moduleContent.lessons[lessonIndex] : null;
 
   const [isCompleted, setIsCompleted] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
+  
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -42,7 +45,6 @@ export default function LessonPage() {
       const completedLessons = JSON.parse(localStorage.getItem('completed-lessons') || '[]');
       setIsCompleted(completedLessons.includes(lessonSlug));
     }
-    // 切换课程时自动回到顶部
     window.scrollTo(0, 0);
   }, [lessonSlug]);
 
@@ -55,13 +57,14 @@ export default function LessonPage() {
       toast.info('已取消标记本课');
     } else {
       newCompleted = [...completedLessons, lessonSlug];
+      setShowConfetti(true);
+      setTimeout(() => setShowConfetti(false), 2000);
       toast.success('恭喜学完本课！进度已保存', {
         icon: <CheckCircle2 className="text-emerald-500" size={18} />,
       });
     }
     localStorage.setItem('completed-lessons', JSON.stringify(newCompleted));
     setIsCompleted(!isCompleted);
-    // 触发一个自定义事件，通知其他组件（如 Navbar 或 ModulePage）更新进度
     window.dispatchEvent(new Event('storage'));
   };
 
@@ -84,7 +87,7 @@ export default function LessonPage() {
 
   return (
     <>
-      {/* 阅读进度条 */}
+      <CyberConfetti active={showConfetti} />
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-cyan-400 origin-left z-[100] shadow-[0_0_10px_rgba(34,211,238,0.8)]"
         style={{ scaleX }}
@@ -107,7 +110,6 @@ export default function LessonPage() {
           <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> 返回模块
         </button>
 
-        {/* 标题区 */}
         <div className="mb-8">
           <p className={`font-mono-tech text-xs font-bold uppercase tracking-[0.25em] mb-3 ${accent.subtitle}`}>
             {moduleContent.title}
@@ -124,7 +126,6 @@ export default function LessonPage() {
           </div>
         </div>
 
-        {/* Meta 信息卡片 */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <div className="card-scan card-hud relative rounded-2xl border border-slate-200 dark:border-cyan-500/10 bg-slate-100 dark:bg-white/5 px-5 py-4 hover:border-cyan-500/20 transition-colors">
             <p className="font-mono-tech text-[10px] uppercase tracking-[0.2em] text-slate-500 dark:text-gray-500 mb-2">难度</p>
@@ -147,7 +148,6 @@ export default function LessonPage() {
           </div>
         </div>
 
-        {/* 本课目标 */}
         <div className="mb-10 rounded-2xl border border-cyan-500/20 bg-cyan-500/5 px-6 py-5"
           style={{ boxShadow: '0 0 20px rgba(34,211,238,0.06)' }}>
           <p className="font-mono-tech text-[10px] uppercase tracking-[0.25em] text-cyan-500/70 mb-3">本课目标</p>
@@ -161,7 +161,6 @@ export default function LessonPage() {
 
         <LessonMarkdown body={lesson.body} />
 
-        {/* 学习反馈区 */}
         <div className="mt-12 mb-12 flex flex-col items-center justify-center py-10 border-y border-slate-200 dark:border-white/5">
           <p className="text-sm text-slate-500 dark:text-gray-500 mb-6 font-mono-tech tracking-widest uppercase">
             完成学习任务了吗？
@@ -183,7 +182,6 @@ export default function LessonPage() {
               </>
             ) : (
               <>
-                <div className="w-6 h-6 rounded-full border-2 border-current border-t-transparent animate-spin hidden group-active:block" />
                 标记本课为已学完
               </>
             )}
@@ -193,7 +191,6 @@ export default function LessonPage() {
           </p>
         </div>
 
-        {/* 上一课 / 下一课 导航 */}
         <div className="rounded-3xl border border-slate-200 dark:border-cyan-500/10 bg-slate-100 dark:bg-white/5 p-6 md:p-8">
           <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-gray-500 mb-6 font-mono-tech tracking-wider">
             <Layers3 size={14} className="text-cyan-500" />

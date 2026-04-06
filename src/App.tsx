@@ -1,6 +1,7 @@
 import { Suspense, lazy, useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Toaster } from 'sonner';
+import { AnimatePresence, motion } from 'motion/react';
 
 import { Footer } from '@/components/Footer';
 import { Navbar } from '@/components/Navbar';
@@ -23,7 +24,8 @@ const RouteFallback = () => (
   </div>
 );
 
-export default function App() {
+const AnimatedRoutes = () => {
+  const location = useLocation();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   useEffect(() => {
@@ -38,15 +40,19 @@ export default function App() {
   }, []);
 
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
-      <BrowserRouter>
-        <ScrollToTop />
-        <div className="min-h-screen overflow-x-hidden bg-slate-50 dark:bg-[#050505] text-slate-900 dark:text-white selection:bg-blue-500/30">
-          <Toaster position="top-center" richColors theme="system" />
-          <Navbar onSearchClick={() => setIsSearchOpen(true)} />
-          <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+    <>
+      <Navbar onSearchClick={() => setIsSearchOpen(true)} />
+      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={location.pathname}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.3, ease: 'easeOut' }}
+        >
           <Suspense fallback={<RouteFallback />}>
-            <Routes>
+            <Routes location={location}>
               <Route path="/" element={<HomePage />} />
               <Route path="/module/:id" element={<ModulePage />} />
               <Route path="/module/:id/lesson/:lessonSlug" element={<LessonPage />} />
@@ -57,6 +63,20 @@ export default function App() {
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </Suspense>
+        </motion.div>
+      </AnimatePresence>
+    </>
+  );
+};
+
+export default function App() {
+  return (
+    <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
+      <BrowserRouter>
+        <ScrollToTop />
+        <div className="min-h-screen overflow-x-hidden bg-slate-50 dark:bg-[#050505] text-slate-900 dark:text-white selection:bg-blue-500/30">
+          <Toaster position="top-center" richColors theme="system" />
+          <AnimatedRoutes />
           <Footer />
         </div>
       </BrowserRouter>
