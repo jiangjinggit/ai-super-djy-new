@@ -58,6 +58,12 @@ export const Navbar = ({ onSearchClick }: { onSearchClick: () => void }) => {
               {NAV_LABELS[id]}
             </Link>
           ))}
+          <Link to="/about" className="text-sm font-medium text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:text-white transition-colors">
+            关于
+          </Link>
+          <Link to="/faq" className="text-sm font-medium text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:text-white transition-colors">
+            FAQ
+          </Link>
           
           <div className="w-px h-4 bg-slate-200 dark:bg-white/10 mx-1" />
 
@@ -67,9 +73,11 @@ export const Navbar = ({ onSearchClick }: { onSearchClick: () => void }) => {
             className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-white/10 hover:border-cyan-500/30 hover:bg-cyan-500/5 transition-all group cursor-pointer"
           >
             <Search size={14} className="text-slate-400 group-hover:text-cyan-400 transition-colors" />
-            <span className="text-xs font-medium text-slate-400 group-hover:text-slate-600 dark:group-hover:text-gray-300 transition-colors">搜索</span>
-            <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-[9px] font-bold text-slate-400 dark:text-gray-500">
-              <Command size={8} /> K
+            <div className="hidden lg:flex items-center gap-1.5">
+              <span className="text-xs font-medium text-slate-400 group-hover:text-slate-600 dark:group-hover:text-gray-300 transition-colors">搜索</span>
+              <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-[9px] font-bold text-slate-400 dark:text-gray-500">
+                <Command size={8} /> K
+              </div>
             </div>
           </button>
 
