@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 
 import { LessonMarkdown } from '@/components/lesson-page/LessonMarkdown';
 import { LessonVisualGuide } from '@/components/lesson-page/LessonVisualGuide';
+import { TableOfContents } from '@/components/lesson-page/TableOfContents';
 import { MODULE_COLOR_STYLES } from '@/constants/moduleStyles';
 import { MODULE_CONTENT } from '@/content/modules';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
@@ -88,11 +89,13 @@ export default function LessonPage() {
         style={{ scaleX }}
       />
 
+      <TableOfContents body={lesson.body} />
+
       <motion.article
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.45, ease: 'easeOut' }}
-        className="pt-24 md:pt-32 pb-24 px-5 md:px-6 max-w-4xl mx-auto"
+        className="pt-24 md:pt-32 pb-24 px-5 md:px-6 max-w-4xl mx-auto lg:ml-[max(24rem,calc(50vw-24rem))]"
       >
         <button
           type="button"

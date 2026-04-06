@@ -1,4 +1,4 @@
-import { Cpu, Menu, X } from 'lucide-react';
+import { Cpu, Menu, Search, X, Command } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -9,7 +9,7 @@ import { ThemeToggle } from './ThemeToggle';
 
 const showCommunityCTA = false;
 
-export const Navbar = () => {
+export const Navbar = ({ onSearchClick }: { onSearchClick: () => void }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -58,13 +58,21 @@ export const Navbar = () => {
               {NAV_LABELS[id]}
             </Link>
           ))}
-          <Link to="/about" className="text-sm font-medium text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:text-white transition-colors">
-            关于
-          </Link>
-          <Link to="/faq" className="text-sm font-medium text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:text-white transition-colors">
-            FAQ
-          </Link>
           
+          <div className="w-px h-4 bg-slate-200 dark:bg-white/10 mx-1" />
+
+          {/* 搜索按钮 */}
+          <button
+            onClick={onSearchClick}
+            className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-slate-200 dark:border-white/10 hover:border-cyan-500/30 hover:bg-cyan-500/5 transition-all group cursor-pointer"
+          >
+            <Search size={14} className="text-slate-400 group-hover:text-cyan-400 transition-colors" />
+            <span className="text-xs font-medium text-slate-400 group-hover:text-slate-600 dark:group-hover:text-gray-300 transition-colors">搜索</span>
+            <div className="flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-[9px] font-bold text-slate-400 dark:text-gray-500">
+              <Command size={8} /> K
+            </div>
+          </button>
+
           <ThemeToggle />
 
           {showCommunityCTA && (
