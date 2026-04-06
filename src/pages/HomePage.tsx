@@ -67,11 +67,11 @@ const Hero = () => {
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
           <span className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 mb-6 text-[10px] md:text-xs font-bold tracking-widest text-blue-600 dark:text-blue-400 uppercase bg-blue-400/10 border border-blue-400/20 rounded-full">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-            让每个人成为超级个体
+            超级个体进化指南
           </span>
           <h1 className="font-black tracking-tighter text-slate-900 dark:text-white mb-6 md:mb-10 leading-[1.1]" style={{fontFamily: "'Syne', sans-serif", fontSize: 'clamp(1.75rem, 9vw, 4.5rem)'}}>
             AI Superman <br className="hidden sm:block my-2" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500">DJY</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500">EVOLVE</span>
           </h1>
           <p className="max-w-2xl mx-auto text-base md:text-xl text-slate-600 dark:text-gray-400 mb-5 md:mb-8 leading-relaxed px-2">
             从零基础到模型判断，再到智能体工作台与真实场景验证。
