@@ -53,19 +53,28 @@ export const MobileTableOfContents = ({ body }: { body: string }) => {
 
   return (
     <>
-      {/* 悬浮触发按钮 */}
-      <div className="lg:hidden fixed bottom-6 right-6 z-[60]">
+      {/* 悬浮触发按钮 - 支持自由拖拽 */}
+      <motion.div
+        drag
+        dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+        dragElastic={0.1}
+        className="lg:hidden fixed bottom-24 right-6 z-[60] touch-none"
+        style={{ x: 0, y: 0 }}
+      >
         <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95, opacity: 1 }}
           onClick={() => setIsOpen(true)}
-          className="w-14 h-14 bg-cyan-500 text-slate-950 rounded-2xl flex items-center justify-center shadow-[0_0_20px_rgba(34,211,238,0.4)] border border-cyan-400/50 relative overflow-hidden group"
+          className="w-11 h-11 bg-cyan-500/80 dark:bg-cyan-500/90 text-slate-950 rounded-xl flex items-center justify-center shadow-[0_4px_12px_rgba(0,0,0,0.2),0_0_15px_rgba(34,211,238,0.3)] border border-cyan-400/30 relative overflow-hidden group opacity-60 active:opacity-100 transition-opacity"
           style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}
         >
-          <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent" />
-          <ListTree size={24} />
+          <div className="absolute inset-0 bg-gradient-to-tr from-white/30 to-transparent" />
+          <ListTree size={18} />
+          
+          {/* 拖拽手感提示点 */}
+          <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-0.5 bg-slate-950/20 rounded-full" />
         </motion.button>
-      </div>
+      </motion.div>
 
       {/* 目录抽屉 */}
       <AnimatePresence>
