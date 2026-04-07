@@ -243,7 +243,7 @@ const LearningJourney = () => {
   const navigate = useNavigate();
 
   return (
-    <section id="learning-roadmap" className="py-16 md:py-24 px-6">
+    <section id="learning-roadmap" className="scroll-mt-20 md:scroll-mt-0 py-16 md:py-24 px-6">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-10 md:mb-16">
 
