@@ -55,7 +55,7 @@ export const Footer = () => {
             </p>
             <p className="inline-flex items-center gap-2">
               <User size={15} className="text-cyan-500" />
-              微信：AI-Superman-DJY
+              微信号：AI-Superman-DJY
             </p>
           </div>
         </div>

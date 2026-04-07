@@ -1,7 +1,7 @@
 import { Cpu, Menu, Search, X, Command } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import { NAV_LABELS } from '@/content/moduleCatalog';
 import { MODULE_IDS } from '@/types/course';
@@ -13,6 +13,15 @@ export const Navbar = ({ onSearchClick }: { onSearchClick: () => void }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const goHome = () => {
+    if (location.pathname === '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/');
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -30,7 +39,7 @@ export const Navbar = ({ onSearchClick }: { onSearchClick: () => void }) => {
         <button
           type="button"
           className="flex items-center gap-2 cursor-pointer shrink-0"
-          onClick={() => navigate('/')}
+          onClick={goHome}
           aria-label="返回首页"
         >
           {/* 六边形 Logo 容器 */}
@@ -50,9 +59,9 @@ export const Navbar = ({ onSearchClick }: { onSearchClick: () => void }) => {
         </button>
 
         <div className="hidden md:flex items-center gap-6">
-          <Link to="/" className="text-sm font-medium text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:text-white transition-colors">
+          <button type="button" onClick={goHome} className="text-sm font-medium text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:text-white transition-colors cursor-pointer">
             首页
-          </Link>
+          </button>
           {MODULE_IDS.map((id) => (
             <Link key={id} to={`/module/${id}`} className="text-sm font-medium text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:text-white transition-colors">
               {NAV_LABELS[id]}
@@ -136,9 +145,9 @@ export const Navbar = ({ onSearchClick }: { onSearchClick: () => void }) => {
               <span className="text-sm font-medium">搜索课程、工具或场景...</span>
             </button>
 
-            <Link to="/" className="text-lg font-medium text-slate-600 dark:text-gray-400 py-2 border-b border-slate-100 dark:border-white/5" onClick={() => setIsMobileMenuOpen(false)}>
+            <button type="button" onClick={() => { setIsMobileMenuOpen(false); goHome(); }} className="text-lg font-medium text-slate-600 dark:text-gray-400 py-2 border-b border-slate-100 dark:border-white/5 text-left w-full cursor-pointer">
               首页
-            </Link>
+            </button>
             {MODULE_IDS.map((id) => (
               <Link
                 key={id}

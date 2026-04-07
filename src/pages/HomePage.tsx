@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { MODULE_COLOR_STYLES } from '@/constants/moduleStyles';
@@ -37,6 +38,15 @@ const HOME_STATS = [
 ] as const;
 
 const Hero = () => {
+  const [showTerminal, setShowTerminal] = useState(true);
+
+  useEffect(() => {
+    const check = () => setShowTerminal(window.innerHeight > 750);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
   const handleStart = () => {
     const roadmapSection = document.getElementById('learning-roadmap');
     if (roadmapSection) {
@@ -45,68 +55,72 @@ const Hero = () => {
   };
 
   const handleLearnMore = () => {
-    const communitySection = document.getElementById('community');
-    if (communitySection) {
-      communitySection.scrollIntoView({ behavior: 'smooth' });
+    const contact = document.getElementById('community-contact');
+    if (contact) {
+      contact.scrollIntoView({ behavior: 'smooth', block: 'end' });
     }
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-24 md:pt-20">
+    <section className="relative flex flex-col" style={{ height: '100dvh' }}>
+      {/* 背景层 */}
       <div className="absolute inset-0 z-0">
-        {/* 点阵网格 */}
         <div className="absolute inset-0 bg-grid-dots opacity-60" />
-        {/* 底部渐变遮罩，让网格在底部淡出 */}
         <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-white dark:from-black to-transparent" />
-        {/* 光晕 — 改为 cyan + indigo */}
         <div className="absolute top-1/4 -left-1/4 w-1/2 h-1/2 bg-cyan-500/15 blur-[130px] rounded-full" />
         <div className="absolute bottom-1/4 -right-1/4 w-1/2 h-1/2 bg-indigo-600/15 blur-[130px] rounded-full" />
       </div>
 
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-5 md:px-8 text-center pb-16 md:pb-20">
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-          <span className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 mb-6 text-[10px] md:text-xs font-bold tracking-widest text-blue-600 dark:text-blue-400 uppercase bg-blue-400/10 border border-blue-400/20 rounded-full">
+      {/* 导航栏占位 */}
+      <div className="shrink-0 h-16 md:h-20" />
+
+      {/* 主内容区：flex-1 + min-h-0 确保能被压缩 */}
+      <div className="relative z-10 flex-1 min-h-0 flex flex-col items-center justify-center w-full max-w-6xl mx-auto px-5 md:px-8 text-center">
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="w-full">
+          <span className="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 mb-4 md:mb-6 text-[10px] md:text-xs font-bold tracking-widest text-blue-600 dark:text-blue-400 uppercase bg-blue-400/10 border border-blue-400/20 rounded-full">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
             超级个体进化指南
           </span>
-          <h1 className="font-black tracking-tighter text-slate-900 dark:text-white mb-6 md:mb-10 leading-[1.1]" style={{fontFamily: "'Syne', sans-serif", fontSize: 'clamp(1.75rem, 9vw, 4.5rem)'}}>
+          <h1 className="font-black tracking-tighter text-slate-900 dark:text-white mb-4 md:mb-8 leading-[1.1]" style={{fontFamily: "'Syne', sans-serif", fontSize: 'clamp(1.75rem, 8vw, 4.5rem)'}}>
             AI Superman <br className="hidden sm:block my-2" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500">EVOLVE</span>
           </h1>
-          <p className="max-w-2xl mx-auto text-base md:text-xl text-slate-600 dark:text-gray-400 mb-5 md:mb-8 leading-relaxed px-2">
+          <p className="max-w-2xl mx-auto text-sm md:text-xl text-slate-600 dark:text-gray-400 mb-4 md:mb-8 leading-relaxed px-2">
             从零基础到模型判断，再到智能体工作台与真实场景验证。
             不讲概念神话，只帮你把 AI 变成更稳、更可执行的工作能力。
           </p>
 
-          {/* 终端装饰 */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mx-auto w-full max-w-[340px] md:max-w-sm mb-6 md:mb-10 rounded-xl border border-slate-700/80 dark:border-cyan-500/20 bg-slate-950 dark:bg-black/50 overflow-hidden text-left shadow-[0_8px_32px_rgba(0,0,0,0.18),0_2px_8px_rgba(0,0,0,0.12)] dark:shadow-[0_0_30px_rgba(34,211,238,0.08)]"
-          >
-            <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-slate-700/60 dark:border-white/5 bg-slate-800/60 dark:bg-white/[0.02]">
-              <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-red-400/70 dark:bg-red-500/50" />
-              <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-yellow-400/70 dark:bg-yellow-500/50" />
-              <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-green-400/70 dark:bg-green-500/50" />
-              <span className="ml-2 text-[10px] md:text-[11px] font-mono-tech text-slate-400 dark:text-slate-500">ai-superman ~ djy</span>
-            </div>
-            <div className="p-3 md:p-4 font-mono-tech text-[10px] md:text-xs space-y-1.5">
-              <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> init super-individual</span></p>
-              <p className="text-emerald-400 pl-2">✓ AI 工具矩阵已就绪</p>
-              <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> load --module agent-intro openclaw</span></p>
-              <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> attach --module claude-agent cases</span></p>
-              <p className="text-emerald-400 pl-2">✓ 7 个模块加载完成</p>
-              <p className="flex items-center gap-1"><span className="text-cyan-400">$</span><span className="inline-block w-1.5 h-3.5 bg-cyan-400/80 ml-1 animate-pulse" /></p>
-            </div>
-          </motion.div>
+          {/* 终端装饰 — 视口高度不足时通过 JS 隐藏 */}
+          {showTerminal && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="mx-auto w-full max-w-[320px] md:max-w-sm mb-5 md:mb-10 rounded-xl border border-slate-700/80 dark:border-cyan-500/20 bg-slate-950 dark:bg-black/50 overflow-hidden text-left shadow-[0_8px_32px_rgba(0,0,0,0.18),0_2px_8px_rgba(0,0,0,0.12)] dark:shadow-[0_0_30px_rgba(34,211,238,0.08)]"
+            >
+              <div className="flex items-center gap-1.5 px-4 py-2.5 border-b border-slate-700/60 dark:border-white/5 bg-slate-800/60 dark:bg-white/[0.02]">
+                <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-red-400/70 dark:bg-red-500/50" />
+                <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-yellow-400/70 dark:bg-yellow-500/50" />
+                <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-green-400/70 dark:bg-green-500/50" />
+                <span className="ml-2 text-[10px] md:text-[11px] font-mono-tech text-slate-400 dark:text-slate-500">ai-superman ~ djy</span>
+              </div>
+              <div className="p-3 md:p-4 font-mono-tech text-[10px] md:text-xs space-y-1.5">
+                <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> init super-individual</span></p>
+                <p className="text-emerald-400 pl-2">✓ AI 工具矩阵已就绪</p>
+                <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> load --module agent-intro openclaw</span></p>
+                <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> attach --module claude-agent cases</span></p>
+                <p className="text-emerald-400 pl-2">✓ 7 个模块加载完成</p>
+                <p className="flex items-center gap-1"><span className="text-cyan-400">$</span><span className="inline-block w-1.5 h-3.5 bg-cyan-400/80 ml-1 animate-pulse" /></p>
+              </div>
+            </motion.div>
+          )}
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full px-4">
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={handleStart}
-              className="w-full sm:w-auto px-8 md:px-10 py-4 md:py-5 bg-gradient-to-r from-cyan-500 to-sky-600 text-white font-black text-base md:text-lg rounded-2xl hover:from-cyan-400 hover:to-sky-500 transition-all shadow-[0_0_28px_rgba(34,211,238,0.35)] cursor-pointer"
+              className="w-full sm:w-auto px-8 md:px-10 py-3.5 md:py-5 bg-gradient-to-r from-cyan-500 to-sky-600 text-white font-black text-sm md:text-lg rounded-2xl hover:from-cyan-400 hover:to-sky-500 transition-all shadow-[0_0_28px_rgba(34,211,238,0.35)] cursor-pointer"
               type="button"
             >
               开始探索
@@ -115,7 +129,7 @@ const Hero = () => {
               whileHover={{ scale: 1.02, boxShadow: '0 0 40px rgba(255,255,255,0.2)' }}
               whileTap={{ scale: 0.98 }}
               onClick={handleLearnMore}
-              className="w-full sm:w-auto px-8 md:px-10 py-4 md:py-5 bg-slate-900 dark:bg-white text-blue-600 font-black text-base md:text-lg rounded-2xl hover:bg-gray-100 transition-all shadow-2xl cursor-pointer"
+              className="w-full sm:w-auto px-8 md:px-10 py-3.5 md:py-5 bg-slate-900 dark:bg-white text-blue-600 font-black text-sm md:text-lg rounded-2xl hover:bg-gray-100 transition-all shadow-2xl cursor-pointer"
               type="button"
             >
               了解更多
@@ -124,15 +138,18 @@ const Hero = () => {
         </motion.div>
       </div>
 
-      <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-slate-500 dark:text-gray-500 z-20 hidden md:block"
-      >
-        <div className="w-6 h-10 border-2 border-gray-700 rounded-full flex justify-center pt-2">
-          <div className="w-1 h-2 bg-gray-500 rounded-full" />
-        </div>
-      </motion.div>
+      {/* 鼠标滚动提示 */}
+      <div className="shrink-0 flex justify-center py-5 md:py-8 relative z-20">
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ repeat: Infinity, duration: 2 }}
+          className="text-slate-500 dark:text-gray-500"
+        >
+          <div className="w-5 h-8 md:w-6 md:h-10 border-2 border-slate-400 dark:border-gray-700 rounded-full flex justify-center pt-1.5 md:pt-2">
+            <div className="w-1 h-1.5 md:h-2 bg-slate-400 dark:bg-gray-500 rounded-full" />
+          </div>
+        </motion.div>
+      </div>
     </section>
   );
 };
@@ -370,7 +387,7 @@ export default function HomePage() {
               </motion.button>
             </Link>
 
-            <div className="mt-10 pt-8 border-t border-white/15 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8">
+            <div id="community-contact" className="mt-10 pt-8 border-t border-white/15 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8">
               <div className="flex items-center gap-2 text-white/70 text-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="text-white/50 shrink-0">
                   <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.045c.134 0 .24-.11.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-7.063-6.122zm-3.89 3.295c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/>
@@ -382,7 +399,7 @@ export default function HomePage() {
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="text-white/50 shrink-0">
                   <path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.045c.134 0 .24-.11.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-7.063-6.122zm-3.89 3.295c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/>
                 </svg>
-                <span>微信：AI-Superman-DJY</span>
+                <span>微信号：AI-Superman-DJY</span>
               </div>
             </div>
           </motion.div>
