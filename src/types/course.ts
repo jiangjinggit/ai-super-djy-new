@@ -32,7 +32,7 @@ export interface Lesson {
   content: string;
   image: string;
   details: string[];
-  body: string;
+  body: () => Promise<string>;
   estimatedTime: string;
   difficulty: ContentDifficulty;
   audience: string[];

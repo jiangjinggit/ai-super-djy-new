@@ -11,10 +11,9 @@ import { openclawModule } from './openclaw';
 import { superIndividualModule } from './superIndividual';
 
 const lessonMarkdownFiles = import.meta.glob('../lessons/**/*.md', {
-  eager: true,
   import: 'default',
   query: '?raw',
-}) as Record<string, string>;
+}) as Record<string, () => Promise<string>>;
 
 const BASE_MODULES: Record<ModuleId, BaseModuleContent> = {
   'super-individual': superIndividualModule,
@@ -96,15 +95,17 @@ const extractLessonSlug = (image: string) => {
   return match?.[1] ?? image;
 };
 
-const getLessonBody = (moduleId: ModuleId, slug: string, lesson: BaseLesson) => {
+const getLessonBody = (moduleId: ModuleId, slug: string, lesson: BaseLesson): (() => Promise<string>) => {
   const key = `../lessons/${moduleId}/${slug}.md`;
-  const body = lessonMarkdownFiles[key];
+  const loader = lessonMarkdownFiles[key];
 
-  if (body) {
-    return body;
+  if (loader) {
+    return loader;
   }
 
-  return lesson.fullContent.map((item) => `## ${item.subtitle}\n\n${item.text}`).join('\n\n');
+  // 回退：从 fullContent 生成
+  const fallback = lesson.fullContent.map((item) => `## ${item.subtitle}\n\n${item.text}`).join('\n\n');
+  return () => Promise.resolve(fallback);
 };
 
 const lessonEstimatedTime = (moduleId: ModuleId, lesson: BaseLesson) => {

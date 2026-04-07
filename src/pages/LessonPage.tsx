@@ -30,6 +30,8 @@ export default function LessonPage() {
 
   const [isCompleted, setIsCompleted] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [body, setBody] = useState<string>('');
+  const [bodyLoading, setBodyLoading] = useState(true);
   
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -47,6 +49,17 @@ export default function LessonPage() {
     }
     window.scrollTo(0, 0);
   }, [lessonSlug]);
+
+  // 异步加载课程 Markdown 内容
+  useEffect(() => {
+    if (!lesson) return;
+    setBody('');
+    setBodyLoading(true);
+    lesson.body().then((content) => {
+      setBody(content);
+      setBodyLoading(false);
+    });
+  }, [lesson]);
 
   const toggleComplete = () => {
     if (!lessonSlug) return;
@@ -93,8 +106,8 @@ export default function LessonPage() {
         style={{ scaleX }}
       />
 
-      <TableOfContents body={lesson.body} />
-      <MobileTableOfContents body={lesson.body} />
+      <TableOfContents body={body} />
+      <MobileTableOfContents body={body} />
 
       <motion.article
         initial={{ opacity: 0, y: 24 }}
@@ -159,7 +172,11 @@ export default function LessonPage() {
 
         <LessonVisualGuide moduleId={moduleId} lessonSlug={lesson.slug} />
 
-        <LessonMarkdown body={lesson.body} />
+        {bodyLoading ? (
+          <div className="py-12 text-center text-sm text-slate-500 dark:text-gray-500">正在加载课程内容...</div>
+        ) : (
+          <LessonMarkdown body={body} />
+        )}
 
         <div className="mt-12 mb-12 flex flex-col items-center justify-center py-10 border-y border-slate-200 dark:border-white/5">
           <p className="text-sm text-slate-500 dark:text-gray-500 mb-6 font-mono-tech tracking-widest uppercase">
