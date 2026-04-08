@@ -17,6 +17,7 @@ const FAQPage = lazy(() => import('@/pages/FAQPage'));
 const PrivacyPage = lazy(() => import('@/pages/PrivacyPage'));
 const TermsPage = lazy(() => import('@/pages/TermsPage'));
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
+const BrandExportPage = lazy(() => import('@/pages/BrandExportPage'));
 
 const RouteFallback = () => (
   <div className="min-h-[60vh] flex items-center justify-center text-sm text-slate-500 dark:text-gray-500">
@@ -60,6 +61,7 @@ const AnimatedRoutes = () => {
               <Route path="/faq" element={<FAQPage />} />
               <Route path="/privacy" element={<PrivacyPage />} />
               <Route path="/terms" element={<TermsPage />} />
+              <Route path="/brand-export" element={<BrandExportPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </Suspense>
