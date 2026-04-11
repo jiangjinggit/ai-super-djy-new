@@ -34,23 +34,36 @@ export const Footer = () => {
           </p>
           <p className="font-mono-tech text-xs text-slate-400 dark:text-gray-600 mt-1 tracking-wider">
             超能个体成长笔记
+            {' · '}
+            <a
+              href="https://linux.do/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-cyan-400 transition-colors"
+            >
+              推广于 LINUX DO 社区
+            </a>
           </p>
-          <a
-            href="https://linux.do/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 font-mono-tech text-xs text-slate-400 dark:text-gray-600 mt-1 tracking-wider hover:text-cyan-400 transition-colors"
-          >
-            推广于 LINUX DO 社区
-          </a>
-          <a
-            href="https://beian.miit.gov.cn/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-mono-tech text-xs text-slate-400 dark:text-gray-600 mt-1 tracking-wider hover:text-cyan-400 transition-colors"
-          >
-            湘ICP备2026010800号-1
-          </a>
+          <p className="font-mono-tech text-xs text-slate-400 dark:text-gray-600 mt-1 tracking-wider flex items-center gap-1.5 leading-none">
+            <a
+              href="https://beian.mps.gov.cn/#/query/webSearch?code=44030002011715"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 hover:text-cyan-400 transition-colors"
+            >
+              <img src="/公安备案图标.png" alt="公安备案图标" className="w-4 h-4" />
+              粤公网安备44030002011715号
+            </a>
+            <span className="text-slate-500 dark:text-gray-500">|</span>
+            <a
+              href="https://beian.miit.gov.cn/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-cyan-400 transition-colors"
+            >
+              湘ICP备2026010800号-1
+            </a>
+          </p>
         </div>
 
         {/* 联系卡片 */}
