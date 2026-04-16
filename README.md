@@ -90,7 +90,7 @@ src/
 扫码加入微信学习交流群，与更多 AI 超级个体一起成长：
 
 <div align="center">
-  <img src="public/群二维码.png" alt="AI超级个体学习交流群" width="220" />
+  <img src="public/群二维码.jpg" alt="AI超级个体学习交流群" width="220" />
   <p><sub>二维码有效期有限，过期可通过以下方式联系获取最新群码</sub></p>
 </div>
 
