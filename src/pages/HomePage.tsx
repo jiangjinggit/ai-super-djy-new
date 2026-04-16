@@ -392,7 +392,7 @@ export default function HomePage() {
               </div>
               <div className="flex flex-col items-center gap-2">
                 <div className="p-2 bg-white rounded-2xl shadow-[0_0_32px_rgba(255,255,255,0.15)]">
-                  <img src="/群二维码.png" alt="AI超级个体学习交流群" className="w-36 h-36 md:w-44 md:h-44 rounded-xl object-cover" />
+                  <img src="/群二维码.jpg" alt="AI超级个体学习交流群" className="w-36 h-36 md:w-44 md:h-44 rounded-xl object-cover" />
                 </div>
                 <p className="text-white/40 text-xs">扫码加入学习交流群</p>
               </div>
