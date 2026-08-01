@@ -1,4 +1,4 @@
-import { Bot, Brain, Code2, Cpu, Plug, Rocket, Terminal, Users } from 'lucide-react';
+import { Bot, Brain, Code2, Cpu, Plug, Rocket, Users } from 'lucide-react';
 
 import type { ModuleCardData, ModuleId } from '@/types/course';
 
@@ -42,13 +42,6 @@ export const MODULE_CARDS: ModuleCardData[] = [
     desc: '先统一智能体认知，再用任务适配和工具分流两张判断表决定下一步学什么。',
     icon: Cpu,
     color: 'emerald',
-  },
-  {
-    id: 'claude-agent',
-    title: 'Claude 智能体实战',
-    desc: '15 课从认知到落地：CLI、Cowork、工作流、Prompt、上下文、MCP、安全边界、多智能体与三大真实场景。',
-    icon: Terminal,
-    color: 'purple',
   },
   {
     id: 'codex-agent',

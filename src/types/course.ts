@@ -14,6 +14,9 @@ export const MODULE_IDS = [
 
 export type ModuleId = (typeof MODULE_IDS)[number];
 
+// 暂时隐藏但保留内容与直达链接，方便后续重新开放。
+export const VISIBLE_MODULE_IDS: readonly ModuleId[] = MODULE_IDS.filter((id) => id !== 'claude-agent');
+
 export type ModuleColor = 'blue' | 'purple' | 'emerald' | 'orange';
 export type ContentDifficulty = 'beginner' | 'intermediate' | 'advanced';
 

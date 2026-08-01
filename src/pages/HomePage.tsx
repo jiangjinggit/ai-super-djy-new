@@ -8,7 +8,7 @@ import { MODULE_CONTENT } from '@/content/modules';
 import { ModuleCard } from '@/components/ModuleCard';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 import { useCountUp } from '@/hooks/useCountUp';
-import type { ModuleColor, ModuleId } from '@/types/course';
+import { VISIBLE_MODULE_IDS, type ModuleColor, type ModuleId } from '@/types/course';
 
 const StatCard = ({ target, label, suffix }: { target: number; label: string; suffix: string }) => {
   const { count, ref } = useCountUp(target, 1000);
@@ -29,7 +29,7 @@ const StatCard = ({ target, label, suffix }: { target: number; label: string; su
 const HOME_STATS = [
   { target: MODULE_CARDS.length, label: '核心模块', suffix: '' },
   {
-    target: Object.values(MODULE_CONTENT).reduce((total, module) => total + module.lessons.length, 0),
+    target: VISIBLE_MODULE_IDS.reduce((total, moduleId) => total + MODULE_CONTENT[moduleId].lessons.length, 0),
     label: '主题课程',
     suffix: '+',
   },
@@ -106,8 +106,8 @@ const Hero = () => {
                 <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> init super-individual</span></p>
                 <p className="text-emerald-400 pl-2">✓ AI 工具矩阵已就绪</p>
                 <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> load --module llm api-gateway</span></p>
-                <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> attach --module claude-agent codex-agent</span></p>
-                <p className="text-emerald-400 pl-2">✓ 9 个模块加载完成</p>
+                <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> attach --module codex-agent ai-programming</span></p>
+                <p className="text-emerald-400 pl-2">✓ 8 个模块加载完成</p>
                 <p className="flex items-center gap-1"><span className="text-cyan-400">$</span><span className="inline-block w-1.5 h-3.5 bg-cyan-400/80 ml-1 animate-pulse" /></p>
               </div>
             </motion.div>
@@ -210,10 +210,9 @@ const JOURNEY_PHASES: Array<{
     phase: '阶段 1',
     time: '2-4 周',
     title: '跑通执行工作流',
-    desc: '把 Claude、Codex、AI 编程工具和治理规则接进日常工作，形成读、计划、执行、验证、总结的稳定节奏。',
+    desc: '把 Codex、AI 编程工具和治理规则接进日常工作，形成读、计划、执行、验证、总结的稳定节奏。',
     color: 'purple',
     modules: [
-      { id: 'claude-agent', label: 'Claude', time: '1-2 周', color: 'purple' },
       { id: 'codex-agent', label: 'Codex', time: '1-2 周', color: 'blue' },
       { id: 'ai-programming', label: 'AI 编程', time: '2-3 周', color: 'blue' },
     ],

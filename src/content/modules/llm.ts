@@ -145,7 +145,7 @@ export const llmModule: BaseModuleContent = {
     },
   ],
   cta: {
-    text: '模型逻辑理顺后，下一步深入 Claude 实战 → 学习 Claude 智能体',
-    link: '/module/claude-agent',
+    text: '模型逻辑理顺后，下一步深入 Codex 实战 → 学习 Codex 智能体',
+    link: '/module/codex-agent',
   },
 };

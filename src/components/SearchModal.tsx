@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { MODULE_CONTENT } from '@/content/modules';
 import { NAV_LABELS } from '@/content/moduleCatalog';
-import type { ModuleId } from '@/types/course';
+import { VISIBLE_MODULE_IDS, type ModuleId } from '@/types/course';
 
 interface SearchItem {
   type: 'module' | 'lesson';
@@ -26,6 +26,8 @@ export const SearchModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () 
     const items: SearchItem[] = [];
     Object.entries(MODULE_CONTENT).forEach(([id, module]) => {
       const moduleId = id as ModuleId;
+      if (!VISIBLE_MODULE_IDS.includes(moduleId)) return;
+
       // 添加模块
       items.push({
         type: 'module',

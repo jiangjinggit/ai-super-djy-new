@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import { NAV_LABELS } from '@/content/moduleCatalog';
-import { MODULE_IDS } from '@/types/course';
+import { VISIBLE_MODULE_IDS } from '@/types/course';
 import { ThemeToggle } from './ThemeToggle';
 
 const showCommunityCTA = false;
@@ -66,7 +66,7 @@ export const Navbar = ({ onSearchClick }: { onSearchClick: () => void }) => {
           <button type="button" onClick={goHome} className="text-sm font-medium text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:text-white transition-colors cursor-pointer">
             首页
           </button>
-          {MODULE_IDS.map((id) => (
+          {VISIBLE_MODULE_IDS.map((id) => (
             <Link key={id} to={`/module/${id}`} className="text-sm font-medium text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:text-white transition-colors">
               {NAV_LABELS[id]}
             </Link>
@@ -152,7 +152,7 @@ export const Navbar = ({ onSearchClick }: { onSearchClick: () => void }) => {
             <button type="button" onClick={() => { setIsMobileMenuOpen(false); goHome(); }} className="text-lg font-medium text-slate-600 dark:text-gray-400 py-2 border-b border-slate-100 dark:border-white/5 text-left w-full cursor-pointer">
               首页
             </button>
-            {MODULE_IDS.map((id) => (
+            {VISIBLE_MODULE_IDS.map((id) => (
               <Link
                 key={id}
                 to={`/module/${id}`}
