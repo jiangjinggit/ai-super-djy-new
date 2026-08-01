@@ -390,11 +390,26 @@ export default function HomePage() {
                   <span>微信号：AI-Superman-DJY</span>
                 </div>
               </div>
-              <div className="flex flex-col items-center gap-2">
-                <div className="p-2 bg-white rounded-2xl shadow-[0_0_32px_rgba(255,255,255,0.15)]">
-                  <img src="/群二维码.jpg?v=20260428" alt="AI超级个体学习交流群" className="w-36 h-36 md:w-44 md:h-44 rounded-xl object-cover" />
+              <div className="w-full max-w-2xl rounded-2xl border border-white/15 bg-slate-950/20 p-5 md:p-6 text-left backdrop-blur-sm shadow-[0_20px_60px_rgba(15,23,42,0.18)]">
+                <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                  <div>
+                    <span className="inline-flex items-center rounded-full border border-amber-300/25 bg-amber-300/10 px-3 py-1 text-xs font-bold tracking-wide text-amber-100">
+                      入群方式已更新
+                    </span>
+                    <h3 className="mt-3 text-xl md:text-2xl font-black text-white">微信群已超过 200 人，请添加微信邀请入群</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-white/65">
+                      添加个人微信 <span className="font-mono font-bold text-cyan-100">AI-Superman-DJY</span>，申请时备注“进群”，通过后由我邀请你加入学习交流群。
+                    </p>
+                  </div>
+                  <div className="grid shrink-0 grid-cols-3 gap-2 text-center text-xs text-white/70 md:w-64">
+                    {['添加微信', '备注进群', '邀请入群'].map((step, index) => (
+                      <div key={step} className="rounded-xl border border-white/10 bg-white/5 px-2 py-3">
+                        <span className="mb-1 block font-mono text-cyan-200">0{index + 1}</span>
+                        {step}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <p className="text-white/40 text-xs">扫码加入学习交流群</p>
               </div>
             </div>
             <Link to="/module/super-individual">
