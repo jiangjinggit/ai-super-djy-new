@@ -1,7 +1,7 @@
 import type { ModuleEnhancement } from '@/types/course';
 
 export const aiProgrammingEnhancement: ModuleEnhancement = {
-  lastVerifiedOn: '2026-04-03',
+  lastVerifiedOn: '2026-06-08',
   sources: [
     { label: 'Claude Code Overview', url: 'https://code.claude.com/docs/en/overview' },
     { label: 'OpenAI Codex', url: 'https://developers.openai.com/codex' },
@@ -34,6 +34,44 @@ export const aiProgrammingEnhancement: ModuleEnhancement = {
   ],
   blocks: [
     {
+      type: 'action-checklist',
+      title: '8 课学习顺序与阶段产出',
+      description: '这门课的顺序不能倒过来。先建立范式，再选工具和模型，最后才推广到团队。',
+      hideMeta: true,
+      items: [
+        {
+          title: '1-2 课：代理坐标和双代理选型',
+          timebox: '45 分钟',
+          description: '先把 CLI、IDE、Cloud Agent、Spec-driven 放到同一张图，再拿 Claude Code / Codex 做安全与配置维度对比。',
+          doneDefinition: '你能为 3 个真实任务写出默认入口、审批策略、验证命令和回退方式。',
+        },
+        {
+          title: '3-4 课：IDE、Google 与国内路线试点',
+          timebox: '60 分钟',
+          description: '用同一个仓库任务比较 Cursor / Gemini / Kiro 和国内工具，不记录静态排名，只记录流程适配度。',
+          doneDefinition: '试点表里有跨文件质量、规则遵守、验证支持、团队治理和采购/合规约束。',
+        },
+        {
+          title: '5 课：模型角色表',
+          timebox: '40 分钟',
+          description: '把模型分成复杂主力、日常默认、低成本跑量、中文/企业回退四类角色，具体型号回官方页面核验。',
+          doneDefinition: '每类高频任务都有主力、回退、跑量候选和切换条件。',
+        },
+        {
+          title: '6-7 课：工作流与治理',
+          timebox: '60 分钟',
+          description: '把需求、实现、测试、评审、文档同步写成 SOP，再补权限、数据、成本、审计和回退规则。',
+          doneDefinition: 'SOP 明确先计划、再执行、验证和回退，高风险动作不会被自动放行。',
+        },
+        {
+          title: '8 课：30 天落地计划',
+          timebox: '30 分钟',
+          description: '把前面产出收口成个人、小团队或企业试运行计划。',
+          doneDefinition: '计划里有第一个真实任务、负责人、成功标准、降级条件和复盘日期。',
+        },
+      ],
+    },
+    {
       type: 'tool-comparison',
       title: '国际前沿工具 vs 国内落地工具',
       description: '这不是优劣榜，而是两条产品路线的典型差异。选型时先看你的团队约束，再看工具上限。',
@@ -43,7 +81,7 @@ export const aiProgrammingEnhancement: ModuleEnhancement = {
         {
           aspect: '典型代表',
           cli: 'Claude Code、Codex、Cursor、Gemini CLI / Antigravity、Kiro。',
-          cowork: '通义灵码、Qoder、TRAE、CodeBuddy，以及围绕 Qwen、豆包、DeepSeek 等模型构建的企业落地栈。',
+          cowork: 'Qoder CN / 通义灵码、Qoder、TRAE、CodeBuddy，以及围绕 Qwen、豆包、DeepSeek 等模型构建的企业落地栈。',
         },
         {
           aspect: '默认入口',
@@ -51,7 +89,7 @@ export const aiProgrammingEnhancement: ModuleEnhancement = {
           cowork: 'IDE 插件、企业控制台、中文化产品界面，强调易接入和团队推广。',
         },
         {
-          aspect: '最强项',
+          aspect: '代表优势',
           cli: '产品创新快，工作流范式领先，Agent、异步任务、规则系统更新频繁。',
           cowork: '中文体验、采购和支付便利、企业生态协同、私有化或云厂商接入更顺。',
         },
@@ -73,6 +111,53 @@ export const aiProgrammingEnhancement: ModuleEnhancement = {
       ],
     },
     {
+      type: 'sop-templates',
+      title: 'AI 编程三套练习模板',
+      description: '每套模板都用真实任务练，不用产品宣传材料练。关键是同一输入、同一验收口径、同一回退规则。',
+      hideMeta: true,
+      items: [
+        {
+          title: '同一仓库工具试点模板',
+          input: '1 个真实仓库、1 个小功能或 Bug、2-3 个候选工具、统一验收标准。',
+          steps: [
+            '先写任务卡：目标、涉及文件、禁止事项、成功标准、验证命令。',
+            '每个工具都先让它只读分析并出计划，不直接执行。',
+            '只允许按计划改动，记录是否扩大范围、是否尊重规则、是否能运行验证。',
+            '任务结束后对比 diff、测试结果、人工返工量和等待成本。',
+            '只给出当前流程推荐，不写永久排名。',
+          ],
+          output: '一张工具试点记录表和一个默认入口选择。',
+          kpi: '同一任务可复跑，结论能解释，且没有高风险动作被自动执行。',
+        },
+        {
+          title: '模型角色表模板',
+          input: '3 类高频代码任务、候选模型官方文档/价格页、真实调用记录。',
+          steps: [
+            '先定义任务角色：复杂主力、日常默认、低成本跑量、中文/企业回退。',
+            '每类任务用同一提示词和同一验收标准跑候选模型。',
+            '记录质量、速度、返工量、可用成本和调用失败情况。',
+            '把具体型号和价格写成“核验于某日”，并保留官方链接。',
+            '设置复评条件：任务变化、成本异常、失败率上升或官方能力更新。',
+          ],
+          output: '一张会随官方页面更新的任务-模型-回退表。',
+          kpi: '型号变化时仍能按角色替换，不依赖记忆里的旧价格或旧榜单。',
+        },
+        {
+          title: '团队最小治理模板',
+          input: '团队默认入口、仓库风险等级、Secrets 清单、PR 流程、预算边界。',
+          steps: [
+            '把任务分为低/中/高风险，分别定义允许入口和审批方式。',
+            '写清 Secrets、客户数据、生产配置和外部请求的默认禁止策略。',
+            '要求所有执行型任务先出计划，超过范围必须重新确认。',
+            '把验证命令、PR Review、审计记录和回退方式写进 SOP。',
+            '灰度 2 周，只在低风险任务上试运行，再复盘是否扩大范围。',
+          ],
+          output: '一份可以团队试运行的 AI 编程治理规则。',
+          kpi: '每个 AI 改动都有发起人、任务记录、验证结果、审批痕迹和回退路径。',
+        },
+      ],
+    },
+    {
       type: 'security-checklist',
       title: 'AI 编程最小治理清单',
       description: '真正可持续的 AI 编程，不靠“模型懂事”，靠把危险动作、敏感数据和回退点写成规则。',
@@ -87,11 +172,11 @@ export const aiProgrammingEnhancement: ModuleEnhancement = {
         },
         {
           title: '危险操作必须有人确认',
-          detail: '删除文件、安装依赖、推远端分支、改 CI/CD、发外部请求、写数据库都应该有确认点。',
+          detail: '删除文件、安装依赖、推远端分支、改 CI/CD、发外部请求、写数据库都必须先出计划，再由人确认。',
         },
         {
           title: '所有主流程都要有回退路径',
-          detail: '至少保留 git 备份、变更 diff、自检步骤和人工兜底。没有回退，就不要开放高权限自动化。',
+          detail: '至少保留 git 备份、变更 diff、自检步骤和人工兜底。没有验证和回退，就不要开放高权限自动化。',
         },
         {
           title: '成本看总拥有成本',
@@ -111,7 +196,7 @@ export const aiProgrammingEnhancement: ModuleEnhancement = {
         {
           week: 1,
           goal: '选默认入口',
-          deliverable: '分别试 1 个 CLI Agent、1 个 IDE Agent、1 个国内工具，写出你的主入口与备选入口。',
+          deliverable: '分别试 1 个 CLI Agent、1 个 IDE Agent、1 个国内工具，写出主入口、备选入口和同一任务的验证记录。',
           fallback: '如果判断不清，就拿同一个真实小任务分别试 20 分钟，用返工量和等待成本做决定。',
         },
         {
@@ -129,7 +214,7 @@ export const aiProgrammingEnhancement: ModuleEnhancement = {
         {
           week: 4,
           goal: '补齐治理边界',
-          deliverable: '完成权限规则、Secrets 策略、审计记录和回退方案，形成团队试运行版规范。',
+          deliverable: '完成权限规则、Secrets 策略、审计记录、验证规则和回退方案，形成团队试运行版规范。',
           fallback: '如果还不敢团队推广，就先限定在单仓库、单团队、低风险任务试运行。',
         },
       ],

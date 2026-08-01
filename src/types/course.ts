@@ -3,9 +3,11 @@ import type { LucideIcon } from 'lucide-react';
 export const MODULE_IDS = [
   'super-individual',
   'llm',
-  'claude-agent',
-  'ai-programming',
+  'api-gateway',
   'agent-intro',
+  'claude-agent',
+  'codex-agent',
+  'ai-programming',
   'openclaw',
   'cases',
 ] as const;

@@ -23,6 +23,10 @@ export const Navbar = ({ onSearchClick }: { onSearchClick: () => void }) => {
     }
   };
 
+  const handleAction = () => {
+    navigate('/module/super-individual');
+  };
+
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);

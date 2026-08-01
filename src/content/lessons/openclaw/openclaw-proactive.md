@@ -4,40 +4,35 @@
 - 通知三层分流规则模板
 - 从配置到验证的操作路径
 
+## 本课项目产物
+
+| 产物 | 完成标准 |
+| --- | --- |
+| 主动任务配置 | 至少 1 个 Cron 或 Heartbeat 能手动触发并返回结果 |
+| 通知三层分流规则 | AGENTS.md 中写清立即推送、合并摘要、静默记录 |
+| 观察记录 | 连续观察后记录是否过吵、重复或漏报，并给出调整动作 |
+
 ## OpenClaw 的差异化在运行层，不在对话层
 
 最值得学的不是它怎么聊天，而是它怎么自己开始工作。
 
 | 部件 | 配置方式 | 适合 | 例子 |
 | --- | --- | --- | --- |
-| Heartbeat | `heartbeat.interval` + `heartbeat.prompt` | 高频检查、异常发现 | 每小时检查紧急邮件 |
-| Cron | `cron[].pattern` + `cron[].prompt` | 固定时点汇总 | 每天 08:30 早报 |
+| Heartbeat | 按官方 Heartbeat 文档配置 | 高频检查、异常发现 | 每小时检查紧急邮件 |
+| Cron | 按官方 Cron 文档或管理命令配置 | 固定时点汇总 | 每天 08:30 早报 |
 | 通知渠道 | `openclaw channels` | 结果送达 | 飞书 + Telegram |
 
-## Heartbeat 配置
+## Heartbeat 配置思路
 
-```json
-{
-  "heartbeat": {
-    "interval": 3600,
-    "prompt": "检查是否有需要我注意的事项。查看邮箱是否有紧急邮件，检查日历是否有即将开始的会议冲突。有紧急事项立即通知，没有则不打扰。"
-  }
-}
+字段名和配置位置会随版本变化，按官方 Heartbeat 文档操作。课程只保留 prompt 和分流规则：
+
+```text
+检查是否有需要我注意的事项。查看邮箱是否有紧急邮件，检查日历是否有即将开始的会议冲突。有紧急事项立即通知，没有则不打扰。
 ```
-
-`interval` 单位秒。3600 = 每小时，1800 = 每 30 分钟。
 
 ## Cron 配置
 
-```json
-{
-  "cron": [
-    {"pattern": "30 8 * * 1-5", "prompt": "生成今日工作日报", "timezone": "Asia/Shanghai"},
-    {"pattern": "0 18 * * 1-5", "prompt": "生成今日工作总结", "timezone": "Asia/Shanghai"},
-    {"pattern": "0 9 * * 1", "prompt": "生成本周周报", "timezone": "Asia/Shanghai"}
-  ]
-}
-```
+按官方 Cron 文档或管理命令创建任务。下面只给时间表达和 prompt 示例，不写死 JSON schema。
 
 常用 cron 表达式：
 
@@ -48,7 +43,7 @@
 | `0 9 * * 1` | 每周一 09:00 |
 | `*/30 9-18 * * 1-5` | 工作日 9-18 点每 30 分钟 |
 
-注意：一定要设 `timezone: "Asia/Shanghai"`，否则时间按 UTC 算，08:30 会变成 16:30。
+如果配置里支持 timezone，明确写 `Asia/Shanghai`；如果改用 CLI/管理命令创建任务，以官方显示的时区为准。
 
 ## 通知三层分流（写进 AGENTS.md）
 

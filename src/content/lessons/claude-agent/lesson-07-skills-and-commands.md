@@ -4,6 +4,12 @@
 - 掌握常用内置命令和 bundled skills 的用途
 - 学会从零创建一个 Skill，把高频动作封装成可复用能力
 
+## 学完能做什么
+
+- 能判断一个重复任务应该做成 command、skill，还是继续手动执行
+- 能写出包含输入来源、输出格式、禁止事项和验证方式的 `SKILL.md`
+- 能避免把发送通知、提交代码、删除文件这类危险动作无确认地自动化
+
 ## 适合谁
 
 已经能稳定使用 5 步执行法和 CLAUDE.md 的用户，想把重复性工作进一步自动化。
@@ -21,7 +27,7 @@
 |------|--------|-----------|
 | **Tools（工具）** | Claude 调用的能力单元 | 读文件、写文件、跑命令、连 MCP |
 | **Built-in Commands（内置命令）** | 官方命令入口 | `/clear`、`/compact`、`/context`、`/mcp`、`/permissions` 等 |
-| **Bundled Skills（内置技能）** | 官方随产品附带的 skill | `/debug`、`/loop`、`/batch`、`/simplify` 等 |
+| **Bundled Skills（内置技能）** | 官方随产品附带的 skill | `/debug`、`/loop`、`/batch`、`/code-review` 等，具体以当前 `/` 菜单和官方文档为准 |
 | **Custom Skills / Commands（自定义技能/命令）** | 你在 `.claude/skills/` 或 `.claude/commands/` 里定义的能力包 | 复用工作流、模板、检查逻辑、脚本 |
 | **Subagents（子代理）** | 专注特定任务的子助手 | 复杂任务拆分与并行执行 |
 
@@ -43,13 +49,13 @@ Skills 比单个命令更强，因为一个 skill 往往包含：一个明确任
 | `/mcp` | 管理 MCP 连接和认证 |
 | `/hooks` | 查看 Hook 配置 |
 | `/plan` | 直接进入 plan mode |
-| `/security-review` | 做安全导向的代码审查 |
+| `/code-review` | 做代码审查，作为通用 review 入口 |
 | `/schedule` | 创建和管理 Cloud scheduled tasks |
 | `/feedback`（`/bug`） | 提交产品反馈 |
 | `/debug` | 官方 bundled skill，用于调试复杂问题 |
 | `/loop` | 官方 bundled skill，用于会话内循环检查 |
 
-> 说明：自定义 slash commands 仍然可用，但官方当前更推荐把复杂高频任务做成 skill。`/debug`、`/loop` 这些虽然也出现在 `/` 菜单里，但它们属于 bundled skills，不是 built-in commands。
+> 说明：自定义 slash commands 仍然可用，但官方当前更推荐把复杂高频任务做成 skill。`/debug`、`/loop`、`/code-review` 这类能力在产品内的归类和可用性可能更新，最终以当前 `/` 菜单与官方文档为准。
 
 ### Skill 是什么，为什么比单个命令更强
 
@@ -180,6 +186,35 @@ mkdir -p .claude/skills/standup
 3. 测试 3 次，根据输出调整说明
 4. 如果任务很简单（单步、无模板），做成 `.claude/commands/` 里的 command 即可
 
+交付模板：
+
+```markdown
+---
+name: [skill-name]
+description: [什么时候应该使用它]
+---
+
+## 输入来源
+[它可以读取哪些文件、命令输出或参数]
+
+## 执行步骤
+1. 先确认输入是否存在
+2. 只做本 skill 的单一职责
+3. 输出结果前做自检
+
+## 输出格式
+[固定格式，最好给示例]
+
+## 禁止事项
+- 不发送外部消息
+- 不提交代码
+- 不删除或移动文件
+- 不读取本任务以外的敏感目录
+
+## 验收
+[结果怎样算合格，失败时怎样停下来]
+```
+
 ## 常见误区
 
 1. **一个命令塞太多能力**：一个 skill 应该做一件事做好，不要把"生成日报 + 提交代码 + 发通知"全塞进一个 skill。拆开来，每个 skill 职责清晰，组合使用更灵活。
@@ -189,4 +224,6 @@ mkdir -p .claude/skills/standup
 
 ## 验收标准
 
-学员能把一个重复任务封装成 skill 或 command，包含明确的任务说明、输入来源、输出格式和禁止事项，并知道 `SKILL.md` 是 skill 的必需入口文件。
+- [ ] 能把一个重复任务封装成 skill 或 command
+- [ ] 说明中包含任务职责、输入来源、输出格式、禁止事项和验收方式
+- [ ] 至少测试 3 次，并根据失败结果调整说明

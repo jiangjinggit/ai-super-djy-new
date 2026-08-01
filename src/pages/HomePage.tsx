@@ -33,7 +33,7 @@ const HOME_STATS = [
     label: '主题课程',
     suffix: '+',
   },
-  { target: 3, label: '智能体路径', suffix: '' },
+  { target: 4, label: '学习阶段', suffix: '' },
   { target: MODULE_CONTENT.cases.lessons.length, label: '场景与案例', suffix: '' },
 ] as const;
 
@@ -84,7 +84,7 @@ const Hero = () => {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500">EVOLVE</span>
           </h1>
           <p className="max-w-2xl mx-auto text-sm md:text-xl text-slate-600 dark:text-gray-400 mb-4 md:mb-8 leading-relaxed px-2">
-            从零基础到模型判断，再到智能体工作台与真实场景验证。
+            从零基础到模型判断，再到接入层、智能体工作台与真实场景验证。
             不讲概念神话，只帮你把 AI 变成更稳、更可执行的工作能力。
           </p>
 
@@ -105,9 +105,9 @@ const Hero = () => {
               <div className="p-3 md:p-4 font-mono-tech text-[10px] md:text-xs space-y-1.5">
                 <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> init super-individual</span></p>
                 <p className="text-emerald-400 pl-2">✓ AI 工具矩阵已就绪</p>
-                <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> load --module agent-intro openclaw</span></p>
-                <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> attach --module claude-agent cases</span></p>
-                <p className="text-emerald-400 pl-2">✓ 7 个模块加载完成</p>
+                <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> load --module llm api-gateway</span></p>
+                <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> attach --module claude-agent codex-agent</span></p>
+                <p className="text-emerald-400 pl-2">✓ 9 个模块加载完成</p>
                 <p className="flex items-center gap-1"><span className="text-cyan-400">$</span><span className="inline-block w-1.5 h-3.5 bg-cyan-400/80 ml-1 animate-pulse" /></p>
               </div>
             </motion.div>
@@ -159,7 +159,7 @@ const Modules = () => {
 
         <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">核心模块地图</h2>
         <p className="text-slate-600 dark:text-gray-400 max-w-2xl mx-auto">
-          从入门、模型、智能体到 AI 编程，最后接场景与案例实战，按真实执行顺序组织内容。
+          从入门、模型、API 接入层、智能体到 AI 编程，最后接场景与案例实战，按真实执行顺序组织内容。
         </p>
       </div>
 
@@ -195,43 +195,44 @@ const JOURNEY_PHASES: Array<{
 }> = [
   {
     phase: '阶段 0',
-    time: '1-2 周',
-    title: '建立 AI 基础认知',
-    desc: '认识 AI 工具的能力边界，掌握 Prompt 核心方法，搭建适合自己的初始工具矩阵',
+    time: '2-3 周',
+    title: '建立基础判断力',
+    desc: '从一个真实任务出发，先学会写清目标、选择模型、接入 API，再判断什么任务适合交给智能体。',
     color: 'blue',
     modules: [
       { id: 'super-individual', label: '入门', time: '1-2 周', color: 'blue' },
       { id: 'llm', label: '大模型', time: '1-2 周', color: 'purple' },
+      { id: 'api-gateway', label: 'API 中转', time: '3-5 天', color: 'orange' },
       { id: 'agent-intro', label: '智能体入门', time: '30 分钟', color: 'emerald' },
     ],
   },
   {
     phase: '阶段 1',
-    time: '1-3 月',
-    title: '深度使用 AI 提效',
-    desc: '在现有工作中深度使用 AI，搭建自动化工作流，开始积累个人品牌',
+    time: '2-4 周',
+    title: '跑通执行工作流',
+    desc: '把 Claude、Codex、AI 编程工具和治理规则接进日常工作，形成读、计划、执行、验证、总结的稳定节奏。',
     color: 'purple',
     modules: [
       { id: 'claude-agent', label: 'Claude', time: '1-2 周', color: 'purple' },
+      { id: 'codex-agent', label: 'Codex', time: '1-2 周', color: 'blue' },
       { id: 'ai-programming', label: 'AI 编程', time: '2-3 周', color: 'blue' },
-      { id: 'openclaw', label: 'OpenClaw', time: '2-3 周', color: 'orange' },
     ],
   },
   {
     phase: '阶段 2',
-    time: '3-6 月',
-    title: '探索变现路径',
-    desc: '基于垂直领域知识 + AI 能力，构建个人产品或服务，获得第一笔收入',
+    time: '2-3 周',
+    title: '搭建自动化系统',
+    desc: '用 OpenClaw 把渠道、技能、记忆、主动通知和安全边界串起来，做出一个能长期维护的个人助手。',
     color: 'emerald',
     modules: [
-      { id: 'cases', label: '场景与案例', time: '随时', color: 'purple' },
+      { id: 'openclaw', label: 'OpenClaw', time: '2-3 周', color: 'orange' },
     ],
   },
   {
     phase: '阶段 3',
-    time: '6-12 月',
-    title: '规模化与护城河',
-    desc: '从副业到全职，建立竞争壁垒，探索规模化增长路径',
+    time: '持续复用',
+    title: '迁移到真实场景',
+    desc: '用案例库把前面的能力迁移到内容、研究、MVP、报告和运营流程，重点验证前置条件和风险边界。',
     color: 'orange',
     modules: [
       { id: 'cases', label: '场景与案例', time: '随时', color: 'purple' },

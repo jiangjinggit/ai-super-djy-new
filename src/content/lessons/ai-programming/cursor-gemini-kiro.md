@@ -5,6 +5,12 @@
 - 知道 Rules、Background Agents、Specs、Steering、Hooks 这些词解决的是哪类问题
 - 能判断自己更适合“编辑器原生协作”还是“规格先行”
 
+## 学完能做什么
+
+- 能把同一个需求分别改写成 IDE Agent 快速协作、Google 多入口协同、Kiro Spec-driven 三条流程
+- 能判断什么时候先做 vibe 探索，什么时候先写规格和验收标准
+- 能为团队写出一张路线选择表，而不是只写产品名字
+
 ## 适合谁
 
 - 已经知道 AI 编程要进入 IDE 层，但不知道 Cursor、Gemini、Kiro 怎么区分的人
@@ -38,7 +44,7 @@ Cursor 的核心优势是：
 
 这一课里把它简称为“Gemini 路线”，但更准确地说，它指的是 Google 围绕 Gemini 模型构建的整条开发产品线，而不只是 `Gemini CLI` 一个终端产品。
 
-Google 这条路线当前至少覆盖：
+课程里按三类入口理解 Google 这条路线，具体产品名称和能力以 Google 官方当前页面为准：
 
 - `Gemini CLI`：开源终端 Agent，是 Google 在命令行里的入口
 - `Gemini Code Assist`：IDE 与企业开发协作能力
@@ -168,6 +174,12 @@ Spec-driven 更适合：
 
 这能帮助你判断你是在为“当前便捷”选工具，还是在为“长期流程”选工具。
 
+交付模板：
+
+| 任务 | 当前路线 | 扩大 3 倍后路线 | 是否需要规格 | 验收标准 | 治理点 |
+|------|----------|-----------------|--------------|----------|--------|
+| 示例：导入客户名单 | Cursor 快速改 | Kiro spec | 是 | 去重、异常、权限、测试 | Rules/Steering + Review |
+
 ## 常见误区
 
 1. **把 IDE Agent 当成“更贵的代码补全”**  
@@ -184,7 +196,8 @@ Spec-driven 更适合：
 
 ## 验收标准
 
-- 能解释 Cursor、Google（Gemini CLI / Code Assist / Antigravity）、Kiro 各自代表的产品思路
-- 能说清 Rules、Background Agents、Specs、Steering、Hooks 各自解决什么问题
-- 能为自己当前 3 类任务选出更合适的路线
-- 能判断什么时候该用 Spec-driven，什么时候不该用
+- [ ] 能解释 Cursor、Google（Gemini CLI / Code Assist / Antigravity）、Kiro 各自代表的产品思路
+- [ ] 能说清 Rules、Background Agents、Specs、Steering、Hooks 各自解决什么问题
+- [ ] 能为自己当前 3 类任务选出更合适的路线
+- [ ] 能判断什么时候该用 Spec-driven，什么时候不该用
+- [ ] 至少 1 个任务写出了输入、验收标准和治理点

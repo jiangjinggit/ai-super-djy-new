@@ -3,6 +3,13 @@
 - 工作区、Agent、渠道、节点四个对象的分工
 - 什么时候该拆、什么时候该共享
 
+## 本课项目产物
+
+| 产物 | 完成标准 |
+| --- | --- |
+| 工作区关系图 | 标出工作区、Agent、渠道、节点各自承担的职责 |
+| 共享/隔离决策表 | 写清哪些能力全局共享，哪些场景专用，哪些高风险能力必须隔离 |
+
 ## 先分清 4 个对象
 
 | 对象 | 管什么 | 别搞混 |
@@ -14,7 +21,7 @@
 
 真正决定系统能做什么的，不是接了几个渠道，而是工作区里加载了什么规则和技能、Agent 拿到了什么权限、节点能不能提供浏览器和文件访问。
 
-> 📖 [DEV Community — Unleashing OpenClaw: Ultimate Guide](https://dev.to/mechcloud_academy/unleashing-openclaw-the-ultimate-guide-to-local-ai-agents-for-developers-in-2026-3k0h)（Gateway 架构、Brain 模型层深度解析）
+> 📖 架构事实优先看官方 [Gateway](https://docs.openclaw.ai/gateway) 与 [Multi-agent](https://docs.openclaw.ai/concepts/multi-agent) 文档；社区文章可以做延伸阅读，但不要作为命令、路径或内部实现依据。
 
 ## 什么时候拆，什么时候共享
 

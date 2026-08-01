@@ -4,6 +4,14 @@
 - 双通道消息路由配置
 - 渠道故障排查表
 
+## 本课项目产物
+
+| 产物 | 完成标准 |
+| --- | --- |
+| 飞书渠道验收记录 | 应用、事件订阅、权限、gateway 状态、私聊和群聊测试都通过 |
+| 双通道路由规则 | 明确飞书承接什么、Telegram 只接什么强提醒、哪些信息静默 |
+| Webhook 备用通道测试 | 能向专用飞书群发送 1 条测试消息，并记录安全设置以官方当前页面为准 |
+
 ## 中国用户的渠道优先级
 
 | 渠道 | 优先级 | 原因 |
@@ -25,24 +33,20 @@
 ### 2. 启用机器人 + 配置事件
 
 1. 添加「机器人」能力
-2. 事件订阅选 Long connection（不要选 HTTP 推送，配置复杂且容易断）
+2. 事件订阅选 Long connection / persistent connection（不要选 HTTP 推送，配置复杂且容易断）
 3. 添加事件：`im.message.receive_v1`
 
 ### 3. 配置权限
 
-```text
-im:message              # 读取消息
-im:message:send_as_bot  # 以机器人身份发消息
-im:chat                 # 读取群信息
-contact:user.id:readonly # 读取用户 ID
-```
+权限项会随飞书开放平台界面调整，不在课程里写死完整清单。按 OpenClaw Feishu 官方文档和飞书开放平台当前提示勾选消息接收、机器人发消息、群聊和用户 ID 相关权限即可。
 
 ### 4. 发布并接入
 
 发布应用 -> 等管理员审批 -> 在 OpenClaw 里接入：
 
 ```bash
-openclaw channels add  # 选 Feishu，填 App ID 和 App Secret
+openclaw channels login --channel feishu
+openclaw gateway restart
 openclaw gateway status  # feishu 状态应为 connected
 ```
 

@@ -91,6 +91,45 @@ const CLAUDE_AGENT_LESSON_GROUPS = [
   },
 ] as const;
 
+const CODEX_AGENT_LESSON_GROUPS = [
+  {
+    stage: 'Stage 01',
+    title: '认知与入口：先选对使用表面',
+    description: '先理解 Codex 不是聊天框，再分清 App、IDE、CLI、Cloud 的任务边界。',
+    lessonSlugs: ['lesson-01-what-is-codex', 'lesson-02-entry-map'],
+  },
+  {
+    stage: 'Stage 02',
+    title: '本地上手：读懂仓库再小步修改',
+    description: '用 CLI 完成只读分析和第一处小改动，再用 AGENTS.md 和权限矩阵稳住项目规则。',
+    lessonSlugs: ['lesson-03-cli-quickstart', 'lesson-04-agents-md', 'lesson-05-sandbox-approvals'],
+  },
+  {
+    stage: 'Stage 03',
+    title: '核心工作流：把任务变成契约',
+    description: '用 5 步执行法和任务契约约束 Codex 的自由度，让每次改动可审查、可验证、可回退。',
+    lessonSlugs: ['lesson-06-five-step-workflow', 'lesson-07-task-contract'],
+  },
+  {
+    stage: 'Stage 04',
+    title: '云端与协作：从本地执行到团队 PR',
+    description: '把低耦合任务交给 Cloud，并通过 IDE、PR 和 MCP 接入真实研发协作。',
+    lessonSlugs: ['lesson-08-cloud-tasks', 'lesson-09-ide-pr-workflow', 'lesson-10-mcp-integrations'],
+  },
+  {
+    stage: 'Stage 05',
+    title: '配置与治理：让默认行为可控',
+    description: '用 profile、分支、回退和团队政策把安全边界制度化，而不是靠临时提醒。',
+    lessonSlugs: ['lesson-11-config-profiles', 'lesson-12-context-branching', 'lesson-13-security-governance'],
+  },
+  {
+    stage: 'Stage 06',
+    title: '真实场景实战：把流程迁移到团队',
+    description: '用 Bug 修复和小功能协作两个案例，把 Codex 与 Claude Code、IDE 工具放进同一套验收体系。',
+    lessonSlugs: ['lesson-14-case-bugfix', 'lesson-15-case-team-feature'],
+  },
+] as const;
+
 const AI_PROGRAMMING_LESSON_GROUPS = [
   {
     stage: 'Stage 01',
@@ -221,6 +260,7 @@ export default function ModulePage() {
     enhancement?.blocks.filter((block) => block.type !== 'action-checklist' && block.type !== 'tool-comparison') ?? [];
   const isOpenClaw = moduleId === 'openclaw';
   const isClaudeAgent = moduleId === 'claude-agent';
+  const isCodexAgent = moduleId === 'codex-agent';
   const isAiProgramming = moduleId === 'ai-programming';
   const isCases = moduleId === 'cases';
 
@@ -232,11 +272,15 @@ export default function ModulePage() {
   const claudeAgentPreLessonBlocks = enhancement?.blocks.filter((b) => b.type === 'tool-comparison' || b.type === 'weekly-plan') ?? [];
   const claudeAgentPostLessonBlocks = enhancement?.blocks.filter((b) => b.type !== 'tool-comparison' && b.type !== 'weekly-plan') ?? [];
 
+  // Codex Agent 专用：tool-comparison + weekly-plan 放课程前，其余放课程后
+  const codexAgentPreLessonBlocks = enhancement?.blocks.filter((b) => b.type === 'tool-comparison' || b.type === 'weekly-plan') ?? [];
+  const codexAgentPostLessonBlocks = enhancement?.blocks.filter((b) => b.type !== 'tool-comparison' && b.type !== 'weekly-plan') ?? [];
+
   // AI Programming 专用：tool-comparison + weekly-plan 放课程前，其余放课程后
   const aiProgrammingPreLessonBlocks = enhancement?.blocks.filter((b) => b.type === 'tool-comparison' || b.type === 'weekly-plan') ?? [];
   const aiProgrammingPostLessonBlocks = enhancement?.blocks.filter((b) => b.type !== 'tool-comparison' && b.type !== 'weekly-plan') ?? [];
 
-  const isCustomLayout = isOpenClaw || isClaudeAgent || isAiProgramming;
+  const isCustomLayout = isOpenClaw || isClaudeAgent || isCodexAgent || isAiProgramming;
 
   useDocumentTitle(content?.title ?? '模块未找到');
 
@@ -264,6 +308,13 @@ export default function ModulePage() {
   })).filter((group) => group.lessons.length > 0);
 
   const claudeAgentLessonGroups = CLAUDE_AGENT_LESSON_GROUPS.map((group) => ({
+    ...group,
+    lessons: group.lessonSlugs
+      .map((slug) => lessonLookup.get(slug))
+      .filter((lesson): lesson is typeof content.lessons[number] => Boolean(lesson)),
+  })).filter((group) => group.lessons.length > 0);
+
+  const codexAgentLessonGroups = CODEX_AGENT_LESSON_GROUPS.map((group) => ({
     ...group,
     lessons: group.lessonSlugs
       .map((slug) => lessonLookup.get(slug))
@@ -338,7 +389,7 @@ export default function ModulePage() {
           <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
         ))}
 
-      {!isClaudeAgent && !isAiProgramming && !isCases && (enhancement.lastVerifiedOn || enhancement.sources.length > 0) && (
+      {!isClaudeAgent && !isCodexAgent && !isAiProgramming && !isCases && (enhancement.lastVerifiedOn || enhancement.sources.length > 0) && (
         <ModuleReferencePanel lastVerifiedOn={enhancement.lastVerifiedOn} sources={enhancement.sources} />
       )}
 
@@ -351,21 +402,25 @@ export default function ModulePage() {
               ? '从跑通到长期稳定使用的实战路径'
               : isClaudeAgent
                 ? '从跑起来到稳住它的实战路径'
-                : isAiProgramming
-                  ? '先看清工具范式，再设计自己的默认工作栈'
-                  : isCases
-                    ? '这一模块主要给你 6 个可直接复用的落地场景'
-                    : '这一模块主要解决 3 件事'}
+                : isCodexAgent
+                  ? '从入口判断到团队协作的 Codex 实战路径'
+                  : isAiProgramming
+                    ? '先看清工具范式，再设计自己的默认工作栈'
+                    : isCases
+                      ? '这一模块主要给你 6 个可直接复用的落地场景'
+                      : '这一模块主要解决 3 件事'}
           </h2>
-          {(isOpenClaw || isClaudeAgent || isAiProgramming || isCases) && (
+          {(isOpenClaw || isClaudeAgent || isCodexAgent || isAiProgramming || isCases) && (
             <p className="mt-3 text-sm text-slate-600 dark:text-gray-400 max-w-3xl leading-7">
               {isOpenClaw
                 ? '默认顺序很简单：先跑通最小闭环，再把规则、技能和主动策略配稳，最后用真实案例和治理动作把它长期用起来。'
                 : isClaudeAgent
                   ? '先选对入口跑通首任务，再用 CLAUDE.md、Skills、MCP 把工作流配稳，最后用安全边界、多智能体和自动化把它长期用起来。'
-                  : isAiProgramming
-                    ? '先理解不同产品解决哪段开发链路，再横向比较国内外工具路线，然后把模型、工作流和治理规则接成一套可执行系统。'
-                    : '不要把这 6 个案例当故事看，而是按你的行业、现有工具和可用资源去挑一个最接近的场景，先跑通一个最小闭环。'}
+                  : isCodexAgent
+                    ? '先选对 App、IDE、CLI、Cloud 入口，再用 AGENTS.md、任务契约、沙箱审批和 Cloud tasks 把 Codex 接进真实仓库协作。'
+                    : isAiProgramming
+                      ? '先理解不同产品解决哪段开发链路，再横向比较国内外工具路线，然后把模型、工作流和治理规则接成一套可执行系统。'
+                      : '不要把这 6 个案例当故事看，而是按你的行业、现有工具和可用资源去挑一个最接近的场景，先跑通一个最小闭环。'}
             </p>
           )}
         </div>
@@ -392,7 +447,7 @@ export default function ModulePage() {
       </div>
 
       {/* 学完后你应该拿到 - OpenClaw / Claude Agent 不展示 */}
-      {!isOpenClaw && !isClaudeAgent && !isAiProgramming && !isCases && content.keyTakeaways.length > 0 && (
+      {!isOpenClaw && !isClaudeAgent && !isCodexAgent && !isAiProgramming && !isCases && content.keyTakeaways.length > 0 && (
         <div className="mb-20 p-6 md:p-10 bg-cyan-500/5 border border-cyan-500/20 rounded-3xl">
           <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-8 flex items-center gap-3">
             <Star className="text-yellow-400" size={22} /> 学完后你应该拿到
@@ -423,6 +478,12 @@ export default function ModulePage() {
           <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
         ))}
 
+      {/* Codex Agent：tool-comparison + weekly-plan 放在课程大纲前 */}
+      {isCodexAgent &&
+        codexAgentPreLessonBlocks.map((block) => (
+          <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
+        ))}
+
       {/* AI Programming：tool-comparison + weekly-plan 放在课程大纲前 */}
       {isAiProgramming &&
         aiProgrammingPreLessonBlocks.map((block) => (
@@ -437,9 +498,9 @@ export default function ModulePage() {
         <p className="font-mono-tech text-xs text-slate-500 dark:text-gray-500 mb-8 tracking-wide">
           不要先通读，按顺序做。每节课先看目标，再立即完成 1 个动作。
         </p>
-        {isOpenClaw || isClaudeAgent || isAiProgramming ? (
+        {isOpenClaw || isClaudeAgent || isCodexAgent || isAiProgramming ? (
           <div className="space-y-6">
-            {(isOpenClaw ? openclawLessonGroups : isClaudeAgent ? claudeAgentLessonGroups : aiProgrammingLessonGroups).map((group) => (
+            {(isOpenClaw ? openclawLessonGroups : isClaudeAgent ? claudeAgentLessonGroups : isCodexAgent ? codexAgentLessonGroups : aiProgrammingLessonGroups).map((group) => (
               <div key={group.title} className="rounded-[28px] border border-slate-200 dark:border-white/10 bg-white/60 dark:bg-black/20 p-6">
                 <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-5">
                   <div>
@@ -483,6 +544,12 @@ export default function ModulePage() {
           <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
         ))}
 
+      {/* Codex Agent：SOP 模板、安全清单、资源导航放在课程大纲后 */}
+      {isCodexAgent &&
+        codexAgentPostLessonBlocks.map((block) => (
+          <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
+        ))}
+
       {/* AI Programming：模型角色表、安全清单、资源导航放在课程大纲后 */}
       {isAiProgramming &&
         aiProgrammingPostLessonBlocks.map((block) => (
@@ -496,6 +563,11 @@ export default function ModulePage() {
 
       {/* Claude Agent：参考资料放最后 */}
       {isClaudeAgent && (enhancement.lastVerifiedOn || enhancement.sources.length > 0) && (
+        <ModuleReferencePanel lastVerifiedOn={enhancement.lastVerifiedOn} sources={enhancement.sources} />
+      )}
+
+      {/* Codex Agent：参考资料放最后 */}
+      {isCodexAgent && (enhancement.lastVerifiedOn || enhancement.sources.length > 0) && (
         <ModuleReferencePanel lastVerifiedOn={enhancement.lastVerifiedOn} sources={enhancement.sources} />
       )}
 

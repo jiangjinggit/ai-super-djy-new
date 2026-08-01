@@ -5,6 +5,15 @@
 - 写自定义技能的最小模板
 - Skill 和 Node 的区别及使用判断
 
+## 本课项目产物
+
+| 产物 | 完成标准 |
+| --- | --- |
+| 场景技能组合清单 | 为 1 个真实场景选出 3-5 个技能，并说明每个技能的用途 |
+| 安装验证记录 | 每个技能至少用 `openclaw run --prompt` 做 1 次真实测试 |
+| 自定义 SKILL.md 草案 | 写清 description、inputs 和 safety，避免只写能力宣传 |
+| Node 判断记录 | 列出 1 个更适合 Node 的任务，并标出最小权限 |
+
 ## 技能的 4 类分法
 
 | 类型 | 作用 | 典型技能 |
@@ -14,11 +23,11 @@
 | 整理类 | 处理和组织信息 | summarize、classify、extract |
 | 自动化类 | 被 Heartbeat/Cron 触发后组合执行 | 自定义技能 |
 
-> 技能市场：[ClawHub](https://clawhub.com/)（5400+ 社区技能，一键安装）
+> 技能市场：[ClawHub](https://clawhub.ai/)（官方 registry，安装前检查版本、源码、扫描状态和权限声明）
 >
 > 精选推荐：[Awesome OpenClaw Skills](https://github.com/voltAgent/awesome-openclaw-skills)（社区精选，分类清晰）
 >
-> 📖 [DEV Community — Best OpenClaw Skills for 2026](https://dev.to/curi0us_dev/best-openclaw-skills-for-2026-safe-high-impact-picks-2fjd)（安全高价值技能精选）
+> 📖 [ClawHub 官方文档](https://docs.openclaw.ai/clawhub)（搜索、安装、发布、审核和 CLI 区别）
 
 ## 安装和验证
 
@@ -27,8 +36,8 @@
 openclaw skills list
 
 # 从 ClawHub 安装
-clawhub install web-search
-clawhub install email calendar reminder
+openclaw skills install web-search
+openclaw skills install email calendar reminder
 
 # 安装完立刻验证
 openclaw run --prompt "用 web-search 搜索今天的科技新闻"
@@ -41,7 +50,8 @@ openclaw logs --follow
 
 | 位置 | 路径 | 适合 |
 | --- | --- | --- |
-| ClawHub 安装 | `clawhub install <skill>` | 快速试用 |
+| OpenClaw 安装 | `openclaw skills install <slug>` | 安装到当前 OpenClaw workspace |
+| ClawHub CLI | `clawhub install <slug>` | registry 直连工作流，默认下载到当前目录 `./skills` |
 | 工作区目录 | `<workspace>/skills/` | 场景专用 |
 | 全局目录 | `~/.openclaw/skills/` | 多工作区共用 |
 
@@ -51,28 +61,27 @@ openclaw logs --follow
 
 | 场景 | 最小组合 | 安装命令 |
 | --- | --- | --- |
-| 每日早报 | email + calendar + reminder | `clawhub install email calendar reminder` |
-| 内容监控 | web-search + browser + reminder | `clawhub install web-search browser reminder` |
-| 客服/运营提醒 | web-search + reminder | `clawhub install web-search reminder` |
+| 每日早报 | email + calendar + reminder | `openclaw skills install email calendar reminder` |
+| 内容监控 | web-search + browser + reminder | `openclaw skills install web-search browser reminder` |
+| 客服/运营提醒 | web-search + reminder | `openclaw skills install web-search reminder` |
 
 ## 安全提醒
 
-ClawHub 生态中已发现超过 1000 个恶意技能，会窃取 SSH 密钥、浏览器密码和 API Key。
+ClawHub 是开放 registry，第三方技能和插件的安全性不能只看名字或下载量。
 
-安装前必须做的 3 件事：
+安装前必须做的 4 件事：
 
-1. 检查 GitHub 仓库的 star 数和最近更新时间
+1. 检查发布者、版本、最近更新时间和源码
 2. 看 SKILL.md 里声明的权限是否合理
-3. 优先使用官方或社区审核过的技能
+3. 查看 ClawHub 页面上的扫描状态和说明
+4. 高风险能力先装到隔离 workspace 里测试
 
 ```bash
-clawhub info <skill-name>        # 安装前查看详情
+openclaw skills search <keyword> # 安装前搜索和对比
 openclaw skills path <skill-name> # 安装后查看源码位置
 ```
 
-> ⚠️ [The Hacker News — 341 个恶意 ClawHub 技能](https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html)（供应链攻击详情）
->
-> 📖 [SecurityWeek — SecureClaw 开源安全工具发布](https://www.securityweek.com/openclaw-security-issues-continue-as-secureclaw-open-source-tool-debuts/)（OWASP 对齐的安全审计）
+> 安全事实以 [ClawHub 官方文档](https://docs.openclaw.ai/clawhub) 和 GitHub Security 入口为准；社区安全文章只能作为线索，不作为课程事实依据。
 
 ## 写自定义技能
 

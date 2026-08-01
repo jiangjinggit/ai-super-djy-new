@@ -5,6 +5,12 @@
 - 能根据团队实际情况选择默认入口
 - 带走一份选型判断模板
 
+## 学完能做什么
+
+- 能用同一套维度比较 Claude Code 和 Codex，而不是只看“本地/云端”
+- 能为当前仓库的 3 个任务写出默认入口、审批策略、验证命令和回退方式
+- 能把不稳定产品事实回到官方当前文档核验
+
 ## 适合谁
 
 - 想搞清楚 Claude Code 和 Codex 到底差在哪的人
@@ -27,9 +33,9 @@
 
 这在 2025 年 5 月 Codex 刚发布时大致成立，但现在已经不准确了。
 
-**Claude Code** 除了终端 CLI，还有 Claude Code on the web（云端并行任务）、Background Agents、GitHub Actions 集成、IDE 集成、Cron 定时任务。
+**Claude Code** 除了终端 CLI，也提供其他入口和集成形态。不同计划与工作区可用能力会变化，选型时要回到官方文档确认。
 
-**Codex** 除了云端 Agent，还有 Codex CLI（开源本地终端 Agent）、macOS 桌面 App、IDE 扩展、Slack 集成、Codex SDK。
+**Codex** 除了云端 Agent，也有 CLI、IDE、团队协作和开发者集成入口。不同入口的权限、沙箱和联网策略并不完全相同，具体以 OpenAI 官方当前页面为准。
 
 **两者都同时具备本地终端和云端异步两种工作模式。** 真正值得比较的是下面这些维度。
 
@@ -37,25 +43,25 @@
 
 这是两者最深层的架构分歧。
 
-**Codex：OS 内核层隔离。** macOS 用 Seatbelt，Linux 用 Landlock + seccomp。在操作系统层面限制文件系统、网络、进程。Agent 无法绕过，但控制粒度粗，主要是"能不能访问"的二元判断。三种沙箱模式：read-only / workspace-write / danger-full-access。
+**Codex：权限 profile + OS 级沙箱策略。** 官方文档公开了 `read-only / workspace-write / danger-full-access` 等沙箱模式，以及 `untrusted / on-request / on-failure / never` 等审批策略。底层实现会随操作系统和版本变化，不建议把某一种内核机制写成长期不变的产品事实。
 
-**Claude Code：应用层可编程治理。** 通过 Hooks 系统做安全控制，支持多种可编程事件。可以写任意验证逻辑，控制粒度更细，但 Hook 和 Agent 共享进程边界，隔离强度不如内核层。
+**Claude Code：权限模式 + 规则 + Hooks 的可编程治理。** 通过权限模式、项目规则和 Hooks 在关键节点做检查、通知或拦截。Hook 能增强治理，但不能替代沙箱、人工确认和回退机制。
 
-一句话：Codex 的墙建在地基里，翻不过去但只有几种高度；Claude Code 的墙建在应用里，形状随意画但材质没那么硬。
+一句话：Codex 更像先选一个权限 profile，再在沙箱里执行；Claude Code 更像用权限模式、rules、hooks 和人工确认点叠加治理。实际强弱取决于入口、操作系统、配置和你的回退流程。
 
 ### 3. 配置与上下文体系
 
-**Claude Code** 走分层继承路线：`CLAUDE.md` + Memory + Steering Files，支持全局 → 仓库 → 目录的自动加载。根据你在哪个目录、读了什么文件，自动适配规则。
+**Claude Code** 走分层上下文路线：`CLAUDE.md` + imports / nested CLAUDE.md + Memory，把全局偏好、项目规则和局部约束分层管理。
 
-**Codex** 走 Profile 切换路线：`AGENTS.md` + config.toml Profiles，每个 Profile 独立设置模型、沙箱、审批级别。你主动选一个 Profile，所有设置一次到位。
+**Codex** 走配置 profile 路线：`AGENTS.md` + config Profiles，每个 Profile 可以独立设置模型、沙箱、审批级别。你主动选一个 Profile，所有设置一次到位。
 
-上下文窗口两者都已达到 1M tokens 级别，不再构成选型差异。
+上下文窗口和默认模型会随产品版本快速变化，不应作为长期选型表里的固定结论。更稳定的比较维度是权限策略、配置体系、入口生态和团队治理方式。
 
 ### 4. 模型绑定与灵活度
 
-两者默认都锁定自家模型：Claude Code 用 Claude 家族（Opus / Sonnet / Haiku），Codex 用 GPT / Codex 家族。
+两者默认都围绕自家模型家族设计：Claude Code 用 Claude 系列，Codex 用 OpenAI / Codex 系列。
 
-但都可以接其他模型：Claude Code 原生支持 Bedrock / Vertex 部署，也可通过 LLM Gateway（如 LiteLLM）路由到其他提供商；Codex CLI 开源且基于 OpenAI 兼容协议，接第三方模型或本地模型（Ollama 等）的门槛更低。
+第三方模型接入要按入口分别看：Claude Code 可结合企业部署或网关方案，Codex CLI 可结合兼容协议和本地/第三方端点。是否支持、如何配置、是否符合团队合规要求，都以官方当前文档和组织策略为准。
 
 ### 5. 生态集成
 
@@ -71,7 +77,7 @@
 
 | 问题 | 如果"是" | 倾向 |
 | --- | --- | --- |
-| 需要内核级沙箱防止代码逃逸？ | 是 | Codex |
+| 需要明确的沙箱 profile 与审批策略？ | 是 | Codex |
 | 需要对不同操作写自定义治理规则？ | 是 | Claude Code |
 | 团队已在用 ChatGPT + Slack？ | 是 | Codex |
 | 已有 AWS Bedrock / GCP Vertex 环境？ | 是 | Claude Code |
@@ -98,6 +104,12 @@
 
 `这个任务更适合 ______，因为它在安全治理 / 生态集成 / 配置需求上呈现出 ______。`
 
+补完整表格：
+
+| 任务 | 默认入口 | 审批/权限策略 | 验证命令 | 回退方式 | 官方核验点 |
+|------|----------|---------------|----------|----------|------------|
+| 示例：修导出 Bug | Claude Code / Codex | 先计划，确认后执行 | npm test | git restore / revert | 当前 CLI/云端权限说明 |
+
 ## 常见误区
 
 1. **以为 Claude Code 只能本地、Codex 只能云端。** 两者都已是混合形态。
@@ -110,7 +122,7 @@
 
 ## 验收标准
 
-- 能说清两者都已是"本地 + 云端"混合形态
-- 能解释安全模型核心差异：内核层隔离 vs 应用层 Hooks
-- 能从安全治理、配置体系、模型绑定、生态集成做选型判断
-- 能为自己当前仓库中的任务选出默认入口并说明理由
+- [ ] 能说清两者都已是混合形态，不能再用简单的本地/云端二分选型
+- [ ] 能解释安全模型核心差异：权限 profile / 沙箱策略 vs 权限模式 / 规则 / Hooks
+- [ ] 能从安全治理、配置体系、模型绑定、生态集成做选型判断
+- [ ] 能为自己当前仓库中的 3 个任务选出默认入口，并写清验证和回退方式

@@ -1,8 +1,14 @@
 ## 学习目标
 
 - 学会为代码仓库编写完整的 CLAUDE.md 配置（项目背景/规则/技术债务）
-- 掌握 security-review、doc、debt 三个核心 Commands 的编写
-- 完整走通周度维护工作流：debt→执行→doc→security-review→commit
+- 掌握 code-review、doc、debt 三类审查与维护入口
+- 完整走通周度维护工作流：debt→执行→doc→code-review→commit
+
+## 学完能做什么
+
+- 能为一个真实仓库建立维护用 CLAUDE.md 和本地 Commands
+- 能按 debt→计划→执行→验证→doc→review→commit message 的顺序完成一次维护
+- 能把 AI 审查作为自检，不把它当作替代人工 Review 的最终结论
 
 ## 适合谁
 
@@ -44,10 +50,10 @@
 
 ### Skills / Commands 套装
 
-**security-review.md —— 安全审查**
+**security-check-local.md —— 项目自定义安全检查**
 
 ```markdown
-# .claude/commands/security-review.md
+# .claude/commands/security-check-local.md
 读取 `git diff main...HEAD`
 进行安全导向审查，重点关注：
 1. 是否有 SQL 注入风险（重点！）
@@ -78,17 +84,17 @@
 
 ```
 第一步：/debt → 选出本周要处理的技术债务项
-第二步：5 步执行法完成清理任务
+第二步：先出计划，确认范围后用 5 步执行法完成清理任务
 第三步：/doc [修改的文件] → 补充文档
-第四步：/security-review → 最终自检
-第五步：生成 commit 消息，推代码
+第四步：/code-review 或 /security-check-local → 最终自检
+第五步：生成 commit 消息草稿，人工确认后再提交/推送
 ```
 
 这个流程的关键在于：
 - `/debt` 帮你决定做什么（优先级判断）
 - 5 步执行法帮你做好（质量保证）
 - `/doc` 确保改动有文档（可维护性）
-- `/security-review` 确保没有安全隐患（安全兜底）
+- `/code-review` 做通用代码审查；`/security-check-local` 按你的项目风险做安全兜底
 
 ## Demo
 
@@ -99,16 +105,28 @@
 3. 执行 `/debt`，选出一个技术债务项
 4. 用 5 步执行法完成清理
 5. 执行 `/doc` 补充文档
-6. 执行 `/security-review` 做最终自检
+6. 执行 `/code-review` 或 `/security-check-local` 做最终自检
 7. 生成 commit 消息
 
 ## 作业
 
 1. 为你的项目编写完整的 CLAUDE.md，包含项目背景、最重要的规则（至少 4 条）、当前技术债务列表（至少 3 项）
-2. 创建 `.claude/commands/` 目录，编写 security-review.md、doc.md、debt.md 三个 Commands
-3. 根据你的项目特点，调整 security-review 的检查重点（比如 Python 项目关注不同的安全问题）
+2. 创建 `.claude/commands/` 目录，编写 security-check-local.md、doc.md、debt.md 三个 Commands
+3. 根据你的项目特点，调整 security-check-local 的检查重点（比如 Python 项目关注不同的安全问题）
 4. 完整走通一次周度维护工作流，记录每一步的输出和耗时
 5. 维护 CLAUDE.md 中的技术债务列表——清理完的标记完成，发现新的及时补充
+
+周度维护记录模板：
+
+| 步骤 | 产出物 | 验收问题 |
+|------|--------|----------|
+| /debt | 本周 1-2 个债务候选 | 为什么它们优先级最高？ |
+| 计划 | 修改文件、不会修改的范围、风险 | 是否需要人工确认？ |
+| 执行 | diff | 是否只改了计划内文件？ |
+| 验证 | test/lint/手工验证结果 | 是否有失败或跳过项？ |
+| doc | 补充的注释或说明 | 是否跟改动同步？ |
+| review | 问题清单 | 阻断项是否已处理？ |
+| commit message | 提交信息草稿 | 是否准确描述改动？ |
 
 ## 常见误区
 
@@ -121,8 +139,9 @@
 ## 验收标准
 
 - [ ] 已为项目编写完整的 CLAUDE.md（项目背景 + 规则 + 技术债务）
-- [ ] 已创建 security-review、doc、debt 三个 Commands
+- [ ] 已创建 security-check-local、doc、debt 三个 Commands
 - [ ] 能用 `/debt` 获取本周优先清理建议
 - [ ] 能用 `/doc [文件]` 为指定文件补全 JSDoc 注释
-- [ ] 能用 `/security-review` 完成代码安全自检
-- [ ] 完整走通一次周度维护工作流（debt→执行→doc→review→commit）
+- [ ] 能用 `/code-review` 或 `/security-check-local` 完成代码安全自检
+- [ ] 完整走通一次周度维护工作流（debt→计划→执行→验证→doc→review→commit message）
+- [ ] 所有提交/推送动作都由人工确认，不由 AI 自动完成

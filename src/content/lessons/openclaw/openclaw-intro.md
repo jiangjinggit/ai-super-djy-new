@@ -4,25 +4,30 @@
 - OpenClaw / Claude Code / Claude Cowork / Coze 的分工边界
 - 你的第一个场景选型结论
 
+## 本课项目产物
+
+| 产物 | 完成标准 |
+| --- | --- |
+| OpenClaw 场景判断卡 | 写清 1 个真实任务的输入源、触发方式、输出渠道、是否需要长期在线 |
+| 工具选型结论 | 能说明为什么用 OpenClaw，或为什么先用 Claude Code / Cowork / Coze |
+
 ## OpenClaw 是什么
 
-一句话：一个 24/7 在线的开源 AI 助理平台（GitHub 344k+ Stars），能主动执行任务、接入多平台、扩展 5400+ 社区技能。
+一句话：OpenClaw 是一个本地优先的个人 AI 助理与 Gateway 控制平面，可以运行在你的本机或服务器上，通过聊天渠道触达，并通过模型、工具、记忆和任务编排完成长期协作。
 
 它不是聊天框，而是一套常驻系统，分 5 层：
 
 | 层 | 管什么 |
 | --- | --- |
-| 基础设施 | 服务器、模型、网关、守护进程 |
-| 规则层 | SOUL.md、USER.md、AGENTS.md |
-| 记忆层 | daily notes、MEMORY.md、场景资产 |
-| 能力层 | Skills（5400+）、Nodes、浏览器、外部服务 |
+| 基础设施 | 设备/服务器、模型、Gateway、守护进程 |
+| 规则层 | 课程模板里的 SOUL.md、USER.md、AGENTS.md |
+| 记忆层 | daily notes、MEMORY.md、DREAMS.md、场景资产 |
+| 能力层 | Skills、Plugins、Nodes、浏览器、外部服务 |
 | 运行层 | Heartbeat、Cron、通知渠道 |
 
-> 📖 想快速了解全貌：[知乎 — 一文读懂 OpenClaw](https://zhuanlan.zhihu.com/p/2000850539936765122)（AGENTS.md / SOUL.md / Skills 全拆解）
->
 > 📖 官方文档：[OpenClaw Docs](https://docs.openclaw.ai/)（API 参考、配置指南、架构说明）
 >
-> 📖 GitHub 主仓库：[openclaw/openclaw](https://github.com/openclaw/openclaw)（344k+ ⭐）
+> 📖 GitHub 主仓库：[openclaw/openclaw](https://github.com/openclaw/openclaw) · [ClawHub 官方文档](https://docs.openclaw.ai/clawhub)
 
 ## 4 个问题判断该不该上
 

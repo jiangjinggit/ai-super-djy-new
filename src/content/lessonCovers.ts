@@ -13,6 +13,12 @@ const COVER_THEMES: Record<ModuleId, { accent: string; background: string; glow:
     glow: '#7c3aed',
     eyebrow: 'MODEL LAB',
   },
+  'api-gateway': {
+    accent: '#fb923c',
+    background: '#1f1307',
+    glow: '#c2410c',
+    eyebrow: 'API GATEWAY',
+  },
   'agent-intro': {
     accent: '#34d399',
     background: '#052e2b',
@@ -30,6 +36,12 @@ const COVER_THEMES: Record<ModuleId, { accent: string; background: string; glow:
     background: '#1d1633',
     glow: '#6d28d9',
     eyebrow: 'CLAUDE FLOW',
+  },
+  'codex-agent': {
+    accent: '#22d3ee',
+    background: '#06131f',
+    glow: '#0ea5e9',
+    eyebrow: 'CODEX FLOW',
   },
   'ai-programming': {
     accent: '#38bdf8',

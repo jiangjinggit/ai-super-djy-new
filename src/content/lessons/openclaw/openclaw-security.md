@@ -4,14 +4,22 @@
 - 确认矩阵模板
 - 每周巡检框架
 
+## 本课项目产物
+
+| 产物 | 完成标准 |
+| --- | --- |
+| 安全确认矩阵 | 删除、外发、改配置、写数据库、新增高权限技能等动作都有确认等级 |
+| 密钥与权限清单 | 渠道 Token、模型 Key、服务器登录信息、管理员权限不混放 |
+| 周巡检记录 | 至少完成一次日志、失败任务、额度和闲置能力检查 |
+
 ## 长期在线 ≠ 短期实验
 
 短期实验出错损失一次时间。长期在线系统出错，可能持续刷屏、持续烧钱、持续外发错误信息、持续暴露敏感数据。
 
-> 安全必读：
-> - [Adversa AI — OpenClaw Security 101](https://adversa.ai/blog/openclaw-security-101-vulnerabilities-hardening-2026/)（CVE、供应链风险、加固建议）
-> - [Microsoft Security Blog — 安全运行 OpenClaw](https://www.microsoft.com/en-us/security/blog/2026/02/19/running-openclaw-safely-identity-isolation-runtime-risk/)（身份、隔离、运行时风险）
-> - [Kaspersky — OpenClaw 漏洞曝光](https://www.kaspersky.com/blog/openclaw-vulnerabilities-exposed/55263/)（512 个漏洞审计报告）
+> 安全事实优先看：
+> - [ClawHub 官方文档](https://docs.openclaw.ai/clawhub)（registry、扫描状态、报告和审核机制）
+> - [OpenClaw GitHub Security](https://github.com/openclaw/openclaw#security)（官方安全模型与问题报告入口）
+> - [OpenClaw FAQ](https://docs.openclaw.ai/help/faq)（日志、状态、doctor、gateway 排错路径）
 
 ## 守住 4 类边界
 

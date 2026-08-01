@@ -4,6 +4,14 @@
 - 飞书 + 双通道路由的可执行配置
 - 渠道故障排查速查表
 
+## 本课项目产物
+
+| 产物 | 完成标准 |
+| --- | --- |
+| 部署验收单 | 6 项检查全部通过，并记录失败时优先排查的命令 |
+| 渠道接入记录 | 飞书私聊和测试群都能双向收发，gateway 状态可见 |
+| AGENTS.md 消息路由 | 写清常规推送、强提醒和静默规则 |
+
 > 安装命令和服务器配置在「中国用户快速上手」里，这节课只讲**验证部署完成**和**接入渠道**。
 
 ## 第一步：过 6 项验证清单
@@ -15,11 +23,11 @@
 | 进程存活 | 状态 running | `openclaw gateway status` |
 | 模型可用 | 能收到回复 | 在渠道里发测试消息 |
 | 渠道通畅 | 能收能发 | 双向测试 |
-| 重启恢复 | 重启后仍正常 | `openclaw daemon restart` |
+| 重启恢复 | 重启后仍正常 | `openclaw gateway restart` |
 | 日志可见 | 能看到消息记录 | `openclaw logs --follow` |
 | 控制台可用 | 能打开 | `openclaw dashboard` |
 
-重启恢复这关特别容易漏：`openclaw daemon restart`，等 10 秒再发消息，还能回复才算过。
+重启恢复这关特别容易漏：`openclaw gateway restart`，等 10 秒再发消息，还能回复才算过。
 
 > 📖 macOS 用户：[Zilliz — How to Install OpenClaw on Mac](https://medium.com/@zilliz_learn/how-to-install-and-run-openclaw-on-mac-9cb6adb64eef)
 >
@@ -42,8 +50,9 @@
 飞书的完整接入流程（创建应用、事件订阅、权限、发布审批）在「中国用户快速上手」里已讲，这里只列关键命令：
 
 ```bash
-openclaw channels add
-# 选择 Feishu，填 App ID 和 App Secret
+openclaw channels login --channel feishu
+# 选择 QR setup 或 manual setup，按向导填 App ID 和 App Secret
+openclaw gateway restart
 
 openclaw gateway status   # feishu 应为 connected
 openclaw logs --follow    # 发消息后确认日志有收到
@@ -86,13 +95,13 @@ openclaw logs --follow    # 发消息后确认日志有收到
 ### Telegram 接入
 
 ```bash
-openclaw channels add
+openclaw channels login --channel telegram
 # 选择 Telegram，填入 Bot Token（从 @BotFather 获取）
 ```
 
 ### 钉钉接入要点
 
-在[钉钉开放平台](https://open.dingtalk.com)创建企业内部应用 → 启用机器人 → 配置 Stream 模式 → `openclaw channels add` 选 DingTalk。
+在[钉钉开放平台](https://open.dingtalk.com)创建企业内部应用 → 启用机器人 → 配置 Stream 模式 → `openclaw channels login --channel dingtalk`。
 
 ## 渠道故障排查
 

@@ -1,9 +1,11 @@
 import type { ModuleEnhancement, ModuleEnhancementBlock, ModuleId } from '@/types/course';
 
+import { apiGatewayEnhancement } from './apiGateway';
 import { agentIntroEnhancement } from './agentIntro';
 import { aiProgrammingEnhancement } from './aiProgramming';
 import { casesEnhancement } from './cases';
 import { claudeAgentEnhancement } from './claudeAgent';
+import { codexAgentEnhancement } from './codexAgent';
 import { llmEnhancement } from './llm';
 import { openclawEnhancement } from './openclaw';
 import { superIndividualEnhancement } from './superIndividual';
@@ -11,9 +13,11 @@ import { superIndividualEnhancement } from './superIndividual';
 const BASE_ENHANCEMENTS: Record<ModuleId, ModuleEnhancement> = {
   'super-individual': superIndividualEnhancement,
   llm: llmEnhancement,
+  'api-gateway': apiGatewayEnhancement,
   'agent-intro': agentIntroEnhancement,
   openclaw: openclawEnhancement,
   'claude-agent': claudeAgentEnhancement,
+  'codex-agent': codexAgentEnhancement,
   'ai-programming': aiProgrammingEnhancement,
   cases: casesEnhancement,
 };
@@ -36,9 +40,11 @@ const hydrateEnhancement = (enhancement: ModuleEnhancement): ModuleEnhancement =
 export const MODULE_ENHANCEMENTS: Record<ModuleId, ModuleEnhancement> = {
   'super-individual': hydrateEnhancement(BASE_ENHANCEMENTS['super-individual']),
   llm: hydrateEnhancement(BASE_ENHANCEMENTS.llm),
+  'api-gateway': hydrateEnhancement(BASE_ENHANCEMENTS['api-gateway']),
   'agent-intro': hydrateEnhancement(BASE_ENHANCEMENTS['agent-intro']),
   openclaw: hydrateEnhancement(BASE_ENHANCEMENTS.openclaw),
   'claude-agent': hydrateEnhancement(BASE_ENHANCEMENTS['claude-agent']),
+  'codex-agent': hydrateEnhancement(BASE_ENHANCEMENTS['codex-agent']),
   'ai-programming': hydrateEnhancement(BASE_ENHANCEMENTS['ai-programming']),
   cases: hydrateEnhancement(BASE_ENHANCEMENTS.cases),
 };

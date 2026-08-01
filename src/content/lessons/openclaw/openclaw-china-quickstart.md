@@ -4,9 +4,17 @@
 - 一条 30 分钟从零到环境就绪的最短路径
 - 踩坑清单和社区资源
 
+## 本课项目产物
+
+| 产物 | 完成标准 |
+| --- | --- |
+| 环境选型卡 | 写清本机/服务器、模型 provider、主渠道和备用渠道 |
+| 安装验证记录 | 记录安装方式、`openclaw --version`、onboard 结果和第一条测试回复 |
+| 第一条定时任务草案 | 明确任务名称、触发时间、输出渠道和人工验收方式 |
+
 ## 为什么需要单独一课
 
-OpenClaw 官方默认 Telegram + OpenAI + DigitalOcean，国内用户直接照搬会踩三个坑：海外 API 不稳定、飞书/钉钉才是工作入口、国内模型更便宜且免翻墙。
+不少海外教程会默认 Telegram、海外模型和海外云环境，国内用户直接照搬容易踩三个坑：API 连通性不稳定、飞书/钉钉才是工作入口、模型和云资源需要按本地网络与合规边界重选。
 
 ## 推荐技术栈
 
@@ -25,12 +33,12 @@ OpenClaw 官方默认 Telegram + OpenAI + DigitalOcean，国内用户直接照�
 
 免折腾、直连稳定，以下几个都是主流选择：
 
-| 模型 | API Base URL | 适合 | 成本参考 |
+| 模型/平台 | API Base URL | 适合 | 接入前核验 |
 | --- | --- | --- | --- |
-| DeepSeek Chat | `https://api.deepseek.com/v1` | 日常首选，最便宜 | ¥1/百万 token 输入 |
-| 通义千问 Qwen-Plus | `https://dashscope.aliyuncs.com/compatible-mode/v1` | 阿里云生态 | ¥0.8/千 token 输入 |
-| Kimi (Moonshot) | `https://api.moonshot.cn/v1` | 长文本场景 | ¥12/百万 token |
-| 豆包 | `https://ark.cn-beijing.volces.com/api/v3` | 中文对话流畅 | 按量计费 |
+| DeepSeek | `https://api.deepseek.com/v1` | 低成本中文任务、批量处理 | 官方价格页和模型列表 |
+| 通义千问 / 阿里云百炼 | `https://dashscope.aliyuncs.com/compatible-mode/v1` | 阿里云生态、中文协作 | 百炼模型与价格页 |
+| Kimi / Moonshot | `https://api.moonshot.cn/v1` | 长文本与中文资料处理 | Moonshot 平台模型页 |
+| 豆包 / 火山方舟 | `https://ark.cn-beijing.volces.com/api/v3` | 字节生态、中文对话 | 火山方舟模型与计费页 |
 
 各模型在真实任务上的效果对比，见「大模型实战库」模块。
 
@@ -38,9 +46,9 @@ OpenClaw 官方默认 Telegram + OpenAI + DigitalOcean，国内用户直接照�
 
 ### 有翻墙 / 追求效果上限 → 国外顶尖模型
 
-效果天花板目前是 Claude Opus 4.6 和 GPT-5.4，复杂推理、长文档分析、对外发布内容明显更强。
+追求效果上限时，选择 OpenAI、Anthropic、Google 等厂商当前官方旗舰或推理模型。具体型号、上下文和价格以厂商模型页与 OpenClaw provider 配置为准，不在课程里硬背版本号。
 
-不想自己管海外支付的，可以用**国内中转站**（如 API2D、OpenRouter 国内镜像等），支持国内支付方式调用 Claude / GPT，配置方式和直连一样，填中转站的 Base URL 即可。
+如果必须走中转，先确认模型真实性、日志策略、回退路径和敏感数据边界，不要把生产资料默认压到未知代理层。
 
 ## 配置不用自己手写
 
@@ -54,12 +62,10 @@ OpenClaw 的配置文件（SOUL.md、AGENTS.md 等）看起来很多，但普通
 "记住：我在上海，工作日是周一到周五，22 点之后不要打扰我"
 ```
 
-**方式二：用 Claude Code 帮你配**，打开 OpenClaw 的配置文件夹，让 Claude Code 读取现有结构直接帮你写：
+**方式二：用 Claude Code 帮你配**，打开 OpenClaw 默认 workspace，让 Claude Code 读取现有结构直接帮你写：
 
 ```bash
-claude ~/Library/Application\ Support/OpenClaw  # macOS
-claude %APPDATA%\OpenClaw                        # Windows
-claude ~/.config/openclaw                        # Linux
+claude ~/.openclaw/workspace
 ```
 
 然后告诉 Claude Code："帮我写一个 SOUL.md，我是独立开发者，需要监控 AI 行业动态，删除和外发操作必须先确认"。
@@ -70,17 +76,16 @@ claude ~/.config/openclaw                        # Linux
 
 ### 第 1 步：买服务器（5 分钟）
 
-2 核 2G 轻量服务器即可。阿里云/腾讯云镜像市场搜 "OpenClaw" 可能有预装镜像，开机即用。
+先用轻量服务器或本机跑通最小场景即可，具体规格按任务频率、模型调用量和渠道数量决定。云厂商如果提供预装镜像，也要以它们当前页面说明为准。
 
 手动安装：
 
 ```bash
-# 先配国内镜像，否则大概率超时
-npm config set registry https://registry.npmmirror.com
-
-npm install -g openclaw@latest
+curl -fsSL https://openclaw.ai/install.sh | bash
 openclaw --version
 ```
+
+官方安装器通常会处理 Node 环境；具体 Node 要求、安装器行为和 npm / pnpm / bun 备选路径，以 OpenClaw 官方当前安装页为准。
 
 ### 第 2 步：配模型（5 分钟）
 
@@ -103,17 +108,17 @@ openclaw onboard --install-daemon
 5. 发布应用，等审批通过
 
 ```bash
-openclaw channels add
-# 选 Feishu，填 App ID 和 App Secret
+openclaw channels login --channel feishu
+# 选择 QR setup 或 manual setup，按向导填 App ID 和 App Secret
 ```
 
-> 📖 [博客园 — 保姆级飞书对接教程](https://www.cnblogs.com/catchadmin/p/19556552)
+> 📖 以 [OpenClaw Feishu 官方文档](https://docs.openclaw.ai/channels/feishu) 和飞书开放平台当前界面为准。登录命令、连接方式和权限勾选都按官方当前页面核验。
 
 **企业微信（腾讯云生态首选）**
 
 ```bash
 openclaw skills install openclaw-wecom-channel
-openclaw channels add
+openclaw channels login --channel wecom
 # 选 WeCom，填 Corp ID、Agent ID 和 Secret
 ```
 
@@ -122,7 +127,7 @@ openclaw channels add
 **钉钉（阿里云生态）**
 
 ```bash
-openclaw channels add
+openclaw channels login --channel dingtalk
 # 选 DingTalk，填 AppKey 和 AppSecret
 ```
 
@@ -171,8 +176,8 @@ openclaw run --prompt "按 AI 热点日报规则，抓取今日信息源，过�
 | [DataWhale「哈喽！龙虾」](https://github.com/datawhalechina/hello-claw) | 体系化中文开源教程，从入门到架构 |
 | [阿里云百炼接入指南](https://help.aliyun.com/zh/model-studio/openclaw) | 百炼 OpenAI 兼容接口 + 多模型配置 |
 | [菜鸟教程 — OpenClaw](https://www.runoob.com/ai-agent/openclaw-clawdbot-tutorial.html) | 从 git clone 到 pnpm build 全流程 |
-| [B站 — 保姆级部署教程](https://www.bilibili.com/video/BV1kH6nBFEPq/) | 多个视频，小白友好 |
-| [36氪 — OpenClaw 深度分析](https://36kr.com/p/3671941309260675) | 国内开发者视角 |
+| [OpenClaw 官方安装文档](https://docs.openclaw.ai/install) | 安装方式、Node 要求、验证命令 |
+| [OpenClaw Feishu 文档](https://docs.openclaw.ai/channels/feishu) | 飞书/Lark 接入命令、WebSocket、排错 |
 
 ## ✅ 本课落地动作
 

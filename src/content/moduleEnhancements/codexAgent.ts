@@ -1,0 +1,291 @@
+import type { ModuleEnhancement } from '@/types/course';
+
+export const codexAgentEnhancement: ModuleEnhancement = {
+  lastVerifiedOn: '2026-06-08',
+  sources: [
+    { label: 'OpenAI Codex Overview', url: 'https://developers.openai.com/codex' },
+    { label: 'Codex Quickstart', url: 'https://developers.openai.com/codex/quickstart' },
+    { label: 'Codex CLI', url: 'https://developers.openai.com/codex/cli' },
+    { label: 'Codex App', url: 'https://developers.openai.com/codex/app' },
+    { label: 'Codex Cloud Tasks', url: 'https://developers.openai.com/codex/cloud' },
+    { label: 'Codex AGENTS.md Guide', url: 'https://developers.openai.com/codex/guides/agents-md' },
+    { label: 'Codex Sandboxing', url: 'https://developers.openai.com/codex/concepts/sandboxing' },
+    { label: 'Codex Permissions', url: 'https://developers.openai.com/codex/permissions' },
+    { label: 'Codex MCP', url: 'https://developers.openai.com/codex/mcp' },
+    { label: 'Codex Subagents', url: 'https://developers.openai.com/codex/subagents' },
+  ],
+  blocks: [
+    {
+      type: 'action-checklist',
+      title: 'Codex 训练交付物地图',
+      description: '每个阶段都要留下一个可复用资产。不要只试功能，要把 Codex 变成可控的工程流程。',
+      hideMeta: true,
+      items: [
+        {
+          title: '阶段 1：入口决策表',
+          timebox: '25 分钟',
+          description: '列出 8 个高频任务，判断适合 App、IDE、CLI 还是 Cloud，并写出不选其他入口的理由。',
+          doneDefinition: '能分清本地即时协作、IDE 辅助、CLI 仓库任务和云端异步任务的边界。',
+        },
+        {
+          title: '阶段 2：只读验证记录',
+          timebox: '30 分钟',
+          description: '在真实仓库里让 Codex 做一次只读分析，记录读取范围、输出准确性和是否出现猜测。',
+          doneDefinition: '验证记录能证明 Codex 读到了真实文件，没有修改仓库，也没有把推测写成事实。',
+        },
+        {
+          title: '阶段 3：AGENTS.md 基础版',
+          timebox: '45 分钟',
+          description: '写清项目目标、常用命令、编码规范、禁止事项、验证方式和 PR 要求。',
+          doneDefinition: '新开会话后 Codex 能按同一套项目规则给出计划，不需要每次重复说明。',
+        },
+        {
+          title: '阶段 4：5 步任务契约',
+          timebox: '40 分钟',
+          description: '把一个真实小任务写成读、计划、执行、验证、总结的任务契约。',
+          doneDefinition: '任务结束后能交付 diff、验证结果、风险摘要和回退方式。',
+        },
+        {
+          title: '阶段 5：权限矩阵',
+          timebox: '45 分钟',
+          description: '定义只读、可写、需确认、禁止四类操作，并标注网络、依赖、删除、推送、配置修改等风险。',
+          doneDefinition: '任何高风险动作都有人工确认、最小权限和恢复路径。',
+        },
+        {
+          title: '阶段 6：Cloud 任务池',
+          timebox: '60 分钟',
+          description: '把一个大需求拆成 3 个低耦合 Cloud tasks，分别写明输入、验收、风险和失败处理。',
+          doneDefinition: '每个任务都能独立审查，失败不会污染主分支，也不会依赖本机私有环境。',
+        },
+      ],
+    },
+    {
+      type: 'tool-comparison',
+      title: 'Codex 本地与云端入口对比',
+      description: '先看任务依赖和反馈节奏，再决定用本地 CLI/IDE 还是 Cloud tasks。',
+      cliTitle: 'CLI / IDE',
+      coworkTitle: 'App / Cloud',
+      items: [
+        {
+          aspect: '核心对象',
+          cli: '本地仓库、终端命令、IDE 上下文、即时 diff、需要人工观察的开发任务。',
+          cowork: '云端任务、GitHub 仓库、可异步执行的改动、适合后台排队和并行的工作。',
+        },
+        {
+          aspect: '典型起手任务',
+          cli: '解释代码结构、定位报错、修局部 Bug、补测试、调整组件、运行本地验证。',
+          cowork: '补文档、批量小修、独立测试任务、小型重构、准备 PR、并行探索不同方案。',
+        },
+        {
+          aspect: '上下文系统',
+          cli: '工作目录 + AGENTS.md + 命令输出 + 本地配置 + 可选 MCP。',
+          cowork: '仓库连接 + 任务描述 + 云端环境设置 + AGENTS.md + PR/任务记录。',
+        },
+        {
+          aspect: '权限与安全',
+          cli: '用 sandbox 和 approvals 控制文件写入、命令、网络和高风险操作。',
+          cowork: '用仓库权限、任务范围、环境变量、PR 审查和团队策略控制风险。',
+        },
+        {
+          aspect: '最大风险',
+          cli: '在本机跑了不该跑的命令、改了未提交文件、安装不必要依赖、误用宽权限。',
+          cowork: '任务描述不清导致云端改错方向、PR 超范围、把敏感配置放进云端环境。',
+        },
+      ],
+    },
+    {
+      type: 'sop-templates',
+      title: '直接可用的 Codex 任务模板',
+      description: '这些模板可以直接复制到 CLI、IDE 或 Cloud task，根据项目规则微调。',
+      items: [
+        {
+          title: '只读仓库体检模板',
+          input: '项目目录、你关心的问题、禁止修改文件的明确要求',
+          steps: [
+            '请先读取项目结构、README、package 或主要配置文件，说明技术栈和运行方式。',
+            '只做分析，不修改任何文件，不运行会写入磁盘或联网的命令。',
+            '输出 5 个最值得关注的问题，每个问题附证据文件和不确定性说明。',
+            '最后给出下一步建议，并标注哪些建议需要人工确认。',
+          ],
+          output: '仓库理解摘要 + 风险清单 + 下一步任务建议',
+          kpi: '没有改文件，结论有文件证据，猜测被明确标注',
+        },
+        {
+          title: '小范围 Bug 修复模板',
+          input: '复现步骤、期望行为、实际行为、相关文件、验证命令',
+          steps: [
+            '先读取相关文件和测试，解释可能原因，不要修改。',
+            '给出最小修复计划，列出会修改和不会修改的文件。',
+            '确认计划后执行，只改计划内文件，不做额外重构。',
+            '运行指定验证命令，失败时先解释原因，不要继续扩大范围。',
+            '输出根因、改动、验证结果、残留风险和回退方式。',
+          ],
+          output: '可审查 diff + 验证记录 + 风险摘要',
+          kpi: '修复可复现、diff 范围可控、无顺手重构',
+        },
+        {
+          title: 'Cloud 并行任务模板',
+          input: '仓库、目标分支、任务描述、验收标准、禁止事项',
+          steps: [
+            '把任务限定在一个独立目标，不依赖本机私有文件。',
+            '写清可修改目录、不可修改目录和必须运行的验证命令。',
+            '要求 Codex 产出 PR 或可审查 diff，并在说明中列出测试结果。',
+            '人工 review PR，重点检查是否超范围、是否引入依赖、是否遗漏安全边界。',
+          ],
+          output: '一个独立可 review 的 Cloud task 结果',
+          kpi: '任务可独立失败、PR 说明完整、合并前验证可重复',
+        },
+        {
+          title: '团队 PR 审查模板',
+          input: 'Codex 生成的 PR、团队 checklist、测试日志',
+          steps: [
+            '先确认 PR 是否解决了原始任务，而不是只看代码能否运行。',
+            '检查 diff 是否只包含计划内文件，是否有不相关重构或格式化噪音。',
+            '检查测试、类型检查、lint 和关键手动验证是否完成。',
+            '检查秘钥、外部请求、依赖升级、配置修改和数据迁移等风险。',
+            '把 review 结论写回 PR：可合并、需修改或需人工重新设计。',
+          ],
+          output: '一份可追踪的 AI PR review 记录',
+          kpi: '团队能用同一标准审查所有 Codex 改动',
+        },
+      ],
+    },
+    {
+      type: 'weekly-plan',
+      title: '6 周路线：从会用到可协作',
+      description: '按这个节奏走，重点是稳，不是同时打开所有高级功能。',
+      items: [
+        {
+          week: 1,
+          goal: '认识 Codex 入口并完成只读验证',
+          deliverable: '入口决策表、一次真实仓库只读分析、第一版任务风险分级。',
+          fallback: '如果 CLI 或账号入口不顺，先用官方 App/IDE 跑通低风险阅读任务。',
+        },
+        {
+          week: 2,
+          goal: '建立 AGENTS.md 和 5 步任务契约',
+          deliverable: '项目 AGENTS.md、3 个任务契约模板、一次小范围 Bug 修复。',
+          fallback: '如果不知道 AGENTS.md 写什么，先只写常用命令、禁止事项和验证方式。',
+        },
+        {
+          week: 3,
+          goal: '掌握 sandbox、approvals 和权限矩阵',
+          deliverable: '权限矩阵、危险操作确认清单、一次回退演练。',
+          fallback: '如果权限概念还不稳，本周只做只读和低风险写入任务。',
+        },
+        {
+          week: 4,
+          goal: '把 IDE/CLI 接进日常开发',
+          deliverable: 'PR checklist、局部重构模板、测试补全模板。',
+          fallback: '如果任务经常超范围，就缩小到一次只改一个文件或一个测试。',
+        },
+        {
+          week: 5,
+          goal: '试运行 Cloud tasks 和并行任务',
+          deliverable: '3 个低耦合 Cloud tasks、PR review 记录、失败复盘。',
+          fallback: '如果 Cloud 环境不匹配，就回到 CLI 本地执行，先把任务描述打磨好。',
+        },
+        {
+          week: 6,
+          goal: '沉淀团队级使用规范',
+          deliverable: 'Codex 使用政策、AGENTS.md 定稿、Cloud 任务池和安全审查流程。',
+          fallback: '如果团队还没准备好，先以个人工作流形式运行 2 周，再推广。',
+        },
+      ],
+    },
+    {
+      type: 'security-checklist',
+      title: 'Codex 安全与真实性检查清单',
+      description: '每次让 Codex 动真实仓库前，都用这张清单过一遍。',
+      items: [
+        {
+          title: '任务事实有证据',
+          detail: '要求 Codex 对关键判断标注来源文件、命令输出或官方文档链接。没有证据的结论必须标注为假设。',
+        },
+        {
+          title: '工作区状态已确认',
+          detail: '任务前查看 git status，明确哪些改动是已有内容。Codex 不得覆盖或回滚用户未提交改动。',
+        },
+        {
+          title: '权限模式与任务匹配',
+          detail: '只读分析不需要写权限；小改动只开放工作区写入；删除、推送、安装、联网、改配置都要人工确认。',
+        },
+        {
+          title: '敏感信息没有进入任务',
+          detail: '不要把生产秘钥、客户数据、私有凭据、受监管数据直接交给 Codex 或 Cloud 环境。',
+        },
+        {
+          title: '验证命令可重复',
+          detail: 'lint、typecheck、test、build 或手动验证步骤要写清楚。不能验证的任务不得自动合并。',
+        },
+        {
+          title: 'Cloud 任务可独立失败',
+          detail: '云端任务必须低耦合，失败不会污染主线，也不会依赖本机私有文件或不可恢复状态。',
+        },
+      ],
+    },
+    {
+      type: 'resource-links',
+      title: '核心资源导航',
+      description: 'Codex 更新很快，涉及安装、权益、模型和入口可用性时，以官方文档当前页面为准。',
+      items: [
+        {
+          title: 'OpenAI Codex Overview',
+          url: 'https://developers.openai.com/codex',
+          label: '官方',
+          description: 'Codex 产品体系总览，适合确认入口、能力边界和最新导航。',
+          category: '官方文档',
+        },
+        {
+          title: 'Codex Quickstart',
+          url: 'https://developers.openai.com/codex/quickstart',
+          label: '官方',
+          description: '从安装、连接仓库、发起任务到环境配置的起步指南。',
+          category: '官方文档',
+        },
+        {
+          title: 'Codex CLI',
+          url: 'https://developers.openai.com/codex/cli',
+          label: '官方',
+          description: '本地 CLI 的使用方式、命令行工作流和配置入口。',
+          category: 'CLI',
+        },
+        {
+          title: 'AGENTS.md Guide',
+          url: 'https://developers.openai.com/codex/guides/agents-md',
+          label: '官方',
+          description: 'Codex 项目指令文件的写法和组织方式。',
+          category: '上下文',
+        },
+        {
+          title: 'Sandboxing',
+          url: 'https://developers.openai.com/codex/concepts/sandboxing',
+          label: '官方',
+          description: 'Codex 沙箱隔离与执行边界说明。',
+          category: '安全',
+        },
+        {
+          title: 'Permissions',
+          url: 'https://developers.openai.com/codex/permissions',
+          label: '官方',
+          description: '审批、权限和默认行为控制的官方说明。',
+          category: '安全',
+        },
+        {
+          title: 'Codex MCP',
+          url: 'https://developers.openai.com/codex/mcp',
+          label: '官方',
+          description: '把外部工具和上下文接入 Codex 的官方入口。',
+          category: '集成',
+        },
+        {
+          title: 'Codex Cloud Tasks',
+          url: 'https://developers.openai.com/codex/cloud',
+          label: '官方',
+          description: '云端任务、后台执行和 PR 协作相关说明。',
+          category: 'Cloud',
+        },
+      ],
+    },
+  ],
+};

@@ -1,9 +1,15 @@
 ## 学习目标
 
-- 理解四种长期上下文载体（全局 CLAUDE.md、项目 CLAUDE.md、.claude/rules/、Auto Memory）的分工
+- 理解四种长期上下文载体（全局 CLAUDE.md、项目 CLAUDE.md、imports / nested CLAUDE.md、Auto Memory）的分工
 - 掌握项目级 CLAUDE.md 的七段标准结构
-- 学会用 .claude/rules/ 做细粒度拆分，用 Auto Memory 承接长期偏好
+- 学会用 imports / nested CLAUDE.md 做细粒度拆分，用 Auto Memory 承接长期偏好
 - 能配置 Cowork 的 Global/Project Instructions
+
+## 学完能做什么
+
+- 能写出一份基础版 CLAUDE.md 或 Cowork Instructions
+- 能判断信息应该放在全局、项目、子目录、memory 还是当次任务里
+- 能给上下文配置加入禁止事项、验证方式和维护节奏
 
 ## 适合谁
 
@@ -24,7 +30,7 @@ Claude Code 现在有四种常见的长期上下文来源：
 |------|------|-----------|
 | `~/.claude/CLAUDE.md` | 全局偏好 | 语言偏好、输出风格、通用禁令 |
 | 项目根目录 `CLAUDE.md` | 项目级规则 | 架构说明、命令、目录、禁止事项 |
-| `.claude/rules/` | 更细粒度规则 | 某类文件、某种任务、某个子目录的专门规则 |
+| imports / nested `CLAUDE.md` | 更细粒度规则 | 某类文件、某种任务、某个子目录的专门规则 |
 | Auto Memory | 长期协作记忆 | 你反复强调的习惯、团队偏好、历史经验 |
 
 **关键区别：**
@@ -79,14 +85,14 @@ npm run lint      # 类型检查
 - 不确定的地方先提问，不要自己猜
 ````
 
-### .claude/rules/ 细粒度拆分
+### imports / nested CLAUDE.md 细粒度拆分
 
 当一个项目越来越大时，不要把所有东西都堆进根目录 `CLAUDE.md`。更好的做法是：
 
 - 根目录 `CLAUDE.md` 放全局项目规则
-- `.claude/rules/frontend.md` 放前端规则
-- `.claude/rules/backend.md` 放后端规则
-- `.claude/rules/review.md` 放审查标准
+- 前端目录、后端目录各自放嵌套 `CLAUDE.md`
+- 或在根目录 `CLAUDE.md` 里通过 imports 引入 `docs/ai-rules/frontend.md`、`docs/ai-rules/review.md` 这类规则文件
+- 对临时专项规则，放在任务提示词或当前迭代文档里，不要写成长期记忆
 
 好处：冲突更少，维护更容易，也更方便团队协作。
 
@@ -105,7 +111,7 @@ npm run lint      # 类型检查
 **经验法则：**
 - "这周的任务"放 `CLAUDE.md`
 - "这个团队一直这样做"放 memory
-- "只影响一个模块"放 rules
+- "只影响一个模块"放嵌套 `CLAUDE.md` 或 imports 引入的专项规则
 
 ### Cowork 的 Global/Project Instructions 配置实战
 
@@ -154,8 +160,8 @@ npm run lint      # 类型检查
 
 1. **发现一次问题，立刻更新**：它做错了一件事，把禁止条件加进去，而不是每次都重新说
 2. **每月回顾一次**：清掉已经过期的"当前重点"，加入新的协作约定
-3. **把信息放对地方**：项目事实进 `CLAUDE.md`，长期偏好进 memory，局部规则进 rules
-4. **避免互相冲突**：同一件事不要在全局、项目、rules 里写三种版本
+3. **把信息放对地方**：项目事实进 `CLAUDE.md`，长期偏好进 memory，局部规则进嵌套文件或 imports
+4. **避免互相冲突**：同一件事不要在全局、项目、局部文件里写三种版本
 
 ## Demo
 
@@ -194,6 +200,18 @@ npm run lint      # 类型检查
 2. 让 Claude 读你的项目后给出补充建议
 3. 合并后保存，下次任务时观察效果
 
+交付模板：
+
+| 段落 | 必填内容 | 验收问题 |
+|------|----------|----------|
+| 项目背景 | 项目用途、技术栈、用户 | Claude 能否 3 句话内说清项目？ |
+| 常用命令 | dev/build/test/lint | 命令是否真实可运行？ |
+| 目录结构 | 关键目录职责 | 是否避免读取无关目录？ |
+| 编码规范 | 风格、命名、注释 | 是否减少风格跑偏？ |
+| 禁止事项 | 依赖、配置、删除、接口 | 是否能阻止高风险动作？ |
+| 当前重点 | 本周任务 | 是否定期清理过期信息？ |
+| 协作约定 | 先计划、再执行、验证、总结 | 是否能复用 5 步执行法？ |
+
 ## 常见误区
 
 1. **把任务说明全塞进 CLAUDE.md**：CLAUDE.md 是"员工手册"，不是"今天的工单"。项目背景、规范、禁令放这里；具体任务在对话里说。
@@ -203,4 +221,6 @@ npm run lint      # 类型检查
 
 ## 验收标准
 
-学员能判断一条信息应该写进 CLAUDE.md、rules 还是 memory，并能写出一份包含七段标准结构的项目级 CLAUDE.md。
+- [ ] 能判断一条信息应该写进 CLAUDE.md、imports / nested CLAUDE.md、memory 还是当次任务
+- [ ] 能写出一份包含七段标准结构的项目级 CLAUDE.md 或 Project Instructions
+- [ ] 文件里包含禁止事项、验证方式和定期维护规则

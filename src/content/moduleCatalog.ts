@@ -1,13 +1,15 @@
-import { Bot, Brain, Code2, Cpu, Rocket, Terminal, Users } from 'lucide-react';
+import { Bot, Brain, Code2, Cpu, Plug, Rocket, Terminal, Users } from 'lucide-react';
 
 import type { ModuleCardData, ModuleId } from '@/types/course';
 
 export const NAV_LABELS: Record<ModuleId, string> = {
   'super-individual': '入门',
   llm: '大模型',
+  'api-gateway': 'API 中转',
   'agent-intro': '智能体入门',
   openclaw: 'OpenClaw',
   'claude-agent': 'Claude',
+  'codex-agent': 'Codex',
   'ai-programming': 'AI 编程',
   cases: '场景与案例',
 };
@@ -28,18 +30,11 @@ export const MODULE_CARDS: ModuleCardData[] = [
     color: 'purple',
   },
   {
-    id: 'claude-agent',
-    title: 'Claude 智能体实战',
-    desc: '15 课从认知到落地：CLI、Cowork、工作流、Prompt、上下文、MCP、安全边界、多智能体与三大真实场景。',
-    icon: Terminal,
-    color: 'purple',
-  },
-  {
-    id: 'ai-programming',
-    title: 'AI 编程工具与模型实战',
-    desc: '横向理解 Claude Code、Codex、Cursor、Gemini、Kiro 与国内工具路线，再把模型、流程和治理接成一套默认工作栈。',
-    icon: Code2,
-    color: 'blue',
+    id: 'api-gateway',
+    title: 'API 中转与模型接入',
+    desc: '先判断是否需要中转，再把 Base URL、API Key、模型名、回退和治理接成一个可控的接入层。',
+    icon: Plug,
+    color: 'orange',
   },
   {
     id: 'agent-intro',
@@ -47,6 +42,27 @@ export const MODULE_CARDS: ModuleCardData[] = [
     desc: '先统一智能体认知，再用任务适配和工具分流两张判断表决定下一步学什么。',
     icon: Cpu,
     color: 'emerald',
+  },
+  {
+    id: 'claude-agent',
+    title: 'Claude 智能体实战',
+    desc: '15 课从认知到落地：CLI、Cowork、工作流、Prompt、上下文、MCP、安全边界、多智能体与三大真实场景。',
+    icon: Terminal,
+    color: 'purple',
+  },
+  {
+    id: 'codex-agent',
+    title: 'Codex 智能体实战',
+    desc: '15 课建立 OpenAI 编码代理工作流：App、IDE、CLI、Cloud、AGENTS.md、沙箱审批、MCP、PR 与团队协作。',
+    icon: Code2,
+    color: 'blue',
+  },
+  {
+    id: 'ai-programming',
+    title: 'AI 编程工具与模型实战',
+    desc: '横向理解 Claude Code、Codex、Cursor、Gemini、Kiro 与国内工具路线，再把模型、流程和治理接成一套默认工作栈。',
+    icon: Code2,
+    color: 'blue',
   },
   {
     id: 'openclaw',

@@ -4,6 +4,14 @@
 - 周检和月检各看什么
 - 怎么把稳定场景升级成资产
 
+## 本课项目产物
+
+| 产物 | 完成标准 |
+| --- | --- |
+| 分层排查记录 | 对行为、信息、能力三条回路各做一次检查 |
+| 删减清单 | 找出 1-3 条低价值通知、规则或闲置技能，并决定删掉或降级 |
+| 场景 SOP | 把稳定场景写成触发条件、输入源、输出格式、验收方式和复盘节奏 |
+
 ## 真正难的不是第一周，是一个月以后
 
 系统长期稳定靠 3 套回路：
@@ -16,7 +24,7 @@
 
 任何一个回路长期不回顾，系统都会开始跑偏。
 
-> 📖 [SitePoint — OpenClaw Production Guide](https://www.sitepoint.com/openclaw-production-lessons-4-weeks-self-hosted-ai/)（4 周自托管的真实记录）
+> 长期调优优先看 `openclaw status --all`、`openclaw logs --follow` 和官方 Troubleshooting；社区文章只作经验参考。
 
 ## 出问题先分层查
 

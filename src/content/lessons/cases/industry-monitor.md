@@ -16,6 +16,16 @@
 - 有明确的监控方向（行业/竞品/关键词）
 - 国内模型（DeepSeek / Kimi / 豆包）已配置好
 
+## 项目定义卡
+
+| 维度 | 本案例答案 |
+| --- | --- |
+| 适用人群 | 需要固定追踪行业动态、竞品变化或关键词事件的产品、运营、创业者 |
+| 输入材料 | 行业信息源、竞品页面、关键词、飞书日报频道、告警频道和责任人 |
+| 最小可行版本 | 工作日生成 1 条飞书精选日报；竞品或关键词只在命中预设条件时告警 |
+| 风险边界 | 不把广告软文、转载噪音或未经确认的页面变化直接当成重大告警 |
+| 验收结果 | 手动触发能产出 3-5 条相关信息，来源清楚、摘要可读、告警分流正确 |
+
 ---
 
 ## 主工具路径
@@ -55,9 +65,9 @@
 ### Step 2：安装 web-search skill
 
 ```bash
-openclaw skill install web-search
+openclaw skills install web-search
 # 验证
-openclaw skill list | grep web-search
+openclaw skills list | grep web-search
 ```
 
 测试：在飞书里 @机器人 发"搜索 36氪 今日 AI 新闻"，看是否返回结果。
@@ -98,7 +108,7 @@ openclaw skill list | grep web-search
 - 昨日已推送的内容
 
 **紧急告警条件（立即推送，@我本人）**：
-- 竞品宣布融资超过 1 亿元
+- 竞品出现你预设为 P1 的融资、并购或重大合作信息
 - 竞品发布重大版本更新
 - 行业出现重大政策变化
 
@@ -127,32 +137,34 @@ openclaw skill list | grep web-search
 
 ### Step 4：配置 Cron 定时任务
 
-编辑 `~/.openclaw/openclaw.json`：
+按 OpenClaw 当前官方 Cron 文档，用 CLI 创建网关定时任务：
 
-```json
-{
-  "cron": [
-    {
-      "pattern": "30 8 * * 1-5",
-      "prompt": "执行行业日报：按 AGENTS.md 配置，访问信息源、过滤内容、生成今日日报，推送到飞书「行业日报」频道。如有触发紧急告警条件，立即 @ 我本人。",
-      "timezone": "Asia/Shanghai"
-    }
-  ]
-}
+```bash
+openclaw cron create "30 8 * * 1-5" \
+  "执行行业日报：按 AGENTS.md 配置，访问信息源、过滤内容、生成今日日报，推送到飞书「行业日报」频道。如有触发紧急告警条件，立即 @ 我本人。用中文输出。" \
+  --name "行业监控日报" \
+  --tz "Asia/Shanghai" \
+  --session isolated \
+  --announce
 ```
 
-同时建议加一个 Heartbeat，用于竞品页面的实时监控：
+同时建议加一个 Heartbeat，用于竞品页面的轻量巡检。OpenClaw 官方当前写法是配置 `agents.defaults.heartbeat.every`，并把具体检查项放进 heartbeat prompt 或 `HEARTBEAT.md`：
 
-```json
+```json5
 {
-  "heartbeat": {
-    "interval": 7200,
-    "prompt": "快速检查竞品监控列表（见 AGENTS.md），判断是否有满足紧急告警条件的变化。有则立即通知，无则静默。"
+  agents: {
+    defaults: {
+      heartbeat: {
+        every: "2h",
+        target: "last",
+        prompt: "快速检查竞品监控列表（见 AGENTS.md），判断是否有满足紧急告警条件的变化。有则立即通知，无则回复 HEARTBEAT_OK。"
+      }
+    }
   }
 }
 ```
 
-`interval: 7200` = 每 2 小时检查一次。
+如果你不想让 Heartbeat 进入主会话，也可以再建一个独立 Cron 巡检任务。具体选择以 OpenClaw 当前文档和你的通知渠道配置为准。
 
 ---
 
@@ -244,9 +256,10 @@ openclaw run --prompt "检查竞品告警列表，返回每个竞品的最新状
 
 **问题 4：日报时间不对（比如 16:30 才推送）**
 
-原因：缺少 `timezone: Asia/Shanghai`。加上后重启 OpenClaw：
+原因：没有按当前官方文档配置 `--tz "Asia/Shanghai"`，或网关主机时区与预期不一致。先检查任务详情：
 ```bash
-openclaw daemon restart
+openclaw cron list
+openclaw cron show <job-id>
 ```
 
 ---

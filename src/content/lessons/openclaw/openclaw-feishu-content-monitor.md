@@ -4,6 +4,14 @@
 - Heartbeat 巡检规则配置
 - 从"抓消息"到"产素材资产"的飞书多维表格结构
 
+## 本课项目产物
+
+| 产物 | 完成标准 |
+| --- | --- |
+| 内容监控规则 | AGENTS.md 中写清立即提醒、摘要、静默和去重规则 |
+| 主动巡检配置 | Heartbeat 或 Cron 能手动触发一次，并按规则分类结果 |
+| 飞书素材池 | 多维表格包含标题、来源、关键词、优先级、建议动作、负责人和状态 |
+
 ## 核心不是抓得多，而是筛得准
 
 真正有价值的监控系统，能把线索分成三层：
@@ -16,7 +24,7 @@
 ### 1. 安装技能
 
 ```bash
-clawhub install web-search browser
+openclaw skills install web-search browser
 openclaw skills list  # 确认安装成功
 ```
 

@@ -1,7 +1,7 @@
 import type { ModuleEnhancement } from '@/types/course';
 
 export const claudeAgentEnhancement: ModuleEnhancement = {
-  lastVerifiedOn: '2026-04-03',
+  lastVerifiedOn: '2026-06-08',
   sources: [
     { label: 'Claude Code Overview', url: 'https://docs.anthropic.com/en/docs/claude-code/overview' },
     { label: 'Claude Code Getting Started', url: 'https://docs.anthropic.com/en/docs/claude-code/getting-started' },
@@ -19,6 +19,50 @@ export const claudeAgentEnhancement: ModuleEnhancement = {
     { label: 'Claude Code in Action', url: 'https://anthropic.skilljar.com/claude-code-in-action/312000' },
   ],
   blocks: [
+    {
+      type: 'action-checklist',
+      title: '6 个阶段的交付物地图',
+      description: '每个阶段都要交付一个能复用的资产。不要只看完课程，要把工作台逐步搭出来。',
+      hideMeta: true,
+      items: [
+        {
+          title: '阶段 1：入口判断表',
+          timebox: '20 分钟',
+          description: '列出 5 个高频任务，标注是否需要读文件、改文件、跑命令、外部连接和人工确认。',
+          doneDefinition: '能判断自己先学 CLI、IDE、Desktop/Web 还是 Cowork，并说出不适合交给 Claude 的任务。',
+        },
+        {
+          title: '阶段 2：只读验证记录',
+          timebox: '30 分钟',
+          description: '在真实目录里完成一次只读分析，记录输入、读取范围、输出准确性和权限询问情况。',
+          doneDefinition: '验证记录能证明工具读对了上下文，没有改文件，也没有把猜测写成事实。',
+        },
+        {
+          title: '阶段 3：个人任务模板包',
+          timebox: '45 分钟',
+          description: '沉淀 5 步执行法、结构化 Prompt、CLAUDE.md 或 Instructions 基础版。',
+          doneDefinition: '任何新任务都能套用读、计划、执行、验证、总结，并带明确禁止事项。',
+        },
+        {
+          title: '阶段 4：能力封装清单',
+          timebox: '60 分钟',
+          description: '把 1 个高频动作做成 command/skill，接入 1 个低风险 MCP，并写出上下文分段模板。',
+          doneDefinition: '封装后的能力可复用、输入来源明确、权限最小化、验证方式清楚。',
+        },
+        {
+          title: '阶段 5：安全与自动化放权表',
+          timebox: '45 分钟',
+          description: '把危险操作、权限模式、确认点、回退方式和自动化升级条件写成表。',
+          doneDefinition: '未验证流程不能自动化，高风险动作必须先计划、再人工确认、再执行和验证。',
+        },
+        {
+          title: '阶段 6：场景 SOP',
+          timebox: '90 分钟',
+          description: '产品、开发、研究任选一个场景，跑通输入、处理、输出、复盘的完整链路。',
+          doneDefinition: 'SOP 包含目录结构、指令模板、验收标准、风险点和下一次复用方式。',
+        },
+      ],
+    },
     {
       type: 'tool-comparison',
       title: '五大入口全维度对比',
@@ -38,12 +82,12 @@ export const claudeAgentEnhancement: ModuleEnhancement = {
         },
         {
           aspect: '上下文系统',
-          cli: 'CLAUDE.md + .claude/rules/ + Auto Memory，重点是命令、目录、规范、禁止事项。',
+          cli: 'CLAUDE.md（项目/全局/嵌套/导入）+ Auto Memory，重点是命令、目录、规范、禁止事项。',
           cowork: 'Global / Project / Folder Instructions，重点是输出格式、资料边界和工作偏好。',
         },
         {
           aspect: '权限与安全',
-          cli: '权限模式（default/plan/auto 等）+ allow/ask/deny + sandbox/worktree。',
+          cli: '权限模式（default/acceptEdits/plan/bypassPermissions）+ allow/ask/deny + sandbox/worktree。',
           cowork: 'Instructions 里写操作边界 + 桌面端环境依赖 + 文件读写确认。',
         },
         {
@@ -65,8 +109,8 @@ export const claudeAgentEnhancement: ModuleEnhancement = {
             '第 1 步（读）：让 Claude 阅读相关文件，总结现状和可能原因，先不要修改。',
             '第 2 步（计划）：要求给出执行计划，标出会改和不会改的文件。',
             '第 3 步（执行）：确认计划后允许修改，严格按计划做，不额外优化。',
-            '第 4 步（验证）：修改后运行测试或给出验证步骤，读一遍改动确认正确。',
-            '第 5 步（总结）：输出变更说明、残留风险和下一步建议。',
+            '第 4 步（验证）：修改后运行测试或给出验证步骤，同时检查 diff 是否只包含计划内改动。',
+            '第 5 步（总结）：输出变更说明、验证结论、残留风险和可回退方式。',
           ],
           output: '范围清晰的修复结果 + 验证结论 + 风险摘要',
           kpi: '改动文件数可控、验证完整、没有顺手引入额外重构',
@@ -90,11 +134,24 @@ export const claudeAgentEnhancement: ModuleEnhancement = {
             '/debt 选出本周优先清理的技术债务项。',
             '5 步执行法完成清理任务。',
             '/doc [修改的文件] 补充文档。',
-            '/security-review 最终安全自检。',
-            '生成 commit 消息，推代码。',
+            '自定义 /security-check-local 或官方 /code-review 做最终自检。',
+            '生成 commit 消息草稿，人工确认后再提交或推送。',
           ],
           output: '清理完成的代码 + 补全的文档 + 安全审查报告',
           kpi: '技术债务持续减少、文档覆盖率提升、无安全隐患遗漏',
+        },
+        {
+          title: '自动化放权：手动流程升级模板',
+          input: '一个已经手动跑通 3 次的重复任务、执行日志、失败案例、安全边界',
+          steps: [
+            '先把手动步骤写成 command 或 skill，不直接上定时或 Auto Mode。',
+            '为每一步写停止条件：读不到文件、验证失败、diff 超范围、外部请求异常时立刻停。',
+            '选择调度层：临时观察用 /loop，云端低风险任务用 /schedule，依赖本机文件再考虑 Desktop scheduled tasks。',
+            '保留人工确认点：删除、安装、推送、改配置、发请求都不能默认放行。',
+            '跑 1 周试运行，复盘失败率和人工接管次数，再决定是否继续放权。',
+          ],
+          output: '一份可审查的自动化升级方案，而不是一次无边界的后台任务',
+          kpi: '连续多次运行可复现，失败能停住，人工能接管，回退路径清楚',
         },
       ],
     },
@@ -124,7 +181,7 @@ export const claudeAgentEnhancement: ModuleEnhancement = {
         {
           week: 4,
           goal: '多 Agent 初探 + 安全边界 + 自动化入门',
-          deliverable: '用 Plan Mode 做一次复杂任务规划，写好安全边界模板，尝试配置 1 个 Hook 或 Schedule。',
+          deliverable: '用 Plan Mode 做一次复杂任务规划，写好安全边界模板，再把一个已验证流程升级成 Hook、/loop 或 Schedule 候选。',
           fallback: '如果多 Agent 还不需要，就把安全边界和自动化路径搞清楚。',
         },
         {
@@ -152,19 +209,19 @@ export const claudeAgentEnhancement: ModuleEnhancement = {
         },
         {
           title: '权限模式已选对',
-          detail: '新手用 default，高风险用 plan，已验证流程用 acceptEdits，bypassPermissions 仅限隔离环境。',
+          detail: '新手用 default，高风险用 plan，已验证流程才考虑 acceptEdits，bypassPermissions 仅限隔离环境和可恢复任务。',
         },
         {
           title: '危险操作有确认点',
-          detail: '删除文件、安装依赖、对外发请求、改生产配置、执行 git push 等操作都设成必须人工确认。',
+          detail: '删除文件、安装依赖、对外发请求、改生产配置、执行 git push 等操作都必须先列计划，再等人工确认。',
         },
         {
           title: '任务前后有可恢复机制',
-          detail: '重要任务前做 git 备份分支，任务后先看 git diff 和 git status，再决定是否提交或回滚。',
+          detail: '重要任务前做 git 备份分支或 worktree，任务后先看 git diff 和 git status，验证通过再提交，失败时按计划恢复。',
         },
         {
           title: '上下文系统已分层',
-          detail: '全局偏好在 ~/.claude/CLAUDE.md，项目规则在项目 CLAUDE.md，局部规则在 .claude/rules/，不互相冲突。',
+          detail: '全局偏好在 ~/.claude/CLAUDE.md，项目规则在项目 CLAUDE.md，局部规则用嵌套 CLAUDE.md 或 imports 承接，不互相冲突。',
         },
         {
           title: 'Cowork 的运行条件已考虑',
