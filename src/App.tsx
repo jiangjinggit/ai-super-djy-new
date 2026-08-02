@@ -7,8 +7,9 @@ import { Footer } from '@/components/Footer';
 import { Navbar } from '@/components/Navbar';
 import { ScrollToTop } from '@/components/ScrollToTop';
 import { ThemeProvider } from '@/components/ThemeProvider';
-import { SearchModal } from '@/components/SearchModal';
-
+const SearchModal = lazy(() =>
+  import('@/components/SearchModal').then((module) => ({ default: module.SearchModal })),
+);
 const HomePage = lazy(() => import('@/pages/HomePage'));
 const ModulePage = lazy(() => import('@/pages/ModulePage'));
 const LessonPage = lazy(() => import('@/pages/LessonPage'));
@@ -43,7 +44,11 @@ const AnimatedRoutes = () => {
   return (
     <>
       <Navbar onSearchClick={() => setIsSearchOpen(true)} />
-      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+      {isSearchOpen && (
+        <Suspense fallback={null}>
+          <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+        </Suspense>
+      )}
       <AnimatePresence mode="wait">
         <motion.div
           key={location.pathname}

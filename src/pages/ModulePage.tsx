@@ -15,10 +15,32 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ModuleEnhancementBlockSection } from '@/components/module-page/ModuleEnhancementBlockSection';
 import { ModuleReferencePanel } from '@/components/module-page/ModuleReferencePanel';
 import { MODULE_COLOR_STYLES } from '@/constants/moduleStyles';
-import { MODULE_ENHANCEMENTS } from '@/content/moduleEnhancements';
-import { MODULE_CONTENT } from '@/content/modules';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
-import { isModuleId } from '@/types/course';
+import { isModuleId, type Lesson, type ModuleContent, type ModuleEnhancement, type ModuleId } from '@/types/course';
+
+type ModuleBundle = {
+  content: ModuleContent;
+  enhancement: ModuleEnhancement;
+};
+
+const loadModuleBundle = async (moduleId: ModuleId): Promise<ModuleBundle> => {
+  if (moduleId === 'ai-group') {
+    const { AI_GROUP_BUNDLE } = await import('@/content/aiGroupBundle');
+    return AI_GROUP_BUNDLE;
+  }
+
+  const [{ MODULE_CONTENT }, { MODULE_ENHANCEMENTS }] = await Promise.all([
+    import('@/content/modules'),
+    import('@/content/moduleEnhancements'),
+  ]);
+
+  return {
+    content: MODULE_CONTENT[moduleId],
+    enhancement: MODULE_ENHANCEMENTS[moduleId],
+  };
+};
+
+const getModuleId = (id: string | undefined) => (id && isModuleId(id) ? id : null);
 
 const DIFFICULTY_LABELS = {
   beginner: '入门',
@@ -180,9 +202,39 @@ const splitCta = (text: string) => {
 export default function ModulePage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const moduleId = id && isModuleId(id) ? id : null;
+  const moduleId = getModuleId(id);
 
   const [completedSlugs, setCompletedSlugs] = useState<string[]>([]);
+  const [bundle, setBundle] = useState<ModuleBundle | null>(null);
+  const [isLoading, setIsLoading] = useState(Boolean(moduleId));
+
+  useEffect(() => {
+    if (!moduleId) {
+      setBundle(null);
+      setIsLoading(false);
+      return;
+    }
+
+    let cancelled = false;
+    setBundle(null);
+    setIsLoading(true);
+
+    loadModuleBundle(moduleId)
+      .then((nextBundle) => {
+        if (!cancelled) setBundle(nextBundle);
+      })
+      .catch((error) => {
+        console.error(`Failed to load module: ${moduleId}`, error);
+        if (!cancelled) setBundle(null);
+      })
+      .finally(() => {
+        if (!cancelled) setIsLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [moduleId]);
 
   useEffect(() => {
     const loadProgress = () => {
@@ -195,11 +247,7 @@ export default function ModulePage() {
     return () => window.removeEventListener('storage', loadProgress);
   }, []);
 
-  const renderLessonCard = (
-    lesson: (typeof MODULE_CONTENT)[keyof typeof MODULE_CONTENT]['lessons'][number],
-    index: number,
-    onOpen: () => void,
-  ) => {
+  const renderLessonCard = (lesson: Lesson, index: number, onOpen: () => void) => {
     const isCompleted = completedSlugs.includes(lesson.slug);
     
     return (
@@ -252,8 +300,8 @@ export default function ModulePage() {
     );
   };
 
-  const content = moduleId ? MODULE_CONTENT[moduleId] : null;
-  const enhancement = moduleId ? MODULE_ENHANCEMENTS[moduleId] : null;
+  const content = bundle?.content ?? null;
+  const enhancement = bundle?.enhancement ?? null;
   const prioritizedBlocks =
     enhancement?.blocks.filter((block) => block.type === 'action-checklist' || block.type === 'tool-comparison') ?? [];
   const remainingBlocks =
@@ -287,7 +335,18 @@ export default function ModulePage() {
 
   const isCustomLayout = isOpenClaw || isAgentIntro || isAiGroup || isClaudeAgent || isCodexAgent || isAiProgramming;
 
-  useDocumentTitle(content?.title ?? '模块未找到');
+  useDocumentTitle(content?.title ?? (isLoading ? '正在加载模块' : '模块未找到'));
+
+  if (isLoading && moduleId) {
+    return (
+      <div className="min-h-[70vh] flex items-center justify-center text-slate-500 dark:text-gray-400">
+        <div className="inline-flex items-center gap-3 font-mono-tech text-sm tracking-wide">
+          <span className="h-2.5 w-2.5 rounded-full bg-cyan-400 animate-pulse" />
+          正在加载模块内容...
+        </div>
+      </div>
+    );
+  }
 
   if (!content || !enhancement || !moduleId) {
     return (
