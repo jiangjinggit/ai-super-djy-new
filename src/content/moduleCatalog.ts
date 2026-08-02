@@ -78,7 +78,7 @@ export const MODULE_CARDS: ModuleCardData[] = [
   {
     id: 'ai-group',
     title: 'AI 拼团',
-    desc: '看懂拼团优势、1:10 面板额度、动态倍率、月末清空、团内转让和安全使用规则。',
+    desc: '看懂拼团优势、1:10 面板额度、动态倍率、月末清空、团内转让、安全规则和入团方式。',
     icon: Users,
     color: 'orange',
   },
@@ -110,7 +110,7 @@ export const MODULE_GROUPS: readonly ModuleGroup[] = [
     id: 'community',
     eyebrow: '04 · AI 拼团',
     title: '先看清优势与规则',
-    description: '花十几分钟看清额度、倍率、周期、转让和使用边界，再决定是否参加。',
+    description: '看清额度、倍率、周期、转让和使用边界；确认适合后，再按页面联系方式申请入团。',
     moduleIds: ['ai-group'],
   },
 ];

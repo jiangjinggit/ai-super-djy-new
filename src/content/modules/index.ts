@@ -123,10 +123,10 @@ const MODULE_METADATA: Record<
     prerequisites: ['建议已完成入门模块，并理解 AI 工作流和能力边界', '建议至少熟悉其中一项：命令行、机器人配置、表格数据处理、云端定时任务'],
   },
   'ai-group': {
-    estimatedTime: '15-20 分钟',
+    estimatedTime: '20-25 分钟',
     difficulty: 'beginner',
     audience: ['准备参加 AI 拼团的用户', '希望了解额度、倍率和拼团规则的团友'],
-    tags: ['AI 拼团', '面板额度', '动态倍率', '额度转让', '隐私规则'],
+    tags: ['AI 拼团', '面板额度', '动态倍率', '额度转让', '隐私规则', '入团方式'],
     prerequisites: [],
   },
 };

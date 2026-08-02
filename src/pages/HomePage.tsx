@@ -248,12 +248,12 @@ const JOURNEY_PHASES: Array<{
   },
   {
     phase: '阶段 3',
-    time: '可选 · 15-20 分钟',
+    time: '可选 · 20-25 分钟',
     title: '了解 AI 拼团规则',
-    desc: '看清拼团优势、额度倍率、月末清空、团内转让和使用边界，再决定是否参加。',
+    desc: '看清拼团优势、额度倍率、月末清空、团内转让和使用边界，确认适合后再按联系方式申请入团。',
     color: 'orange',
     modules: [
-      { id: 'ai-group', label: 'AI 拼团', time: '15-20 分钟', color: 'orange' },
+      { id: 'ai-group', label: 'AI 拼团', time: '20-25 分钟', color: 'orange' },
     ],
   },
 ];

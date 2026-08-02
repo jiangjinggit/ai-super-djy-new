@@ -412,7 +412,7 @@ export default function ModulePage() {
                     : isAiProgramming
                       ? '先看清工具范式，再设计自己的默认工作栈'
                       : isAiGroup
-                        ? '这一页只讲清楚 3 件事'
+                        ? '看懂规则，再决定是否入团'
                       : isCases
                       ? '这一模块主要给你 6 个可直接复用的落地场景'
                       : '这一模块主要解决 3 件事'}
@@ -428,7 +428,7 @@ export default function ModulePage() {
                     : isAiProgramming
                       ? '先理解不同产品解决哪段开发链路，再横向比较国内外工具路线，然后把模型、工作流和治理规则接成一套可执行系统。'
                       : isAiGroup
-                        ? '为什么有人参加拼团、额度和倍率怎么算、参加后必须遵守哪些规则。看完再决定，不需要先学部署和运维。'
+                        ? '先了解拼团优势、额度倍率和使用规则；确认这些条件适合你后，再按最后一节的联系方式申请入团。'
                       : '不要把这 6 个案例当故事看，而是按你的行业、现有工具和可用资源去挑一个最接近的场景，先跑通一个最小闭环。'}
             </p>
           )}
@@ -505,7 +505,7 @@ export default function ModulePage() {
           <BookOpen className="text-cyan-400" size={22} /> {isAiGroup ? '拼团说明' : '课程大纲'}
         </h3>
         <p className="font-mono-tech text-xs text-slate-500 dark:text-gray-500 mb-8 tracking-wide">
-          {isAiGroup ? '按顺序看完 3 部分：先看优势，再算倍率，最后确认规则。' : '不要先通读，按顺序做。每节课先看目标，再立即完成 1 个动作。'}
+          {isAiGroup ? '按顺序看完 4 部分：先看优势，再算倍率、确认规则，最后查看入团方式。' : '不要先通读，按顺序做。每节课先看目标，再立即完成 1 个动作。'}
         </p>
         {isOpenClaw || isClaudeAgent || isCodexAgent || isAiProgramming ? (
           <div className="space-y-6">
