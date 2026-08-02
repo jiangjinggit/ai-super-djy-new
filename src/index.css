@@ -3,7 +3,7 @@
 
 /* ── 字体系统 ── */
 body {
-  font-family: 'Syne', 'Noto Sans SC', system-ui, sans-serif;
+  font-family: 'Syne', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
 }
 
 /* ── 全局噪点纹理叠层 ── */

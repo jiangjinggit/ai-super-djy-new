@@ -15,6 +15,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ModuleEnhancementBlockSection } from '@/components/module-page/ModuleEnhancementBlockSection';
 import { ModuleReferencePanel } from '@/components/module-page/ModuleReferencePanel';
 import { MODULE_COLOR_STYLES } from '@/constants/moduleStyles';
+import { AI_GROUP_BUNDLE } from '@/content/aiGroupBundle';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 import { isModuleId, type Lesson, type ModuleContent, type ModuleEnhancement, type ModuleId } from '@/types/course';
 
@@ -23,12 +24,11 @@ type ModuleBundle = {
   enhancement: ModuleEnhancement;
 };
 
-const loadModuleBundle = async (moduleId: ModuleId): Promise<ModuleBundle> => {
-  if (moduleId === 'ai-group') {
-    const { AI_GROUP_BUNDLE } = await import('@/content/aiGroupBundle');
-    return AI_GROUP_BUNDLE;
-  }
+type LoadedModuleBundle = ModuleBundle & {
+  moduleId: ModuleId;
+};
 
+const loadModuleBundle = async (moduleId: ModuleId): Promise<ModuleBundle> => {
   const [{ MODULE_CONTENT }, { MODULE_ENHANCEMENTS }] = await Promise.all([
     import('@/content/modules'),
     import('@/content/moduleEnhancements'),
@@ -205,12 +205,20 @@ export default function ModulePage() {
   const moduleId = getModuleId(id);
 
   const [completedSlugs, setCompletedSlugs] = useState<string[]>([]);
-  const [bundle, setBundle] = useState<ModuleBundle | null>(null);
-  const [isLoading, setIsLoading] = useState(Boolean(moduleId));
+  const [bundle, setBundle] = useState<LoadedModuleBundle | null>(() =>
+    moduleId === 'ai-group' ? { moduleId, ...AI_GROUP_BUNDLE } : null,
+  );
+  const [isLoading, setIsLoading] = useState(Boolean(moduleId && moduleId !== 'ai-group'));
 
   useEffect(() => {
     if (!moduleId) {
       setBundle(null);
+      setIsLoading(false);
+      return;
+    }
+
+    if (moduleId === 'ai-group') {
+      setBundle({ moduleId, ...AI_GROUP_BUNDLE });
       setIsLoading(false);
       return;
     }
@@ -221,7 +229,7 @@ export default function ModulePage() {
 
     loadModuleBundle(moduleId)
       .then((nextBundle) => {
-        if (!cancelled) setBundle(nextBundle);
+        if (!cancelled) setBundle({ moduleId, ...nextBundle });
       })
       .catch((error) => {
         console.error(`Failed to load module: ${moduleId}`, error);
@@ -300,8 +308,9 @@ export default function ModulePage() {
     );
   };
 
-  const content = bundle?.content ?? null;
-  const enhancement = bundle?.enhancement ?? null;
+  const activeBundle = bundle?.moduleId === moduleId ? bundle : null;
+  const content = activeBundle?.content ?? null;
+  const enhancement = activeBundle?.enhancement ?? null;
   const prioritizedBlocks =
     enhancement?.blocks.filter((block) => block.type === 'action-checklist' || block.type === 'tool-comparison') ?? [];
   const remainingBlocks =
@@ -394,9 +403,9 @@ export default function ModulePage() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
+      initial={isAiGroup ? false : { opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
+      transition={isAiGroup ? { duration: 0 } : { duration: 0.5, ease: 'easeOut' }}
       className="pt-24 md:pt-32 pb-24 px-5 md:px-6 max-w-5xl mx-auto"
     >
       <button
