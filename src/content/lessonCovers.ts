@@ -25,6 +25,18 @@ const COVER_THEMES: Record<ModuleId, { accent: string; background: string; glow:
     glow: '#047857',
     eyebrow: 'AGENT FOUNDRY',
   },
+  chatgpt: {
+    accent: '#38bdf8',
+    background: '#06131f',
+    glow: '#0369a1',
+    eyebrow: 'CHATGPT WORK',
+  },
+  workbuddy: {
+    accent: '#a78bfa',
+    background: '#1d1633',
+    glow: '#6d28d9',
+    eyebrow: 'WORK BUDDY',
+  },
   openclaw: {
     accent: '#fb923c',
     background: '#2b1608',
@@ -54,6 +66,12 @@ const COVER_THEMES: Record<ModuleId, { accent: string; background: string; glow:
     background: '#1f1120',
     glow: '#be185d',
     eyebrow: 'SCENE & CASE',
+  },
+  'ai-group': {
+    accent: '#f59e0b',
+    background: '#1f1307',
+    glow: '#c2410c',
+    eyebrow: 'AI GROUP',
   },
 };
 

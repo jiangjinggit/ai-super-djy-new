@@ -1,17 +1,22 @@
 import { Cpu, Menu, Search, X, Command } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
-import { NAV_LABELS } from '@/content/moduleCatalog';
-import { VISIBLE_MODULE_IDS } from '@/types/course';
+import { MODULE_GROUPS, NAV_LABELS } from '@/content/moduleCatalog';
 import { ThemeToggle } from './ThemeToggle';
 
 const showCommunityCTA = false;
+const PRIMARY_NAV_GROUPS = MODULE_GROUPS.filter((group) => group.id !== 'practice' && group.id !== 'community');
+const PRACTICE_MODULE_IDS = MODULE_GROUPS
+  .filter((group) => group.id === 'practice' || group.id === 'community')
+  .flatMap((group) => group.moduleIds);
 
 export const Navbar = ({ onSearchClick }: { onSearchClick: () => void }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [openGroupId, setOpenGroupId] = useState<string | null>(null);
+  const navRef = useRef<HTMLElement>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -33,12 +38,30 @@ export const Navbar = ({ onSearchClick }: { onSearchClick: () => void }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const closeWhenOutside = (event: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+        setOpenGroupId(null);
+      }
+    };
+    const closeWhenEscaped = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpenGroupId(null);
+    };
+
+    document.addEventListener('mousedown', closeWhenOutside);
+    window.addEventListener('keydown', closeWhenEscaped);
+    return () => {
+      document.removeEventListener('mousedown', closeWhenOutside);
+      window.removeEventListener('keydown', closeWhenEscaped);
+    };
+  }, []);
+
   const navClassName = isScrolled
     ? 'fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b bg-white/80 dark:bg-black/80 backdrop-blur-md border-slate-200 dark:border-white/10 py-4'
     : 'fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b bg-transparent border-transparent py-4 md:py-6';
 
   return (
-    <nav className={navClassName}>
+    <nav ref={navRef} className={navClassName}>
       <div className="max-w-7xl mx-auto px-4 md:px-6 flex items-center justify-between">
         <button
           type="button"
@@ -62,13 +85,37 @@ export const Navbar = ({ onSearchClick }: { onSearchClick: () => void }) => {
           </span>
         </button>
 
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-5">
           <button type="button" onClick={goHome} className="text-sm font-medium text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:text-white transition-colors cursor-pointer">
             首页
           </button>
-          {VISIBLE_MODULE_IDS.map((id) => (
-            <Link key={id} to={`/module/${id}`} className="text-sm font-medium text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:text-white transition-colors">
-              {NAV_LABELS[id]}
+          {PRIMARY_NAV_GROUPS.map((group) => (
+            <div key={group.id} className="relative">
+              <button
+                type="button"
+                onClick={() => setOpenGroupId((current) => (current === group.id ? null : group.id))}
+                className="text-sm font-medium text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer"
+                aria-expanded={openGroupId === group.id}
+              >
+                {group.id === 'foundation' ? '基础能力' : '智能体应用'}
+              </button>
+              {openGroupId === group.id && (
+                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4">
+                <div className="w-64 p-3 rounded-2xl border border-slate-200 dark:border-white/10 bg-white/95 dark:bg-[#0d1117]/95 backdrop-blur-xl shadow-2xl">
+                  <p className="px-3 pt-1 pb-2 text-[10px] font-mono-tech tracking-[0.16em] uppercase text-cyan-600 dark:text-cyan-400">{group.eyebrow}</p>
+                  {group.moduleIds.map((id) => (
+                    <Link key={id} to={`/module/${id}`} onClick={() => setOpenGroupId(null)} className="block px-3 py-2.5 rounded-xl text-sm font-medium text-slate-700 dark:text-gray-300 hover:bg-cyan-500/10 hover:text-cyan-600 dark:hover:text-cyan-300 transition-colors">
+                      {NAV_LABELS[id]}
+                    </Link>
+                  ))}
+                </div>
+                </div>
+              )}
+            </div>
+          ))}
+          {PRACTICE_MODULE_IDS.map((moduleId) => (
+            <Link key={moduleId} to={`/module/${moduleId}`} className="text-sm font-medium text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white transition-colors">
+              {NAV_LABELS[moduleId]}
             </Link>
           ))}
           <Link to="/about" className="text-sm font-medium text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:text-white transition-colors">
@@ -152,14 +199,31 @@ export const Navbar = ({ onSearchClick }: { onSearchClick: () => void }) => {
             <button type="button" onClick={() => { setIsMobileMenuOpen(false); goHome(); }} className="text-lg font-medium text-slate-600 dark:text-gray-400 py-2 border-b border-slate-100 dark:border-white/5 text-left w-full cursor-pointer">
               首页
             </button>
-            {VISIBLE_MODULE_IDS.map((id) => (
+            {PRIMARY_NAV_GROUPS.map((group) => (
+              <div key={group.id} className="border-b border-slate-100 dark:border-white/5 pb-2">
+                <p className="pt-2 pb-1 text-[10px] font-mono-tech tracking-[0.18em] uppercase text-cyan-600 dark:text-cyan-400">
+                  {group.id === 'foundation' ? '基础能力' : '智能体应用'}
+                </p>
+                {group.moduleIds.map((id) => (
+                  <Link
+                    key={id}
+                    to={`/module/${id}`}
+                    className="block text-base font-medium text-slate-600 dark:text-gray-400 py-2"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {NAV_LABELS[id]}
+                  </Link>
+                ))}
+              </div>
+            ))}
+            {PRACTICE_MODULE_IDS.map((moduleId) => (
               <Link
-                key={id}
-                to={`/module/${id}`}
+                key={moduleId}
+                to={`/module/${moduleId}`}
                 className="text-lg font-medium text-slate-600 dark:text-gray-400 py-2 border-b border-slate-100 dark:border-white/5"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                {NAV_LABELS[id]}
+                {NAV_LABELS[moduleId]}
               </Link>
             ))}
             <Link to="/about" className="text-lg font-medium text-slate-600 dark:text-gray-400 py-2 border-b border-slate-100 dark:border-white/5" onClick={() => setIsMobileMenuOpen(false)}>

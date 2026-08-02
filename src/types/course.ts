@@ -5,17 +5,36 @@ export const MODULE_IDS = [
   'llm',
   'api-gateway',
   'agent-intro',
+  'chatgpt',
+  'workbuddy',
   'claude-agent',
   'codex-agent',
   'ai-programming',
   'openclaw',
   'cases',
+  'ai-group',
 ] as const;
 
 export type ModuleId = (typeof MODULE_IDS)[number];
 
 // 暂时隐藏但保留内容与直达链接，方便后续重新开放。
-export const VISIBLE_MODULE_IDS: readonly ModuleId[] = MODULE_IDS.filter((id) => id !== 'claude-agent');
+export const VISIBLE_MODULE_IDS: readonly ModuleId[] = [
+  'super-individual',
+  'llm',
+  'api-gateway',
+  'agent-intro',
+  'chatgpt',
+  'workbuddy',
+  'cases',
+  'ai-group',
+];
+
+export const HIDDEN_MODULE_IDS: readonly ModuleId[] = [
+  'claude-agent',
+  'codex-agent',
+  'ai-programming',
+  'openclaw',
+];
 
 export type ModuleColor = 'blue' | 'purple' | 'emerald' | 'orange';
 export type ContentDifficulty = 'beginner' | 'intermediate' | 'advanced';

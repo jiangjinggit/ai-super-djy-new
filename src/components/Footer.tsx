@@ -27,7 +27,7 @@ export const Footer = () => {
             </span>
           </div>
           <p className="text-sm text-slate-600 dark:text-gray-400 leading-relaxed">
-            一个围绕 AI 入门、大模型选型、智能体开发、AI 编程及真实落地案例持续整理的内容站。
+            一个围绕 AI 入门、大模型选型、智能体应用与真实工作场景持续整理的内容站。
           </p>
           <p className="font-mono-tech text-xs text-slate-400 dark:text-gray-600 mt-3 tracking-wider">
             © {currentYear} AI Superman DJY

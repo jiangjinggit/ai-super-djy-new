@@ -259,6 +259,8 @@ export default function ModulePage() {
   const remainingBlocks =
     enhancement?.blocks.filter((block) => block.type !== 'action-checklist' && block.type !== 'tool-comparison') ?? [];
   const isOpenClaw = moduleId === 'openclaw';
+  const isAgentIntro = moduleId === 'agent-intro';
+  const isAiGroup = moduleId === 'ai-group';
   const isClaudeAgent = moduleId === 'claude-agent';
   const isCodexAgent = moduleId === 'codex-agent';
   const isAiProgramming = moduleId === 'ai-programming';
@@ -280,7 +282,10 @@ export default function ModulePage() {
   const aiProgrammingPreLessonBlocks = enhancement?.blocks.filter((b) => b.type === 'tool-comparison' || b.type === 'weekly-plan') ?? [];
   const aiProgrammingPostLessonBlocks = enhancement?.blocks.filter((b) => b.type !== 'tool-comparison' && b.type !== 'weekly-plan') ?? [];
 
-  const isCustomLayout = isOpenClaw || isClaudeAgent || isCodexAgent || isAiProgramming;
+  const agentIntroPostLessonBlocks = enhancement?.blocks ?? [];
+  const aiGroupPostLessonBlocks = enhancement?.blocks ?? [];
+
+  const isCustomLayout = isOpenClaw || isAgentIntro || isAiGroup || isClaudeAgent || isCodexAgent || isAiProgramming;
 
   useDocumentTitle(content?.title ?? '模块未找到');
 
@@ -389,7 +394,7 @@ export default function ModulePage() {
           <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
         ))}
 
-      {!isClaudeAgent && !isCodexAgent && !isAiProgramming && !isCases && (enhancement.lastVerifiedOn || enhancement.sources.length > 0) && (
+      {!isCustomLayout && !isCases && (enhancement.lastVerifiedOn || enhancement.sources.length > 0) && (
         <ModuleReferencePanel lastVerifiedOn={enhancement.lastVerifiedOn} sources={enhancement.sources} />
       )}
 
@@ -404,13 +409,15 @@ export default function ModulePage() {
                 ? '从跑起来到稳住它的实战路径'
                 : isCodexAgent
                   ? '从入口判断到团队协作的 Codex 实战路径'
-                  : isAiProgramming
-                    ? '先看清工具范式，再设计自己的默认工作栈'
-                    : isCases
+                    : isAiProgramming
+                      ? '先看清工具范式，再设计自己的默认工作栈'
+                      : isAiGroup
+                        ? '这一页只讲清楚 3 件事'
+                      : isCases
                       ? '这一模块主要给你 6 个可直接复用的落地场景'
                       : '这一模块主要解决 3 件事'}
           </h2>
-          {(isOpenClaw || isClaudeAgent || isCodexAgent || isAiProgramming || isCases) && (
+          {(isOpenClaw || isClaudeAgent || isCodexAgent || isAiProgramming || isAiGroup || isCases) && (
             <p className="mt-3 text-sm text-slate-600 dark:text-gray-400 max-w-3xl leading-7">
               {isOpenClaw
                 ? '默认顺序很简单：先跑通最小闭环，再把规则、技能和主动策略配稳，最后用真实案例和治理动作把它长期用起来。'
@@ -420,6 +427,8 @@ export default function ModulePage() {
                     ? '先选对 App、IDE、CLI、Cloud 入口，再用 AGENTS.md、任务契约、沙箱审批和 Cloud tasks 把 Codex 接进真实仓库协作。'
                     : isAiProgramming
                       ? '先理解不同产品解决哪段开发链路，再横向比较国内外工具路线，然后把模型、工作流和治理规则接成一套可执行系统。'
+                      : isAiGroup
+                        ? '为什么有人参加拼团、额度和倍率怎么算、参加后必须遵守哪些规则。看完再决定，不需要先学部署和运维。'
                       : '不要把这 6 个案例当故事看，而是按你的行业、现有工具和可用资源去挑一个最接近的场景，先跑通一个最小闭环。'}
             </p>
           )}
@@ -447,7 +456,7 @@ export default function ModulePage() {
       </div>
 
       {/* 学完后你应该拿到 - OpenClaw / Claude Agent 不展示 */}
-      {!isOpenClaw && !isClaudeAgent && !isCodexAgent && !isAiProgramming && !isCases && content.keyTakeaways.length > 0 && (
+      {!isOpenClaw && !isClaudeAgent && !isCodexAgent && !isAiProgramming && !isAiGroup && !isCases && content.keyTakeaways.length > 0 && (
         <div className="mb-20 p-6 md:p-10 bg-cyan-500/5 border border-cyan-500/20 rounded-3xl">
           <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-8 flex items-center gap-3">
             <Star className="text-yellow-400" size={22} /> 学完后你应该拿到
@@ -493,10 +502,10 @@ export default function ModulePage() {
       {/* 课程大纲 */}
       <div className="bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-cyan-500/10 rounded-3xl p-6 md:p-10">
         <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-3">
-          <BookOpen className="text-cyan-400" size={22} /> 课程大纲
+          <BookOpen className="text-cyan-400" size={22} /> {isAiGroup ? '拼团说明' : '课程大纲'}
         </h3>
         <p className="font-mono-tech text-xs text-slate-500 dark:text-gray-500 mb-8 tracking-wide">
-          不要先通读，按顺序做。每节课先看目标，再立即完成 1 个动作。
+          {isAiGroup ? '按顺序看完 3 部分：先看优势，再算倍率，最后确认规则。' : '不要先通读，按顺序做。每节课先看目标，再立即完成 1 个动作。'}
         </p>
         {isOpenClaw || isClaudeAgent || isCodexAgent || isAiProgramming ? (
           <div className="space-y-6">
@@ -531,6 +540,18 @@ export default function ModulePage() {
           </div>
         )}
       </div>
+
+      {/* 智能体入门：核心结构与课程优先，行动清单和延伸阅读放到课程之后 */}
+      {isAgentIntro &&
+        agentIntroPostLessonBlocks.map((block) => (
+          <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
+        ))}
+
+      {/* AI 拼团：行动清单、治理底线、团长模板和来源放在课程大纲后 */}
+      {isAiGroup &&
+        aiGroupPostLessonBlocks.map((block) => (
+          <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
+        ))}
 
       {/* OpenClaw：治理清单 + 资源导航放在课程大纲后 */}
       {isOpenClaw &&
@@ -573,6 +594,16 @@ export default function ModulePage() {
 
       {/* AI Programming：参考资料放最后 */}
       {isAiProgramming && (enhancement.lastVerifiedOn || enhancement.sources.length > 0) && (
+        <ModuleReferencePanel lastVerifiedOn={enhancement.lastVerifiedOn} sources={enhancement.sources} />
+      )}
+
+      {/* 智能体入门：官方参考资料放在所有课程与练习之后 */}
+      {isAgentIntro && (enhancement.lastVerifiedOn || enhancement.sources.length > 0) && (
+        <ModuleReferencePanel lastVerifiedOn={enhancement.lastVerifiedOn} sources={enhancement.sources} />
+      )}
+
+      {/* AI 拼团：官方与项目参考资料放在所有课程与模板之后 */}
+      {isAiGroup && (enhancement.lastVerifiedOn || enhancement.sources.length > 0) && (
         <ModuleReferencePanel lastVerifiedOn={enhancement.lastVerifiedOn} sources={enhancement.sources} />
       )}
 

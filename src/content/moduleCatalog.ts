@@ -1,17 +1,28 @@
-import { Bot, Brain, Code2, Cpu, Plug, Rocket, Users } from 'lucide-react';
+import { Bot, Brain, Cpu, Plug, Rocket, Users } from 'lucide-react';
 
 import type { ModuleCardData, ModuleId } from '@/types/course';
+
+export interface ModuleGroup {
+  id: 'foundation' | 'agents' | 'practice' | 'community';
+  eyebrow: string;
+  title: string;
+  description: string;
+  moduleIds: readonly ModuleId[];
+}
 
 export const NAV_LABELS: Record<ModuleId, string> = {
   'super-individual': '入门',
   llm: '大模型',
   'api-gateway': 'API 中转',
   'agent-intro': '智能体入门',
+  chatgpt: 'ChatGPT',
+  workbuddy: 'WorkBuddy',
   openclaw: 'OpenClaw',
   'claude-agent': 'Claude',
   'codex-agent': 'Codex',
   'ai-programming': 'AI 编程',
   cases: '场景与案例',
+  'ai-group': 'AI 拼团',
 };
 
 export const MODULE_CARDS: ModuleCardData[] = [
@@ -44,25 +55,18 @@ export const MODULE_CARDS: ModuleCardData[] = [
     color: 'emerald',
   },
   {
-    id: 'codex-agent',
-    title: 'Codex 智能体实战',
-    desc: '15 课建立 OpenAI 编码代理工作流：App、IDE、CLI、Cloud、AGENTS.md、沙箱审批、MCP、PR 与团队协作。',
-    icon: Code2,
+    id: 'chatgpt',
+    title: 'ChatGPT 高效工作',
+    desc: '用清晰任务、资料核验、项目沉淀和复盘，把一次对话变成稳定可复用的工作方法。',
+    icon: Brain,
     color: 'blue',
   },
   {
-    id: 'ai-programming',
-    title: 'AI 编程工具与模型实战',
-    desc: '横向理解 Claude Code、Codex、Cursor、Gemini、Kiro 与国内工具路线，再把模型、流程和治理接成一套默认工作栈。',
-    icon: Code2,
-    color: 'blue',
-  },
-  {
-    id: 'openclaw',
-    title: 'OpenClaw 实战',
-    desc: '先判断是否适合，再完成部署、三件套配置、技能、主动通知和长期调优。',
+    id: 'workbuddy',
+    title: 'WorkBuddy 工作协作',
+    desc: '让 AI 帮你整理资料、拆解任务、产出初稿与复盘，但把判断、确认和对外动作留在人手里。',
     icon: Bot,
-    color: 'orange',
+    color: 'purple',
   },
   {
     id: 'cases',
@@ -70,5 +74,43 @@ export const MODULE_CARDS: ModuleCardData[] = [
     desc: '6 个真实工作流案例，覆盖内容自动化、行业监控、市场研究、Vibe Coding 上线、MVP 推进、自动化报告，重点看前置条件、落地路径和风险边界。',
     icon: Users,
     color: 'purple',
+  },
+  {
+    id: 'ai-group',
+    title: 'AI 拼团',
+    desc: '看懂拼团优势、1:10 面板额度、动态倍率、月末清空、团内转让和安全使用规则。',
+    icon: Users,
+    color: 'orange',
+  },
+];
+
+export const MODULE_GROUPS: readonly ModuleGroup[] = [
+  {
+    id: 'foundation',
+    eyebrow: '01 · 建立基础',
+    title: '先把 AI 用明白',
+    description: '先学会挑选合适的任务、模型与接入方式；这三步打稳，后面的智能体才不会变成复杂玩具。',
+    moduleIds: ['super-individual', 'llm', 'api-gateway'],
+  },
+  {
+    id: 'agents',
+    eyebrow: '02 · 智能体应用',
+    title: '从会问到会协作',
+    description: '先建立智能体判断，再用 ChatGPT 与 WorkBuddy 把资料、任务和交付物接进日常工作。',
+    moduleIds: ['agent-intro', 'chatgpt', 'workbuddy'],
+  },
+  {
+    id: 'practice',
+    eyebrow: '03 · 场景练习',
+    title: '带着真实任务去练',
+    description: '不必等全学完。从一个与你最接近的案例开始，验证方法是否真的节省时间、降低返工。',
+    moduleIds: ['cases'],
+  },
+  {
+    id: 'community',
+    eyebrow: '04 · AI 拼团',
+    title: '先看清优势与规则',
+    description: '花十几分钟看清额度、倍率、周期、转让和使用边界，再决定是否参加。',
+    moduleIds: ['ai-group'],
   },
 ];

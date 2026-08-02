@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { MODULE_COLOR_STYLES } from '@/constants/moduleStyles';
-import { MODULE_CARDS } from '@/content/moduleCatalog';
+import { MODULE_CARDS, MODULE_GROUPS } from '@/content/moduleCatalog';
 import { MODULE_CONTENT } from '@/content/modules';
 import { ModuleCard } from '@/components/ModuleCard';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
@@ -84,7 +84,7 @@ const Hero = () => {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500">EVOLVE</span>
           </h1>
           <p className="max-w-2xl mx-auto text-sm md:text-xl text-slate-600 dark:text-gray-400 mb-4 md:mb-8 leading-relaxed px-2">
-            从零基础到模型判断，再到接入层、智能体工作台与真实场景验证。
+            从基础方法、模型与接入，到 ChatGPT 和工作协作，再用真实场景验证。
             不讲概念神话，只帮你把 AI 变成更稳、更可执行的工作能力。
           </p>
 
@@ -106,8 +106,8 @@ const Hero = () => {
                 <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> init super-individual</span></p>
                 <p className="text-emerald-400 pl-2">✓ AI 工具矩阵已就绪</p>
                 <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> load --module llm api-gateway</span></p>
-                <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> attach --module codex-agent ai-programming</span></p>
-                <p className="text-emerald-400 pl-2">✓ 8 个模块加载完成</p>
+                <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> attach --module chatgpt workbuddy</span></p>
+                <p className="text-emerald-400 pl-2">✓ 7 个模块加载完成</p>
                 <p className="flex items-center gap-1"><span className="text-cyan-400">$</span><span className="inline-block w-1.5 h-3.5 bg-cyan-400/80 ml-1 animate-pulse" /></p>
               </div>
             </motion.div>
@@ -153,13 +153,15 @@ const Hero = () => {
 };
 
 const Modules = () => {
+  const cardById = new Map(MODULE_CARDS.map((moduleCard) => [moduleCard.id, moduleCard]));
+
   return (
     <section id="modules" className="py-16 md:py-24 px-6 max-w-7xl mx-auto">
       <div className="text-center mb-10 md:mb-16">
 
         <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">核心模块地图</h2>
         <p className="text-slate-600 dark:text-gray-400 max-w-2xl mx-auto">
-          从入门、模型、API 接入层、智能体到 AI 编程，最后接场景与案例实战，按真实执行顺序组织内容。
+          按“建立基础 → 进入协作 → 用场景验证”组织，AI 拼团作为一份可选规则说明放在最后。
         </p>
       </div>
 
@@ -169,10 +171,27 @@ const Modules = () => {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {MODULE_CARDS.map((moduleCard, index) => (
-          <ModuleCard key={moduleCard.id} {...moduleCard} index={index} />
-        ))}
+      <div className="space-y-14 md:space-y-20">
+        {MODULE_GROUPS.map((group) => {
+          const groupCards = group.moduleIds
+            .map((id) => cardById.get(id))
+            .filter((card): card is (typeof MODULE_CARDS)[number] => Boolean(card));
+
+          return (
+            <section key={group.id} aria-labelledby={`${group.id}-modules`}>
+              <div className="mb-6 md:mb-8">
+                <p className="font-mono-tech text-[10px] uppercase tracking-[0.22em] text-cyan-600 dark:text-cyan-400 mb-2">{group.eyebrow}</p>
+                <h3 id={`${group.id}-modules`} className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2">{group.title}</h3>
+                <p className="text-sm md:text-base text-slate-600 dark:text-gray-400 max-w-2xl">{group.description}</p>
+              </div>
+              <div className={`grid grid-cols-1 md:grid-cols-2 ${groupCards.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-1'} gap-6`}>
+                {groupCards.map((moduleCard, index) => (
+                  <ModuleCard key={moduleCard.id} {...moduleCard} index={index} />
+                ))}
+              </div>
+            </section>
+          );
+        })}
       </div>
     </section>
   );
@@ -197,44 +216,44 @@ const JOURNEY_PHASES: Array<{
     phase: '阶段 0',
     time: '2-3 周',
     title: '建立基础判断力',
-    desc: '从一个真实任务出发，先学会写清目标、选择模型、接入 API，再判断什么任务适合交给智能体。',
+    desc: '从一个真实任务出发，先学会写清目标、选择模型、理解接入方式，为后续工作协作打好底座。',
     color: 'blue',
     modules: [
       { id: 'super-individual', label: '入门', time: '1-2 周', color: 'blue' },
       { id: 'llm', label: '大模型', time: '1-2 周', color: 'purple' },
       { id: 'api-gateway', label: 'API 中转', time: '3-5 天', color: 'orange' },
-      { id: 'agent-intro', label: '智能体入门', time: '30 分钟', color: 'emerald' },
     ],
   },
   {
     phase: '阶段 1',
-    time: '2-4 周',
-    title: '跑通执行工作流',
-    desc: '把 Codex、AI 编程工具和治理规则接进日常工作，形成读、计划、执行、验证、总结的稳定节奏。',
+    time: '2-3 周',
+    title: '从对话到工作协作',
+    desc: '先理解智能体的边界，再用 ChatGPT 和 WorkBuddy 完成资料整理、初稿、核验与复盘的稳定节奏。',
     color: 'purple',
     modules: [
-      { id: 'codex-agent', label: 'Codex', time: '1-2 周', color: 'blue' },
-      { id: 'ai-programming', label: 'AI 编程', time: '2-3 周', color: 'blue' },
+      { id: 'agent-intro', label: '智能体入门', time: '1 周', color: 'emerald' },
+      { id: 'chatgpt', label: 'ChatGPT', time: '1-2 周', color: 'blue' },
+      { id: 'workbuddy', label: 'WorkBuddy', time: '1-2 周', color: 'purple' },
     ],
   },
   {
     phase: '阶段 2',
-    time: '2-3 周',
-    title: '搭建自动化系统',
-    desc: '用 OpenClaw 把渠道、技能、记忆、主动通知和安全边界串起来，做出一个能长期维护的个人助手。',
-    color: 'emerald',
+    time: '持续复用',
+    title: '迁移到真实场景',
+    desc: '用案例库把方法迁移到内容、研究、MVP、报告和运营流程，重点验证前置条件和风险边界。',
+    color: 'orange',
     modules: [
-      { id: 'openclaw', label: 'OpenClaw', time: '2-3 周', color: 'orange' },
+      { id: 'cases', label: '场景与案例', time: '随时', color: 'purple' },
     ],
   },
   {
     phase: '阶段 3',
-    time: '持续复用',
-    title: '迁移到真实场景',
-    desc: '用案例库把前面的能力迁移到内容、研究、MVP、报告和运营流程，重点验证前置条件和风险边界。',
+    time: '可选 · 15-20 分钟',
+    title: '了解 AI 拼团规则',
+    desc: '看清拼团优势、额度倍率、月末清空、团内转让和使用边界，再决定是否参加。',
     color: 'orange',
     modules: [
-      { id: 'cases', label: '场景与案例', time: '随时', color: 'purple' },
+      { id: 'ai-group', label: 'AI 拼团', time: '15-20 分钟', color: 'orange' },
     ],
   },
 ];

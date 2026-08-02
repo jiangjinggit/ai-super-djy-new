@@ -1,86 +1,51 @@
 import type { ModuleEnhancement } from '@/types/course';
 
 export const agentIntroEnhancement: ModuleEnhancement = {
-  lastVerifiedOn: '2026-06-08',
+  lastVerifiedOn: '2026-08-02',
   sources: [
-    {
-      label: 'Claude Code Overview',
-      url: 'https://code.claude.com/docs/en/overview',
-    },
-    {
-      label: 'Cowork Docs',
-      url: 'https://claude.com/docs/cowork',
-    },
-    {
-      label: 'OpenClaw Docs',
-      url: 'https://docs.openclaw.ai/',
-    },
-    {
-      label: 'Model Context Protocol Specification',
-      url: 'https://modelcontextprotocol.io/specification/2025-06-18',
-    },
-    {
-      label: 'Coze Docs',
-      url: 'https://www.coze.com/docs',
-    },
+    { label: 'OpenAI Agents SDK: Agents', url: 'https://openai.github.io/openai-agents-js/guides/agents/' },
+    { label: 'OpenAI Agents SDK: Tools', url: 'https://openai.github.io/openai-agents-js/guides/tools/' },
+    { label: 'OpenAI Agents SDK: Guardrails', url: 'https://openai.github.io/openai-agents-js/guides/guardrails/' },
+    { label: 'Anthropic: Building effective agents', url: 'https://www.anthropic.com/engineering/building-effective-agents' },
+    { label: 'Model Context Protocol Specification', url: 'https://modelcontextprotocol.io/specification/2025-06-18' },
   ],
   blocks: [
     {
       type: 'action-checklist',
-      title: '先看任务，再选工具',
-      description: '不要先记工具名，先看你面对的到底是哪一种任务。下面这 5 条是给新手用的第一层判断。',
+      title: '开始前，先选一个低风险任务',
+      description: '入门不是找最强工具，而是用一个真正会重复、又能快速核验的任务跑出经验。',
       hideMeta: true,
       items: [
         {
-          title: '要长期后台监控、定时汇总、主动推送，用 OpenClaw',
-          timebox: '10 秒判断',
-          description: '如果任务需要它自己按时间检查、汇总、提醒你，而不是等你开口才执行，优先看 OpenClaw。',
-          doneDefinition: '你能明确说出这个任务是否需要“长期在线 + 主动触发”。',
+          title: '列出最近两周重复过的 3 件事',
+          timebox: '5 分钟',
+          description: '例如整理会议纪要、汇总公开资料、生成固定格式周报。不要选“做个产品”这种过大的目标。',
+          doneDefinition: '每件事都能说明输入是什么、最后要交付什么。',
         },
         {
-          title: '要改仓库、跑命令、看 diff，用 Claude Code CLI',
-          timebox: '10 秒判断',
-          description: '如果对象是代码仓库、脚本、终端命令、测试和项目文档，优先看 Claude Code CLI。',
-          doneDefinition: '你能判断自己面对的是“工程任务”，而不是“资料整理任务”。',
+          title: '只保留一件可快速核验的任务',
+          timebox: '5 分钟',
+          description: '优先选择你能在几分钟内检查对错、出错后可以修改、且不涉及直接对外动作的任务。',
+          doneDefinition: '你能说清为什么这件事适合作为第一个协作任务。',
         },
         {
-          title: '要整理文件夹、资料、报告草稿，用 Cowork',
-          timebox: '10 秒判断',
-          description: '如果对象是本地文件、研究材料、表格、演示文稿或浏览器内容，而不是仓库，优先看 Cowork。',
-          doneDefinition: '你能判断自己面对的是“文件与资料任务”，而不是“代码任务”。',
-        },
-        {
-          title: '要低门槛搭一个流程或 Bot，用 Coze',
-          timebox: '10 秒判断',
-          description: '如果你还在验证流程、想快速拼装插件和节点，不想一开始就自己写太多配置，优先看 Coze。',
-          doneDefinition: '你能判断自己当前阶段更需要“快速搭起来”，而不是“深度定制”。',
+          title: '写下人工确认与停止规则',
+          timebox: '5 分钟',
+          description: '明确哪些事实必须核验、谁决定最终发出、材料不足时 AI 应该怎么停下来提问。',
+          doneDefinition: '任务没有依据时不会被 AI 自行补全，也不会直接对外执行。',
         },
       ],
     },
     {
-      type: 'action-checklist',
-      title: '学完后要交付这 3 样',
-      description: '智能体入门的目标不是记概念，而是能把真实任务分流到合适的后续模块。',
+      type: 'security-checklist',
+      title: '智能体协作的四条底线',
+      description: '课程的目标是提升可检查的执行力，不是把责任交给工具。',
       hideMeta: true,
       items: [
-        {
-          title: '1 张智能体能力判断卡',
-          timebox: '第 1 课完成',
-          description: '用感知、规划、行动、记忆 4 个维度评估你正在用的 2 个 AI 工具。',
-          doneDefinition: '每个工具都能归类为聊天工具、半自动助手或更完整的智能体，并写出理由。',
-        },
-        {
-          title: '1 张任务适配评分表',
-          timebox: '第 2 课完成',
-          description: '从最近工作中选 3 个候选任务，按输入、标准、频率、风险、工具支撑打分。',
-          doneDefinition: '只保留 1 个最值得继续推进的任务，并写出为什么其他任务暂缓。',
-        },
-        {
-          title: '1 个后续学习入口',
-          timebox: '模块结束前',
-          description: '长期主动监控优先 OpenClaw；仓库、终端和代码任务优先 Claude Code；文件资料和成品文档优先 Cowork；低门槛流程验证优先 Coze。产品能力和配置细节以当前官方文档为准。',
-          doneDefinition: '你能说清下一步去哪个模块，以及这个选择对应的是任务需求，而不是工具热度。',
-        },
+        { title: '目标由人设定', detail: 'AI 可以协助拆解，但“为什么做、做到什么程度、何时停止”由人决定。' },
+        { title: '事实必须可追溯', detail: '数字、日期、引用、名单和关键结论要能回到原始资料或官方来源。' },
+        { title: '外部动作必须确认', detail: '发送、发布、修改共享文件、付款、删除和改变权限等动作，默认由人确认。' },
+        { title: '失败时立即停住', detail: '资料不足、规则冲突、输出超范围或无法核验时，应列出问题等待人处理。' },
       ],
     },
   ],

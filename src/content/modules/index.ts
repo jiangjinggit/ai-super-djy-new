@@ -5,12 +5,15 @@ import type { BaseLesson, BaseModuleContent, ContentDifficulty, Lesson, ModuleCo
 import { apiGatewayModule } from './apiGateway';
 import { agentIntroModule } from './agentIntro';
 import { aiProgrammingModule } from './aiProgramming';
+import { aiGroupModule } from './aiGroup';
 import { casesModule } from './cases';
+import { chatgptModule } from './chatgpt';
 import { claudeAgentModule } from './claudeAgent';
 import { codexAgentModule } from './codexAgent';
 import { llmModule } from './llm';
 import { openclawModule } from './openclaw';
 import { superIndividualModule } from './superIndividual';
+import { workBuddyModule } from './workBuddy';
 
 const lessonMarkdownFiles = import.meta.glob('../lessons/**/*.md', {
   import: 'default',
@@ -22,11 +25,14 @@ const BASE_MODULES: Record<ModuleId, BaseModuleContent> = {
   llm: llmModule,
   'api-gateway': apiGatewayModule,
   'agent-intro': agentIntroModule,
+  chatgpt: chatgptModule,
+  workbuddy: workBuddyModule,
   openclaw: openclawModule,
   'claude-agent': claudeAgentModule,
   'codex-agent': codexAgentModule,
   'ai-programming': aiProgrammingModule,
   cases: casesModule,
+  'ai-group': aiGroupModule,
 };
 
 const MODULE_METADATA: Record<
@@ -61,11 +67,25 @@ const MODULE_METADATA: Record<
     prerequisites: ['建议先完成大模型实战库模块', '建议至少会修改环境变量或工具设置'],
   },
   'agent-intro': {
-    estimatedTime: '30 分钟',
+    estimatedTime: '1 周',
     difficulty: 'beginner',
-    audience: ['刚开始了解智能体的用户', '想系统建立认知框架的从业者'],
-    tags: ['智能体入门', '认知框架', '工具选型'],
-    prerequisites: ['了解基础的 AI 对话工具使用'],
+    audience: ['刚开始了解智能体的用户', '希望把 AI 协作真正用进日常工作的知识工作者'],
+    tags: ['智能体入门', '任务判断', '人工确认', '任务契约', '工具边界'],
+    prerequisites: ['了解基础的 AI 对话工具使用', '准备一个可用于练习的低风险真实任务'],
+  },
+  chatgpt: {
+    estimatedTime: '1-2 周',
+    difficulty: 'beginner',
+    audience: ['希望把 ChatGPT 用进日常工作的用户', '需要整理资料、写初稿、做研究和管理持续任务的知识工作者'],
+    tags: ['ChatGPT', '任务表达', '文件协作', '深度研究', 'Projects', '核验'],
+    prerequisites: ['完成入门模块，或已经有一个真实工作任务可以练习'],
+  },
+  workbuddy: {
+    estimatedTime: '1-2 周',
+    difficulty: 'beginner',
+    audience: ['需要用 AI 协作处理资料、会议、文档与项目任务的知识工作者', '希望建立可复用 AI 工作流的个人学习者'],
+    tags: ['AI 协作', '任务拆解', '资料整理', '会议纪要', '工作流', '人工确认'],
+    prerequisites: ['建议先完成 ChatGPT 高效工作模块，或已经能用 AI 产出基础初稿'],
   },
   openclaw: {
     estimatedTime: '2-3 周',
@@ -102,6 +122,13 @@ const MODULE_METADATA: Record<
     tags: ['场景库', 'SOP', '内容生产', 'MVP', '案例拆解', '风险判断', '可复制性'],
     prerequisites: ['建议已完成入门模块，并理解 AI 工作流和能力边界', '建议至少熟悉其中一项：命令行、机器人配置、表格数据处理、云端定时任务'],
   },
+  'ai-group': {
+    estimatedTime: '15-20 分钟',
+    difficulty: 'beginner',
+    audience: ['准备参加 AI 拼团的用户', '希望了解额度、倍率和拼团规则的团友'],
+    tags: ['AI 拼团', '面板额度', '动态倍率', '额度转让', '隐私规则'],
+    prerequisites: [],
+  },
 };
 
 const extractLessonSlug = (image: string) => {
@@ -130,12 +157,15 @@ const lessonEstimatedTime = (moduleId: ModuleId, lesson: BaseLesson) => {
   if (moduleId === 'super-individual') return '15-20 分钟';
   if (moduleId === 'llm') return '18-25 分钟';
   if (moduleId === 'api-gateway') return '20-30 分钟';
-  if (moduleId === 'agent-intro') return '15-20 分钟';
+  if (moduleId === 'agent-intro') return '18-25 分钟';
+  if (moduleId === 'chatgpt') return '18-25 分钟';
+  if (moduleId === 'workbuddy') return '18-25 分钟';
   if (moduleId === 'openclaw') return '25-35 分钟';
   if (moduleId === 'claude-agent') return '25-35 分钟';
   if (moduleId === 'codex-agent') return '25-35 分钟';
   if (moduleId === 'ai-programming') return '22-30 分钟';
   if (moduleId === 'cases') return '15-25 分钟';
+  if (moduleId === 'ai-group') return '5-8 分钟';
   return `${lesson.details.length * 5} 分钟`;
 };
 
@@ -199,9 +229,12 @@ export const MODULE_CONTENT: Record<ModuleId, ModuleContent> = {
   llm: enrichModule('llm', BASE_MODULES.llm),
   'api-gateway': enrichModule('api-gateway', BASE_MODULES['api-gateway']),
   'agent-intro': enrichModule('agent-intro', BASE_MODULES['agent-intro']),
+  chatgpt: enrichModule('chatgpt', BASE_MODULES.chatgpt),
+  workbuddy: enrichModule('workbuddy', BASE_MODULES.workbuddy),
   openclaw: enrichModule('openclaw', BASE_MODULES.openclaw),
   'claude-agent': enrichModule('claude-agent', BASE_MODULES['claude-agent']),
   'codex-agent': enrichModule('codex-agent', BASE_MODULES['codex-agent']),
   'ai-programming': enrichModule('ai-programming', BASE_MODULES['ai-programming']),
   cases: enrichModule('cases', BASE_MODULES.cases),
+  'ai-group': enrichModule('ai-group', BASE_MODULES['ai-group']),
 };

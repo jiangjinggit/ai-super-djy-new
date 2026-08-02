@@ -20,7 +20,7 @@ export default function AboutPage() {
         </div>
         <div>
           <h1 className="text-5xl font-black text-slate-900 dark:text-white mb-2">关于 DJY</h1>
-          <p className="text-slate-600 dark:text-gray-400 text-lg">10年+小中大厂技术研发及负责人经验 · 独立开发者 · AI Superman DJY创始人 · OpenClaw深度用户 · 分享AI编程实战、探索和分享超级个体（OPC）经验、AI工具提效等</p>
+          <p className="text-slate-600 dark:text-gray-400 text-lg">10年+小中大厂技术研发及负责人经验 · 独立开发者 · AI Superman DJY 创始人 · 分享 AI 工作方法、智能体应用与超级个体实践</p>
         </div>
       </div>
 
