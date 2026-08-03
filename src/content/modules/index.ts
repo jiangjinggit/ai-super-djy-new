@@ -67,7 +67,7 @@ const MODULE_METADATA: Record<
     prerequisites: ['建议先完成大模型实战库模块', '建议至少会修改环境变量或工具设置'],
   },
   'agent-intro': {
-    estimatedTime: '1 周',
+    estimatedTime: '2-3 小时',
     difficulty: 'beginner',
     audience: ['刚开始了解智能体的用户', '希望把 AI 协作真正用进日常工作的知识工作者'],
     tags: ['智能体入门', '任务判断', '人工确认', '任务契约', '工具边界'],
@@ -157,7 +157,7 @@ const lessonEstimatedTime = (moduleId: ModuleId, lesson: BaseLesson) => {
   if (moduleId === 'super-individual') return '12-18 分钟';
   if (moduleId === 'llm') return '18-25 分钟';
   if (moduleId === 'api-gateway') return '12-18 分钟';
-  if (moduleId === 'agent-intro') return '18-25 分钟';
+  if (moduleId === 'agent-intro') return '12-18 分钟';
   if (moduleId === 'chatgpt') return '18-25 分钟';
   if (moduleId === 'workbuddy') return '18-25 分钟';
   if (moduleId === 'openclaw') return '25-35 分钟';

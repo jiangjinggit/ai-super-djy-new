@@ -50,7 +50,7 @@ export const MODULE_CARDS: ModuleCardData[] = [
   {
     id: 'agent-intro',
     title: 'AI 智能体入门',
-    desc: '先统一智能体认知，再用任务适配和工具分流两张判断表决定下一步学什么。',
+    desc: '选一个低风险真实任务，写清输入、交付与人工确认点，再用最小权限完成一次试跑。',
     icon: Cpu,
     color: 'emerald',
   },
