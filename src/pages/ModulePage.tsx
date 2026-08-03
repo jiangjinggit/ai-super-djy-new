@@ -316,8 +316,12 @@ export default function ModulePage() {
   const remainingBlocks =
     enhancement?.blocks.filter((block) => block.type !== 'action-checklist' && block.type !== 'tool-comparison') ?? [];
   const isSuperIndividual = moduleId === 'super-individual';
+  const isLlm = moduleId === 'llm';
+  const isApiGateway = moduleId === 'api-gateway';
   const isOpenClaw = moduleId === 'openclaw';
   const isAgentIntro = moduleId === 'agent-intro';
+  const isChatGpt = moduleId === 'chatgpt';
+  const isWorkBuddy = moduleId === 'workbuddy';
   const isAiGroup = moduleId === 'ai-group';
   const isClaudeAgent = moduleId === 'claude-agent';
   const isCodexAgent = moduleId === 'codex-agent';
@@ -328,24 +332,63 @@ export default function ModulePage() {
   const openclawWeeklyPlan = enhancement?.blocks.filter((b) => b.type === 'weekly-plan') ?? [];
   const openclawPostLessonBlocks = enhancement?.blocks.filter((b) => b.type !== 'weekly-plan') ?? [];
 
-  // Claude Agent 专用：tool-comparison + weekly-plan 放课程前，其余放课程后
-  const claudeAgentPreLessonBlocks = enhancement?.blocks.filter((b) => b.type === 'tool-comparison' || b.type === 'weekly-plan') ?? [];
-  const claudeAgentPostLessonBlocks = enhancement?.blocks.filter((b) => b.type !== 'tool-comparison' && b.type !== 'weekly-plan') ?? [];
+  // 长课程专用：课程前先给入口判断与阶段交付地图，课程后再安排周计划、模板与治理
+  const claudeAgentPreLessonBlocks = [
+    ...(enhancement?.blocks.filter((block) => block.type === 'tool-comparison') ?? []),
+    ...(enhancement?.blocks.filter((block) => block.type === 'action-checklist') ?? []),
+  ];
+  const claudeAgentPostLessonBlocks = [
+    ...(enhancement?.blocks.filter((block) => block.type === 'weekly-plan') ?? []),
+    ...(enhancement?.blocks.filter((block) => block.type === 'sop-templates') ?? []),
+    ...(enhancement?.blocks.filter((block) => block.type === 'security-checklist') ?? []),
+    ...(enhancement?.blocks.filter((block) => block.type === 'resource-links') ?? []),
+  ];
 
-  // Codex Agent 专用：tool-comparison + weekly-plan 放课程前，其余放课程后
-  const codexAgentPreLessonBlocks = enhancement?.blocks.filter((b) => b.type === 'tool-comparison' || b.type === 'weekly-plan') ?? [];
-  const codexAgentPostLessonBlocks = enhancement?.blocks.filter((b) => b.type !== 'tool-comparison' && b.type !== 'weekly-plan') ?? [];
+  const codexAgentPreLessonBlocks = [
+    ...(enhancement?.blocks.filter((block) => block.type === 'tool-comparison') ?? []),
+    ...(enhancement?.blocks.filter((block) => block.type === 'action-checklist') ?? []),
+  ];
+  const codexAgentPostLessonBlocks = [
+    ...(enhancement?.blocks.filter((block) => block.type === 'weekly-plan') ?? []),
+    ...(enhancement?.blocks.filter((block) => block.type === 'sop-templates') ?? []),
+    ...(enhancement?.blocks.filter((block) => block.type === 'security-checklist') ?? []),
+    ...(enhancement?.blocks.filter((block) => block.type === 'resource-links') ?? []),
+  ];
 
-  // AI Programming 专用：tool-comparison + weekly-plan 放课程前，其余放课程后
-  const aiProgrammingPreLessonBlocks = enhancement?.blocks.filter((b) => b.type === 'tool-comparison' || b.type === 'weekly-plan') ?? [];
-  const aiProgrammingPostLessonBlocks = enhancement?.blocks.filter((b) => b.type !== 'tool-comparison' && b.type !== 'weekly-plan') ?? [];
+  const aiProgrammingPreLessonBlocks = [
+    ...(enhancement?.blocks.filter((block) => block.type === 'tool-comparison') ?? []),
+    ...(enhancement?.blocks.filter((block) => block.type === 'action-checklist') ?? []),
+  ];
+  const aiProgrammingPostLessonBlocks = [
+    ...(enhancement?.blocks.filter((block) => block.type === 'weekly-plan') ?? []),
+    ...(enhancement?.blocks.filter((block) => block.type === 'sop-templates') ?? []),
+    ...(enhancement?.blocks.filter((block) => block.type === 'security-checklist') ?? []),
+    ...(enhancement?.blocks.filter((block) => block.type === 'resource-links') ?? []),
+  ];
 
   const superIndividualPreLessonBlocks = enhancement?.blocks.filter((block) => block.title.startsWith('开始前')) ?? [];
   const superIndividualPostLessonBlocks = enhancement?.blocks.filter((block) => !block.title.startsWith('开始前')) ?? [];
-  const agentIntroPostLessonBlocks = enhancement?.blocks ?? [];
+  const llmPreLessonBlocks = enhancement?.blocks.filter((block) => block.type === 'tool-comparison') ?? [];
+  const llmPostLessonBlocks = enhancement?.blocks.filter((block) => block.type !== 'tool-comparison') ?? [];
+  const apiGatewayPreLessonBlocks = [
+    ...(enhancement?.blocks.filter((block) => block.type === 'tool-comparison') ?? []),
+    ...(enhancement?.blocks.filter((block) => block.type === 'weekly-plan') ?? []),
+  ];
+  const apiGatewayPostLessonBlocks =
+    enhancement?.blocks.filter((block) => block.type !== 'tool-comparison' && block.type !== 'weekly-plan') ?? [];
+  const agentIntroPreLessonBlocks = enhancement?.blocks ?? [];
+  const agentIntroPostLessonBlocks: ModuleEnhancement['blocks'] = [];
+  const chatGptPreLessonBlocks = enhancement?.blocks.filter((block) => block.type === 'action-checklist') ?? [];
+  const chatGptPostLessonBlocks = enhancement?.blocks.filter((block) => block.type !== 'action-checklist') ?? [];
+  const workBuddyPreLessonBlocks = enhancement?.blocks.filter((block) => block.type === 'action-checklist') ?? [];
+  const workBuddyPostLessonBlocks = enhancement?.blocks.filter((block) => block.type !== 'action-checklist') ?? [];
+  const casesPreLessonBlocks = enhancement?.blocks.filter((block) => block.type === 'action-checklist') ?? [];
+  const casesPostLessonBlocks = enhancement?.blocks.filter((block) => block.type !== 'action-checklist') ?? [];
   const aiGroupPostLessonBlocks = enhancement?.blocks ?? [];
 
-  const isCustomLayout = isSuperIndividual || isOpenClaw || isAgentIntro || isAiGroup || isClaudeAgent || isCodexAgent || isAiProgramming;
+  const showsEarlyTakeaways = !isCases;
+  const isCustomLayout =
+    showsEarlyTakeaways || isCases || isOpenClaw || isAiGroup || isClaudeAgent || isCodexAgent || isAiProgramming;
 
   useDocumentTitle(content?.title ?? (isLoading ? '正在加载模块' : '模块未找到'));
 
@@ -469,11 +512,11 @@ export default function ModulePage() {
         <ModuleReferencePanel lastVerifiedOn={enhancement.lastVerifiedOn} sources={enhancement.sources} />
       )}
 
-      {/* 超级个体入门：先展示学习成果，再进入学习路径 */}
-      {isSuperIndividual && content.keyTakeaways.length > 0 && (
+      {/* 基础与协作模块：先明确学习收益，再展示模块地图 */}
+      {showsEarlyTakeaways && content.keyTakeaways.length > 0 && (
         <div className="mb-20 p-6 md:p-10 bg-cyan-500/5 border border-cyan-500/20 rounded-3xl">
           <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-8 flex items-center gap-3">
-            <Star className="text-yellow-400" size={22} /> 学完后你应该拿到
+            <Star className="text-yellow-400" size={22} /> {isAiGroup ? '看完后你会确认' : '学完后你应该拿到'}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {content.keyTakeaways.map((takeaway, index) => (
@@ -548,8 +591,8 @@ export default function ModulePage() {
         </div>
       </div>
 
-      {/* 学完后你应该拿到 - OpenClaw / Claude Agent 不展示 */}
-      {!isSuperIndividual && !isOpenClaw && !isClaudeAgent && !isCodexAgent && !isAiProgramming && !isAiGroup && !isCases && content.keyTakeaways.length > 0 && (
+      {/* 未配置专属顺序的模块，沿用结构后的学习收益区块 */}
+      {!showsEarlyTakeaways && !isOpenClaw && !isClaudeAgent && !isCodexAgent && !isAiProgramming && !isAiGroup && !isCases && content.keyTakeaways.length > 0 && (
         <div className="mb-20 p-6 md:p-10 bg-cyan-500/5 border border-cyan-500/20 rounded-3xl">
           <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-8 flex items-center gap-3">
             <Star className="text-yellow-400" size={22} /> 学完后你应该拿到
@@ -574,25 +617,61 @@ export default function ModulePage() {
           <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
         ))}
 
+      {/* 大模型实战库：先分清快速选型与系统评测，再进入课程 */}
+      {isLlm &&
+        llmPreLessonBlocks.map((block) => (
+          <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
+        ))}
+
+      {/* API 中转：先做路线判断，再看分阶段升级节奏 */}
+      {isApiGateway &&
+        apiGatewayPreLessonBlocks.map((block) => (
+          <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
+        ))}
+
+      {/* 智能体入门：先选定一个低风险任务，带着任务学习 */}
+      {isAgentIntro &&
+        agentIntroPreLessonBlocks.map((block) => (
+          <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
+        ))}
+
+      {/* ChatGPT：先用 60 秒任务卡准备真实练习 */}
+      {isChatGpt &&
+        chatGptPreLessonBlocks.map((block) => (
+          <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
+        ))}
+
+      {/* WorkBuddy：先从低风险、可检查的协作任务起步 */}
+      {isWorkBuddy &&
+        workBuddyPreLessonBlocks.map((block) => (
+          <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
+        ))}
+
+      {/* 场景案例：看清案例地图后，先完成落地条件检查 */}
+      {isCases &&
+        casesPreLessonBlocks.map((block) => (
+          <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
+        ))}
+
       {/* OpenClaw：6 周路线放在课程大纲前，帮用户建立节奏感 */}
       {isOpenClaw &&
         openclawWeeklyPlan.map((block) => (
           <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
         ))}
 
-      {/* Claude Agent：tool-comparison 放在课程大纲前做入口引导 */}
+      {/* Claude Agent：先选入口并看清阶段交付物，再进入课程 */}
       {isClaudeAgent &&
         claudeAgentPreLessonBlocks.map((block) => (
           <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
         ))}
 
-      {/* Codex Agent：tool-comparison + weekly-plan 放在课程大纲前 */}
+      {/* Codex Agent：先选本地/云端入口并看清训练交付物 */}
       {isCodexAgent &&
         codexAgentPreLessonBlocks.map((block) => (
           <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
         ))}
 
-      {/* AI Programming：tool-comparison + weekly-plan 放在课程大纲前 */}
+      {/* AI Programming：先比较工具路线并看清每阶段产出 */}
       {isAiProgramming &&
         aiProgrammingPreLessonBlocks.map((block) => (
           <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
@@ -646,9 +725,39 @@ export default function ModulePage() {
           <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
         ))}
 
-      {/* 智能体入门：核心结构与课程优先，行动清单和延伸阅读放到课程之后 */}
+      {/* 大模型实战库：课程后再落地任务矩阵、治理 SOP 与核验入口 */}
+      {isLlm &&
+        llmPostLessonBlocks.map((block) => (
+          <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
+        ))}
+
+      {/* API 中转：学完原理后，再执行接入、治理和 SOP 清单 */}
+      {isApiGateway &&
+        apiGatewayPostLessonBlocks.map((block) => (
+          <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
+        ))}
+
+      {/* 智能体入门：当前增强块已前置，此处保留后续扩展位 */}
       {isAgentIntro &&
         agentIntroPostLessonBlocks.map((block) => (
+          <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
+        ))}
+
+      {/* ChatGPT：课程后提供官方功能核验入口 */}
+      {isChatGpt &&
+        chatGptPostLessonBlocks.map((block) => (
+          <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
+        ))}
+
+      {/* WorkBuddy：课程后用人类关口清单完成风险收口 */}
+      {isWorkBuddy &&
+        workBuddyPostLessonBlocks.map((block) => (
+          <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
+        ))}
+
+      {/* 场景案例：学完具体案例后，用最小交付物模板收口 */}
+      {isCases &&
+        casesPostLessonBlocks.map((block) => (
           <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
         ))}
 
@@ -664,19 +773,19 @@ export default function ModulePage() {
           <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
         ))}
 
-      {/* Claude Agent：SOP 模板、周计划、安全清单、资源导航放在课程大纲后 */}
+      {/* Claude Agent：课程后再安排周计划、任务模板、安全与资源 */}
       {isClaudeAgent &&
         claudeAgentPostLessonBlocks.map((block) => (
           <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
         ))}
 
-      {/* Codex Agent：SOP 模板、安全清单、资源导航放在课程大纲后 */}
+      {/* Codex Agent：课程后再安排周计划、任务模板、安全与资源 */}
       {isCodexAgent &&
         codexAgentPostLessonBlocks.map((block) => (
           <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
         ))}
 
-      {/* AI Programming：模型角色表、安全清单、资源导航放在课程大纲后 */}
+      {/* AI Programming：课程后再安排落地周期、练习模板、治理与资源 */}
       {isAiProgramming &&
         aiProgrammingPostLessonBlocks.map((block) => (
           <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
@@ -686,6 +795,17 @@ export default function ModulePage() {
       {isSuperIndividual && (enhancement.lastVerifiedOn || enhancement.sources.length > 0) && (
         <ModuleReferencePanel lastVerifiedOn={enhancement.lastVerifiedOn} sources={enhancement.sources} />
       )}
+
+      {/* OpenClaw：补齐自定义布局遗漏的参考来源 */}
+      {isOpenClaw && (enhancement.lastVerifiedOn || enhancement.sources.length > 0) && (
+        <ModuleReferencePanel lastVerifiedOn={enhancement.lastVerifiedOn} sources={enhancement.sources} />
+      )}
+
+      {/* 大模型、API、ChatGPT 与 WorkBuddy：参考来源统一放到学习内容末尾 */}
+      {(isLlm || isApiGateway || isChatGpt || isWorkBuddy) &&
+        (enhancement.lastVerifiedOn || enhancement.sources.length > 0) && (
+          <ModuleReferencePanel lastVerifiedOn={enhancement.lastVerifiedOn} sources={enhancement.sources} />
+        )}
 
       {/* 场景与案例：参考资料放到课程大纲后，再接 CTA */}
       {isCases && (enhancement.lastVerifiedOn || enhancement.sources.length > 0) && (
