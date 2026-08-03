@@ -1,13 +1,15 @@
 import type { ModuleEnhancement } from '@/types/course';
 
 export const apiGatewayEnhancement: ModuleEnhancement = {
-  lastVerifiedOn: '2026-06-08',
+  lastVerifiedOn: '2026-08-03',
   sources: [
-    { label: 'OpenAI API Pricing', url: 'https://openai.com/api/pricing/' },
-    { label: 'Anthropic API Overview', url: 'https://docs.anthropic.com/en/api/getting-started' },
+    { label: 'OpenAI API Reference', url: 'https://platform.openai.com/docs/api-reference/introduction' },
+    { label: 'OpenAI Responses API', url: 'https://platform.openai.com/docs/api-reference/responses' },
+    { label: 'OpenAI Rate Limits Guide', url: 'https://platform.openai.com/docs/guides/rate-limits' },
+    { label: 'Anthropic API Overview', url: 'https://docs.anthropic.com/en/api/overview' },
     { label: 'Anthropic OpenAI SDK Compatibility', url: 'https://docs.anthropic.com/en/api/openai-sdk' },
     { label: 'Google Gemini OpenAI Compatibility', url: 'https://ai.google.dev/gemini-api/docs/openai' },
-    { label: 'LiteLLM Docs', url: 'https://docs.litellm.ai/docs/' },
+    { label: 'LiteLLM Virtual Keys', url: 'https://docs.litellm.ai/docs/proxy/virtual_keys' },
     { label: 'LiteLLM Proxy Reliability', url: 'https://docs.litellm.ai/docs/proxy/reliability' },
   ],
   blocks: [
@@ -27,7 +29,7 @@ export const apiGatewayEnhancement: ModuleEnhancement = {
         {
           week: 2,
           goal: '个人最小网关',
-          deliverable: '搭出一个可解释的代理入口，完成模型映射、测试 Key、日常 Key 和官方回退路径。',
+          deliverable: '搭出一个可解释的代理入口，完成模型映射、测试/正式调用隔离和直连基线。',
           fallback: '如果代理层排查成本太高，先保留官方直连作为主链路，只把低风险实验放进代理层。',
         },
         {
@@ -39,7 +41,7 @@ export const apiGatewayEnhancement: ModuleEnhancement = {
         {
           week: 4,
           goal: '小团队网关',
-          deliverable: '补成员 Key、配额、模型白名单、日志策略、敏感任务边界和回退说明。',
+          deliverable: '补调用方独立凭据、配额、模型白名单、最小化日志、敏感任务边界和回退说明。',
           fallback: '如果团队规则写不清，先停在个人稳定版，不要把同一个 Key 发给多人共用。',
         },
       ],
@@ -78,17 +80,17 @@ export const apiGatewayEnhancement: ModuleEnhancement = {
           doneDefinition: '你能说清每一层负责什么，以及故障时先查哪一层。',
         },
         {
-          title: '用测试 Key 跑 3 个验证请求',
+          title: '用隔离的测试凭据跑 3 个验证请求',
           timebox: '15 分钟',
-          description: '最小聊天请求、长上下文请求、真实工具请求各跑一次，不要把“返回 200”当成验证完成。',
-          doneDefinition: '你至少完成 3 次不同类型的验证，并记录了模型名、耗时和报错情况。',
+          description: '先确认工具使用 Chat Completions、Responses API 还是供应商原生接口，再跑最小请求、长上下文请求和真实工具请求。',
+          doneDefinition: '你完成了 3 类验证，并记录 API 类型、模型名、耗时、响应元数据和报错情况。',
         },
         {
           title: '人工制造一次失败并演练回退',
           timebox: '10 分钟',
           description:
-            '临时换错模型名、关掉某条路由或降低额度，确认你能按文档切到回退模型或官方直连。',
-          doneDefinition: '你知道默认模型、回退模型、官方直连三层分别怎么切，恢复后怎么切回来。',
+            '在非生产环境制造可控的暂时性失败，确认有限重试、备用路由或直连基线按预期工作；不要用真实写入动作做破坏性演练。',
+          doneDefinition: '你知道哪些错误允许重试或回退、哪些必须先修配置，并能恢复到主路由。',
         },
         {
           title: '预先准备一条官方回退路径',
@@ -119,7 +121,7 @@ export const apiGatewayEnhancement: ModuleEnhancement = {
         {
           aspect: '适合谁',
           cli: '个人刚开始接 API、高敏感任务、生产关键链路、还没有能力维护接入层的人。',
-          cowork: '3-10 人共享入口、多个工具需要统一配置、必须有配额和回退规则的小团队。',
+          cowork: '出现多个调用方、共享预算、权限差异，或多个工具必须统一配置与回退规则的团队。',
         },
         {
           aspect: '准确性基线',
@@ -161,8 +163,8 @@ export const apiGatewayEnhancement: ModuleEnhancement = {
           detail: '有备用地址和真正能在 5 分钟内切过去，是两回事。回退方案至少要实际演练一次。',
         },
         {
-          title: '测试 Key 和正式 Key 分开',
-          detail: '测试请求、实验模型和高频重试更容易把额度打穿。把 test、daily、team 或 prod 分开，出问题才好定位。',
+          title: '测试与正式调用必须真正隔离',
+          detail: '优先使用供应商项目、工作区、服务账号或网关虚拟 Key 隔离环境和调用方；只改 Key 名称但仍共享同一权限与预算，不算完成隔离。',
         },
         {
           title: '便宜到反常的服务默认不可信',
@@ -181,13 +183,13 @@ export const apiGatewayEnhancement: ModuleEnhancement = {
           input: '1 个主要工具、1 个备用工具、1 组默认模型与回退模型、1 条官方直连回退路径。',
           steps: [
             '先在本地或服务器上部署最小代理层，不急着上完整管理后台。',
-            '创建 test 与 daily 两套 Key，所有新工具先走 test。',
-            '验证最小请求、长上下文请求和真实任务请求各 1 次。',
-            '把 Base URL、API Key、模型名和回退地址整理成一页配置说明。',
-            '每周回看一次限速、报错和总成本，决定是否继续扩展。',
+            '按平台能力使用项目、工作区、服务账号或虚拟 Key 隔离测试与正式调用。',
+            '确认 API 类型后，验证最小请求、长上下文请求和真实任务请求。',
+            '把 Base URL、API 类型、凭据归属、模型名和回退条件整理成一页配置说明。',
+            '按调用量和风险回看限速、报错和总成本；异常时立即复查。',
           ],
           output: '一套自己能解释、能切换、能回退的个人接入层。',
-          kpi: '7 天内，至少 2 个常用工具可稳定接入，且你知道故障时先查哪一层。',
+          kpi: '至少 1 条真实主流程通过成功路径与失败路径验收，且你知道故障时先查哪一层。',
         },
         {
           title: '小团队共享接入 SOP',
@@ -197,10 +199,10 @@ export const apiGatewayEnhancement: ModuleEnhancement = {
             '为不同成员或小组分配独立 Key、额度和默认模型白名单。',
             '管理层记录请求量、失败率、限速和异常模型切换。',
             '给每条主流程配置备用模型和官方回退路径。',
-            '每周固定复盘 1 次，检查日志策略、掺水风险和支持负担。',
+            '按调用量和风险复盘日志策略、模型错配信号、异常账单和支持负担。',
           ],
-          output: '一套可以给 3-10 人稳定使用的共享接入层规则。',
-          kpi: '30 天内，请求可追溯、额度可解释、故障可切换，而不是“有人能用就算成功”。',
+          output: '一套适用于多个调用方的共享接入层规则。',
+          kpi: '请求可追溯、预算可解释、权限可区分、故障可切换，而不是“有人能用就算成功”。',
         },
       ],
     },
@@ -211,15 +213,29 @@ export const apiGatewayEnhancement: ModuleEnhancement = {
       hideMeta: true,
       items: [
         {
-          title: 'OpenAI API Pricing',
-          url: 'https://openai.com/api/pricing/',
+          title: 'OpenAI API Reference',
+          url: 'https://platform.openai.com/docs/api-reference/introduction',
           label: '官方',
-          description: '核验官方 API 单价、缓存、批处理和不同模型档位时先看这里。',
+          description: '核验鉴权、请求结构、响应头和当前 API 端点时先看这里。',
+          category: '官方文档',
+        },
+        {
+          title: 'OpenAI Responses API',
+          url: 'https://platform.openai.com/docs/api-reference/responses',
+          label: '官方',
+          description: '确认下游工具是否依赖 Responses API，避免把 Chat Completions 示例误当成唯一兼容标准。',
+          category: '官方文档',
+        },
+        {
+          title: 'OpenAI Rate Limits Guide',
+          url: 'https://platform.openai.com/docs/guides/rate-limits',
+          label: '官方',
+          description: '核验 429、限额维度和退避策略时使用，不要对所有错误无上限重试。',
           category: '官方文档',
         },
         {
           title: 'Anthropic API Getting Started',
-          url: 'https://docs.anthropic.com/en/api/getting-started',
+          url: 'https://docs.anthropic.com/en/api/overview',
           label: '官方',
           description: 'Claude API 的请求方式、鉴权和错误处理总入口。',
           category: '官方文档',
@@ -239,10 +255,10 @@ export const apiGatewayEnhancement: ModuleEnhancement = {
           category: '官方文档',
         },
         {
-          title: 'LiteLLM Docs',
-          url: 'https://docs.litellm.ai/docs/',
+          title: 'LiteLLM Virtual Keys',
+          url: 'https://docs.litellm.ai/docs/proxy/virtual_keys',
           label: '项目',
-          description: '一类典型代理层文档入口，适合理解路由、模型映射和网关层能力。',
+          description: '理解网关如何按调用方隔离凭据、预算与模型权限；具体字段以当前项目版本为准。',
           category: '代理项目',
         },
         {
