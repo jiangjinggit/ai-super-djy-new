@@ -64,7 +64,7 @@ export const MODULE_CARDS: ModuleCardData[] = [
   {
     id: 'workbuddy',
     title: 'WorkBuddy 工作协作',
-    desc: '让 AI 帮你整理资料、拆解任务、产出初稿与复盘，但把判断、确认和对外动作留在人手里。',
+    desc: '让 AI 整理资料、生成初稿和推进待办，再通过人工确认与复盘形成可复用工作流。',
     icon: Bot,
     color: 'purple',
   },

@@ -81,7 +81,7 @@ const MODULE_METADATA: Record<
     prerequisites: ['完成入门模块，或已经有一个真实工作任务可以练习'],
   },
   workbuddy: {
-    estimatedTime: '1-2 周',
+    estimatedTime: '2-3 小时',
     difficulty: 'beginner',
     audience: ['需要用 AI 协作处理资料、会议、文档与项目任务的知识工作者', '希望建立可复用 AI 工作流的个人学习者'],
     tags: ['AI 协作', '任务拆解', '资料整理', '会议纪要', '工作流', '人工确认'],
@@ -159,7 +159,7 @@ const lessonEstimatedTime = (moduleId: ModuleId, lesson: BaseLesson) => {
   if (moduleId === 'api-gateway') return '12-18 分钟';
   if (moduleId === 'agent-intro') return '12-18 分钟';
   if (moduleId === 'chatgpt') return '12-18 分钟';
-  if (moduleId === 'workbuddy') return '18-25 分钟';
+  if (moduleId === 'workbuddy') return '12-18 分钟';
   if (moduleId === 'openclaw') return '25-35 分钟';
   if (moduleId === 'claude-agent') return '25-35 分钟';
   if (moduleId === 'codex-agent') return '25-35 分钟';
