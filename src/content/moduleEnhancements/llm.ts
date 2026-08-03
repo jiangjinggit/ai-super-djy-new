@@ -1,13 +1,13 @@
 import type { ModuleEnhancement } from '@/types/course';
 
 export const llmEnhancement: ModuleEnhancement = {
-  lastVerifiedOn: '2026-06-08',
+  lastVerifiedOn: '2026-08-03',
   sources: [
-    { label: 'OpenAI Models', url: 'https://platform.openai.com/docs/models' },
-    { label: 'OpenAI Pricing', url: 'https://platform.openai.com/docs/pricing/' },
-    { label: 'Anthropic Models', url: 'https://docs.anthropic.com/en/docs/about-claude/models/overview' },
-    { label: 'Anthropic Pricing', url: 'https://www.anthropic.com/pricing#api' },
-    { label: 'DeepSeek Pricing', url: 'https://api-docs.deepseek.com/quick_start/pricing/' },
+    { label: 'OpenAI API Models', url: 'https://developers.openai.com/api/docs/models' },
+    { label: 'OpenAI API Pricing', url: 'https://developers.openai.com/api/docs/pricing' },
+    { label: 'Claude Model Overview', url: 'https://platform.claude.com/docs/en/docs/about-claude/models/overview' },
+    { label: 'Claude API Pricing', url: 'https://platform.claude.com/docs/en/docs/about-claude/pricing' },
+    { label: 'DeepSeek Models & Pricing', url: 'https://api-docs.deepseek.com/quick_start/pricing/' },
     { label: 'Kimi Model List', url: 'https://platform.kimi.ai/docs/models.md' },
     { label: 'MiniMax Pricing', url: 'https://platform.minimax.io/docs/guides/pricing-paygo' },
     { label: 'Zhipu GLM Pricing', url: 'https://docs.z.ai/guides/overview/pricing' },
@@ -32,8 +32,8 @@ export const llmEnhancement: ModuleEnhancement = {
           title: '给每类任务指定 3 个角色',
           timebox: '10 分钟',
           description:
-            '每类任务都填默认模型、高质量备选、低成本备选。先填角色和选择理由，再回官方页面确认具体型号、上下文和价格。',
-          doneDefinition: '每类高频任务都有默认、高质量、低成本三档候选，并写清切换条件。',
+            '每类任务都填默认模型、高质量备选、低成本备选。先填角色和选择理由，再回官方页面确认具体型号、上下文、接口能力、价格和弃用/下线说明。',
+          doneDefinition: '每类高频任务都有三档候选、切换条件、核验日期和官方来源。',
         },
         {
           title: '用一次可用成本做预算',
@@ -47,7 +47,7 @@ export const llmEnhancement: ModuleEnhancement = {
           timebox: '15 分钟',
           description:
             '调用记录不是只为了记账。把真实耗时、失败率、返工情况和超预算原因回填到模型地图里，作为下次换模型的证据。',
-          doneDefinition: '至少连续记录 10 次真实调用，并能说出哪类任务最值得换模型或降档。',
+          doneDefinition: '已经积累一批可复查的真实调用；结论能回到样本、账单和返工记录，而不是凭印象。',
         },
         {
           title: '写下复评触发条件',
@@ -69,12 +69,12 @@ export const llmEnhancement: ModuleEnhancement = {
         {
           aspect: '使用时机',
           cli: '刚开始接模型、任务还不多，需要尽快选一个默认方案。',
-          cowork: '已经用了 2-4 周，积累了真实调用、返工和成本记录。',
+          cowork: '已经积累了足够的真实调用、返工、失败和成本记录，需要验证默认方案。',
         },
         {
           aspect: '样本规模',
-          cli: '1-3 个高频任务，每个任务 1 份真实输入即可开始。',
-          cowork: '5-10 个真实样本，覆盖高频、中复杂度和高价值任务。',
+          cli: '从少量高频任务和真实输入开始，目标是先形成可用基线。',
+          cowork: '建议从 5-10 个真实样本起步，覆盖高频、中复杂度和高价值任务；这不是统计保证。',
         },
         {
           aspect: '核心指标',
@@ -106,11 +106,11 @@ export const llmEnhancement: ModuleEnhancement = {
             '先写任务、输入材料和验收标准，不先写模型名。',
             '所有候选模型用同一份提示词跑一遍，记录质量、返工量、速度和调用费。',
             '按默认、高质量、低成本三档给每类任务分配模型角色。',
-            '每周回看 10 次真实调用，把失败率、返工和成本回填到模型地图。',
+            '按固定节奏汇总真实调用，把失败、返工和账单成本回填到模型地图。',
             '只有触发复评条件时，才拿 3 个代表样本做快速复测。',
           ],
           output: '一张能解释选择理由、预算边界和复评条件的个人模型地图。',
-          kpi: '连续 2 周内，80% 高频任务有稳定默认模型，且超预算调用能被解释。',
+          kpi: '大多数高频任务有经过真实样本验证的默认模型，超预算调用能回到记录解释。',
         },
         {
           title: '小团队模型治理 SOP',
@@ -119,11 +119,11 @@ export const llmEnhancement: ModuleEnhancement = {
             '先按任务风险分层，标出哪些任务必须直连官方或走内部可控链路。',
             '为每类任务定义默认模型、回退模型和禁止使用的模型范围。',
             '把 Key、预算、调用记录和异常复盘绑定到同一张治理表。',
-            '每月复评 1 次高频任务；新模型只进入候选池，不直接替换主流程。',
+            '按任务变化、质量回退、成本变化或接口变更触发复评；新模型只进入候选池，不直接替换主流程。',
             '复评结论必须写成变更记录：为什么换、换到哪里、失败时怎么退回。',
           ],
           output: '一份团队可执行的任务-模型-预算-回退规则。',
-          kpi: '30 天内，团队成员能按任务选择模型，账单、返工和异常调用都有记录可查。',
+          kpi: '团队成员能按任务选择模型，账单、返工和异常调用都有记录可查。',
         },
       ],
     },
@@ -131,33 +131,33 @@ export const llmEnhancement: ModuleEnhancement = {
       type: 'resource-links',
       title: '官方核验入口',
       description:
-        '课程里的模型角色只是评估方法，不是固定推荐榜。具体版本、价格、上下文、地区差异和缓存规则，以官方当前页面为准。',
+        '已于 2026-08-03 核验。课程里的型号快照只用于建立候选池，不是固定推荐榜；具体版本、价格、上下文、地区差异、缓存规则和下线公告，以官方当前页面为准。',
       hideMeta: true,
       items: [
         {
-          title: 'OpenAI Models',
-          url: 'https://platform.openai.com/docs/models',
+          title: 'OpenAI API Models',
+          url: 'https://developers.openai.com/api/docs/models',
           label: '官方',
           description: '核验 OpenAI 当前可用模型、能力边界和上下文说明。',
           category: '模型文档',
         },
         {
           title: 'OpenAI Pricing',
-          url: 'https://platform.openai.com/docs/pricing/',
+          url: 'https://developers.openai.com/api/docs/pricing',
           label: '官方',
           description: '核验 API 单价、缓存、批处理和计费规则。',
           category: '价格',
         },
         {
-          title: 'Anthropic Models',
-          url: 'https://docs.anthropic.com/en/docs/about-claude/models/overview',
+          title: 'Claude Model Overview',
+          url: 'https://platform.claude.com/docs/en/docs/about-claude/models/overview',
           label: '官方',
           description: '核验 Claude 模型列表、能力差异和上下文限制。',
           category: '模型文档',
         },
         {
           title: 'Anthropic Pricing',
-          url: 'https://www.anthropic.com/pricing#api',
+          url: 'https://platform.claude.com/docs/en/docs/about-claude/pricing',
           label: '官方',
           description: '核验 Claude API 的最新价格与计费说明。',
           category: '价格',
@@ -167,6 +167,27 @@ export const llmEnhancement: ModuleEnhancement = {
           url: 'https://api-docs.deepseek.com/quick_start/pricing/',
           label: '官方',
           description: '核验 DeepSeek API 的价格、缓存和模型说明。',
+          category: '价格',
+        },
+        {
+          title: 'Kimi Model List',
+          url: 'https://platform.kimi.ai/docs/models.md',
+          label: '官方',
+          description: '核验 Kimi 当前模型、上下文以及弃用和下线提示。',
+          category: '模型文档',
+        },
+        {
+          title: 'MiniMax Pay-as-you-go Pricing',
+          url: 'https://platform.minimax.io/docs/guides/pricing-paygo',
+          label: '官方',
+          description: '核验 MiniMax 模型分档、缓存和服务层计费。',
+          category: '价格',
+        },
+        {
+          title: 'Z.AI Pricing',
+          url: 'https://docs.z.ai/guides/overview/pricing',
+          label: '官方',
+          description: '核验 GLM 模型与工具的当前计费。',
           category: '价格',
         },
         {
