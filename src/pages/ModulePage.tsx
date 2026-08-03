@@ -315,6 +315,7 @@ export default function ModulePage() {
     enhancement?.blocks.filter((block) => block.type === 'action-checklist' || block.type === 'tool-comparison') ?? [];
   const remainingBlocks =
     enhancement?.blocks.filter((block) => block.type !== 'action-checklist' && block.type !== 'tool-comparison') ?? [];
+  const isSuperIndividual = moduleId === 'super-individual';
   const isOpenClaw = moduleId === 'openclaw';
   const isAgentIntro = moduleId === 'agent-intro';
   const isAiGroup = moduleId === 'ai-group';
@@ -339,10 +340,12 @@ export default function ModulePage() {
   const aiProgrammingPreLessonBlocks = enhancement?.blocks.filter((b) => b.type === 'tool-comparison' || b.type === 'weekly-plan') ?? [];
   const aiProgrammingPostLessonBlocks = enhancement?.blocks.filter((b) => b.type !== 'tool-comparison' && b.type !== 'weekly-plan') ?? [];
 
+  const superIndividualPreLessonBlocks = enhancement?.blocks.filter((block) => block.title.startsWith('开始前')) ?? [];
+  const superIndividualPostLessonBlocks = enhancement?.blocks.filter((block) => !block.title.startsWith('开始前')) ?? [];
   const agentIntroPostLessonBlocks = enhancement?.blocks ?? [];
   const aiGroupPostLessonBlocks = enhancement?.blocks ?? [];
 
-  const isCustomLayout = isOpenClaw || isAgentIntro || isAiGroup || isClaudeAgent || isCodexAgent || isAiProgramming;
+  const isCustomLayout = isSuperIndividual || isOpenClaw || isAgentIntro || isAiGroup || isClaudeAgent || isCodexAgent || isAiProgramming;
 
   useDocumentTitle(content?.title ?? (isLoading ? '正在加载模块' : '模块未找到'));
 
@@ -466,6 +469,28 @@ export default function ModulePage() {
         <ModuleReferencePanel lastVerifiedOn={enhancement.lastVerifiedOn} sources={enhancement.sources} />
       )}
 
+      {/* 超级个体入门：先展示学习成果，再进入学习路径 */}
+      {isSuperIndividual && content.keyTakeaways.length > 0 && (
+        <div className="mb-20 p-6 md:p-10 bg-cyan-500/5 border border-cyan-500/20 rounded-3xl">
+          <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-8 flex items-center gap-3">
+            <Star className="text-yellow-400" size={22} /> 学完后你应该拿到
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {content.keyTakeaways.map((takeaway, index) => (
+              <div key={takeaway} className="flex items-start gap-4">
+                <div
+                  className="font-mono-tech w-6 h-6 rounded-full bg-cyan-500/15 flex items-center justify-center text-cyan-400 text-xs font-bold shrink-0 mt-0.5"
+                  style={{ textShadow: '0 0 8px rgba(34,211,238,0.6)' }}
+                >
+                  {index + 1}
+                </div>
+                <p className="text-slate-700 dark:text-gray-300 leading-relaxed">{takeaway}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* 模块结构 */}
       <div className="mb-20">
         <div className="mb-8">
@@ -524,7 +549,7 @@ export default function ModulePage() {
       </div>
 
       {/* 学完后你应该拿到 - OpenClaw / Claude Agent 不展示 */}
-      {!isOpenClaw && !isClaudeAgent && !isCodexAgent && !isAiProgramming && !isAiGroup && !isCases && content.keyTakeaways.length > 0 && (
+      {!isSuperIndividual && !isOpenClaw && !isClaudeAgent && !isCodexAgent && !isAiProgramming && !isAiGroup && !isCases && content.keyTakeaways.length > 0 && (
         <div className="mb-20 p-6 md:p-10 bg-cyan-500/5 border border-cyan-500/20 rounded-3xl">
           <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-8 flex items-center gap-3">
             <Star className="text-yellow-400" size={22} /> 学完后你应该拿到
@@ -542,6 +567,12 @@ export default function ModulePage() {
           </div>
         </div>
       )}
+
+      {/* 超级个体入门：看完目标与结构后，只做最小准备，再进入课程 */}
+      {isSuperIndividual &&
+        superIndividualPreLessonBlocks.map((block) => (
+          <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
+        ))}
 
       {/* OpenClaw：6 周路线放在课程大纲前，帮用户建立节奏感 */}
       {isOpenClaw &&
@@ -609,6 +640,12 @@ export default function ModulePage() {
         )}
       </div>
 
+      {/* 超级个体入门：课程完成标准放在大纲之后，避免开场堆叠清单 */}
+      {isSuperIndividual &&
+        superIndividualPostLessonBlocks.map((block) => (
+          <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
+        ))}
+
       {/* 智能体入门：核心结构与课程优先，行动清单和延伸阅读放到课程之后 */}
       {isAgentIntro &&
         agentIntroPostLessonBlocks.map((block) => (
@@ -644,6 +681,11 @@ export default function ModulePage() {
         aiProgrammingPostLessonBlocks.map((block) => (
           <ModuleEnhancementBlockSection key={`${block.type}-${block.title}`} block={block} />
         ))}
+
+      {/* 超级个体入门：参考来源统一放到所有学习内容之后 */}
+      {isSuperIndividual && (enhancement.lastVerifiedOn || enhancement.sources.length > 0) && (
+        <ModuleReferencePanel lastVerifiedOn={enhancement.lastVerifiedOn} sources={enhancement.sources} />
+      )}
 
       {/* 场景与案例：参考资料放到课程大纲后，再接 CTA */}
       {isCases && (enhancement.lastVerifiedOn || enhancement.sources.length > 0) && (
