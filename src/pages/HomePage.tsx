@@ -219,7 +219,7 @@ const JOURNEY_PHASES: Array<{
     desc: '从一个真实任务出发，先学会写清目标、选择模型、理解接入方式，为后续工作协作打好底座。',
     color: 'blue',
     modules: [
-      { id: 'super-individual', label: '入门', time: '1-2 周', color: 'blue' },
+      { id: 'super-individual', label: '入门', time: '1 周', color: 'blue' },
       { id: 'llm', label: '大模型', time: '1-2 周', color: 'purple' },
       { id: 'api-gateway', label: 'API 中转', time: '3-5 天', color: 'orange' },
     ],

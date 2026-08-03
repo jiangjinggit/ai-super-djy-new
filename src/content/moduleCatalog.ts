@@ -29,7 +29,7 @@ export const MODULE_CARDS: ModuleCardData[] = [
   {
     id: 'super-individual',
     title: 'AI 超级个体入门',
-    desc: '先建立判断力，再完成第一个真实闭环。适合零基础用户从任务、模板和工具栈开始上手。',
+    desc: '不讲复杂铺垫，直接用一个低风险真实任务学会提需求、查结果和保存模板。',
     icon: Rocket,
     color: 'blue',
   },

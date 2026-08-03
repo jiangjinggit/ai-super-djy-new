@@ -46,11 +46,11 @@ const MODULE_METADATA: Record<
   }
 > = {
   'super-individual': {
-    estimatedTime: '1-2 周',
+    estimatedTime: '1 周',
     difficulty: 'beginner',
-    audience: ['零基础用户', '希望建立 AI 工作流的个人学习者'],
-    tags: ['AI 入门', 'Prompt', '工作流', '工具栈'],
-    prerequisites: [],
+    audience: ['第一次把 AI 用进真实工作的零基础用户', '希望减少重复劳动的个人学习者'],
+    tags: ['AI 入门', '真实任务', 'Prompt', '模板复用'],
+    prerequisites: ['准备一个低风险小任务和一份真实材料'],
   },
   llm: {
     estimatedTime: '1-2 周',
@@ -154,7 +154,7 @@ const getLessonBody = (moduleId: ModuleId, slug: string, lesson: BaseLesson): ((
 };
 
 const lessonEstimatedTime = (moduleId: ModuleId, lesson: BaseLesson) => {
-  if (moduleId === 'super-individual') return '15-20 分钟';
+  if (moduleId === 'super-individual') return '12-18 分钟';
   if (moduleId === 'llm') return '18-25 分钟';
   if (moduleId === 'api-gateway') return '20-30 分钟';
   if (moduleId === 'agent-intro') return '18-25 分钟';
