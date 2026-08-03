@@ -74,7 +74,7 @@ const MODULE_METADATA: Record<
     prerequisites: ['了解基础的 AI 对话工具使用', '准备一个可用于练习的低风险真实任务'],
   },
   chatgpt: {
-    estimatedTime: '1-2 周',
+    estimatedTime: '2-3 小时',
     difficulty: 'beginner',
     audience: ['希望把 ChatGPT 用进日常工作的用户', '需要整理资料、写初稿、做研究和管理持续任务的知识工作者'],
     tags: ['ChatGPT', '任务表达', '文件协作', '深度研究', 'Projects', '核验'],
@@ -158,7 +158,7 @@ const lessonEstimatedTime = (moduleId: ModuleId, lesson: BaseLesson) => {
   if (moduleId === 'llm') return '18-25 分钟';
   if (moduleId === 'api-gateway') return '12-18 分钟';
   if (moduleId === 'agent-intro') return '12-18 分钟';
-  if (moduleId === 'chatgpt') return '18-25 分钟';
+  if (moduleId === 'chatgpt') return '12-18 分钟';
   if (moduleId === 'workbuddy') return '18-25 分钟';
   if (moduleId === 'openclaw') return '25-35 分钟';
   if (moduleId === 'claude-agent') return '25-35 分钟';

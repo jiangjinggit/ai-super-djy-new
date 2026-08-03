@@ -1,7 +1,7 @@
 import type { ModuleEnhancement } from '@/types/course';
 
 export const chatgptEnhancement: ModuleEnhancement = {
-  lastVerifiedOn: '2026-08-02',
+  lastVerifiedOn: '2026-08-03',
   sources: [
     { label: 'OpenAI Help: Projects in ChatGPT', url: 'https://help.openai.com/en/articles/10169521-projects-in-chatgpt' },
     { label: 'OpenAI Help: Deep research in ChatGPT', url: 'https://help.openai.com/en/articles/10500283-deep-research-in-chatgpt' },
@@ -11,56 +11,33 @@ export const chatgptEnhancement: ModuleEnhancement = {
   blocks: [
     {
       type: 'action-checklist',
-      title: '每次开始前，用 60 秒写清任务',
-      description: '这是所有 ChatGPT 课程的共同起点。先让任务可理解、可检查，再让工具提速。',
+      title: '一张表完成一次 ChatGPT 交付',
+      description: '不用记很多提示词技巧，每次工作都按这 4 步走。',
       hideMeta: true,
       items: [
         {
-          title: '写下交付物，而不是工具动作',
-          timebox: '15 秒',
-          description: '写“给客户的一页方案初稿”，而不是“让 ChatGPT 帮我写”。前者有对象、范围和可检查结果。',
-          doneDefinition: '你能让同事不看上下文也理解最后要交付什么。',
+          title: '定义交付物',
+          timebox: '3 分钟',
+          description: '写清受众、用途、材料、不能猜的内容和最终格式。',
+          doneDefinition: '不看聊天上下文，也能理解最后要交付什么。',
         },
         {
-          title: '提供材料，并标出不能猜的字段',
-          timebox: '20 秒',
-          description: '附上原文、文件或链接，并明确数字、日期、引用、客户名和承诺不能补写。',
-          doneDefinition: 'AI 知道哪些信息只能引用原材料，缺失时必须标为待确认。',
+          title: '先整理依据',
+          timebox: '5 分钟',
+          description: '让 ChatGPT 先列事实、来源和待确认项，再开始分析或写作。',
+          doneDefinition: '推测没有混进事实，关键内容能回到原始材料。',
         },
         {
-          title: '提前写人工确认点',
-          timebox: '25 秒',
-          description: '任何对外发送、承诺、隐私、金额、医疗或法律相关结论，都必须由对应负责人核对。',
-          doneDefinition: '初稿与最终稿之间有清晰的确认人和检查动作。',
-        },
-      ],
-    },
-    {
-      type: 'resource-links',
-      title: '课程官方核验入口',
-      description: '功能入口、可用范围和套餐限制会变化。使用前以 OpenAI 帮助中心当前说明为准。',
-      hideMeta: true,
-      items: [
-        {
-          title: 'Projects in ChatGPT',
-          url: 'https://help.openai.com/en/articles/10169521-projects-in-chatgpt',
-          label: '官方',
-          description: '核验项目空间的组织方式、支持范围与当前使用说明。',
-          category: '项目管理',
+          title: '核验并修改',
+          timebox: '10 分钟',
+          description: '检查数字、日期、引用、遗漏和敏感信息，再加入你的判断与语气。',
+          doneDefinition: '初稿与最终稿已经分开，关键事实已核对。',
         },
         {
-          title: 'Deep research in ChatGPT',
-          url: 'https://help.openai.com/en/articles/10500283-deep-research-in-chatgpt',
-          label: '官方',
-          description: '核验深度研究的工作方式、来源使用与当前可用条件。',
-          category: '研究',
-        },
-        {
-          title: 'File uploads FAQ',
-          url: 'https://help.openai.com/en/articles/8555545-file-uploads-faq',
-          label: '官方',
-          description: '核验文件上传的格式、限制、数据处理与常见问题。',
-          category: '文件协作',
+          title: '只归档有用规则',
+          timebox: '3 分钟',
+          description: '保存有效模板和检查项；临时文件、过期结论和无关聊天不进入长期项目规则。',
+          doneDefinition: '下一次能复用方法，但不会继承过期信息。',
         },
       ],
     },

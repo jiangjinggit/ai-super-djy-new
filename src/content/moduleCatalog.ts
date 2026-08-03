@@ -57,7 +57,7 @@ export const MODULE_CARDS: ModuleCardData[] = [
   {
     id: 'chatgpt',
     title: 'ChatGPT 高效工作',
-    desc: '用清晰任务、资料核验、项目沉淀和复盘，把一次对话变成稳定可复用的工作方法。',
+    desc: '先定义交付，再依据资料起草、核验和归档，把一次对话变成可复用的工作方法。',
     icon: Brain,
     color: 'blue',
   },
