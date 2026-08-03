@@ -60,7 +60,7 @@ const MODULE_METADATA: Record<
     prerequisites: ['完成入门模块，或已经能稳定使用 AI 完成真实任务'],
   },
   'api-gateway': {
-    estimatedTime: '1-2 周',
+    estimatedTime: '2-3 小时',
     difficulty: 'intermediate',
     audience: ['已经开始接模型 API 的个人用户', '需要把 Codex、Claude Code、OpenClaw 接到统一入口的用户', '希望给小团队设计默认接入方案的人'],
     tags: ['API 中转', '模型接入', 'Base URL', 'API Key', 'OpenAI 兼容', '回退治理'],
@@ -156,7 +156,7 @@ const getLessonBody = (moduleId: ModuleId, slug: string, lesson: BaseLesson): ((
 const lessonEstimatedTime = (moduleId: ModuleId, lesson: BaseLesson) => {
   if (moduleId === 'super-individual') return '12-18 分钟';
   if (moduleId === 'llm') return '18-25 分钟';
-  if (moduleId === 'api-gateway') return '20-30 分钟';
+  if (moduleId === 'api-gateway') return '12-18 分钟';
   if (moduleId === 'agent-intro') return '18-25 分钟';
   if (moduleId === 'chatgpt') return '18-25 分钟';
   if (moduleId === 'workbuddy') return '18-25 分钟';
