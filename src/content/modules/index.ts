@@ -116,11 +116,11 @@ const MODULE_METADATA: Record<
     prerequisites: ['完成 AI 智能体入门模块', '建议已了解基础的大模型选型逻辑'],
   },
   cases: {
-    estimatedTime: '随时',
+    estimatedTime: '2-3 小时',
     difficulty: 'intermediate',
-    audience: ['各行各业的从业者', '想通过案例理解 AI 落地路径的用户', '希望把 AI 真的接进业务流程的人'],
-    tags: ['场景库', 'SOP', '内容生产', 'MVP', '案例拆解', '风险判断', '可复制性'],
-    prerequisites: ['建议已完成入门模块，并理解 AI 工作流和能力边界', '建议至少熟悉其中一项：命令行、机器人配置、表格数据处理、云端定时任务'],
+    audience: ['想从一个真实任务开始验证 AI 工作流的用户', '内容、运营、产品与独立开发者'],
+    tags: ['场景练习', '最小闭环', '人工确认', '内容监控', '需求研究', 'Vibe Coding', '数据报告'],
+    prerequisites: ['建议完成 AI 超级个体入门或 AI 智能体入门', '准备一个可在 60 分钟内手动验证的真实任务'],
   },
   'ai-group': {
     estimatedTime: '20-25 分钟',
@@ -164,7 +164,7 @@ const lessonEstimatedTime = (moduleId: ModuleId, lesson: BaseLesson) => {
   if (moduleId === 'claude-agent') return '25-35 分钟';
   if (moduleId === 'codex-agent') return '25-35 分钟';
   if (moduleId === 'ai-programming') return '22-30 分钟';
-  if (moduleId === 'cases') return '15-25 分钟';
+  if (moduleId === 'cases') return '12-18 分钟';
   if (moduleId === 'ai-group') return '5-8 分钟';
   return `${lesson.details.length * 5} 分钟`;
 };

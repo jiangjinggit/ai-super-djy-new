@@ -71,7 +71,7 @@ export const MODULE_CARDS: ModuleCardData[] = [
   {
     id: 'cases',
     title: '场景与案例',
-    desc: '6 个真实工作流案例，覆盖内容自动化、行业监控、市场研究、Vibe Coding 上线、MVP 推进、自动化报告，重点看前置条件、落地路径和风险边界。',
+    desc: '用 4 类真实工作流练习选任务、跑小闭环、设置人工关口和验收结果，不照抄复杂配置。',
     icon: Users,
     color: 'purple',
   },
