@@ -145,7 +145,7 @@ export const llmModule: BaseModuleContent = {
     },
   ],
   cta: {
-    text: '模型逻辑理顺后，下一步深入 Codex 实战 → 学习 Codex 智能体',
-    link: '/module/codex-agent',
+    text: '模型选型逻辑理顺后，下一步把模型接入方式配置清楚 → 学习 API 中转与模型接入',
+    link: '/module/api-gateway',
   },
 };

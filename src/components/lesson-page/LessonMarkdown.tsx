@@ -196,8 +196,13 @@ const components: Components = {
     );
   },
   table: ({ node, ...props }) => (
-    <div className="custom-scrollbar my-8 overflow-x-auto rounded-[28px] border border-slate-200 dark:border-white/10 bg-slate-200 dark:bg-black/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
-      <table className="min-w-[640px] w-full border-collapse text-left" {...props} />
+    <div
+      className="custom-scrollbar my-8 max-w-full overflow-x-auto overscroll-x-contain rounded-[28px] border border-slate-200 dark:border-white/10 bg-slate-200 dark:bg-black/20 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
+      role="region"
+      aria-label="可横向滚动的数据表"
+      tabIndex={0}
+    >
+      <table className="min-w-[560px] w-full border-collapse text-left md:min-w-[640px]" {...props} />
     </div>
   ),
   thead: ({ node, ...props }) => <thead className="bg-blue-500/10" {...props} />,

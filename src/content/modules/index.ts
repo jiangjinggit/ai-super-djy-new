@@ -15,10 +15,20 @@ import { openclawModule } from './openclaw';
 import { superIndividualModule } from './superIndividual';
 import { workBuddyModule } from './workBuddy';
 
-const lessonMarkdownFiles = import.meta.glob('../lessons/**/*.md', {
-  import: 'default',
-  query: '?raw',
-}) as Record<string, () => Promise<string>>;
+const lessonMarkdownFiles = import.meta.glob(
+  [
+    '../lessons/**/*.md',
+    '!../lessons/cases/*.md',
+    '!../lessons/openclaw/openclaw-channels.md',
+    '!../lessons/openclaw/openclaw-feishu-content-monitor.md',
+    '!../lessons/openclaw/openclaw-feishu-ops-watch.md',
+    '!../lessons/openclaw/openclaw-soul.md',
+  ],
+  {
+    import: 'default',
+    query: '?raw',
+  },
+) as Record<string, () => Promise<string>>;
 
 const BASE_MODULES: Record<ModuleId, BaseModuleContent> = {
   'super-individual': superIndividualModule,
@@ -46,14 +56,14 @@ const MODULE_METADATA: Record<
   }
 > = {
   'super-individual': {
-    estimatedTime: '1 周',
+    estimatedTime: '1-2 小时',
     difficulty: 'beginner',
     audience: ['第一次把 AI 用进真实工作的零基础用户', '希望减少重复劳动的个人学习者'],
     tags: ['AI 入门', '真实任务', 'Prompt', '模板复用'],
     prerequisites: ['准备一个低风险小任务和一份真实材料'],
   },
   llm: {
-    estimatedTime: '1-2 周',
+    estimatedTime: '2-3 小时',
     difficulty: 'intermediate',
     audience: ['需要做模型选型的用户', '准备接 API 或做多模型协作的用户'],
     tags: ['模型选型', 'API', '上下文', '成本控制'],
@@ -141,6 +151,12 @@ const extractLessonSlug = (image: string) => {
 };
 
 const getLessonBody = (moduleId: ModuleId, slug: string, lesson: BaseLesson): (() => Promise<string>) => {
+  // 场景模块已收束为轻量工作流，统一使用模块内的精简正文，避免旧版复杂配置再次进入公开课程。
+  const fallback = lesson.fullContent.map((item) => `## ${item.subtitle}\n\n${item.text}`).join('\n\n');
+  if (moduleId === 'cases') {
+    return () => Promise.resolve(fallback);
+  }
+
   const key = `../lessons/${moduleId}/${slug}.md`;
   const loader = lessonMarkdownFiles[key];
 
@@ -148,8 +164,6 @@ const getLessonBody = (moduleId: ModuleId, slug: string, lesson: BaseLesson): ((
     return loader;
   }
 
-  // 回退：从 fullContent 生成
-  const fallback = lesson.fullContent.map((item) => `## ${item.subtitle}\n\n${item.text}`).join('\n\n');
   return () => Promise.resolve(fallback);
 };
 

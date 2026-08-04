@@ -155,7 +155,7 @@ export const superIndividualModule: BaseModuleContent = {
     },
   ],
   cta: {
-    text: '已经跑通第一个任务？继续把对话方法练稳 → 学习 ChatGPT 高效工作',
-    link: '/module/chatgpt',
+    text: '已经跑通第一个任务？下一步学会按任务选择模型 → 进入大模型实战库',
+    link: '/module/llm',
   },
 };

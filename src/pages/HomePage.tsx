@@ -26,8 +26,10 @@ const StatCard = ({ target, label, suffix }: { target: number; label: string; su
   );
 };
 
+const CORE_MODULE_IDS = VISIBLE_MODULE_IDS.filter((moduleId) => moduleId !== 'ai-group');
+
 const HOME_STATS = [
-  { target: MODULE_CARDS.length, label: '核心模块', suffix: '' },
+  { target: CORE_MODULE_IDS.length, label: '核心模块', suffix: '' },
   {
     target: VISIBLE_MODULE_IDS.reduce((total, moduleId) => total + MODULE_CONTENT[moduleId].lessons.length, 0),
     label: '主题课程',
@@ -107,7 +109,7 @@ const Hero = () => {
                 <p className="text-emerald-400 pl-2">✓ AI 工具矩阵已就绪</p>
                 <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> load --module llm api-gateway</span></p>
                 <p><span className="text-cyan-400">$</span> <span className="text-slate-300"> attach --module chatgpt workbuddy</span></p>
-                <p className="text-emerald-400 pl-2">✓ 7 个模块加载完成</p>
+                <p className="text-emerald-400 pl-2">✓ {CORE_MODULE_IDS.length} 个核心模块加载完成</p>
                 <p className="flex items-center gap-1"><span className="text-cyan-400">$</span><span className="inline-block w-1.5 h-3.5 bg-cyan-400/80 ml-1 animate-pulse" /></p>
               </div>
             </motion.div>
@@ -210,40 +212,40 @@ const JOURNEY_PHASES: Array<{
   title: string;
   desc: string;
   color: ModuleColor;
-  modules: Array<{ id: ModuleId; label: string; time: string; color: ModuleColor }>;
+  modules: Array<{ id: ModuleId; label: string; color: ModuleColor }>;
 }> = [
   {
     phase: '阶段 0',
-    time: '2-3 周',
+    time: '约 5-8 小时',
     title: '建立基础判断力',
     desc: '从一个真实任务出发，先学会写清目标、选择模型、理解接入方式，为后续工作协作打好底座。',
     color: 'blue',
     modules: [
-      { id: 'super-individual', label: '入门', time: '1 周', color: 'blue' },
-      { id: 'llm', label: '大模型', time: '1-2 周', color: 'purple' },
-      { id: 'api-gateway', label: 'API 中转', time: '3-5 天', color: 'orange' },
+      { id: 'super-individual', label: '入门', color: 'blue' },
+      { id: 'llm', label: '大模型', color: 'purple' },
+      { id: 'api-gateway', label: 'API 中转', color: 'orange' },
     ],
   },
   {
     phase: '阶段 1',
-    time: '2-3 周',
+    time: '约 6-9 小时',
     title: '从对话到工作协作',
     desc: '先理解智能体的边界，再用 ChatGPT 和 WorkBuddy 完成资料整理、初稿、核验与复盘的稳定节奏。',
     color: 'purple',
     modules: [
-      { id: 'agent-intro', label: '智能体入门', time: '1 周', color: 'emerald' },
-      { id: 'chatgpt', label: 'ChatGPT', time: '1-2 周', color: 'blue' },
-      { id: 'workbuddy', label: 'WorkBuddy', time: '1-2 周', color: 'purple' },
+      { id: 'agent-intro', label: '智能体入门', color: 'emerald' },
+      { id: 'chatgpt', label: 'ChatGPT', color: 'blue' },
+      { id: 'workbuddy', label: 'WorkBuddy', color: 'purple' },
     ],
   },
   {
     phase: '阶段 2',
-    time: '持续复用',
+    time: '2-3 小时',
     title: '迁移到真实场景',
     desc: '用案例库把方法迁移到内容、研究、MVP、报告和运营流程，重点验证前置条件和风险边界。',
     color: 'orange',
     modules: [
-      { id: 'cases', label: '场景与案例', time: '随时', color: 'purple' },
+      { id: 'cases', label: '场景与案例', color: 'purple' },
     ],
   },
   {
@@ -253,7 +255,7 @@ const JOURNEY_PHASES: Array<{
     desc: '看清拼团优势、额度倍率、月末清空、团内转让和使用边界，确认适合后再按联系方式申请入团。',
     color: 'orange',
     modules: [
-      { id: 'ai-group', label: 'AI 拼团', time: '20-25 分钟', color: 'orange' },
+      { id: 'ai-group', label: 'AI 拼团', color: 'orange' },
     ],
   },
 ];
@@ -311,7 +313,7 @@ const LearningJourney = () => {
                               <span className="w-1.5 h-1.5 rounded-full bg-current opacity-70 shrink-0" />
                               {mod.label}
                               <span className="opacity-40">·</span>
-                              <span className="opacity-50 font-normal">{mod.time}</span>
+                              <span className="opacity-50 font-normal">{MODULE_CONTENT[mod.id].estimatedTime}</span>
                             </button>
                           ))}
                         </div>
