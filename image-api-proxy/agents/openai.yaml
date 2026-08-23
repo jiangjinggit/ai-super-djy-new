@@ -1,0 +1,6 @@
+interface:
+  display_name: "Image API Proxy"
+  short_description: "Generate and batch images through an OpenAI-compatible proxy."
+  default_prompt: "Use $image-api-proxy to generate an image through my local proxy configuration."
+policy:
+  allow_implicit_invocation: false

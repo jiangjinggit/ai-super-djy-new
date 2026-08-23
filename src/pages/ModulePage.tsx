@@ -683,7 +683,7 @@ export default function ModulePage() {
           <BookOpen className="text-cyan-400" size={22} /> {isAiGroup ? '拼团说明' : '课程大纲'}
         </h3>
         <p className="font-mono-tech text-xs text-slate-500 dark:text-gray-500 mb-8 tracking-wide">
-          {isAiGroup ? '按顺序看完 4 部分：先看优势，再算倍率、确认规则，最后查看入团方式。' : '不要先通读，按顺序做。每节课先看目标，再立即完成 1 个动作。'}
+          {isAiGroup ? '按顺序看完 6 部分：先看优势，再算倍率、确认规则、做好团队管控、查看入团方式，最后看常见问题。' : '不要先通读，按顺序做。每节课先看目标，再立即完成 1 个动作。'}
         </p>
         {isOpenClaw || isClaudeAgent || isCodexAgent || isAiProgramming ? (
           <div className="space-y-6">
