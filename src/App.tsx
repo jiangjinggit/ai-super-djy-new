@@ -78,7 +78,7 @@ const AnimatedRoutes = () => {
 
 export default function App() {
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="ui-theme">
+    <ThemeProvider defaultTheme="light" storageKey="ui-theme">
       <BrowserRouter>
         <ScrollToTop />
         <div className="min-h-screen overflow-x-hidden bg-slate-50 dark:bg-[#050505] text-slate-900 dark:text-white selection:bg-blue-500/30">
