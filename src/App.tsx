@@ -12,6 +12,7 @@ const SearchModal = lazy(() =>
 );
 const HomePage = lazy(() => import('@/pages/HomePage'));
 const ModulePage = lazy(() => import('@/pages/ModulePage'));
+const OverseasPage = lazy(() => import('@/pages/OverseasPage'));
 const LessonPage = lazy(() => import('@/pages/LessonPage'));
 const AboutPage = lazy(() => import('@/pages/AboutPage'));
 const FAQPage = lazy(() => import('@/pages/FAQPage'));
@@ -60,6 +61,7 @@ const AnimatedRoutes = () => {
           <Suspense fallback={<RouteFallback />}>
             <Routes location={location}>
               <Route path="/" element={<HomePage />} />
+              <Route path="/module/ai-overseas/*" element={<OverseasPage />} />
               <Route path="/module/:id" element={<ModulePage />} />
               <Route path="/module/:id/lesson/:lessonSlug" element={<LessonPage />} />
               <Route path="/about" element={<AboutPage />} />
@@ -81,7 +83,7 @@ export default function App() {
     <ThemeProvider defaultTheme="light" storageKey="ui-theme">
       <BrowserRouter>
         <ScrollToTop />
-        <div className="min-h-screen overflow-x-hidden bg-slate-50 dark:bg-[#050505] text-slate-900 dark:text-white selection:bg-blue-500/30">
+        <div className="min-h-screen overflow-x-clip bg-slate-50 dark:bg-[#050505] text-slate-900 dark:text-white selection:bg-blue-500/30">
           <Toaster position="top-center" richColors theme="system" />
           <AnimatedRoutes />
           <Footer />

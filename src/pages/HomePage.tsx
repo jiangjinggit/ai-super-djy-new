@@ -6,6 +6,7 @@ import { MODULE_COLOR_STYLES } from '@/constants/moduleStyles';
 import { MODULE_CARDS, MODULE_GROUPS } from '@/content/moduleCatalog';
 import { MODULE_CONTENT } from '@/content/modules';
 import { ModuleCard } from '@/components/ModuleCard';
+import { OverseasHomeCard } from '@/components/overseas/OverseasHomeCard';
 import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 import { useCountUp } from '@/hooks/useCountUp';
 import { VISIBLE_MODULE_IDS, type ModuleColor, type ModuleId } from '@/types/course';
@@ -29,7 +30,7 @@ const StatCard = ({ target, label, suffix }: { target: number; label: string; su
 const CORE_MODULE_IDS = VISIBLE_MODULE_IDS.filter((moduleId) => moduleId !== 'ai-group');
 
 const HOME_STATS = [
-  { target: CORE_MODULE_IDS.length, label: '核心模块', suffix: '' },
+  { target: CORE_MODULE_IDS.length + 1, label: '核心模块', suffix: '' },
   {
     target: VISIBLE_MODULE_IDS.reduce((total, moduleId) => total + MODULE_CONTENT[moduleId].lessons.length, 0),
     label: '主题课程',
@@ -163,7 +164,7 @@ const Modules = () => {
 
         <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">核心模块地图</h2>
         <p className="text-slate-600 dark:text-gray-400 max-w-2xl mx-auto">
-          按“建立基础 → 进入协作 → 用场景验证”组织，AI 拼团作为一份可选规则说明放在最后。
+          从 AI 基础到真实场景，再进入出海实战；AI 拼团提供单独的规则说明。
         </p>
       </div>
 
@@ -194,6 +195,7 @@ const Modules = () => {
             </section>
           );
         })}
+        <OverseasHomeCard />
       </div>
     </section>
   );

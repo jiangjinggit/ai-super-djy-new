@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import { MODULE_GROUPS, NAV_LABELS } from '@/content/moduleCatalog';
+import { OVERSEAS_PATH } from '@/content/overseas';
 import { ThemeToggle } from './ThemeToggle';
 
 const showCommunityCTA = false;
@@ -80,12 +81,12 @@ export const Navbar = ({ onSearchClick }: { onSearchClick: () => void }) => {
           >
             <Cpu size={16} className="text-slate-950" strokeWidth={2} />
           </div>
-          <span className="text-lg md:text-xl font-bold tracking-tighter text-slate-900 dark:text-white whitespace-nowrap" style={{fontFamily: "'Syne', sans-serif"}}>
+          <span className="text-base sm:text-lg md:text-xl font-bold tracking-tighter text-slate-900 dark:text-white whitespace-nowrap" style={{fontFamily: "'Syne', sans-serif"}}>
             AI Superman <span className="text-cyan-400" style={{textShadow: '0 0 12px rgba(34,211,238,0.5)'}}>DJY</span>
           </span>
         </button>
 
-        <div className="hidden md:flex items-center gap-5">
+        <div className="hidden xl:flex items-center gap-5">
           <button type="button" onClick={goHome} className="text-sm font-medium text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:text-white transition-colors cursor-pointer">
             首页
           </button>
@@ -118,6 +119,7 @@ export const Navbar = ({ onSearchClick }: { onSearchClick: () => void }) => {
               {NAV_LABELS[moduleId]}
             </Link>
           ))}
+          <Link to={OVERSEAS_PATH} className="text-sm font-medium text-emerald-700 dark:text-emerald-300 hover:text-emerald-600 transition-colors">AI 出海</Link>
           <Link to="/about" className="text-sm font-medium text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:text-white transition-colors">
             关于
           </Link>
@@ -156,7 +158,7 @@ export const Navbar = ({ onSearchClick }: { onSearchClick: () => void }) => {
           )}
         </div>
 
-        <div className="flex items-center gap-2 md:hidden">
+        <div className="flex items-center gap-0.5 sm:gap-2 xl:hidden">
           <button
             onClick={onSearchClick}
             className="p-2 text-slate-500 dark:text-gray-400 hover:text-cyan-400 transition-colors"
@@ -182,7 +184,7 @@ export const Navbar = ({ onSearchClick }: { onSearchClick: () => void }) => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="md:hidden absolute top-full left-0 right-0 bg-white dark:bg-[#0d1117] border-b border-slate-200 dark:border-white/10 p-6 flex flex-col gap-4 shadow-2xl"
+            className="xl:hidden absolute top-full left-0 right-0 bg-white dark:bg-[#0d1117] border-b border-slate-200 dark:border-white/10 p-6 flex flex-col gap-4 shadow-2xl max-h-[calc(100dvh-80px)] overflow-y-auto"
           >
             {/* 移动端菜单搜索入口 */}
             <button
@@ -226,6 +228,7 @@ export const Navbar = ({ onSearchClick }: { onSearchClick: () => void }) => {
                 {NAV_LABELS[moduleId]}
               </Link>
             ))}
+            <Link to={OVERSEAS_PATH} className="text-lg font-medium text-emerald-700 dark:text-emerald-300 py-2 border-b border-slate-100 dark:border-white/5" onClick={() => setIsMobileMenuOpen(false)}>AI 出海</Link>
             <Link to="/about" className="text-lg font-medium text-slate-600 dark:text-gray-400 py-2 border-b border-slate-100 dark:border-white/5" onClick={() => setIsMobileMenuOpen(false)}>
               关于
             </Link>

@@ -5,11 +5,14 @@ import { useNavigate } from 'react-router-dom';
 
 import { MODULE_CONTENT } from '@/content/modules';
 import { NAV_LABELS } from '@/content/moduleCatalog';
+import { OVERSEAS_SEARCH_ITEMS } from '@/content/overseas';
+import { OVERSEAS_TUTORIAL_SEARCH_ITEMS } from '@/content/overseasTutorials';
 import { VISIBLE_MODULE_IDS, type ModuleId } from '@/types/course';
 
 interface SearchItem {
   type: 'module' | 'lesson';
-  moduleId: ModuleId;
+  moduleId: ModuleId | 'ai-overseas';
+  href?: string;
   slug?: string;
   title: string;
   desc: string;
@@ -48,6 +51,9 @@ export const SearchModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () 
         });
       });
     });
+    items.push(...[...OVERSEAS_SEARCH_ITEMS, ...OVERSEAS_TUTORIAL_SEARCH_ITEMS].map((item, index): SearchItem => ({
+      ...item, type: index === 0 ? 'module' : 'lesson', moduleId: 'ai-overseas', moduleTitle: 'AI 出海', slug: item.href,
+    })));
     return items;
   }, []);
 
@@ -74,10 +80,10 @@ export const SearchModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isOpen) return;
 
-      if (e.key === 'ArrowDown') {
+      if (e.key === 'ArrowDown' && filteredItems.length > 0) {
         e.preventDefault();
         setSelectedIndex((prev) => (prev + 1) % filteredItems.length);
-      } else if (e.key === 'ArrowUp') {
+      } else if (e.key === 'ArrowUp' && filteredItems.length > 0) {
         e.preventDefault();
         setSelectedIndex((prev) => (prev - 1 + filteredItems.length) % filteredItems.length);
       } else if (e.key === 'Enter' && filteredItems[selectedIndex]) {
@@ -92,7 +98,9 @@ export const SearchModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () 
   }, [isOpen, filteredItems, selectedIndex]);
 
   const handleSelect = (item: SearchItem) => {
-    if (item.type === 'module') {
+    if (item.href) {
+      navigate(item.href);
+    } else if (item.type === 'module') {
       navigate(`/module/${item.moduleId}`);
     } else {
       navigate(`/module/${item.moduleId}/lesson/${item.slug}`);
