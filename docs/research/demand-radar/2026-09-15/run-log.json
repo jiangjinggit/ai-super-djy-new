@@ -1,0 +1,105 @@
+{
+  "date": "2026-09-15",
+  "timezone": "Asia/Shanghai",
+  "status": "partial",
+  "productionSearchApiTested": false,
+  "search": {
+    "provider": "session web.run; upstream provider and billing unknown",
+    "calls": 1,
+    "queries": [
+      {
+        "id": "Q01",
+        "q": "site.reddit.com/r/ecommerce \"product photos\" \"labels\""
+      },
+      {
+        "id": "Q02",
+        "q": "site.community.shopify.com \"product images\" \"time consuming\""
+      },
+      {
+        "id": "Q03",
+        "q": "site.upwork.com/freelance-jobs/apply/ \"product\" \"photo\" \"retouching\""
+      }
+    ],
+    "timeFilter": null,
+    "selection": "first 30 results in combined response; first 20 audited; rule fixed after discovery before opening",
+    "perQueryRanks": null
+  },
+  "initialReads": {
+    "method": "session web.open",
+    "attempted": 20,
+    "detailContext": 13,
+    "snippetOnly": 7,
+    "errors": [
+      "E12",
+      "E13",
+      "E16",
+      "E17",
+      "E20"
+    ],
+    "errorMessage": "Internal Error",
+    "httpStatus": null,
+    "redirectToIndex": {
+      "id": "E02",
+      "finalUrl": "https://www.upwork.com/freelance-jobs/image-editing/"
+    },
+    "partialIndex": "E06",
+    "cacheFreshness": "web tool includes cached content; read date is not publication date"
+  },
+  "directHttp": {
+    "environment": "local macOS, not user server",
+    "method": "urllib.request GET",
+    "userAgent": "DemandRadarFeasibility/0.1",
+    "timeoutSeconds": 20,
+    "bodyLimitBytes": 2000000,
+    "usedCookies": false,
+    "attempts": [
+      {
+        "kind": "robots",
+        "url": "https://community.shopify.com/robots.txt",
+        "httpStatus": 200,
+        "elapsedSeconds": 1.54,
+        "notes": "generic rules disallow /search and selected RSS; tested thread paths not disallowed"
+      },
+      {
+        "kind": "robots",
+        "url": "https://apps.shopify.com/robots.txt",
+        "httpStatus": 200,
+        "elapsedSeconds": 1.04,
+        "notes": "generic rules disallow internal/services and query patterns; tested app path not disallowed"
+      },
+      {
+        "id": "E10",
+        "httpStatus": 200,
+        "redirected": false,
+        "bodyBytes": 72180,
+        "elapsedSeconds": 1.37,
+        "excerptVerified": true
+      },
+      {
+        "id": "E08",
+        "httpStatus": 200,
+        "redirected": false,
+        "bodyBytes": 40130,
+        "elapsedSeconds": 1.48,
+        "excerptVerified": true
+      },
+      {
+        "id": "E18",
+        "httpStatus": 200,
+        "redirected": false,
+        "bodyBytes": 203981,
+        "elapsedSeconds": 2.59,
+        "excerptVerified": true
+      }
+    ]
+  },
+  "additionalOperations": "Official pricing/policy searches, page opens/finds, and robots checks were research overhead; not candidate sample. No production supplier API calls. Legacy guessed Upwork help URL returned Internal Error; official current help page found through search.",
+  "cost": {
+    "newSubscriptions": 0,
+    "newPurchases": 0,
+    "totalActualCost": null,
+    "currency": "USD",
+    "reason": "session search/model itemized costs unavailable; no new paid account; local traffic and total wall time not fully metered"
+  },
+  "retention": "Necessary excerpts and URLs only; no full HTML or personal profiles saved. Production commercial retention/deletion conditions unresolved."
+}
