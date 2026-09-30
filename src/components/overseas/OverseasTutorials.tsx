@@ -15,7 +15,7 @@ async function copyText(text: string) {
 
 export function TutorialCards() {
   return <section className="os-section" aria-labelledby="tutorial-cards-title">
-    <div className="os-section-heading"><div><p className="os-eyebrow">知道全程之后，照着做</p><h2 id="tutorial-cards-title">三块实战教程</h2></div><Link className="os-text-link" to={`${OVERSEAS_PATH}/learn`}>查看全部 16 篇 <ArrowRight size={15} /></Link></div>
+    <div className="os-section-heading"><div><p className="os-eyebrow">知道全程之后，照着做</p><h2 id="tutorial-cards-title">三块实战教程</h2></div><Link className="os-text-link" to={`${OVERSEAS_PATH}/learn`}>查看全部 {OVERSEAS_TUTORIALS.reduce((sum, topic) => sum + topic.lessons.length, 0)} 篇 <ArrowRight size={15} /></Link></div>
     <div className="os-tutorial-cards">{OVERSEAS_TUTORIALS.map((topic, index) => <Link key={topic.id} className="os-tutorial-card" to={tutorialPath(topic.id)}><span className="os-label">专题 {String(index + 1).padStart(2, '0')} · {topic.lessons.length} 篇</span><h3>{topic.title}</h3><p>{topic.subtitle}</p><span className="os-text-link">从步骤学起 <ArrowRight size={15} /></span></Link>)}</div>
   </section>;
 }
@@ -29,7 +29,7 @@ export function StageTutorialLink({ stageId }: { stageId: string }) {
 export function TutorialIndex() {
   useDocumentTitle('AI 出海 · 实战教程');
   return <>
-    <header className="os-page-heading"><p className="os-eyebrow">各自做项目，共享方法</p><h1>从“知道”到“做一次”</h1><p className="os-lead">三块专题，16 篇教程。用生图案例看懂做法，练习时换成自己的产品。</p></header>
+    <header className="os-page-heading"><p className="os-eyebrow">各自做项目，共享方法</p><h1>从“知道”到“做一次”</h1><p className="os-lead">三块专题，{OVERSEAS_TUTORIALS.reduce((sum, topic) => sum + topic.lessons.length, 0)} 篇教程。用生图案例看懂做法，练习时换成自己的产品。</p></header>
     <div className="os-learning-start"><strong>第一次来，从“如何找需求”开始。</strong><p>每篇按“步骤 → 图解与例子 → 自己练习 → 检查结果”阅读。按成果推进，不要求同一天、同一周完成。</p><Link className="os-button os-primary" to={tutorialPath('demand', 'find-clues')}>开始找需求 <ArrowRight size={16} /></Link></div>
     <div className="os-tutorial-index">{OVERSEAS_TUTORIALS.map((topic, index) => <section key={topic.id} className="os-note-card"><span className="os-label">专题 {index + 1} · {topic.lessons.length} 篇</span><h2><Link to={tutorialPath(topic.id)}>{topic.title}</Link></h2><p>{topic.intro}</p><ol>{topic.lessons.map(lesson => <li key={lesson.id}><Link to={tutorialPath(topic.id, lesson.id)}>{lesson.title}<ArrowRight size={14} /></Link></li>)}</ol><p className="os-small"><strong>做完带走：</strong>{topic.outcome}</p></section>)}</div>
     <aside className="os-tutorial-note">教程例子是演示，站长的真实进展看<Link to={`${OVERSEAS_PATH}/journal`}>生图项目实战</Link>。支付准入、平台操作和费用以执行时官方说明为准。资料核对：{TUTORIAL_REVIEWED}。</aside>

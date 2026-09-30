@@ -1,5 +1,5 @@
 export const OVERSEAS_PATH = '/module/ai-overseas';
-export const OVERSEAS_UPDATED = '2026-09-05';
+export const OVERSEAS_UPDATED = '2026-09-28';
 export const OVERSEAS_REFERENCE = 'https://github.com/tianjiangqiji/nova-image-studio';
 
 export interface OverseasStage {

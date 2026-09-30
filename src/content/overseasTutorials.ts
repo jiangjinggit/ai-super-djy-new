@@ -1,4 +1,5 @@
 import { OVERSEAS_PATH } from './overseas';
+import { communityLesson } from './overseasCommunities';
 
 export type TutorialVisual =
   | { kind: 'flow'; title: string; steps: string[]; caption?: string }
@@ -234,6 +235,7 @@ export const OVERSEAS_TUTORIALS: TutorialTopic[] = [
         checks: ['选择理由基于目标人群和渠道规则，推广行为可追溯。', '记录使用或付费结果；没有结果也能说明下一步查哪里。'],
         troubleshooting: [{ problem: '帖子被删除', action: '先读删除原因和社区规则，必要时向管理员了解；不要换号重复发。' }, { problem: '带来很多同行，没有卖家', action: '调整人群聚集地，或把演示重点改成卖家的具体任务。' }],
       },
+      communityLesson,
       {
         id: 'write-launch', title: '推广内容和产品介绍页怎么写', question: '怎么让陌生人看懂，并愿意试？', result: '一条推广内容和一个能接住访问的页面。',
         steps: [
