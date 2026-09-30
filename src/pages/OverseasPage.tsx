@@ -73,6 +73,7 @@ function Overview() {
     </aside>
 
     <FlowDiagram title="再从用户的角度，看一遍全程" steps={['发现你的产品', '试用并拿到结果', '觉得有用，付钱购买', '继续使用或反馈']} caption="做产品、支付、推广与运营，都是为了让用户顺利走完这些步骤。" />
+    <a href="/radar/" className="os-note-card os-journal-preview os-journal-link"><span className="os-label">需求研究工具</span><h2>打开需求雷达 <ArrowRight size={20} /></h2><p>使用你自己的搜索和模型接口，发现问题、查看出处并跟进调查。配置与报告保存在当前浏览器。</p></a>
     <Link to={`${OVERSEAS_PATH}/journal`} className="os-note-card os-journal-preview os-journal-link"><span className="os-label">跟着真实项目看方法</span><h2>查看站长的生图实践 <ArrowRight size={20} /></h2><p>项目方向已确定，需求、上线和经营结果待验证。后续的过程、踩坑与公众号分享，都从这里积累。</p></Link>
   </>;
 }

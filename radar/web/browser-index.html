@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>需求雷达 · 研究工作台</title><link rel="stylesheet" href="./style.css"></head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="./"><span class="mark">◎</span><span>需求雷达<small>DEMAND RADAR</small></span></a>
+    <div class="workspace"><span class="avatar">我</span><div>我的研究<small>当前浏览器</small></div><span class="online"></span></div>
+    <button id="new-study" class="nav active">⌕　新建研究</button>
+    <div class="section-label">最近的研究</div><div id="history" class="history"><p class="muted">还没有扫描记录</p></div>
+    <div class="sidebar-footer"><span class="online"></span> 当前浏览器<p>把线索变成下一步行动。</p></div>
+  </aside>
+  <div class="shell">
+    <header><span>工作台 <span class="slash">/</span> <b id="breadcrumb">新建研究</b></span><div class="header-actions"><button id="open-settings" class="secondary" type="button">接口设置</button><button id="header-new" class="secondary" type="button">＋ 新建研究</button></div></header>
+    <main>
+      <section id="setup">
+        <div class="eyebrow">发现值得解决的问题</div><h1>从用户的困扰，<br>找到下一步方向。</h1>
+        <p class="intro">搜索公开讨论，整理具体问题、现有解决办法和原始出处。<br class="desktop">帮你判断哪些线索值得继续了解。</p>
+        <div id="setup-needed" class="setup-needed" hidden><strong>先连接你自己的接口</strong><p>填写 Brave 和模型接口配置，即可开始研究。配置与报告保存在这个浏览器。</p><button id="setup-api" class="primary" type="button">配置接口</button></div>
+        <form id="scan-form" class="research-form">
+          <div class="form-heading"><h2>新建一次研究</h2><span class="muted">约数分钟</span></div>
+          <input id="mode" type="hidden" value="discovery">
+          <div class="mode-cards" role="group" aria-label="选择研究方式">
+            <button type="button" data-mode="discovery" class="mode-card selected" aria-pressed="true"><span class="mode-symbol" aria-hidden="true">◎</span><strong>发现需求</strong><span>还没有方向？从不同领域找线索。</span></button>
+            <button type="button" data-mode="directed" class="mode-card" aria-pressed="false"><span class="mode-symbol" aria-hidden="true">⌕</span><strong>研究方向</strong><span>已有关注的问题？围绕它深入了解。</span></button>
+          </div>
+          <p id="mode-help" class="muted">无需填写题目。雷达会探索不同领域，并追查发现的问题。</p>
+          <div id="directed-fields">
+          <label for="topic">你想研究哪个方向？</label>
+          <textarea id="topic" rows="4" minlength="4" maxlength="1000" required placeholder="例如：小店经营者整理订单时，哪些步骤耗时、容易出错？"></textarea>
+          <div class="examples"><span>试试</span><button type="button" id="example">商品上新 ↗</button><button type="button" id="example-two">客户反馈 ↗</button></div>
+          <details class="query-settings"><summary>自定义搜索词 <span>可选</span></summary><p class="muted">留空时根据题目自动生成 6 个英文搜索词；也可每行填写一个。搜索前固定词表，按排名轮转取前 20 条分析，不挑选最好结果。</p><label for="queries">自定义搜索词（可选，填写时需 6 行）</label><textarea id="queries" rows="6" placeholder="留空，由模型自动生成"></textarea></details>
+          </div>
+          <details id="analysis-settings" class="analysis-settings"><summary>分析设置 <span id="model-setting-summary">GPT-5.6 Luna</span></summary>
+          <div class="model-setting">
+            <div class="setting-heading"><label for="model-choice">分析模型</label><button id="reset-model" type="button" class="text-button">恢复默认</button></div>
+            <select id="model-choice" aria-describedby="model-help">
+              <option value="gpt-5.6-luna">GPT-5.6 Luna · 默认</option>
+              <option value="gpt-5.6-sol">GPT-5.6 Sol</option>
+              <option value="gpt-5.6-terra">GPT-5.6 Terra</option>
+              <option value="gpt-6-sol">GPT-6 Sol</option>
+              <option value="gpt-6-astra">GPT-6 Astra</option>
+              <option value="gpt-6-luna">GPT-6 Luna</option>
+              <option value="custom">自定义模型…</option>
+            </select>
+            <div id="custom-model-fields" hidden><label for="model">自定义模型 ID</label><input id="model" type="text" maxlength="128" autocomplete="off" spellcheck="false" placeholder="粘贴接口提供方给出的完整模型 ID" disabled></div>
+            <p id="model-help" class="muted" aria-live="polite">不确定选哪个？先用默认模型。会记住你上次的选择。预置模型是否可用、如何计费，以你的接口提供方为准。</p>
+          </div>
+          </details>
+          <div class="scan-preview" aria-live="polite"><strong id="scan-summary">给定方向 · 最多分析 20 条材料</strong><p id="quota-note">正在读取可用次数…</p><button type="button" id="resume-scan" class="text-button" hidden>查看正在运行的扫描 →</button></div>
+          <div class="form-bottom"><span>中文报告 · 附原始出处</span><button class="primary" id="start" type="submit" disabled>开始扫描 <span>↗</span></button></div>
+          <p class="error" id="form-error" role="alert"></p>
+        </form>
+        <div class="steps"><div><span>01</span><h3>发现线索</h3><p>从搜索结果找到具体的任务与经历。</p></div><div><span>02</span><h3>整理反馈</h3><p>整理用户原话，保留出处。</p></div><div><span>03</span><h3>决定下一步</h3><p>看看已有办法，决定先了解什么。</p></div></div>
+      </section>
+      <section id="results" hidden>
+        <div class="eyebrow" id="report-eyebrow">研究报告</div><div class="result-title"><h1 id="result-topic"></h1><button id="export" class="secondary">导出报告 ↓</button></div>
+        <p id="report-meta" class="report-meta"></p><details id="research-brief" hidden><summary>查看完整研究题目</summary><p id="research-brief-text"></p></details><div class="status-line"><span id="status" class="pill"></span><span id="stage"></span><button class="text-button" id="cancel">停止扫描</button></div>
+        <section id="scan-activity" class="scan-activity" hidden aria-label="扫描进度">
+          <div class="radar-orbit" aria-hidden="true"><span></span><i></i></div>
+          <div class="activity-content"><div class="activity-heading"><strong id="activity-title">正在准备扫描</strong><span id="activity-time"></span></div><p id="activity-detail" role="status" aria-live="polite">任务正在后台执行</p><ol id="activity-steps" class="activity-steps"></ol><p class="activity-footnote">研究时请保持此页面打开；关闭或刷新会中断，已保存的材料仍在。</p></div>
+        </section>
+        <p id="result-explanation" class="report-note" role="status"></p><p id="export-help" class="muted"></p>
+        <div id="report-actions" class="report-actions"><button type="button" id="repeat-study" class="secondary">再研究一次</button><span>选择线索后，可收藏、调查或排除。</span></div>
+        <div class="tabs" role="tablist"><button class="selected" role="tab" aria-selected="true" data-panel="opportunities">问题线索</button><button role="tab" aria-selected="false" data-panel="evidence">来源资料</button><button role="tab" aria-selected="false" data-panel="run">研究详情</button></div>
+        <div id="opportunity-toolbar" class="opportunity-toolbar"><label for="opportunity-filter">查看</label><select id="opportunity-filter"><option value="all">全部线索</option><option value="saved">已收藏</option><option value="investigating">调查中</option><option value="rejected">已排除</option></select><span id="opportunity-count"></span></div>
+        <div id="opportunities" class="panel"></div><div id="evidence" class="panel" hidden></div><section id="run" class="panel" hidden><div class="metrics" id="metrics"></div><div id="discovery-summary"></div><div id="run-content"></div></section>
+        <p id="result-error" class="error" role="alert"></p>
+      </section>
+      <section class="connection-note" id="connection" aria-live="polite">正在连接本地服务…</section>
+    </main>
+    <footer>需求雷达 <span>从用户的问题，找到下一步方向。</span></footer>
+  </div><dialog id="settings-dialog" aria-labelledby="settings-title"><form id="settings-form"><div class="setting-heading"><h2 id="settings-title">连接你的接口</h2><button type="button" id="close-settings" class="text-button" aria-label="关闭接口设置">关闭</button></div><p>配置与研究记录保存在当前浏览器，不会跨设备同步。网站后端会临时接收密钥并代转请求，不保存密钥或报告。</p>
+<label for="brave-key">Brave Search API Key</label><div class="secret-row"><input id="brave-key" type="password" required maxlength="4096" autocomplete="off"><button type="button" data-reveal="brave-key" aria-pressed="false">显示</button></div>
+<label for="api-base">模型接口 Base URL</label><input id="api-base" type="url" required maxlength="500" placeholder="https://你的接口域名/v1" autocomplete="off"><small>填写兼容 Chat Completions 的接口根地址，不含 /chat/completions。</small>
+<label for="model-key">模型 API Key</label><div class="secret-row"><input id="model-key" type="password" required maxlength="4096" autocomplete="off"><button type="button" data-reveal="model-key" aria-pressed="false">显示</button></div>
+<label class="permission-check"><input type="checkbox" id="storage-confirmed" required>我已确认当前 Brave 套餐允许保存搜索结果。</label>
+<p class="settings-notice">仅在你信任的个人设备保存密钥。同一网站下的脚本可以访问浏览器存储。清除网站数据或使用无痕模式可能丢失记录。</p>
+<div class="settings-buttons"><button type="submit" class="primary">保存配置</button><button type="button" id="test-settings" class="secondary">测试连接</button></div><p class="muted">连接测试会产生一次搜索和少量模型调用，使用当前选择的模型。</p><p id="settings-message" role="status"></p>
+<details class="data-management"><summary>管理本地数据</summary><p>删除不可恢复，请先导出需要保留的报告。</p><button type="button" id="clear-credentials" class="secondary">清除接口配置</button><button type="button" id="clear-reports" class="secondary">清除所有报告</button></details>
+</form></dialog><div id="toast" class="toast" role="status" aria-live="polite" hidden></div><script type="module" src="./app.js"></script>
+</body></html>

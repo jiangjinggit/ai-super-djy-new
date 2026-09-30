@@ -4,6 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "radar": "node radar/server.mjs",
+    "radar:test": "node --test radar/*.test.mjs",
     "dev": "vite --port=3000 --host=0.0.0.0",
     "build": "vite build && find dist -type f \\( -name \"*.js\" -o -name \"*.css\" -o -name \"*.html\" -o -name \"*.svg\" -o -name \"*.json\" \\) -exec gzip -9 -k {} \\;",
     "preview": "vite preview",
